@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/themes.dart';
-import 'package:tedikap_admin/views/splash_screen.dart';
+import 'package:tedikap_admin/views/start/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
