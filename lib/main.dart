@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/themes.dart';
-import 'package:tedikap_admin/views/start/splash_screen.dart';
+import 'package:tedikap_admin/views/home/home_admin.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
       ),
-      home: SplashAdmin(),
+      home: HomePage(),
     );
   }
 }
