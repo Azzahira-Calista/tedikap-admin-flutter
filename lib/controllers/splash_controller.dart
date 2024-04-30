@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:tedikap_admin/views/splash_screen_two.dart';
+import 'package:tedikap_admin/views/start/login_admin.dart';
+import 'package:tedikap_admin/views/start/splash_screen_two.dart';
 
 class SplashController extends GetxController {
   @override
@@ -23,6 +24,6 @@ class Splash2Controller extends GetxController {
 
   void _simulateLoading() async {
     await Future.delayed(const Duration(seconds: 2));
-    Get.off(() => ());
+    Get.off(() => const LoginPage());
   }
 }

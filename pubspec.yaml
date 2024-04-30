@@ -38,7 +38,8 @@ dependencies:
   google_fonts: 
   flutter_svg: 
   get:
-
+  syncfusion_flutter_charts: ^25.1.41+2
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:

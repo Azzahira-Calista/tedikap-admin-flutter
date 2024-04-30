@@ -16,6 +16,7 @@ const Color offColor = Color.fromARGB(255, 199, 199, 199);
 const Color red = Color.fromARGB(255, 198, 45, 0);
 const Color white = Color.fromARGB(255, 255, 255, 255);
 const Color black = Color.fromARGB(200, 0, 0, 0);
+const Color cream = Color.fromARGB(255, 254, 242, 214);
 
 const Color shadowBlack = Color.fromARGB(25, 0, 0, 0);
 
@@ -77,6 +78,12 @@ TextStyle button = GoogleFonts.poppins(
         fontWeight: FontWeight.w500,
         fontSize: figmaFontsize(18)));
 
+TextStyle cardText = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        color: primaryTextColor,
+        fontWeight: FontWeight.w600,
+        fontSize: figmaFontsize(18)));
+
 TextStyle button2 = GoogleFonts.poppins(
     textStyle: TextStyle(
         color: primaryTextColor,
@@ -86,3 +93,8 @@ TextStyle button2 = GoogleFonts.poppins(
 //image
 String logoTedikap = "assets/tedikap_logo.svg";
 String logoGoogle = "assets/google_logo.svg";
+String notifIcon = "assets/notif_icon.svg";
+String orderIcon = "assets/order_icon.svg";
+String moneyIcon = "assets/money_icon.svg";
+String graficIcon = "assets/grafic_icon.svg";
+String drinkIcon = "assets/drink_icon.svg";
