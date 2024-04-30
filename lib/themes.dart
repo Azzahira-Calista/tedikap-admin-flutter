@@ -78,6 +78,12 @@ TextStyle button = GoogleFonts.poppins(
         fontWeight: FontWeight.w500,
         fontSize: figmaFontsize(18)));
 
+TextStyle cardTitle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        color: primaryTextColor,
+        fontWeight: FontWeight.w600,
+        fontSize: figmaFontsize(12)));
+
 TextStyle cardText = GoogleFonts.poppins(
     textStyle: TextStyle(
         color: primaryTextColor,
@@ -98,3 +104,10 @@ String orderIcon = "assets/order_icon.svg";
 String moneyIcon = "assets/money_icon.svg";
 String graficIcon = "assets/grafic_icon.svg";
 String drinkIcon = "assets/drink_icon.svg";
+String drinkFilledIcon = "assets/drink_filled_icon.svg";
+String homeIcon = "assets/home_icon.svg";
+String homeFilledIcon = "assets/home_filled_icon.svg";
+String chatIcon = "assets/chat_icon.svg";
+String chatFilledIcon = "assets/chat_filled_icon.svg";
+
+String coupon = "assets/coupon_icon.svg";
