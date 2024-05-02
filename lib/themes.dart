@@ -72,6 +72,12 @@ TextStyle smallText = GoogleFonts.poppins(
         fontWeight: FontWeight.w400,
         fontSize: figmaFontsize(10)));
 
+TextStyle smallTextWhite = GoogleFonts.poppins(
+    textStyle: TextStyle(
+        color: white,
+        fontWeight: FontWeight.w500,
+        fontSize: figmaFontsize(10)));
+
 TextStyle button = GoogleFonts.poppins(
     textStyle: TextStyle(
         color: white,
@@ -109,5 +115,6 @@ String homeIcon = "assets/home_icon.svg";
 String homeFilledIcon = "assets/home_filled_icon.svg";
 String chatIcon = "assets/chat_icon.svg";
 String chatFilledIcon = "assets/chat_filled_icon.svg";
-
+String editIcon = "assets/edit_icon.svg";
 String coupon = "assets/coupon_icon.svg";
+String price = "assets/price_icon.svg";

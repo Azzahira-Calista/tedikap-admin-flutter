@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:tedikap_admin/themes.dart';
+import 'package:tedikap_admin/views/home/home_admin.dart';
+import 'package:tedikap_admin/views/menu/menu_admin.dart';
 
 class MyNavBar extends StatelessWidget {
   const MyNavBar({super.key});
@@ -22,14 +25,18 @@ class MyNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(HomePage());
+              },
               icon: SvgPicture.asset(
                 homeIcon,
                 color: offColor,
                 width: 50,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(MenuPage());
+              },
               icon: SvgPicture.asset(
                 drinkIcon,
                 color: offColor,
