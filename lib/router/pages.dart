@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:tedikap_admin/binding/chat_binding.dart';
 import 'package:tedikap_admin/binding/home_binding.dart';
 import 'package:tedikap_admin/binding/menu_binding.dart';
 import 'package:tedikap_admin/controllers/home_controller.dart';
+import 'package:tedikap_admin/views/chat/chat_admin.dart';
 import 'package:tedikap_admin/views/home/home_admin.dart';
 import 'package:tedikap_admin/views/menu/menu_admin.dart';
 import 'package:tedikap_admin/widgets/bottom_navbar.dart';
@@ -17,7 +19,7 @@ class AppPages {
     GetPage(
       name: _Paths.NAVBAR,
       page: () => MyNavBar(),
-      bindings: [MenuBinding(), HomeBinding()],
+      bindings: [MenuBinding(), HomeBinding(), ChatBinding()],
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
@@ -35,9 +37,12 @@ class AppPages {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
-    // GetPage(
-    //   name: _Paths.CHAT,
-    //   page: () => Chatpag(),
-    // ),
+    GetPage(
+      name: _Paths.CHAT,
+      page: () => ChatPage(),
+      binding: ChatBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
   ];
 }

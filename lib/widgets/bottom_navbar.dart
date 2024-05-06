@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/controllers/navbar_controller.dart';
 import 'package:tedikap_admin/themes.dart';
+import 'package:tedikap_admin/views/chat/chat_admin.dart';
 import 'package:tedikap_admin/views/home/home_admin.dart';
 import 'package:tedikap_admin/views/menu/menu_admin.dart';
 
@@ -12,7 +13,7 @@ class MyNavBar extends StatelessWidget {
   final NavigationController navigationController =
       Get.put(NavigationController());
 
-  final List<Widget> pages = [HomePage(), MenuPage()];
+  final List<Widget> pages = [HomePage(), MenuPage(), ChatPage()];
 
   @override
   Widget build(BuildContext context) {
