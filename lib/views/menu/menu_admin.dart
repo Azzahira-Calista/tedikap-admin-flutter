@@ -204,7 +204,6 @@ class MenuPage extends StatelessWidget {
                 ),
               ],
             ),
-            // bottomNavigationBar: MyNavBar()
             )
             );
   }
