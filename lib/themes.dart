@@ -18,6 +18,8 @@ const Color red = Color.fromARGB(255, 198, 45, 0);
 const Color white = Color.fromARGB(255, 255, 255, 255);
 const Color black = Color.fromARGB(200, 0, 0, 0);
 const Color cream = Color.fromARGB(255, 254, 242, 214);
+const Color darkGrey = Color.fromARGB(255, 126, 123, 123);
+const Color lightGrey = Color.fromARGB(255, 239, 235, 233);
 
 const Color shadowBlack = Color.fromARGB(25, 0, 0, 0);
 
@@ -119,3 +121,4 @@ String chatFilledIcon = "assets/chat_filled_icon.svg";
 String editIcon = "assets/edit_icon.svg";
 String coupon = "assets/coupon_icon.svg";
 String price = "assets/price_icon.svg";
+String deliveryIcon = "assets/delivery_icon.svg";
