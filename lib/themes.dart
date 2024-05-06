@@ -12,6 +12,7 @@ const Color secondaryColor = Color.fromARGB(255, 63, 61, 86);
 const Color primaryTextColor = Color.fromARGB(255, 63, 61, 86);
 
 const Color offColor = Color.fromARGB(255, 199, 199, 199);
+const Color activeColor = Color.fromARGB(255, 252, 198, 72);
 
 const Color red = Color.fromARGB(255, 198, 45, 0);
 const Color white = Color.fromARGB(255, 255, 255, 255);

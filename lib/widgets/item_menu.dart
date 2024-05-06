@@ -11,7 +11,7 @@ class ItemWidget extends StatelessWidget {
       height: 120,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             child: Row(
@@ -87,6 +87,9 @@ class ItemWidget extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          SizedBox(
+            height: 12,
           ),
           InkWell(
             onTap: () {},

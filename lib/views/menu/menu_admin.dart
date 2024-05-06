@@ -127,7 +127,7 @@ class MenuPage extends StatelessWidget {
                             mainAxisSpacing: 20,
                             childAspectRatio: 1.4,
                           ),
-                          itemCount: 9,
+                          itemCount: 3,
                           itemBuilder: (BuildContext context, int index) {
                             return ItemWidget();
                           },
@@ -204,6 +204,8 @@ class MenuPage extends StatelessWidget {
                 ),
               ],
             ),
-            bottomNavigationBar: MyNavBar()));
+            // bottomNavigationBar: MyNavBar()
+            )
+            );
   }
 }
