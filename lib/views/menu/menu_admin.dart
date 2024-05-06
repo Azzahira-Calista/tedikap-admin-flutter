@@ -114,7 +114,7 @@ class MenuPage extends StatelessWidget {
               children: [
                 SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02,),
                     child: Column(
                       children: [
                         GridView.builder(
@@ -132,7 +132,7 @@ class MenuPage extends StatelessWidget {
                             return ItemWidget();
                           },
                         ),
-                        SizedBox(height: 30), // Adjust the height as needed
+                        SizedBox(height: 30), 
                         myButton(
                             text: 'Tambah menu',
                             onPressed: () {},

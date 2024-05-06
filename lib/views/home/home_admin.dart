@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tedikap_admin/controllers/home_controller.dart';
+import 'package:tedikap_admin/router/pages.dart';
 import 'package:tedikap_admin/themes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:tedikap_admin/widgets/bottom_navbar.dart';
@@ -52,7 +53,9 @@ class HomePage extends StatelessWidget {
                   height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
                 InkWell(
-                  onTap: () => (),
+                  onTap: () {
+                    Get.toNamed(Routes.ORDER);
+                  },
                   child: Container(
                     padding: EdgeInsets.all(12),
                     height: 64,
