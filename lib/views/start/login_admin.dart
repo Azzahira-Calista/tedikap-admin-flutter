@@ -46,7 +46,8 @@ class LoginPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          MyTextField(hintText: "Enter your name", name: "Name"),
+                          MyTextField(
+                              hintText: "Enter your name", name: "Name"),
                           MyTextField(
                               hintText: "Enter your email", name: "Email"),
                           SizedBox(
@@ -66,7 +67,7 @@ class LoginPage extends StatelessWidget {
                               onPressed: () => (),
                               color: primaryColor,
                               textColor: white),
-        
+
                           Row(children: <Widget>[
                             Expanded(
                               child: Divider(
@@ -77,8 +78,8 @@ class LoginPage extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.symmetric(
                                   horizontal: 10,
-                                  vertical:
-                                      MediaQuery.of(context).size.height * 0.020),
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.020),
                               child: Text(
                                 "Or",
                                 style: smallText,
@@ -95,6 +96,7 @@ class LoginPage extends StatelessWidget {
                           //   height: MediaQuery.of(context).size.height * 0.010,
                           // ),
                           myButtonLogo(
+                              sideColor: offColor,
                               text: "Login with Google",
                               onPressed: () {},
                               color: Colors.white,

@@ -10,6 +10,7 @@ class myButton extends StatelessWidget {
     required this.onPressed,
     required this.color,
     required this.textColor,
+    this.sideColor,
   });
 
   // final controller;
@@ -17,6 +18,7 @@ class myButton extends StatelessWidget {
   final onPressed;
   final Color color;
   final Color textColor;
+  final Color? sideColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +26,19 @@ class myButton extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width,
       height: 50,
       child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(text, style: button),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(color),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
+          onPressed: onPressed,
+          child: Text(text, style: button.copyWith(color: textColor)),
+          style: ButtonStyle(
+            surfaceTintColor: MaterialStateProperty.all<Color>(white),
+            backgroundColor: MaterialStateProperty.all(color),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-      ),
+              side: sideColor != null
+                  ? BorderSide(color: sideColor!, width: 1)
+                  : BorderSide.none,
+            )),
+          )),
     );
   }
 }
@@ -48,6 +52,8 @@ class myButtonLogo extends StatelessWidget {
     required this.color,
     required this.textColor,
     required this.logo,
+    required this.sideColor,
+    this.logoColor,
   });
 
   // final controller;
@@ -56,6 +62,8 @@ class myButtonLogo extends StatelessWidget {
   final Color color;
   final Color textColor;
   final String logo;
+  final Color sideColor;
+  final Color? logoColor;
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +77,13 @@ class myButtonLogo extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 logo,
+                color: logoColor,
                 width: 20,
               ),
               SizedBox(
                 width: 10,
               ),
-              Text(text, style: button2),
+              Text(text, style: button.copyWith(color: textColor)),
             ],
           ),
           // style: ButtonStyle(
@@ -89,11 +98,12 @@ class myButtonLogo extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               // primary: Colors.transparent,
               shadowColor: Colors.transparent,
-              backgroundColor: Colors.transparent,
+              backgroundColor: color,
               foregroundColor: textColor,
+              surfaceTintColor: color,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
-                  side: BorderSide(color: offColor, width: 1))),
+                  side: BorderSide(color: sideColor, width: 1))),
         ));
   }
 }
