@@ -84,7 +84,7 @@ class OrderCard extends StatelessWidget {
                   ],
                 ),
                 Divider(
-                  color: primaryColor,
+                  color: offColor,
                 ),
                 Container(
                   child: Column(
@@ -128,7 +128,9 @@ class OrderCard extends StatelessWidget {
                           width: MediaQuery.sizeOf(context).width,
                           height: 30,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed("/order-status");
+                            },
                             child: Center(
                               child: Text("Detail Pesanan",
                                   style: button2.copyWith(color: white)),
