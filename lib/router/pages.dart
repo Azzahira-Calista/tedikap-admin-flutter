@@ -5,9 +5,11 @@ import 'package:tedikap_admin/binding/menu_binding.dart';
 import 'package:tedikap_admin/binding/order_binding.dart';
 import 'package:tedikap_admin/binding/order_status_binding.dart';
 import 'package:tedikap_admin/binding/tambah_menu_binding.dart';
+import 'package:tedikap_admin/binding/tambah_voucher_binding.dart';
 import 'package:tedikap_admin/views/chat/chat_admin.dart';
 import 'package:tedikap_admin/views/home/home_admin.dart';
 import 'package:tedikap_admin/views/home/order_list.dart';
+import 'package:tedikap_admin/views/home/tambah_voucher.dart';
 import 'package:tedikap_admin/views/menu/menu_admin.dart';
 import 'package:tedikap_admin/views/menu/tambah_menu.dart';
 import 'package:tedikap_admin/views/start/login_admin.dart';
@@ -22,7 +24,7 @@ part 'router.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.TAMBAH_MENU;
+  static const INITIAL = Routes.TAMBAH_VOUCHER;
 
   static final routes = [
     GetPage(
@@ -89,5 +91,12 @@ class AppPages {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
+    GetPage(
+      name: _Paths.TAMBAH_VOUCHER,
+      page: () => TambahVoucher(),
+      binding: TambahVoucherBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    )
   ];
 }

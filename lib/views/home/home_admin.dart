@@ -413,7 +413,9 @@ class HomePage extends StatelessWidget {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () => (),
+                  onTap: () {
+                    Get.toNamed(Routes.TAMBAH_VOUCHER);
+                  },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                     height: 64,
