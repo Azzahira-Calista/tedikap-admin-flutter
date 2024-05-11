@@ -5,8 +5,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tedikap_admin/controllers/home_controller.dart';
 import 'package:tedikap_admin/router/pages.dart';
 import 'package:tedikap_admin/themes.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:tedikap_admin/widgets/bottom_navbar.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController rangeController = Get.put(HomeController());

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tedikap_admin/themes.dart';
 
 class MyTextField extends StatelessWidget {
@@ -10,6 +9,7 @@ class MyTextField extends StatelessWidget {
     // required this.controller,
     required this.hintText,
     required this.name,
+    required this.height,
   });
 
   // final double screenWidth;
@@ -17,6 +17,7 @@ class MyTextField extends StatelessWidget {
   // final TextEditingController controller;
   final String hintText;
   final String name;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class MyTextField extends StatelessWidget {
             height: 5,
           ),
           Container(
-            height: 50,
+            height: height,
             child: TextFormField(
               decoration: InputDecoration(
                 hintText: hintText,

@@ -4,10 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tedikap_admin/themes.dart';
 import 'package:tedikap_admin/widgets/bottom_navbar.dart';
 import 'package:tedikap_admin/widgets/button.dart';
 import 'package:tedikap_admin/widgets/item_menu.dart';
+
+import '../../router/pages.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -86,125 +89,132 @@ class MenuPage extends StatelessWidget {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: Text(
-                "Tedikap Menu",
-                style: appBarText,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(
+              "Tedikap Menu",
+              style: appBarText,
+            ),
+            centerTitle: true,
+            bottom: const TabBar(
+                unselectedLabelColor: offColor,
+                labelColor: primaryColor,
+                indicatorColor: primaryColor,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: [
+                  Tab(
+                    text: ("Tea"),
+                  ),
+                  Tab(
+                    text: ("Non Tea"),
+                  ),
+                  Tab(
+                    text: ("Snacks"),
+                  )
+                ]),
+          ),
+          body: TabBarView(
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  // padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02,),
+
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 20,
+                          childAspectRatio: 1.4,
+                        ),
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ItemWidget();
+                        },
+                      ),
+                      SizedBox(height: 30),
+                      myButton(
+                          text: 'Tambah menu',
+                          onPressed: () {
+                            Get.toNamed(Routes.TAMBAH_MENU);
+                          },
+                          color: primaryColor,
+                          textColor: white)
+                    ],
+                  ),
+                ),
               ),
-              centerTitle: true,
-              bottom: const TabBar(
-                  unselectedLabelColor: offColor,
-                  labelColor: primaryColor,
-                  indicatorColor: primaryColor,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: [
-                    Tab(
-                      text: ("Tea"),
-                    ),
-                    Tab(
-                      text: ("Non Tea"),
-                    ),
-                    Tab(
-                      text: ("Snacks"),
-                    )
-                  ]),
-            ),
-            body: TabBarView(
-              children: [
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02,),
-                    child: Column(
-                      children: [
-                        GridView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 20,
-                            childAspectRatio: 1.4,
-                          ),
-                          itemCount: 3,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ItemWidget();
-                          },
+              SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 20,
+                          childAspectRatio: 1.4,
                         ),
-                        SizedBox(height: 30), 
-                        myButton(
-                            text: 'Tambah menu',
-                            onPressed: () {},
-                            color: primaryColor,
-                            textColor: white)
-                      ],
-                    ),
+                        itemCount: 5,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ItemWidget();
+                        },
+                      ),
+                      SizedBox(height: 30), // Adjust the height as needed
+                      myButton(
+                          text: 'Tambah menu',
+                          onPressed: () {
+                            Get.toNamed(Routes.TAMBAH_MENU);
+                          },
+                          color: primaryColor,
+                          textColor: white)
+                    ],
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        GridView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 20,
-                            childAspectRatio: 1.4,
-                          ),
-                          itemCount: 5,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ItemWidget();
-                          },
+              ),
+              SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 20,
+                          childAspectRatio: 1.4,
                         ),
-                        SizedBox(height: 30), // Adjust the height as needed
-                        myButton(
-                            text: 'Tambah menu',
-                            onPressed: () {},
-                            color: primaryColor,
-                            textColor: white)
-                      ],
-                    ),
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ItemWidget();
+                        },
+                      ),
+                      SizedBox(height: 30), // Adjust the height as needed
+                      myButton(
+                          text: 'Tambah menu',
+                          onPressed: () {
+                            Get.toNamed(Routes.TAMBAH_MENU);
+                          },
+                          color: primaryColor,
+                          textColor: white)
+                    ],
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        GridView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 20,
-                            childAspectRatio: 1.4,
-                          ),
-                          itemCount: 3,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ItemWidget();
-                          },
-                        ),
-                        SizedBox(height: 30), // Adjust the height as needed
-                        myButton(
-                            text: 'Tambah menu',
-                            onPressed: () {},
-                            color: primaryColor,
-                            textColor: white)
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            )
-            );
+              ),
+            ],
+          ),
+        ));
   }
 }

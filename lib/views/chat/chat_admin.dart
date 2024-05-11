@@ -24,7 +24,7 @@ class ChatPage extends StatelessWidget {
         // )),
         title: Container(
           height: 40,
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10,),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: offColor, width: 1),

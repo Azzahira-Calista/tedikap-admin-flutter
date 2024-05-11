@@ -4,10 +4,12 @@ import 'package:tedikap_admin/binding/home_binding.dart';
 import 'package:tedikap_admin/binding/menu_binding.dart';
 import 'package:tedikap_admin/binding/order_binding.dart';
 import 'package:tedikap_admin/binding/order_status_binding.dart';
+import 'package:tedikap_admin/binding/tambah_menu_binding.dart';
 import 'package:tedikap_admin/views/chat/chat_admin.dart';
 import 'package:tedikap_admin/views/home/home_admin.dart';
 import 'package:tedikap_admin/views/home/order_list.dart';
 import 'package:tedikap_admin/views/menu/menu_admin.dart';
+import 'package:tedikap_admin/views/menu/tambah_menu.dart';
 import 'package:tedikap_admin/views/start/login_admin.dart';
 import 'package:tedikap_admin/views/start/splash_screen.dart';
 import 'package:tedikap_admin/views/start/splash_screen_two.dart';
@@ -20,7 +22,7 @@ part 'router.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ORDER_STATUS;
+  static const INITIAL = Routes.TAMBAH_MENU;
 
   static final routes = [
     GetPage(
@@ -79,6 +81,13 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => LoginPage(),
       transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_MENU,
+      page: () => TambahMenu(),
+      binding: TambahMenuBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
     ),
   ];
 }

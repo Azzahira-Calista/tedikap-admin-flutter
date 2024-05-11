@@ -47,9 +47,9 @@ class LoginPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MyTextField(
-                              hintText: "Enter your name", name: "Name"),
+                              hintText: "Enter your name", name: "Name", height: 50),
                           MyTextField(
-                              hintText: "Enter your email", name: "Email"),
+                              hintText: "Enter your email", name: "Email", height: 50),
                           SizedBox(
                             height: 10,
                           ),

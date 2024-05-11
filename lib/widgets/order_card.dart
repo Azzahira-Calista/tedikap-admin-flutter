@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/themes.dart';
-import 'package:tedikap_admin/widgets/button.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key});
