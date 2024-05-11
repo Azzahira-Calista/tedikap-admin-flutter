@@ -11,6 +11,7 @@ abstract class Routes {
   static const SPLASH2 = _Paths.SPLASH2;
   static const ORDER_STATUS = _Paths.ORDER_STATUS;
   static const LOGIN = _Paths.LOGIN;
+  static const TAMBAH_MENU = _Paths.TAMBAH_MENU;
 }
 
 abstract class _Paths {
@@ -24,4 +25,5 @@ abstract class _Paths {
   static const SPLASH2 = '/splash2';
   static const ORDER_STATUS = '/order-status';
   static const LOGIN = '/login';
+  static const TAMBAH_MENU = '/tambah-menu';
 }

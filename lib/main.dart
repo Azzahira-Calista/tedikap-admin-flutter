@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/router/pages.dart';
 import 'package:tedikap_admin/themes.dart';
-import 'package:tedikap_admin/views/home/home_admin.dart';
-import 'package:tedikap_admin/views/menu/menu_admin.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -41,7 +41,7 @@ class ItemWidget extends StatelessWidget {
                           size: 18,
                         ),
                         SizedBox(
-                          width: 12,
+                          width: 5,
                         ),
                         Text(
                           "rating",
@@ -58,7 +58,7 @@ class ItemWidget extends StatelessWidget {
                           size: 18,
                         ),
                         SizedBox(
-                          width: 12,
+                          width: 5,
                         ),
                         Text(
                           "favourite",
@@ -75,7 +75,7 @@ class ItemWidget extends StatelessWidget {
                           height: 18,
                         ),
                         SizedBox(
-                          width: 12,
+                          width: 5,
                         ),
                         Text(
                           "price",
