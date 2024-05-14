@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tedikap_admin/binding/chat_binding.dart';
+import 'package:tedikap_admin/binding/chat_room_binding.dart';
 import 'package:tedikap_admin/binding/home_binding.dart';
 import 'package:tedikap_admin/binding/menu_binding.dart';
 import 'package:tedikap_admin/binding/order_binding.dart';
@@ -7,6 +8,7 @@ import 'package:tedikap_admin/binding/order_status_binding.dart';
 import 'package:tedikap_admin/binding/tambah_menu_binding.dart';
 import 'package:tedikap_admin/binding/tambah_voucher_binding.dart';
 import 'package:tedikap_admin/views/chat/chat_admin.dart';
+import 'package:tedikap_admin/views/chat/chat_room.dart';
 import 'package:tedikap_admin/views/home/home_admin.dart';
 import 'package:tedikap_admin/views/home/order_list.dart';
 import 'package:tedikap_admin/views/home/tambah_voucher.dart';
@@ -24,7 +26,7 @@ part 'router.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.TAMBAH_VOUCHER;
+  static const INITIAL = Routes.CHAT_ROOM;
 
   static final routes = [
     GetPage(
@@ -97,6 +99,13 @@ class AppPages {
       binding: TambahVoucherBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
-    )
+    ),
+    GetPage(
+      name: _Paths.CHAT_ROOM,
+      page: () => MyChatRoom(),
+      binding: ChatRoomBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
   ];
 }
