@@ -26,7 +26,7 @@ part 'router.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CHAT_ROOM;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(

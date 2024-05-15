@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tedikap_admin/models/login_model.dart';
 import 'package:tedikap_admin/themes.dart';
 
 class ItemWidget extends StatelessWidget {
+  final String title;
+  final int price;
+  final String image;
+
+  ItemWidget({
+    required this.title,
+    required this.price,
+    required this.image,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,7 +81,7 @@ class ItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SvgPicture.asset(
-                          price,
+                          "price",
                           color: primaryColor,
                           height: 18,
                         ),
