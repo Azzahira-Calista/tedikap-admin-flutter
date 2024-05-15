@@ -15,6 +15,7 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const TAMBAH_MENU = _Paths.TAMBAH_MENU;
   static const TAMBAH_VOUCHER = _Paths.TAMBAH_VOUCHER;
+  static const CHAT_ROOM = _Paths.CHAT_ROOM;
 }
 
 abstract class _Paths {
@@ -30,4 +31,5 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const TAMBAH_MENU = '/tambah-menu';
   static const TAMBAH_VOUCHER = '/tambah-voucher';
+  static const CHAT_ROOM = '/chat-room';
 }

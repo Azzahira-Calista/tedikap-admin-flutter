@@ -1,0 +1,21 @@
+[
+    {
+      "author": {
+        "id": "user1"
+      },
+      "createdAt": 1626547890,
+      "id": "msg-1",
+      "text": "Hello, how are you?",
+      "type": "text"
+    },
+    {
+      "author": {
+        "id": "admin"
+      },
+      "createdAt": 1626547900,
+      "id": "msg-2",
+      "text": "I'm fine, thank you!",
+      "type": "text"
+    }
+  ]
+  

@@ -1,6 +1,10 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tedikap_admin/themes.dart';
+
+import '../router/pages.dart';
 
 class MyChat extends StatelessWidget {
   const MyChat({super.key});
@@ -9,13 +13,11 @@ class MyChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Get.toNamed(Routes.CHAT);
+        Get.toNamed(Routes.CHAT_ROOM);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-        // height: 40,
-        margin: EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 15),
-        // color: primaryColor,
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+        margin: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +55,7 @@ class MyChat extends StatelessWidget {
                 ),
               ],
             ),
-            Text("17.30")
+            const Text("17.30")
           ],
         ),
       ),
