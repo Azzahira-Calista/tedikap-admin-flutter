@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
 import '../../../../routes/AppPages.dart';
 
-class TambahVoucher extends StatelessWidget {
-  const TambahVoucher({super.key});
+class TambahVoucher extends GetView<TambahVoucherController> {
+  const TambahVoucher({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Voucher"),
+        title: Text("Tambah Voucher", style: appBarText),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -59,31 +60,36 @@ class TambahVoucher extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        // MyTextField(
-                        //   hintText: "Enter the name",
-                        //   name: "Name",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the category",
-                        //   name: "Deskripsi",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the name",
-                        //   name: "Persentasi diskon",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the name",
-                        //   name: "Minimal transaksi",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the name",
-                        //   name: "Kadaluarsa",
-                        //   height: 50,
-                        // ),
+                        MyTextField(
+                          hintText: "Enter the name",
+                          name: "Name",
+                          height: 50,
+                          obsecureText: false,
+                        ),
+                        MyTextField(
+                          hintText: "Enter the category",
+                          name: "Deskripsi",
+                          height: 50,
+                          obsecureText: false,
+                        ),
+                        MyTextField(
+                          hintText: "Enter the name",
+                          name: "Persentasi diskon",
+                          height: 50,
+                          obsecureText: false,
+                        ),
+                        MyTextField(
+                          hintText: "Enter the name",
+                          name: "Minimal transaksi",
+                          height: 50,
+                          obsecureText: false,
+                        ),
+                        MyTextField(
+                          hintText: "Enter the name",
+                          name: "Kadaluarsa",
+                          height: 50,
+                          obsecureText: false,
+                        ),
                       ],
                     ),
                   ],

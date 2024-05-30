@@ -59,16 +59,18 @@ class TambahNotif extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        // MyTextField(
-                        //   hintText: "Enter the title",
-                        //   name: "TItle",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the description",
-                        //   name: "Description",
-                        //   height: 50,
-                        // ),
+                        MyTextField(
+                          hintText: "Enter the title",
+                          name: "TItle",
+                          height: 50,
+                          obsecureText: false,
+                        ),
+                        MyTextField(
+                          hintText: "Enter the description",
+                          name: "Description",
+                          height: 50,
+                          obsecureText: false,
+                        ),
                       ],
                     ),
                   ],
