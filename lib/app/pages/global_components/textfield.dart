@@ -6,7 +6,7 @@ class MyTextField extends StatelessWidget {
     super.key,
     // required this.screenWidth,
     // required this.screenHeight,
-    required this.controller,
+    this.controller,
     required this.hintText,
     required this.name,
     required this.height,
@@ -15,7 +15,7 @@ class MyTextField extends StatelessWidget {
 
   // final double screenWidth;
   // final double screenHeight;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final String name;
   final double height;
@@ -47,14 +47,17 @@ class MyTextField extends StatelessWidget {
           ),
           Container(
             height: height,
-            
             child: TextFormField(
               obscureText: obsecureText,
               controller: controller,
               decoration: InputDecoration(
-                
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide(color: primaryColor),
+                ),
                 hintText: hintText,
                 hintStyle: hint,
+                focusColor: primaryColor,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: offColor),
