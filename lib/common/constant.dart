@@ -16,5 +16,5 @@ String chatIcon = "${SvgIcon}chat_icon.svg";
 String chatFilledIcon = "${SvgIcon}chat_filled_icon.svg";
 String editIcon = "${SvgIcon}edit_icon.svg";
 String coupon = "${SvgIcon}coupon_icon.svg";
-String price = "${SvgIcon}price_icon.svg";
+String priceIcon = "${SvgIcon}price_icon.svg";
 String deliveryIcon = "${SvgIcon}delivery_icon.svg";

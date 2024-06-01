@@ -1,42 +1,94 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/api/dio_instance.dart';
-import 'package:tedikap_admin/app/data/model/product_item_model.dart';
-import 'package:tedikap_admin/app/pages/initial_pages/login_page/login_controller.dart';
+import 'package:tedikap_admin/app/api/product/product_service.dart';
+import 'package:tedikap_admin/app/data/model/product/data_model.dart';
+import 'package:tedikap_admin/app/data/model/product/product_response.dart';
 
 class MenuController extends GetxController {
-  var productResponseModel = <Product>[].obs;
+  RxBool isLoading = false.obs;
+  late ProductService productService;
+  late ProductResponse productResponse;
+
+  var productResponseModel = <Data>[].obs;
 
   DioInstance instance = DioInstance();
- 
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getDataLearning();
+
+    productService = ProductService();
+
+    getProducts();
+    getProductsTea();
   }
 
-  Future<void> getDataLearning() async {
+  Future<void> getProducts() async {
     try {
+      isLoading.value = true;
 
-      final dio.Response response =
-          await instance.getRequest(endpoint: '/product');
+      final response = await productService.getProducts();
 
-      print(response.data);
+      productResponse = ProductResponse.fromJson(response.data);
+      productResponseModel = productResponse.data.obs;
 
-      if (response.statusCode == 200) {
-        final List<dynamic> ProductList = response.data["data"];
+      print(productResponseModel);
+    } catch (e) {
+      isLoading.value = true;
+      print(e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
-        productResponseModel.value =
-            ProductList.map((json) => Product.fromJson(json)).toList();
-      } else {
-        print("Failed to fetch learning. Status code: ${response.statusCode}");
-      }
-    } catch (error) {
-      print("Error while fetching learning: $error");
+  Future<void> getProductsTea() async {
+    try {
+      isLoading.value = true;
+
+      final response = await productService.getProductsTea();
+
+      productResponse = ProductResponse.fromJson(response.data);
+      productResponseModel = productResponse.data.obs;
+    } catch (e) {
+      isLoading.value = true;
+      print(e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> getProductsNonTea() async {
+    try {
+      isLoading.value = true;
+
+      final response = await productService.getProductsNonTea();
+
+      productResponse = ProductResponse.fromJson(response.data);
+      productResponseModel = productResponse.data.obs;
+    } catch (e) {
+      isLoading.value = true;
+      print(e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> getProductsSnack() async {
+    try {
+      isLoading.value = true;
+
+      final response = await productService.getProductsSnack();
+
+      productResponse = ProductResponse.fromJson(response.data);
+      productResponseModel = productResponse.data.obs;
+    } catch (e) {
+      isLoading.value = true;
+      print(e);
+    } finally {
+      isLoading.value = false;
     }
   }
 }

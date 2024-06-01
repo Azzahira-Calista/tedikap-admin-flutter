@@ -31,8 +31,10 @@ class ItemWidget extends StatelessWidget {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            "https://tedikap-api.rplrus.com/storage/product/$image")),
                     borderRadius: BorderRadius.circular(15),
-                    color: primaryColor,
                   ),
                 ),
                 SizedBox(width: 12),
@@ -40,7 +42,7 @@ class ItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Tea name",
+                      title,
                       style: subTitle,
                     ),
                     Row(
@@ -81,7 +83,7 @@ class ItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SvgPicture.asset(
-                          "price",
+                          priceIcon,
                           color: primaryColor,
                           height: 18,
                         ),
@@ -89,7 +91,7 @@ class ItemWidget extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          "price",
+                          price.toString(),
                           style: cardTitle,
                         )
                       ],

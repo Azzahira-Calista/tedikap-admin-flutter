@@ -2,15 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart' as MenuController;
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart'
+    as MenuController;
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content.dart';
 import 'package:tedikap_admin/common/themes.dart';
-import 'package:tedikap_admin/app/pages/global_components/button.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_menu.dart';
 
-import '../../../../routes/AppPages.dart';
-
-class MenuPage extends StatelessWidget {
-  final MenuController.MenuController loginController = Get.put(MenuController.MenuController());
+// ignore: must_be_immutable
+class MenuPage extends GetView<MenuController.MenuController> {
+  MenuController.MenuController controller =
+      Get.put(MenuController.MenuController());
+  MenuPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,58 +45,11 @@ class MenuPage extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  MenuTabContent(menuController: loginController),
-                  MenuTabContent(menuController: loginController),
-                  MenuTabContent(menuController: loginController),
+                  MenuTabContent(menuController: controller),
+                  MenuTabContent(menuController: controller),
+                  MenuTabContent(menuController: controller),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class MenuTabContent extends StatelessWidget {
-  final MenuController.MenuController menuController;
-
-  MenuTabContent({required this.menuController});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 20,
-                childAspectRatio: 1.4,
-              ),
-              itemCount: menuController.productResponseModel.length,
-              itemBuilder: (BuildContext context, int index) {
-                final login = menuController.productResponseModel[index];
-                return ItemWidget(
-                  title: login.name,
-                  price: login.price,
-                  image: login.image,
-                );
-              },
-            ),
-            SizedBox(height: 30),
-            myButton(
-              text: 'Tambah menu',
-              onPressed: () {
-                Get.toNamed(Routes.TAMBAH_MENU);
-              },
-              color: primaryColor,
-              textColor: white,
             ),
           ],
         ),
