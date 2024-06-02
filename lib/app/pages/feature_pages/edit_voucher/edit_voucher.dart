@@ -1,26 +1,32 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher_controller.dart';
-import 'package:tedikap_admin/common/themes.dart';
-import 'package:tedikap_admin/app/pages/global_components/button.dart';
-import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
+import '../../../../common/themes.dart';
 import '../../../../routes/AppPages.dart';
+import '../../global_components/button.dart';
+import '../../global_components/textfield.dart';
+import 'edit_voucher_controller.dart';
 
-class TambahVoucher extends GetView<TambahVoucherController> {
-  const TambahVoucher({Key? key}) : super(key: key);
+class EditVoucher extends GetView<EditVoucherController> {
+  const EditVoucher({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Voucher", style: appBarText),
-        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               Get.back();
             },
             icon: Icon(Icons.arrow_back_ios)),
+        title: Text(
+          'Edit Voucher',
+          style: appBarText,
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Column(
@@ -102,7 +108,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
             Container(
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: myButton(
-                text: "Tambah",
+                text: "Change",
                 onPressed: () {
                   Get.toNamed(Routes.VOUCHER_VIEW);
                 },
