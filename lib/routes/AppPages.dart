@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_page/chat_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_binding.dart';
@@ -16,6 +18,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif.
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/voucher_page/voucher_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/voucher_page/voucher_view.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/login_page/login_admin.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen_two.dart';
@@ -28,7 +32,7 @@ part 'AppRoutes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.MENU;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -113,6 +117,20 @@ class AppPages {
       name: _Paths.TAMBAH_NOTIF,
       page: () => TambahNotif(),
       binding: TambahNotifBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.VOUCHER_VIEW,
+      page: () => VoucherView(),
+      binding: VoucherBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.EDIT_VOUCHER,
+      page: () => EditVoucher(),
+      binding: EditVoucherBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
