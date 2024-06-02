@@ -27,81 +27,86 @@ class ItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Row(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://tedikap-api.rplrus.com/storage/product/$image")),
-                    borderRadius: BorderRadius.circular(15),
+          InkWell(
+            onTap: () {
+              Get.toNamed(Routes.DETAIL_MENU);
+            },
+            child: Container(
+              child: Row(
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              "https://tedikap-api.rplrus.com/storage/product/$image")),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                ),
-                SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: subTitle,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.star_rounded,
-                          color: primaryColor,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "rating",
-                          style: cardTitle,
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.favorite_rounded,
-                          color: primaryColor,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "favourite",
-                          style: cardTitle,
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset(
-                          priceIcon,
-                          color: primaryColor,
-                          height: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          price.toString(),
-                          style: cardTitle,
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
+                  SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: subTitle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.star_rounded,
+                            color: primaryColor,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "rating",
+                            style: cardTitle,
+                          )
+                        ],
+                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Icon(
+                      //       Icons.favorite_rounded,
+                      //       color: primaryColor,
+                      //       size: 18,
+                      //     ),
+                      //     SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Text(
+                      //       "favourite",
+                      //       style: cardTitle,
+                      //     )
+                      //   ],
+                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset(
+                            priceIcon,
+                            color: primaryColor,
+                            height: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            price.toString(),
+                            style: cardTitle,
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(

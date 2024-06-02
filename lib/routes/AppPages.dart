@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_page/chat_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/detail_menu/detail_menu.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/detail_menu/detail_menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
@@ -140,6 +142,13 @@ class AppPages {
       name: _Paths.EDIT_MENU,
       page: () => EditMenu(),
       binding: EditMenuBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_MENU,
+      page: () => DetailMenu(),
+      binding: DetailMenuBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

@@ -52,7 +52,7 @@ class myButtonLogo extends StatelessWidget {
     required this.color,
     required this.textColor,
     required this.logo,
-    required this.sideColor,
+    this.sideColor,
     this.logoColor,
   });
 
@@ -62,7 +62,7 @@ class myButtonLogo extends StatelessWidget {
   final Color color;
   final Color textColor;
   final String logo;
-  final Color sideColor;
+  final Color? sideColor;
   final Color? logoColor;
 
   @override
@@ -103,7 +103,10 @@ class myButtonLogo extends StatelessWidget {
               surfaceTintColor: color,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
-                  side: BorderSide(color: sideColor, width: 1))),
+                  side: BorderSide(
+                    color: sideColor ?? Colors.transparent,
+                    width: 1,
+                  ))),
         ));
   }
 }
