@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
-import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
 import '../../../../routes/AppPages.dart';
+import '../../global_components/textfield.dart';
 
 class TambahMenu extends StatelessWidget {
   const TambahMenu({super.key});
@@ -60,21 +60,26 @@ class TambahMenu extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        // MyTextField(
-                        //   hintText: "Enter the name",
-                        //   name: "Name",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the category",
-                        //   name: "Category",
-                        //   height: 50,
-                        // ),
-                        // MyTextField(
-                        //   hintText: "Enter the name",
-                        //   name: "Price",
-                        //   height: 50,
-                        // ),
+                        MyTextField(
+                          hintText: "Enter the name",
+                          name: "Name",
+                          height: 50,
+                                                    obsecureText: false,
+
+                        ),
+                        MyTextField(
+                          hintText: "Enter the category",
+                          name: "Category",
+                          height: 50,
+                                                    obsecureText: false,
+
+                        ),
+                        MyTextField(
+                          obsecureText: false,
+                          hintText: "Enter the name",
+                          name: "Price",
+                          height: 50,
+                        ),
                         Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

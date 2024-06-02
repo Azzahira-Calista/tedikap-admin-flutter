@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
+
+import '../../../../../routes/AppPages.dart';
 
 class ItemWidget extends StatelessWidget {
   final String title;
@@ -105,7 +108,9 @@ class ItemWidget extends StatelessWidget {
             height: 12,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Routes.EDIT_MENU);
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: primaryColor,
