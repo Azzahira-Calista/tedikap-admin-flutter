@@ -35,6 +35,8 @@ class MenuTabContent extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final controller = menuController.productResponseModel[index];
                 return ItemWidget(
+                  description: controller.description,
+                  id: controller.id,
                   title: controller.name,
                   price: controller.price,
                   image: controller.image,
