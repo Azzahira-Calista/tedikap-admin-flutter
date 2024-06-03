@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, override_on_non_overriding_member
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_controller.dart';

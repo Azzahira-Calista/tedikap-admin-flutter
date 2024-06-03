@@ -1,13 +1,13 @@
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, override_on_non_overriding_member
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/global_components/loading_overlaydart';
 import 'package:tedikap_admin/app/pages/initial_pages/login_page/login_controller.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
-import 'package:tedikap_admin/routes/AppPages.dart';
 
 class LoginPage extends GetView<LoginController> {
   LoginController controller = Get.put(LoginController());
