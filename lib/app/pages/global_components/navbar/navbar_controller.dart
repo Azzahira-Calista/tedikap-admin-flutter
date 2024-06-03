@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:tedikap_admin/common/themes.dart';
 
 class NavigationController extends GetxController {
   var currentPage = 0.obs;

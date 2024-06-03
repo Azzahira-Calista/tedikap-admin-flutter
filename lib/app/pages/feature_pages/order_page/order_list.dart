@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/new_order.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/processed_order.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/taken_order.dart';
 import 'package:tedikap_admin/common/themes.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/order_card.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/order_filter.dart';
 
-class OrderList extends StatelessWidget {
-  OrderController controller = Get.put(OrderController());
-
-  @override
+class OrderList extends GetView<OrderController> {
   final List<String> items = [
     "Newest",
     "Oldest",
@@ -53,35 +51,12 @@ class OrderList extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
+            Scaffold(body: NewOrder()),
             Scaffold(
-              body: Column(
-                children: [
-                  Container(
-                    height: 34,
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    width: MediaQuery.of(context).size.width,
-                    child: OrderFilter(),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10
-                        // MediaQuery.of(context).size.width * 0.02,
-                        ),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      itemBuilder: (BuildContext context, int index) {
-                        return OrderCard();
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              body: ProcessedOrder(),
             ),
             Scaffold(
-              body: Text("processed order"),
-            ),
-            Scaffold(
-              body: Text("taken"),
+              body: TakenOrder(),
             ),
           ],
         ),
