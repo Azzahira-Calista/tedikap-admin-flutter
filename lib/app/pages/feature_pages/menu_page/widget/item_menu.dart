@@ -7,18 +7,24 @@ import 'package:tedikap_admin/common/themes.dart';
 import '../../../../../routes/AppPages.dart';
 
 class ItemWidget extends StatelessWidget {
+  final String description;
   final String title;
   final int price;
   final String image;
+  final int id;
 
   ItemWidget({
     required this.title,
     required this.price,
     required this.image,
+    required this.id,
+    required this.description,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Container(
       // decoration: BoxDecoration(color: cream),
       width: 180,
@@ -29,7 +35,14 @@ class ItemWidget extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Get.toNamed(Routes.DETAIL_MENU);
+              Get.toNamed(Routes.DETAIL_MENU, arguments: {
+                'id': id,
+                'name': title,
+                // 'price': int.parse(price.toString()),
+                'price': price,
+                'image': image,
+                'description': description,
+              });
             },
             child: Container(
               child: Row(
@@ -40,7 +53,8 @@ class ItemWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(
-                              "https://tedikap-api.rplrus.com/storage/product/$image")),
+                              "https://tedikap-api.rplrus.com/storage/product/$image"),
+                          fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
@@ -48,9 +62,12 @@ class ItemWidget extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: subTitle,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.19,
+                        child: Text(
+                          title,
+                          style: subTitle,
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

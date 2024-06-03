@@ -9,10 +9,22 @@ import '../../../../routes/AppPages.dart';
 import 'detail_menu_controller.dart';
 
 class DetailMenu extends GetView<DetailMenuController> {
-  const DetailMenu({super.key});
+  DetailMenuController controller = Get.put(DetailMenuController());
+  // const DetailMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> arguments = Get.arguments;
+    final String name = arguments['name'];
+    // final int price = int.parse(arguments['price']);
+    final int price = arguments['price'];
+    final String description =
+        arguments['description'] ?? 'No description available';
+    // final String description = arguments['description'];
+    print("Arguments: $arguments");
+    print("Description: ${arguments['description']}");
+    final String image = arguments['image'];
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -25,12 +37,17 @@ class DetailMenu extends GetView<DetailMenuController> {
           alignment: Alignment.centerRight,
           child: InkWell(
             onTap: () {
-              Get.toNamed(Routes.EDIT_MENU);
+              Get.toNamed(Routes.EDIT_MENU, arguments: controller.id);
             },
             child: Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
+                ),
+                // border: Border.all(color: offColor, width: 2),
+                borderRadius: BorderRadius.circular(15),
               ),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               height: 40,
@@ -67,6 +84,12 @@ class DetailMenu extends GetView<DetailMenuController> {
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            "https://tedikap-api.rplrus.com/storage/product/$image",
+                          ),
+                          fit: BoxFit.cover,
+                        ),
                         border: Border.all(color: offColor, width: 2),
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -75,11 +98,11 @@ class DetailMenu extends GetView<DetailMenuController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Nama Menu", style: cardText),
+                          Text(name, style: cardText),
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
-                          Text("Deskerpsi Menu", style: normalText),
+                          Text(description, style: normalText),
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.005),
@@ -99,7 +122,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Harga",
+                          Text("Price",
                               style: normalText.copyWith(
                                   fontWeight: FontWeight.bold)),
                           Row(
@@ -113,7 +136,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                                     style: normalTextPrimary,
                                   ),
                                   Text(
-                                    " 100.000",
+                                    price.toString(),
                                     style: cardText,
                                   ),
                                 ],
@@ -126,7 +149,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: Text(
-                                  "Rating",
+                                  "4.8",
                                   style: cardText.copyWith(color: white),
                                 ),
                               )
@@ -138,23 +161,26 @@ class DetailMenu extends GetView<DetailMenuController> {
                   ],
                 ),
               ),
-              myButtonLogo(
-                text: 'Delete menu',
-                onPressed: () {
-                  Get.defaultDialog(
-                      title: "Delete menu",
-                      middleText: "Are you sure want to delete this menu?",
-                      textConfirm: "Yes",
-                      textCancel: "No",
-                      onConfirm: () {
-                        Get.toNamed(Routes.NAVBAR + Routes.MENU);
-                      },
-                      onCancel: () {});
-                },
-                color: red,
-                textColor: white,
-                logo: deleteIcon,
-                logoColor: white,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: myButtonLogo(
+                  text: 'Delete menu',
+                  onPressed: () {
+                    Get.defaultDialog(
+                        title: "Delete menu",
+                        middleText: "Are you sure want to delete this menu?",
+                        textConfirm: "Yes",
+                        textCancel: "No",
+                        onConfirm: () {
+                          Get.toNamed(Routes.NAVBAR + Routes.MENU);
+                        },
+                        onCancel: () {});
+                  },
+                  color: red,
+                  textColor: white,
+                  logo: deleteIcon,
+                  logoColor: white,
+                ),
               )
             ],
           ),

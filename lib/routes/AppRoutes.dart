@@ -41,5 +41,4 @@ abstract class _Paths {
   static const VOUCHER_VIEW = '/voucher-view';
   static const EDIT_VOUCHER = '/edit-voucher';
   static const EDIT_MENU = '/edit-menu';
-  static const DETAIL_MENU = '/detail-menu';
-}
+  static const DETAIL_MENU = '/detail-menu/:id';}
