@@ -24,6 +24,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart'
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/voucher_page/voucher_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/voucher_page/voucher_view.dart';
+import 'package:tedikap_admin/app/pages/global_components/navbar/navbar_binding.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/login_page/login_admin.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen_two.dart';
@@ -42,7 +43,7 @@ class AppPages {
     GetPage(
       name: _Paths.NAVBAR,
       page: () => MyNavBar(),
-      bindings: [MenuBinding(), HomeBinding(), ChatBinding()],
+      bindings: [NavBarBinding(), MenuBinding(), HomeBinding(), ChatBinding()],
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

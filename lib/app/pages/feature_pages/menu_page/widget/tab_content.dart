@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_menu.dart';
@@ -11,9 +10,7 @@ import '../menu_controller.dart' as MenuController;
 class MenuTabContent extends StatelessWidget {
   final MenuController.MenuController menuController;
 
-  MenuTabContent({
-    required this.menuController
-    });
+  MenuTabContent({required this.menuController});
 
   @override
   Widget build(BuildContext context) {
@@ -22,27 +19,36 @@ class MenuTabContent extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 20,
-                childAspectRatio: 1.4,
-              ),
-              itemCount: menuController.productResponseModel.length,
-              itemBuilder: (BuildContext context, int index) {
-                final controller = menuController.productResponseModel[index];
-                return ItemWidget(
-                  description: controller.description,
-                  id: controller.id,
-                  title: controller.name,
-                  price: controller.price,
-                  image: controller.image,
-                );
-              },
-            ),
+            Obx(() {
+              if (menuController.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+              if (menuController.productResponseModel.isEmpty) {
+                return Center(child: Text('No product available'));
+              }
+              return GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 20,
+                  childAspectRatio: 1.4,
+                ),
+                itemCount: menuController.productResponseModel.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final product = menuController.productResponseModel[index];
+                  return ItemWidget(
+                    description: product.description,
+                    id: product.id,
+                    title: product.name,
+                    regular_price: product.regular_price,
+                    large_price: product.large_price,
+                    image: product.image,
+                  );
+                },
+              );
+            }),
             SizedBox(height: 30),
             myButton(
               text: 'Tambah menu',

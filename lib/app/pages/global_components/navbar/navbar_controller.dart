@@ -5,8 +5,8 @@ class NavigationController extends GetxController {
   // var homeIconColor = offColor.obs;
   // var menuIconColor = offColor.obs;
 
-  void changePage(int index) {
-    currentPage.value = index;
+  // void changePage(int index) {
+  //   currentPage.value = index;
     // switch (index) {
     //   case 0:
     //     homeIconColor.value = activeColor;
@@ -20,5 +20,5 @@ class NavigationController extends GetxController {
     //     Get.toNamed('/chat');
     //     break;
     // }
-  }
+  // }
 }

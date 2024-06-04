@@ -35,7 +35,7 @@ class MenuController extends GetxController {
       productResponse = ProductResponse.fromJson(response.data);
       productResponseModel = productResponse.data.obs;
 
-      print(productResponseModel);
+      print("produkkkkkkk: $productResponseModel");
     } catch (e) {
       isLoading.value = true;
       print(e);
