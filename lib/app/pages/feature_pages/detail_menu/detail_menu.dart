@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
@@ -9,7 +12,6 @@ import '../../../../routes/AppPages.dart';
 import 'detail_menu_controller.dart';
 
 class DetailMenu extends GetView<DetailMenuController> {
-  DetailMenuController controller = Get.put(DetailMenuController());
   // const DetailMenu({super.key});
 
   @override
@@ -17,7 +19,8 @@ class DetailMenu extends GetView<DetailMenuController> {
     final Map<String, dynamic> arguments = Get.arguments;
     final String name = arguments['name'];
     // final int price = int.parse(arguments['price']);
-    final int price = arguments['price'];
+    final int regular_price = arguments['regular_price'];
+    final int large_price = arguments['large_price'];
     final String description =
         arguments['description'] ?? 'No description available';
     // final String description = arguments['description'];
@@ -80,20 +83,42 @@ class DetailMenu extends GetView<DetailMenuController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            "https://tedikap-api.rplrus.com/storage/product/$image",
+                    Stack(children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              "https://tedikap-api.rplrus.com/storage/product/$image",
+                            ),
+                            fit: BoxFit.cover,
                           ),
-                          fit: BoxFit.cover,
+                          border: Border.all(color: offColor, width: 2),
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        border: Border.all(color: offColor, width: 2),
-                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(15),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              "4.8",
+                              style: cardText.copyWith(color: white),
+                            ),
+                          ),
+                        ),
+                      )
+                    ]),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +134,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                           Row(
                             children: [
                               Icon(Icons.favorite_rounded,
-                                  color: primaryColor, size: 18),
+                                  color: primaryColor, size: 24),
                               SizedBox(width: 5),
                               Text("Liked by 1000 people",
                                   style: normalTextPrimary),
@@ -122,37 +147,52 @@ class DetailMenu extends GetView<DetailMenuController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Column(),
                           Text("Price",
                               style: normalText.copyWith(
                                   fontWeight: FontWeight.bold)),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Rp",
-                                    style: normalTextPrimary,
-                                  ),
-                                  Text(
-                                    price.toString(),
-                                    style: cardText,
+                                  Text("Regular price", style: normalText),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Rp",
+                                        style: normalTextPrimary,
+                                      ),
+                                      Text(
+                                        regular_price.toString(),
+                                        style: cardText,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Text(
-                                  "4.8",
-                                  style: cardText.copyWith(color: white),
-                                ),
-                              )
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Large price", style: normalText),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Rp",
+                                        style: normalTextPrimary,
+                                      ),
+                                      Text(
+                                        large_price.toString(),
+                                        style: cardText,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ],
                           )
                         ],

@@ -9,13 +9,15 @@ import '../../../../../routes/AppPages.dart';
 class ItemWidget extends StatelessWidget {
   final String description;
   final String title;
-  final int price;
+  final int regular_price;
+  final int large_price;
   final String image;
   final int id;
 
   ItemWidget({
     required this.title,
-    required this.price,
+    required this.regular_price,
+    required this.large_price,
     required this.image,
     required this.id,
     required this.description,
@@ -39,7 +41,8 @@ class ItemWidget extends StatelessWidget {
                 'id': id,
                 'name': title,
                 // 'price': int.parse(price.toString()),
-                'price': price,
+                'regular_price': regular_price,
+                'large_price': large_price,
                 'image': image,
                 'description': description,
               });
@@ -115,7 +118,7 @@ class ItemWidget extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            price.toString(),
+                            regular_price.toString(),
                             style: cardTitle,
                           )
                         ],

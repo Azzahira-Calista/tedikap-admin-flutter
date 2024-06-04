@@ -6,35 +6,33 @@ import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/summary.
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  AppBarHome(),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.02,
-                  ),
-                  CheckOrderButton(),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.02,
-                  ),
-                  SalesSummary(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  
-                ],
-              )),
-        ),
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    AppBarHome(),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    CheckOrderButton(),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    SalesSummary(),
+                    SizedBox(height: 20),
+                    // Add more widgets here if needed
+                  ],
+                ),
+              ),
+            );
+          }
+        }),
       ),
     );
   }
 }
-
-
