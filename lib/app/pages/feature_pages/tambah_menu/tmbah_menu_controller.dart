@@ -20,7 +20,8 @@ class TambahMenuController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController descrptionController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
+  TextEditingController largePriceController = TextEditingController();
+  TextEditingController regularPriceController = TextEditingController();
 
   RxBool isLoading = false.obs;
 
@@ -30,17 +31,21 @@ class TambahMenuController extends GetxController {
     try {
       isLoading.value = true;
 
-      dio.FormData formData = dio.FormData.fromMap({
+      double? regularPrice = double.tryParse(regularPriceController.text);
+      double? largePrice = double.tryParse(largePriceController.text);
+
+      dio.FormData formsData = dio.FormData.fromMap({
         "name": nameController.text,
         "category": categoryController.text,
         "description": descrptionController.text,
-        "price": priceController.text,
+        "regular_price": regularPriceController.text.toString(),
+        "large_price": largePriceController.text.toString(),
         "image": await dio.MultipartFile.fromFile(imagePath.value),
       });
 
-      print("FormData: $formData");
+      print("FormData: $formsData");
 
-      final response = await productService.storeProduct(formData);
+      final response = await productService.storeProduct(formsData);
 
       productResponseModel.add(Data.fromJson(response.data['data']));
       isLoading.value = false;

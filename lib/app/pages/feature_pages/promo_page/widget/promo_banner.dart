@@ -5,7 +5,29 @@ import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
-class VoucherBanner extends StatelessWidget {
+class PromoBanner extends StatelessWidget {
+  // final int id;
+  // final String title;
+  // final String description;
+  // final String image;
+  // final double discount;
+  // final int max_discount;
+  // final int min_transaction;
+  // final String start_date;
+  // final String end_date;
+
+  // PromoBanner({
+  //   required this.id,
+  //   required this.title,
+  //   required this.description,
+  //   required this.image,
+  //   required this.discount,
+  //   required this.max_discount,
+  //   required this.min_transaction,
+  //   required this.start_date,
+  //   required this.end_date,
+  // });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +54,10 @@ class VoucherBanner extends StatelessWidget {
               height: 120,
               width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
+                // image: DecorationImage(
+                //     image: NetworkImage(
+                //         "https://tedikap-api.rplrus.com/storage/promo/$image"),
+                //     fit: BoxFit.cover),
                 color: primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -57,7 +83,7 @@ class VoucherBanner extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed(Routes.EDIT_VOUCHER);
+                          Get.toNamed(Routes.EDIT_PROMO);
                         },
                         child: Container(
                           padding:

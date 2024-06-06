@@ -110,7 +110,7 @@ class EditVoucher extends GetView<EditVoucherController> {
               child: myButton(
                 text: "Change",
                 onPressed: () {
-                  Get.toNamed(Routes.VOUCHER_VIEW);
+                  Get.toNamed(Routes.PROMO_VIEW);
                 },
                 color: primaryColor,
                 textColor: white,

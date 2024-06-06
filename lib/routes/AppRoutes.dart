@@ -14,11 +14,11 @@ abstract class Routes {
   static const ORDER_STATUS = _Paths.ORDER_STATUS;
   static const LOGIN = _Paths.LOGIN;
   static const TAMBAH_MENU = _Paths.TAMBAH_MENU;
-  static const TAMBAH_VOUCHER = _Paths.TAMBAH_VOUCHER;
+  static const TAMBAH_PROMO = _Paths.TAMBAH_PROMO;
   static const CHAT_ROOM = _Paths.CHAT_ROOM;
   static const TAMBAH_NOTIF = _Paths.TAMBAH_NOTIF;
-  static const VOUCHER_VIEW = _Paths.VOUCHER_VIEW;
-  static const EDIT_VOUCHER = _Paths.EDIT_VOUCHER;
+  static const PROMO_VIEW = _Paths.PROMO_VIEW;
+  static const EDIT_PROMO = _Paths.EDIT_PROMO;
   static const EDIT_MENU = _Paths.EDIT_MENU;
   static const DETAIL_MENU = _Paths.DETAIL_MENU;
 }
@@ -35,10 +35,10 @@ abstract class _Paths {
   static const ORDER_STATUS = '/order-status';
   static const LOGIN = '/login';
   static const TAMBAH_MENU = '/tambah-menu';
-  static const TAMBAH_VOUCHER = '/tambah-voucher';
+  static const TAMBAH_PROMO = '/tambah-promo';
   static const CHAT_ROOM = '/chat-room';
   static const TAMBAH_NOTIF = '/tambah-notif';
-  static const VOUCHER_VIEW = '/voucher-view';
-  static const EDIT_VOUCHER = '/edit-voucher';
+  static const PROMO_VIEW = '/promo-view';
+  static const EDIT_PROMO = '/edit-promo';
   static const EDIT_MENU = '/edit-menu';
   static const DETAIL_MENU = '/detail-menu/:id';}

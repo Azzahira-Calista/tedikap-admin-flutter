@@ -66,11 +66,11 @@ class ProductService {
     }
   }
 
-Future<Response> storeProduct(FormData formData) async {
+Future<Response> storeProduct(FormData formsData) async {
     try {
-      final response = await _dioInstance.postRequest(
+      final response = await _dioInstance.postImageRequest(
         endpoint: '${ApiEndpoint.product}/store',
-        data: formData,
+        data: formsData,
         isAuthorize: true,
       );
 
@@ -95,16 +95,16 @@ Future<Response> storeProduct(FormData formData) async {
   //   }
   // }
 
-  // Future<Response> deleteProduct(int id) async {
-  //   try {
-  //     final response = await _dioInstance.getRequest(
-  //       endpoint: '${ApiEndpoint.product}/delete/$id',
-  //       isAuthorize: true,
-  //     );
+  Future<Response> deleteProduct(int id) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndpoint.product}/delete/$id',
+        isAuthorize: true,
+      );
 
-  //     return response;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
