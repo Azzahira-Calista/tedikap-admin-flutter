@@ -7,10 +7,9 @@ import '../../../../../routes/AppPages.dart';
 import '../../../global_components/button.dart';
 import '../menu_controller.dart' as MenuController;
 
-class MenuTabContent extends StatelessWidget {
-  final MenuController.MenuController menuController;
+class MenuTabContent extends GetView<MenuController.MenuController> {
 
-  MenuTabContent({required this.menuController});
+  // MenuTabContent({required this.menuController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +19,10 @@ class MenuTabContent extends StatelessWidget {
         child: Column(
           children: [
             Obx(() {
-              if (menuController.isLoading.value) {
+              if (controller.isLoading.value) {
                 return Center(child: CircularProgressIndicator());
               }
-              if (menuController.productResponseModel.isEmpty) {
+              if (controller.productResponseModel.isEmpty) {
                 return Center(child: Text('No product available'));
               }
               return GridView.builder(
@@ -35,9 +34,9 @@ class MenuTabContent extends StatelessWidget {
                   mainAxisSpacing: 20,
                   childAspectRatio: 1.4,
                 ),
-                itemCount: menuController.productResponseModel.length,
+                itemCount: controller.productResponseModel.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final product = menuController.productResponseModel[index];
+                  final product = controller.productResponseModel[index];
                   return ItemWidget(
                     description: product.description,
                     id: product.id,

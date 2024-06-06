@@ -103,7 +103,7 @@ class SalesSummary extends GetView<HomeController> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.VOUCHER_VIEW);
+                      Get.toNamed(Routes.PROMO_VIEW);
                     },
                     child: Container(
                       height: 78,

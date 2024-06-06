@@ -13,7 +13,7 @@ class MenuController extends GetxController {
 
   var productResponseModel = <Data>[].obs;
 
-  DioInstance instance = DioInstance();
+  // DioInstance instance = DioInstance();
 
   @override
   void onInit() {

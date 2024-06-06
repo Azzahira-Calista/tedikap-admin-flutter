@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
 import '../../../../routes/AppPages.dart';
 
-class TambahVoucher extends GetView<TambahVoucherController> {
-  const TambahVoucher({Key? key}) : super(key: key);
+class TambahPromo extends GetView<TambahPromoController> {
+  const TambahPromo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
               child: myButton(
                 text: "Tambah",
                 onPressed: () {
-                  Get.toNamed(Routes.VOUCHER_VIEW);
+                  Get.toNamed(Routes.PROMO_VIEW);
                 },
                 color: primaryColor,
                 textColor: white,

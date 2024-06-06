@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
@@ -18,7 +15,8 @@ class DetailMenu extends GetView<DetailMenuController> {
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
     final String name = arguments['name'];
-    // final int price = int.parse(arguments['price']);
+    // final int regular_price = int.parse(arguments['regular_price']);
+    // final int large_price = int.parse(arguments['large_price']);
     final int regular_price = arguments['regular_price'];
     final int large_price = arguments['large_price'];
     final String description =
@@ -83,42 +81,42 @@ class DetailMenu extends GetView<DetailMenuController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Stack(children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.4,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              "https://tedikap-api.rplrus.com/storage/product/$image",
-                            ),
-                            fit: BoxFit.cover,
+                    // Stack(children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            "https://tedikap-api.rplrus.com/storage/product/$image",
                           ),
-                          border: Border.all(color: offColor, width: 2),
-                          borderRadius: BorderRadius.circular(15),
+                          fit: BoxFit.cover,
                         ),
+                        border: Border.all(color: offColor, width: 2),
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.4,
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(15),
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "4.8",
-                              style: cardText.copyWith(color: white),
-                            ),
-                          ),
-                        ),
-                      )
-                    ]),
+                    ),
+                    // Container(
+                    //   height: MediaQuery.of(context).size.height * 0.4,
+                    //   width: MediaQuery.of(context).size.width,
+                    //   padding: EdgeInsets.all(15),
+                    //   child: Align(
+                    //     alignment: Alignment.bottomRight,
+                    //     child: Container(
+                    //       padding: EdgeInsets.symmetric(
+                    //           horizontal: 20, vertical: 10),
+                    //       decoration: BoxDecoration(
+                    //         color: primaryColor,
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       ),
+                    //       child: Text(
+                    //         "4.8",
+                    //         style: cardText.copyWith(color: white),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
+                    // ]),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +210,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                         textConfirm: "Yes",
                         textCancel: "No",
                         onConfirm: () {
-                          Get.toNamed(Routes.NAVBAR + Routes.MENU);
+                          controller.deleteProduct();
                         },
                         onCancel: () {});
                   },

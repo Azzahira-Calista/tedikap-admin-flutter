@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart' as MenuController;
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart'
+    as MenuController;
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
@@ -38,9 +39,12 @@ class MenuPage extends GetView<MenuController.MenuController> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      MenuTabContent(menuController: controller),
-                      MenuTabContent(menuController: controller),
-                      MenuTabContent(menuController: controller),
+                      // MenuTabContent(menuController: controller),
+                      // MenuTabContent(menuController: controller),
+                      // MenuTabContent(menuController: controller),
+                      MenuTabContent(),
+                      MenuTabContent(),
+                      MenuTabContent(),
                     ],
                   ),
                 ),

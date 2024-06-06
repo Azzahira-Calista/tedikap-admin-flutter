@@ -13,20 +13,21 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_binding.d
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/order_status_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif_binding.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_page/chat_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_page_view.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_list.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/voucher_page/voucher_binding.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/voucher_page/voucher_view.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/promo_page/promo_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/promo_page/promo_view.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo_binding.dart';
 import 'package:tedikap_admin/app/pages/global_components/navbar/navbar_binding.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/login_page/login_admin.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen.dart';
+import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen_binding.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_screen_two.dart';
 import 'package:tedikap_admin/app/pages/global_components/navbar/bottom_navbar.dart';
 
@@ -78,12 +79,16 @@ class AppPages {
     GetPage(
       name: _Paths.SPLASH1,
       page: () => SplashAdmin(),
+      binding: SplashScreenBinding(),
       transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.SPLASH2,
       page: () => SplashTwo(),
+      binding: SplashScreenBinding(),
       transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.ORDER_STATUS,
@@ -105,9 +110,9 @@ class AppPages {
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
-      name: _Paths.TAMBAH_VOUCHER,
-      page: () => TambahVoucher(),
-      binding: TambahVoucherBinding(),
+      name: _Paths.TAMBAH_PROMO,
+      page: () => TambahPromo(),
+      binding: TambahPromoBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
@@ -126,14 +131,14 @@ class AppPages {
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
-      name: _Paths.VOUCHER_VIEW,
-      page: () => VoucherView(),
-      binding: VoucherBinding(),
+      name: _Paths.PROMO_VIEW,
+      page: () => PromoView(),
+      binding: PromoBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
-      name: _Paths.EDIT_VOUCHER,
+      name: _Paths.EDIT_PROMO,
       page: () => EditVoucher(),
       binding: EditVoucherBinding(),
       transition: Transition.fadeIn,

@@ -7,7 +7,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tmbah_menu_con
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 
-import '../../../../routes/AppPages.dart';
+// import '../../../../routes/AppPages.dart';
 import '../../global_components/textfield.dart';
 
 class TambahMenu extends GetView<TambahMenuController> {
@@ -104,10 +104,17 @@ class TambahMenu extends GetView<TambahMenuController> {
                           obsecureText: false,
                         ),
                         MyTextField(
-                          controller: controller.priceController,
+                          controller: controller.regularPriceController,
                           obsecureText: false,
-                          hintText: "Enter the price",
-                          name: "Price",
+                          hintText: "Enter the price for regular size",
+                          name: "Regular price",
+                          height: 50,
+                        ),
+                        MyTextField(
+                          controller: controller.largePriceController,
+                          obsecureText: false,
+                          hintText: "Enter the price for large size",
+                          name: "Large price",
                           height: 50,
                         ),
                         Container(

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart' as MenuController;
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 import '../../../../../routes/AppPages.dart';
 
-class ItemWidget extends StatelessWidget {
+class ItemWidget extends GetView<MenuController.MenuController> {
   final String description;
   final String title;
   final int regular_price;
@@ -50,17 +51,24 @@ class ItemWidget extends StatelessWidget {
             child: Container(
               child: Row(
                 children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://tedikap-api.rplrus.com/storage/product/$image"),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
+                  Obx(() {
+                    if (controller.isLoading.value) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                      "https://tedikap-api.rplrus.com/storage/product/$image")
+                                  as ImageProvider,
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      );
+                    }
+                  }),
                   SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
