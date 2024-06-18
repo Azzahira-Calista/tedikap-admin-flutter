@@ -11,7 +11,6 @@ class ProductService {
         endpoint: ApiEndpoint.product,
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
@@ -22,12 +21,9 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: ApiEndpoint.product,
-        queryParameters: {
-          'type'  : 'tea'
-        },
+        queryParameters: {'type': 'tea'},
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
@@ -38,12 +34,9 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: ApiEndpoint.product,
-        queryParameters: {
-          'type'  : 'non-tea'
-        },
+        queryParameters: {'type': 'non-tea'},
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
@@ -54,54 +47,34 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: ApiEndpoint.product,
-        queryParameters: {
-          'type'  : 'snack'
-        },
+        queryParameters: {'type': 'snack'},
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
     }
   }
 
-Future<Response> storeProduct(FormData formsData) async {
+  Future<Response> storeProduct(FormData formsData) async {
     try {
       final response = await _dioInstance.postImageRequest(
         endpoint: '${ApiEndpoint.product}/store',
         data: formsData,
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
     }
   }
 
-
-  //  Future<Response> updateProduct(FormData formData, int id) async {
-  //   try {
-  //     final response = await _dioInstance.postRequest(
-  //       endpoint: '${ApiEndpoint.product}/update/$id',
-  //       data: formData,
-  //       isAuthorize: true,
-  //     );
-
-  //     return response;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
   Future<Response> deleteProduct(int id) async {
     try {
-      final response = await _dioInstance.getRequest(
+      final response = await _dioInstance.deleteRequest(
         endpoint: '${ApiEndpoint.product}/delete/$id',
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);

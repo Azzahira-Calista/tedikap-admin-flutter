@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_page/chat_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room_binding.dart';
@@ -38,7 +40,7 @@ part 'AppRoutes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVBAR;
+  static const INITIAL = Routes.NAVBAR  ;
 
   static final routes = [
     GetPage(

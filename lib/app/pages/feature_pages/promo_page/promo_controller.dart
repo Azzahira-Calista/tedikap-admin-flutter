@@ -10,7 +10,7 @@ class PromoController extends GetxController {
   late PromoService promoService;
   late PromoResponse promoResponse;
 
-  var promoResponseModel = <Data>[].obs;
+  List promoResponseModel = <ListPromo>[].obs;
 
   // DioInstance instance = DioInstance();
 
@@ -20,6 +20,8 @@ class PromoController extends GetxController {
     super.onInit();
 
     promoService = PromoService();
+
+    getPromo();
   }
 
   Future<void> getPromo() async {
@@ -32,10 +34,10 @@ class PromoController extends GetxController {
       promoResponseModel = promoResponse.data.obs;
 
 
-      print("promo: $promoResponse");
+      print("promoooo: $promoResponse");
     } catch (e) {
       isLoading.value = true;
-      print(e);
+      print("erour + $e");
     } finally {
       isLoading.value = false;
     }

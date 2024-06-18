@@ -35,22 +35,23 @@ class PromoView extends GetView<PromoController> {
                   height: MediaQuery.of(context).size.height,
                   child: ListView.builder(
                     // shrinkWrap: true,
-                    itemCount: 2,
-                    // itemCount: controller.promoResponseModel.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // final promo = controller.promoResponseModel[index];
-                      return PromoBanner(
-                        // id: promo.id,
-                        // title: promo.title,
-                        // description: promo.description,
-                        // image: promo.image,
-                        // discount: promo.discount,
-                        // max_discount: promo.max_discount,
-                        // min_transaction: promo.min_transaction,
-                        // start_date: promo.start_date,
-                        // end_date: promo.end_date,
-                      );
-                    },
+                    // itemCount: 2,
+                    itemCount: controller.promoResponseModel.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final promo = controller.promoResponseModel[index];
+                        return PromoBanner(
+                          id: promo.id!,
+                          title: promo.title!,
+                          description: promo.description!,
+                          image: promo.image!,
+                          discount: promo.discount!,
+                          max_discount: promo.maxDiscount!,
+                          min_transaction: promo.minTransaction!,
+                          start_date: promo.startDate!,
+                          end_date: promo.endDate!,
+                        );
+                      }
+
                   ),
                 ),
                 Container(

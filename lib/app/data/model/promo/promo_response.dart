@@ -7,14 +7,14 @@ PromoResponse promoResponseFromJson(String str) => PromoResponse.fromJson(json.d
 String promoModelToJson(PromoResponse data) => json.encode(data.toJson());
 
 class PromoResponse {
-    List<Data> data;
+    List<ListPromo> data;
 
     PromoResponse({
         required this.data,
     });
 
     factory PromoResponse.fromJson(Map<String, dynamic> json) => PromoResponse(
-        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+        data: List<ListPromo>.from(json["data"].map((x) => Data.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {

@@ -1,51 +1,71 @@
-// ignore_for_file: non_constant_identifier_names
+class ListPromo {
+  List<Data>? data;
 
-import 'dart:ffi';
+  ListPromo({this.data});
+
+  ListPromo.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
 
 class Data {
-  int id;
-  String title;
-  String description;
-  String image;
-  double discount;
-  int max_discount;
-  int min_transaction;
-  String start_date;
-  String end_date;
+  int? id;
+  String? title;
+  String? description;
+  String? image;
+  double? discount;
+  int? maxDiscount;
+  int? minTransaction;
+  String? startDate;
+  String? endDate;
 
-  Data({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.image,
-    required this.discount,
-    required this.max_discount,
-    required this.min_transaction,
-    required this.start_date,
-    required this.end_date,
-  });
+  Data(
+      {this.id,
+        this.title,
+        this.description,
+        this.image,
+        this.discount,
+        this.maxDiscount,
+        this.minTransaction,
+        this.startDate,
+        this.endDate});
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        image: json["image"],
-        discount: json["discount"] ?? 0,
-        max_discount: json["max_discount"] ?? 0,
-        min_transaction: json["min_transaction"] ?? 0,
-        start_date: json["start_date"],
-        end_date: json["end_date"],
-      );
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    description = json['description'];
+    image = json['image'];
+    discount = json['discount'];
+    maxDiscount = json['max_discount'];
+    minTransaction = json['min_transaction'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "description": description,
-        "image": image,
-        "discount": discount,
-        "max_discount": max_discount,
-        "min_transaction": min_transaction,
-        "start_date": start_date,
-        "end_date": end_date,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['description'] = this.description;
+    data['image'] = this.image;
+    data['discount'] = this.discount;
+    data['max_discount'] = this.maxDiscount;
+    data['min_transaction'] = this.minTransaction;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
 }

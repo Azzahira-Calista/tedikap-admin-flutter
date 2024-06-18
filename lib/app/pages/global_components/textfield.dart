@@ -4,22 +4,20 @@ import 'package:tedikap_admin/common/themes.dart';
 class MyTextField extends StatelessWidget {
   const MyTextField({
     super.key,
-    // required this.screenWidth,
-    // required this.screenHeight,
     this.controller,
     required this.hintText,
     required this.name,
     required this.height,
     required this.obsecureText,
+    this.suffixIcon,
   });
 
-  // final double screenWidth;
-  // final double screenHeight;
   final TextEditingController? controller;
   final String hintText;
   final String name;
   final double height;
   final bool obsecureText;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -32,25 +30,14 @@ class MyTextField extends StatelessWidget {
             style: subTitle,
             textAlign: TextAlign.left,
           ),
-          // Container(
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(15),
-          //       border: Border.all(color: offColor)),
-          //   child: Text(
-          //     hintText,
-          //     textAlign: TextAlign.start,
-          //     style: hint,
-          //   ),
-          // ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
           Container(
             height: height,
             child: TextFormField(
               obscureText: obsecureText,
               controller: controller,
               decoration: InputDecoration(
+                suffixIcon: suffixIcon,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: primaryColor),
@@ -65,9 +52,7 @@ class MyTextField extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
         ],
       ),
     );
