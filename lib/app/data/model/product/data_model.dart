@@ -1,41 +1,63 @@
-// ignore_for_file: non_constant_identifier_names
+class ListProductResponse {
+  List<Data>? data;
+
+  ListProductResponse({this.data});
+
+  ListProductResponse.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
 
 class Data {
-  int id;
-  String name;
-  String description;
-  int regular_price;
-  int large_price;
-  String category;
-  String image;
+  int? id;
+  String? name;
+  String? description;
+  int? regularPrice;
+  int? largePrice;
+  String? category;
+  String? image;
 
-  Data({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.regular_price,
-    required this.large_price,
-    required this.category,
-    required this.image,
-  });
+  Data(
+      {this.id,
+        this.name,
+        this.description,
+        this.regularPrice,
+        this.largePrice,
+        this.category,
+        this.image});
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        regular_price: json["regular_price"] ?? 0,
-        large_price: json["large_price"] ?? 0,
-        category: json["category"],
-        image: json["image"],
-      );
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    description = json['description'];
+    regularPrice = json['regular_price'];
+    largePrice = json['large_price'];
+    category = json['category'];
+    image = json['image'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "description": description,
-        "regular_price": regular_price,
-        "large_price": large_price,
-        "category": category,
-        "image": image,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['regular_price'] = this.regularPrice;
+    data['large_price'] = this.largePrice;
+    data['category'] = this.category;
+    data['image'] = this.image;
+    return data;
+  }
 }

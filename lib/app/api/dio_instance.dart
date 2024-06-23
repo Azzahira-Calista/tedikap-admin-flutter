@@ -42,7 +42,7 @@ class DioInstance {
 
   }
 
-  Future<Response> postRequest({required String endpoint, bool? isAuthorize, required Object data}) async {
+  Future<Response> postRequest({required String endpoint, bool? isAuthorize, required Object data, Options? options}) async {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -54,7 +54,11 @@ class DioInstance {
               headers: {
                 "Accept": "application/json",
                 if(isAuthorize ?? false) "Authorization": "Bearer $token"
-              })
+              }..addAll(options?.headers ?? {}),
+            contentType: options?.contentType,
+
+              )
+
       );
 
 
