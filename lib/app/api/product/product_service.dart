@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:tedikap_admin/app/api/api_endpoint.dart';
 import 'package:tedikap_admin/app/api/dio_instance.dart';
+import 'package:path/path.dart';
 
 class ProductService {
   final DioInstance _dioInstance = DioInstance();
@@ -56,12 +60,44 @@ class ProductService {
     }
   }
 
-  Future<Response> storeProduct(FormData formsData) async {
+// Future<Response> storeProduct() async {
+//     try {
+//       final response = await _dioInstance.postImageRequest(
+//         endpoint: '${ApiEndpoint.product}/store',
+//         data: formsData,
+//         isAuthorize: true,
+//       );
+//
+//       return response;
+//     } catch (e) {
+//       throw Exception(e);
+//     }
+//   }
+
+  Future<Response> storeProduct({
+    required String name,
+    required String description,
+    required String category,
+    required String regularPrice,
+    required String largePrice,
+    File? imageFile,
+  }) async {
     try {
-      final response = await _dioInstance.postImageRequest(
+      FormData formData = FormData.fromMap({
+        'name': name,
+        'description': description,
+        'category': category,
+        'regular_price': regularPrice,
+        'large_price': largePrice,
+        if (imageFile != null)
+          'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
+      });
+
+      final response = await _dioInstance.postRequest(
         endpoint: '${ApiEndpoint.product}/store',
-        data: formsData,
+        data: formData,
         isAuthorize: true,
+        // options: Options(contentType: 'multipart/form-data'),
       );
       return response;
     } catch (e) {

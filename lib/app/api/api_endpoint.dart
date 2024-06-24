@@ -4,6 +4,6 @@ class ApiEndpoint {
 
   static const String product = '$baseUrl/product';
 
-  static const String promo = '$baseUrl/promo';
+  static const String promo = '$baseUrl/voucher';
  
 }
