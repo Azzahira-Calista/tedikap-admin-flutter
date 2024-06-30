@@ -50,7 +50,6 @@ class TambahMenuController extends GetxController {
     try {
       isLoading.value = true;
 
-
       final response = await productService.storeProduct(
         name: nameController.text,
         description: descrptionController.text,
@@ -65,7 +64,7 @@ class TambahMenuController extends GetxController {
 
       update();
 
-      if (response != null && response.statusCode == 200) {
+      if (response.statusCode == 200) {
         Get.toNamed(Routes.NAVBAR + Routes.MENU);
         Get.snackbar("Add product", "Product added successfully!");
       } else {

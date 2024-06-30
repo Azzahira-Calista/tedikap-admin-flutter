@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo_controller.dart';
@@ -31,66 +33,100 @@ class TambahPromo extends GetView<TambahPromoController> {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: offColor, width: 2),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add_photo_alternate,
-                              size: 50,
-                              color: offColor,
-                            ),
-                            Text(
-                              "Klik untuk mengunggah gambar",
-                              style:
-                                  normalTextPrimary.copyWith(color: offColor),
-                            )
-                          ],
-                        ),
-                      ),
+                      InkWell(
+                          onTap: () => controller.pickImage(),
+                          child: Obx(() => Container(
+                                margin: EdgeInsets.symmetric(
+                                  vertical:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: offColor, width: 2),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                                width: MediaQuery.of(context).size.width,
+                                child: controller.imagePath.value.isNotEmpty
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          image: DecorationImage(
+                                            image: FileImage(
+                                              File(controller.imagePath.value),
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.add_photo_alternate,
+                                              size: 50,
+                                              color: offColor,
+                                            ),
+                                            Text(
+                                              "Klik untuk mengunggah gambar",
+                                              style: normalTextPrimary.copyWith(
+                                                  color: offColor),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                              ))),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
                       Column(
                         children: [
                           MyTextField(
+                            controller: controller.nameController,
                             hintText: "Enter the name",
                             name: "Name",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the category",
+                            controller: controller.descriptionController,
+                            hintText: "Enter the description",
                             name: "Deskripsi",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the name",
+                            controller: controller.discountController,
+                            hintText: "Enter the doscount percentage",
                             name: "Persentasi diskon",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the name",
+                            controller: controller.minTransactionController,
+                            hintText: "Enter the minimum transaction",
                             name: "Minimal transaksi",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the name",
-                            name: "Kadaluarsa",
+                            controller: controller.startDateController,
+                            hintText: "Enter the date",
+                            name: "Berlaku mulai",
                             height: 50,
                             obsecureText: false,
+                            textInputType: TextInputType.datetime,
+                          ),
+                          MyTextField(
+                            controller: controller.endDateController,
+                            hintText: "Enter the date",
+                            name: "Berlaku hingga",
+                            height: 50,
+                            obsecureText: false,
+                            textInputType: TextInputType.datetime,
                           ),
                         ],
                       ),
@@ -104,7 +140,7 @@ class TambahPromo extends GetView<TambahPromoController> {
               child: myButton(
                 text: "Tambah",
                 onPressed: () {
-                  Get.toNamed(Routes.PROMO_VIEW);
+                  controller.addPromo();
                 },
                 color: primaryColor,
                 textColor: white,

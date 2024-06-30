@@ -10,6 +10,8 @@ class MyTextField extends StatelessWidget {
     required this.height,
     required this.obsecureText,
     this.suffixIcon,
+    this.textInputType,
+    this.onTap,
   });
 
   final TextEditingController? controller;
@@ -18,6 +20,8 @@ class MyTextField extends StatelessWidget {
   final double height;
   final bool obsecureText;
   final Widget? suffixIcon;
+  final TextInputType? textInputType;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,8 @@ class MyTextField extends StatelessWidget {
           Container(
             height: height,
             child: TextFormField(
+              keyboardType: textInputType,
+              onTap: onTap,
               obscureText: obsecureText,
               controller: controller,
               decoration: InputDecoration(

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/api/promo/promo_service.dart';
 
-import '../../../api/dio_instance.dart';
+import '../../../data/model/data_helper.dart';
 import '../../../data/model/promo/promo_model.dart';
 import '../../../data/model/promo/promo_response.dart';
 
@@ -10,36 +10,32 @@ class PromoController extends GetxController {
   late PromoService promoService;
   late PromoResponse promoResponse;
 
-  List promoResponseModel = <ListPromo>[].obs;
-
-  // DioInstance instance = DioInstance();
+  var promoResponseModel = <Data>[].obs;
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-
     promoService = PromoService();
-
-    getPromo();
+    getPromoo();
   }
 
-  Future<void> getPromo() async {
+  Future<void> getPromoo() async {
     try {
-      isLoading.value = true;
-
+      isLoading(true);
       final response = await promoService.getPromo();
 
-      promoResponse = PromoResponse.fromJson(response.data);
-      promoResponseModel = promoResponse.data.obs;
+      print("CHECK CURRENT RESPONSE");
+      print(response.data);
 
+      promoResponse = DataHelper.parseJson(response.data, (json) => PromoResponse.fromJson(json));
+      promoResponseModel.value = promoResponse.data;
 
-      print("promoooo: $promoResponse");
+      print("check : ${promoResponseModel}");
+      print("check oiii : ${promoResponse}");
     } catch (e) {
-      isLoading.value = true;
-      print("erour + $e");
+      print(e);
     } finally {
-      isLoading.value = false;
+      isLoading(false);
     }
   }
 }

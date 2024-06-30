@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,9 +19,42 @@ class EditVoucher extends GetView<EditVoucherController> {
               Get.back();
             },
             icon: Icon(Icons.arrow_back_ios)),
-        title: Text(
-          'Edit Voucher',
-          style: appBarText,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'Edit Voucher',
+              style: appBarText,
+            ),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width * 0.15,
+            ),
+            InkWell(
+              onTap: () {
+                 Get.defaultDialog(
+                        title: "Delete menu",
+                        middleText: "Are you sure want to delete this menu?",
+                        textConfirm: "Yes",
+                        textCancel: "No",
+                        onConfirm: () {
+                          Get.back(); // Close the dialog first
+                          controller.deleteVoucher();
+                        },
+                        onCancel: () {});
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                decoration: BoxDecoration(
+                  color: red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  "Delete",
+                  style: normalText.copyWith(color: Colors.white),
+                ),
+              ),
+            )
+          ],
         ),
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -47,21 +78,27 @@ class EditVoucher extends GetView<EditVoucherController> {
                         ),
                         height: MediaQuery.of(context).size.height * 0.2,
                         width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add_photo_alternate,
-                              size: 50,
-                              color: offColor,
-                            ),
-                            Text(
-                              "Klik untuk mengunggah gambar",
-                              style:
-                                  normalTextPrimary.copyWith(color: offColor),
-                            )
-                          ],
-                        ),
+                        child: controller.imageUrl.isNotEmpty
+                            ? Image(
+                                image: NetworkImage(
+                                    "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}"),
+                                fit: BoxFit.cover,
+                              )
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add_photo_alternate,
+                                    size: 50,
+                                    color: offColor,
+                                  ),
+                                  Text(
+                                    "Klik untuk mengunggah gambar",
+                                    style: normalTextPrimary.copyWith(
+                                        color: offColor),
+                                  )
+                                ],
+                              ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -69,34 +106,52 @@ class EditVoucher extends GetView<EditVoucherController> {
                       Column(
                         children: [
                           MyTextField(
+                            controller: controller.titleController,
                             hintText: "Enter the name",
                             name: "Name",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
+                            controller: controller.descriptionController,
                             hintText: "Enter the category",
                             name: "Deskripsi",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the name",
+                            controller: controller.discountController,
+                            hintText: "Enter the discount",
                             name: "Persentasi diskon",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the name",
+                            controller: controller.minTransactionController,
+                            hintText: "Enter the minimum transaction",
                             name: "Minimal transaksi",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
-                            hintText: "Enter the name",
-                            name: "Kadaluarsa",
+                            controller: controller.startDateController,
+                            hintText: "Enter the start date",
+                            name: "Berlaku mulai",
                             height: 50,
                             obsecureText: false,
+                            textInputType: TextInputType.datetime,
+                            onTap: () => controller.selectDate(
+                                context, controller.startDateController),
+                          ),
+                          MyTextField(
+                            controller: controller.endDateController,
+                            hintText: "Enter the end date",
+                            name: "Berlaku hingga",
+                            height: 50,
+                            obsecureText: false,
+                            textInputType: TextInputType.datetime,
+                            onTap: () => controller.selectDate(
+                                context, controller.endDateController),
                           ),
                         ],
                       ),

@@ -74,7 +74,7 @@ class ProductService {
 //     }
 //   }
 
-  Future<Response> storeProduct({
+ Future<Response> storeProduct({
     required String name,
     required String description,
     required String category,
@@ -97,8 +97,42 @@ class ProductService {
         endpoint: '${ApiEndpoint.product}/store',
         data: formData,
         isAuthorize: true,
+        options: Options(contentType: 'multipart/form-data'),
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> updateProduct({
+    required int id,
+    required String name,
+    required String description,
+    required String category,
+    required String regularPrice,
+    required String largePrice,
+    File? imageFile,
+  }) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'name': name,
+        'description': description,
+        'category': category,
+        'regular_price': regularPrice,
+        'large_price': largePrice,
+        if (imageFile != null)
+          'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
+      });
+
+      final response = await _dioInstance.putRequest(
+        endpoint: '${ApiEndpoint.product}/update/$id',
+        data: formData,
+        isAuthorize: true,
         // options: Options(contentType: 'multipart/form-data'),
       );
+
       return response;
     } catch (e) {
       throw Exception(e);
