@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/common/themes.dart';
@@ -9,21 +9,14 @@ import '../../../../routes/AppPages.dart';
 import 'detail_menu_controller.dart';
 
 class DetailMenu extends GetView<DetailMenuController> {
-  // const DetailMenu({super.key});
-
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
     final String name = arguments['name'];
-    // final int regular_price = int.parse(arguments['regular_price']);
-    // final int large_price = int.parse(arguments['large_price']);
     final int regular_price = arguments['regular_price'];
     final int large_price = arguments['large_price'];
     final String description =
         arguments['description'] ?? 'No description available';
-    // final String description = arguments['description'];
-    print("Arguments: $arguments");
-    print("Description: ${arguments['description']}");
     final String image = arguments['image'];
 
     return Scaffold(
@@ -47,7 +40,6 @@ class DetailMenu extends GetView<DetailMenuController> {
                   image: AssetImage(image),
                   fit: BoxFit.cover,
                 ),
-                // border: Border.all(color: offColor, width: 2),
                 borderRadius: BorderRadius.circular(15),
               ),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -77,11 +69,10 @@ class DetailMenu extends GetView<DetailMenuController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // Stack(children: [
                     Container(
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.width,
@@ -96,27 +87,6 @@ class DetailMenu extends GetView<DetailMenuController> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    // Container(
-                    //   height: MediaQuery.of(context).size.height * 0.4,
-                    //   width: MediaQuery.of(context).size.width,
-                    //   padding: EdgeInsets.all(15),
-                    //   child: Align(
-                    //     alignment: Alignment.bottomRight,
-                    //     child: Container(
-                    //       padding: EdgeInsets.symmetric(
-                    //           horizontal: 20, vertical: 10),
-                    //       decoration: BoxDecoration(
-                    //         color: primaryColor,
-                    //         borderRadius: BorderRadius.circular(10),
-                    //       ),
-                    //       child: Text(
-                    //         "4.8",
-                    //         style: cardText.copyWith(color: white),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // )
-                    // ]),
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,17 +96,17 @@ class DetailMenu extends GetView<DetailMenuController> {
                               height:
                                   MediaQuery.of(context).size.height * 0.01),
                           Text(description, style: normalText),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.005),
-                          Row(
-                            children: [
-                              Icon(Icons.favorite_rounded,
-                                  color: primaryColor, size: 24),
-                              SizedBox(width: 5),
-                              Text("Liked by 1000 people",
-                                  style: normalTextPrimary),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              children: [
+                                Icon(Icons.favorite_rounded,
+                                    color: primaryColor, size: 24),
+                                SizedBox(width: 5),
+                                Text("Liked by 1000 people",
+                                    style: normalTextPrimary),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -150,8 +120,6 @@ class DetailMenu extends GetView<DetailMenuController> {
                               style: normalText.copyWith(
                                   fontWeight: FontWeight.bold)),
                           Column(
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 mainAxisAlignment:
@@ -210,6 +178,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                         textConfirm: "Yes",
                         textCancel: "No",
                         onConfirm: () {
+                          Get.back(); // Close the dialog first
                           controller.deleteProduct();
                         },
                         onCancel: () {});

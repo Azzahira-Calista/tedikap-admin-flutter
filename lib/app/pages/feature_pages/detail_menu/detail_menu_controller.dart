@@ -19,22 +19,30 @@ class DetailMenuController extends GetxController {
 
   @override
   void onInit() {
-    id = Get.arguments['id'] as int;
-    loadData();
     super.onInit();
-  }
+    // Initialize productService
+    productService = ProductService();
 
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    print("bismillah: $id");
-    super.onReady();
+    if (Get.arguments != null && Get.arguments.containsKey('id')) {
+      id = Get.arguments['id'] as int;
+      loadData();
+    } else {
+      Get.snackbar("Error", "No ID found in arguments");
+      Get.back();
+    }
   }
 
   void loadData() async {
-    // Simulate data loading
-    await Future.delayed(Duration(seconds: 2));
-    isLoading.value = false;
+    isLoading.value = true;
+    try {
+      // Simulate data loading
+      await Future.delayed(Duration(seconds: 2));
+      // Here you can fetch data from the server using the `id`
+      isLoading.value = false;
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar("Error", "Failed to load data");
+    }
   }
 
   Future<void> deleteProduct() async {
@@ -43,17 +51,13 @@ class DetailMenuController extends GetxController {
       final response = await productService.deleteProduct(id);
       print("Response: $response");
 
-      Get.toNamed(Routes.NAVBAR + Routes.MENU);
+      isLoading.value = false;
       Get.snackbar("Delete product", "Product deleted successfully!");
+      Get.toNamed(Routes.NAVBAR + Routes.MENU);
     } catch (e) {
+      isLoading.value = false;
       print("Error: $e");
       Get.snackbar("Error", e.toString());
-      print(e);
-    } finally {
-      isLoading.value = false;
     }
-
-    await Future.delayed(Duration(seconds: 2));
-    isLoading.value = false;
   }
 }

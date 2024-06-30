@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/api/promo/promo_service.dart';
 
-import '../../../api/dio_instance.dart';
+import '../../../data/model/data_helper.dart';
 import '../../../data/model/promo/promo_model.dart';
 import '../../../data/model/promo/promo_response.dart';
 
@@ -12,32 +12,30 @@ class PromoController extends GetxController {
 
   var promoResponseModel = <Data>[].obs;
 
-  // DioInstance instance = DioInstance();
-
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-
     promoService = PromoService();
+    getPromoo();
   }
 
-  Future<void> getPromo() async {
+  Future<void> getPromoo() async {
     try {
-      isLoading.value = true;
-
+      isLoading(true);
       final response = await promoService.getPromo();
 
-      promoResponse = PromoResponse.fromJson(response.data);
-      promoResponseModel = promoResponse.data.obs;
+      print("CHECK CURRENT RESPONSE");
+      print(response.data);
 
+      promoResponse = DataHelper.parseJson(response.data, (json) => PromoResponse.fromJson(json));
+      promoResponseModel.value = promoResponse.data;
 
-      print("promo: $promoResponse");
+      print("check : ${promoResponseModel}");
+      print("check oiii : ${promoResponse}");
     } catch (e) {
-      isLoading.value = true;
       print(e);
     } finally {
-      isLoading.value = false;
+      isLoading(false);
     }
   }
 }

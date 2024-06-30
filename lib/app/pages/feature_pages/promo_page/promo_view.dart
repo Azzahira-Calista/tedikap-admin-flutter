@@ -13,64 +13,72 @@ class PromoView extends GetView<PromoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.offAndToNamed(Routes.NAVBAR);
-              },
-              icon: Icon(Icons.arrow_back_ios)),
-          title: Text(
-            'Promo ',
-            style: appBarText,
-          ),
-          automaticallyImplyLeading: false,
-          centerTitle: true,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAndToNamed(Routes.NAVBAR);
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Stack(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: ListView.builder(
-                    // shrinkWrap: true,
-                    itemCount: 2,
-                    // itemCount: controller.promoResponseModel.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // final promo = controller.promoResponseModel[index];
-                      return PromoBanner(
-                        // id: promo.id,
-                        // title: promo.title,
-                        // description: promo.description,
-                        // image: promo.image,
-                        // discount: promo.discount,
-                        // max_discount: promo.max_discount,
-                        // min_transaction: promo.min_transaction,
-                        // start_date: promo.start_date,
-                        // end_date: promo.end_date,
-                      );
-                    },
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  height: MediaQuery.of(context).size.height,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: myButton(
-                      text: 'Tambah voucher',
-                      onPressed: () {
-                        Get.toNamed(Routes.TAMBAH_PROMO);
+        title: Text(
+          'Promo ',
+          style: appBarText,
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (controller.promoResponseModel.isEmpty) {
+                    return Center(child: Text("No Promos Available"));
+                  } else {
+                    return ListView.builder(
+                      itemCount: controller.promoResponseModel.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final promo = controller.promoResponseModel[index];
+                        
+                        return PromoBanner(
+                            id: promo.id,
+                            title: promo.title,
+                            description: promo.description,
+                            image: promo.image,
+                            discount: promo.discount,
+                            // maxDiscount: promo.maxDiscount,
+                            min_transaction: promo.min_transaction,
+                            start_date: promo.start_date,
+                            end_date: promo.end_date);
                       },
-                      color: primaryColor,
-                      textColor: white,
-                    ),
+                    );
+                  }
+                }),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 20),
+                height: MediaQuery.of(context).size.height,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: myButton(
+                    text: 'Tambah voucher',
+                    onPressed: () {
+                      Get.toNamed(Routes.TAMBAH_PROMO);
+                    },
+                    color: primaryColor,
+                    textColor: white,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

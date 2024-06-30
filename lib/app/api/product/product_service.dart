@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:tedikap_admin/app/api/api_endpoint.dart';
 import 'package:tedikap_admin/app/api/dio_instance.dart';
+import 'package:path/path.dart';
 
 class ProductService {
   final DioInstance _dioInstance = DioInstance();
@@ -11,7 +15,6 @@ class ProductService {
         endpoint: ApiEndpoint.product,
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
@@ -22,12 +25,9 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: ApiEndpoint.product,
-        queryParameters: {
-          'type'  : 'tea'
-        },
+        queryParameters: {'type': 'tea'},
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
@@ -38,12 +38,9 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: ApiEndpoint.product,
-        queryParameters: {
-          'type'  : 'non-tea'
-        },
+        queryParameters: {'type': 'non-tea'},
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
@@ -54,24 +51,53 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: ApiEndpoint.product,
-        queryParameters: {
-          'type'  : 'snack'
-        },
+        queryParameters: {'type': 'snack'},
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);
     }
   }
 
-Future<Response> storeProduct(FormData formsData) async {
+// Future<Response> storeProduct() async {
+//     try {
+//       final response = await _dioInstance.postImageRequest(
+//         endpoint: '${ApiEndpoint.product}/store',
+//         data: formsData,
+//         isAuthorize: true,
+//       );
+//
+//       return response;
+//     } catch (e) {
+//       throw Exception(e);
+//     }
+//   }
+
+ Future<Response> storeProduct({
+    required String name,
+    required String description,
+    required String category,
+    required String regularPrice,
+    required String largePrice,
+    File? imageFile,
+  }) async {
     try {
-      final response = await _dioInstance.postImageRequest(
+      FormData formData = FormData.fromMap({
+        'name': name,
+        'description': description,
+        'category': category,
+        'regular_price': regularPrice,
+        'large_price': largePrice,
+        if (imageFile != null)
+          'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
+      });
+
+      final response = await _dioInstance.postRequest(
         endpoint: '${ApiEndpoint.product}/store',
-        data: formsData,
+        data: formData,
         isAuthorize: true,
+        options: Options(contentType: 'multipart/form-data'),
       );
 
       return response;
@@ -80,28 +106,45 @@ Future<Response> storeProduct(FormData formsData) async {
     }
   }
 
+  Future<Response> updateProduct({
+    required int id,
+    required String name,
+    required String description,
+    required String category,
+    required String regularPrice,
+    required String largePrice,
+    File? imageFile,
+  }) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'name': name,
+        'description': description,
+        'category': category,
+        'regular_price': regularPrice,
+        'large_price': largePrice,
+        if (imageFile != null)
+          'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
+      });
 
-  //  Future<Response> updateProduct(FormData formData, int id) async {
-  //   try {
-  //     final response = await _dioInstance.postRequest(
-  //       endpoint: '${ApiEndpoint.product}/update/$id',
-  //       data: formData,
-  //       isAuthorize: true,
-  //     );
+      final response = await _dioInstance.putRequest(
+        endpoint: '${ApiEndpoint.product}/update/$id',
+        data: formData,
+        isAuthorize: true,
+        // options: Options(contentType: 'multipart/form-data'),
+      );
 
-  //     return response;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   Future<Response> deleteProduct(int id) async {
     try {
-      final response = await _dioInstance.getRequest(
+      final response = await _dioInstance.deleteRequest(
         endpoint: '${ApiEndpoint.product}/delete/$id',
         isAuthorize: true,
       );
-
       return response;
     } catch (e) {
       throw Exception(e);

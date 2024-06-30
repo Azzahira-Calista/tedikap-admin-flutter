@@ -46,6 +46,7 @@ dependencies:
   shared_preferences:
   shimmer: ^3.0.0
   image_picker:
+  path: ^1.8.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,11 +10,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/api/product/product_service.dart';
 import 'package:tedikap_admin/app/data/model/product/data_model.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
+import 'dart:io' as i;
 
 import '../../../data/model/product/product_response.dart';
 
 class TambahMenuController extends GetxController {
-  RxString imagePath = "".obs;
+  RxString imagePath = ''.obs;
   ProductService productService = ProductService();
   late ProductResponse productResponse;
   var productResponseModel = <Data>[].obs;
@@ -25,34 +28,43 @@ class TambahMenuController extends GetxController {
 
   RxBool isLoading = false.obs;
 
+  void setImagePath(String path) {
+    imagePath.value = path;
+    update();
+  }
+
+  Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      setImagePath(pickedFile.path);
+    }
+  }
+
   // Rx<Data> arguments = Get.arguments;
 
   Future<dio.Response> addProduct() async {
     try {
       isLoading.value = true;
 
-      double? regularPrice = double.tryParse(regularPriceController.text);
-      double? largePrice = double.tryParse(largePriceController.text);
+      final response = await productService.storeProduct(
+        name: nameController.text,
+        description: descrptionController.text,
+        category: categoryController.text,
+        regularPrice: regularPriceController.text,
+        largePrice: largePriceController.text,
+        imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
+      );
 
-      dio.FormData formsData = dio.FormData.fromMap({
-        "name": nameController.text,
-        "category": categoryController.text,
-        "description": descrptionController.text,
-        "regular_price": regularPriceController.text.toString(),
-        "large_price": largePriceController.text.toString(),
-        "image": await dio.MultipartFile.fromFile(imagePath.value),
-      });
-
-      print("FormData: $formsData");
-
-      final response = await productService.storeProduct(formsData);
-
-      productResponseModel.add(Data.fromJson(response.data['data']));
+      // productResponseModel.add(Data.fromJson(response.data['data']));
       isLoading.value = false;
 
       update();
 
-      if (response != null && response.statusCode == 200) {
+      if (response.statusCode == 200) {
         Get.toNamed(Routes.NAVBAR + Routes.MENU);
         Get.snackbar("Add product", "Product added successfully!");
       } else {
@@ -68,12 +80,5 @@ class TambahMenuController extends GetxController {
     }
   }
 
-  Future<void> pickImage(RxString imagePath) async {
-    final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    if (pickedImage != null) {
-      imagePath.value = pickedImage.path;
-    }
-  }
 }
