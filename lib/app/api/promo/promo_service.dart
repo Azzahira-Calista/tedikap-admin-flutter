@@ -33,7 +33,7 @@ class PromoService {
   }) async {
     try {
       final formData = FormData.fromMap({
-        'name': name,
+        'title': name,
         'description': description,
         'discount': discount,
         'min_transaction': minTransaction,
@@ -57,17 +57,17 @@ class PromoService {
 
   Future<Response> updatePromo({
     required int id,
-    required String name,
-    required String description,
-    required String discount,
-    required String minTransaction,
-    required String startDate,
-    required String endDate,
+     String? name,
+     String? description,
+     String? discount,
+     String? minTransaction,
+     String? startDate,
+     String? endDate,
     File? imageFile,
   }) async {
     try {
       final formData = FormData.fromMap({
-        'name': name,
+        'title': name,
         'description': description,
         'discount': discount,
         'min_transaction': minTransaction,

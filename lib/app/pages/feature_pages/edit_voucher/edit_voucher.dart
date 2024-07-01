@@ -79,26 +79,36 @@ class EditVoucher extends GetView<EditVoucherController> {
                         height: MediaQuery.of(context).size.height * 0.2,
                         width: MediaQuery.of(context).size.width,
                         child: controller.imageUrl.isNotEmpty
-                            ? Image(
-                                image: NetworkImage(
-                                    "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}"),
-                                fit: BoxFit.cover,
-                              )
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add_photo_alternate,
-                                    size: 50,
-                                    color: offColor,
-                                  ),
-                                  Text(
-                                    "Klik untuk mengunggah gambar",
-                                    style: normalTextPrimary.copyWith(
-                                        color: offColor),
-                                  )
-                                ],
-                              ),
+                            ? InkWell(
+                          onTap: (){
+                            controller.pickImage();
+                          },
+                              child: Image(
+                                  image: NetworkImage(
+                                      "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}"),
+                                  fit: BoxFit.cover,
+                                ),
+                            )
+                            : InkWell(
+                          onTap: (){
+                            controller.pickImage();
+                          },
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.add_photo_alternate,
+                                      size: 50,
+                                      color: offColor,
+                                    ),
+                                    Text(
+                                      "Klik untuk mengunggah gambar",
+                                      style: normalTextPrimary.copyWith(
+                                          color: offColor),
+                                    )
+                                  ],
+                                ),
+                            ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -165,6 +175,7 @@ class EditVoucher extends GetView<EditVoucherController> {
               child: myButton(
                 text: "Change",
                 onPressed: () {
+                  controller.updateVoucher();
                   Get.toNamed(Routes.PROMO_VIEW);
                 },
                 color: primaryColor,

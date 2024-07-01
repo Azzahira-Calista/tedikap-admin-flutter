@@ -59,6 +59,9 @@ class TambahMenuController extends GetxController {
         imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
       );
 
+      print('ini add response $response');
+      print('ini  response image ${imagePath.value}');
+
       // productResponseModel.add(Data.fromJson(response.data['data']));
       isLoading.value = false;
 
