@@ -42,7 +42,7 @@ class MenuTabContent extends GetView<MenuController.MenuController> {
                             return ItemWidget(
                               description: product.description!,
                               id: product.id!,
-                              title: product.name!,
+                              name: product.name!,
                               regular_price: product.regularPrice!,
                               large_price: product.largePrice!,
                               image: product.image!,

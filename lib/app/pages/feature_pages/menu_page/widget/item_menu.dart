@@ -10,14 +10,14 @@ import '../../../../../routes/AppPages.dart';
 
 class ItemWidget extends GetView<MenuController.MenuController> {
   final String description;
-  final String title;
+  final String name;
   final int regular_price;
   final int large_price;
   final String image;
   final int id;
 
   ItemWidget({
-    required this.title,
+    required this.name,
     required this.regular_price,
     required this.large_price,
     required this.image,
@@ -41,7 +41,7 @@ class ItemWidget extends GetView<MenuController.MenuController> {
             onTap: () {
               Get.toNamed(Routes.DETAIL_MENU, arguments: {
                 'id': id,
-                'name': title,
+                'name': name,
                 // 'price': int.parse(price.toString()),
                 'regular_price': regular_price,
                 'large_price': large_price,
@@ -78,7 +78,7 @@ class ItemWidget extends GetView<MenuController.MenuController> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.19,
                         child: Text(
-                          title,
+                          name,
                           style: subTitle,
                         ),
                       ),
@@ -144,7 +144,15 @@ class ItemWidget extends GetView<MenuController.MenuController> {
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(Routes.EDIT_MENU);
+              Get.toNamed(Routes.EDIT_MENU, arguments: {
+                'id': id,
+                'name': name,
+                'regular_price': regular_price,
+                'large_price': large_price,
+                'image': image,
+                'description': description,
+              
+              });
             },
             child: Container(
               decoration: BoxDecoration(
