@@ -85,4 +85,37 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
       Get.snackbar("Error", e.toString());
     }
   }
+
+  Future<void> editVoucher() async {
+    try {
+      isLoading.value = true;
+
+      final response = await promoService.updatePromo(
+        id: id,
+        title: titleController.text,
+        description: descriptionController.text,
+        discount: discountController.text,
+        minTransaction: minTransactionController.text,
+        startDate: startDateController.text,
+        endDate: endDateController.text,
+        imageFile: null,
+      );
+
+      isLoading.value = false;
+
+      update();
+
+      if (response.statusCode == 200) {
+        Get.toNamed(Routes.NAVBAR + Routes.PROMO_VIEW);
+        Get.snackbar("Edit voucher", "Voucher edited successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to edit voucher");
+      }
+    } catch (e) {
+      isLoading.value = false;
+      print("Error: $e");
+      Get.snackbar("Error", e.toString());
+      throw Exception(e);
+    }
+  }
 }

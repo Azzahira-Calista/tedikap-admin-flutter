@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/routes/AppPages.dart';
 import '../../../api/dio_instance.dart';
 import '../../../api/product/product_service.dart';
 import '../../../data/model/product/data_model.dart';
@@ -15,10 +17,24 @@ class EditMenuController extends GetxController {
 
   DioInstance instance = DioInstance();
 
+  late TextEditingController nameController;
+  late TextEditingController descriptionController;
+  late TextEditingController categoryController;
+  late TextEditingController regularPriceController;
+  late TextEditingController largePriceController;
+
+  // RxString selectedCategory = ''.obs;
+
+  // final List<String> categories = ['tea', 'nontea', 'snack'];
+
+  late String imageUrl;
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+
+    productService = ProductService();
     if (Get.arguments != null && Get.arguments.containsKey('id')) {
       id = Get.arguments['id'] as int;
       loadData();
@@ -26,6 +42,17 @@ class EditMenuController extends GetxController {
       Get.snackbar("Error", "No ID found in arguments");
       Get.back();
     }
+
+    final Map<String, dynamic> arguments = Get.arguments;
+    nameController = TextEditingController(text: arguments['name']);
+    descriptionController = TextEditingController(text: arguments['description']);
+    categoryController = TextEditingController(text: arguments['category'] ?? '');
+    // selectedCategory.value = arguments['category'] ?? '';
+    regularPriceController = TextEditingController(text: arguments['regular_price'].toString());
+    largePriceController = TextEditingController(text: arguments['large_price'].toString());
+
+    imageUrl = arguments['image'];
+
   }
 
   void loadData() async {
@@ -38,6 +65,41 @@ class EditMenuController extends GetxController {
     } catch (e) {
       isLoading.value = false;
       Get.snackbar("Error", "Failed to load data");
+    }
+  }
+
+  Future<void> editProduct() async {
+    try{
+      isLoading.value = true;
+      
+      final response = await productService.updateProduct(
+        id: id,
+        name: nameController.text,
+        description: descriptionController.text,
+        category: categoryController.text,
+        // category: selectedCategory.value,
+        regularPrice: regularPriceController.text,
+        largePrice: largePriceController.text,
+        imageFile: null,
+      );
+
+      isLoading.value = false;
+
+      update();
+
+       if (response.statusCode == 200) {
+      Get.toNamed(Routes.NAVBAR + Routes.MENU);
+      Get.snackbar("Edit product", "Product edited successfully!");
+    } else {
+      // Handle other status codes
+      print("Response status code: ${response.statusCode}");
+      Get.snackbar("Error", "Failed to edit product: ${response.data}");
+    }
+    } catch (e) {
+      isLoading.value = false;
+      print("Error: $e");
+      Get.snackbar("Error", e.toString());
+      throw Exception(e);
     }
   }
 }

@@ -107,26 +107,26 @@ class ProductService {
   }
 
   Future<Response> updateProduct({
-    required int id,
-    required String name,
-    required String description,
-    required String category,
-    required String regularPrice,
-    required String largePrice,
+    int? id,
+    String? name,
+    String? description,
+    String? category,
+    String? regularPrice,
+    String? largePrice,
     File? imageFile,
   }) async {
     try {
       FormData formData = FormData.fromMap({
-        'name': name,
-        'description': description,
-        'category': category,
-        'regular_price': regularPrice,
-        'large_price': largePrice,
+        if (name != null) 'name': name,
+        if (description != null) 'description': description,
+        if (category != null) 'category': category,
+        if (regularPrice != null) 'regular_price': regularPrice,
+        if (largePrice != null) 'large_price': largePrice,
         if (imageFile != null)
           'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
       });
 
-      final response = await _dioInstance.putRequest(
+      final response = await _dioInstance.postRequest(
         endpoint: '${ApiEndpoint.product}/update/$id',
         data: formData,
         isAuthorize: true,

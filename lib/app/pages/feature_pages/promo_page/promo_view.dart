@@ -44,7 +44,7 @@ class PromoView extends GetView<PromoController> {
                       itemCount: controller.promoResponseModel.length,
                       itemBuilder: (BuildContext context, int index) {
                         final promo = controller.promoResponseModel[index];
-                        
+
                         return PromoBanner(
                             id: promo.id,
                             title: promo.title,
