@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,20 +29,22 @@ class EditVoucher extends GetView<EditVoucherController> {
               style: appBarText,
             ),
             SizedBox(
-              width: MediaQuery.sizeOf(context).width * 0.15,
+              width: MediaQuery
+                  .sizeOf(context)
+                  .width * 0.15,
             ),
             InkWell(
               onTap: () {
-                 Get.defaultDialog(
-                        title: "Delete menu",
-                        middleText: "Are you sure want to delete this menu?",
-                        textConfirm: "Yes",
-                        textCancel: "No",
-                        onConfirm: () {
-                          Get.back(); // Close the dialog first
-                          controller.deleteVoucher();
-                        },
-                        onCancel: () {});
+                Get.defaultDialog(
+                    title: "Delete menu",
+                    middleText: "Are you sure want to delete this menu?",
+                    textConfirm: "Yes",
+                    textCancel: "No",
+                    onConfirm: () {
+                      Get.back(); // Close the dialog first
+                      controller.deleteVoucher();
+                    },
+                    onCancel: () {});
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -70,48 +74,65 @@ class EditVoucher extends GetView<EditVoucherController> {
                     children: [
                       Container(
                         margin: EdgeInsets.symmetric(
-                          vertical: MediaQuery.of(context).size.height * 0.02,
+                          vertical: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.02,
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(color: offColor, width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.2,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
                         child: controller.imageUrl.isNotEmpty
                             ? InkWell(
-                          onTap: (){
+                          onTap: () {
                             controller.pickImage();
                           },
-                              child: Image(
-                                  image: NetworkImage(
-                                      "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}"),
-                                  fit: BoxFit.cover,
-                                ),
-                            )
+                          child: controller.imagePath.isEmpty ? Image(
+                            image: NetworkImage(
+                                "https://tedikap-api.rplrus.com/storage/voucher/${controller
+                                    .imageUrl}"),
+                            fit: BoxFit.cover,
+                          ) : Obx(() {
+                            return Image.file(File(controller.imagePath.value),
+                              fit: BoxFit.cover,);
+                          }),
+                        )
                             : InkWell(
-                          onTap: (){
+                          onTap: () {
                             controller.pickImage();
                           },
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.add_photo_alternate,
-                                      size: 50,
-                                      color: offColor,
-                                    ),
-                                    Text(
-                                      "Klik untuk mengunggah gambar",
-                                      style: normalTextPrimary.copyWith(
-                                          color: offColor),
-                                    )
-                                  ],
-                                ),
-                            ),
+                          child: controller.imagePath.isEmpty ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_photo_alternate,
+                                size: 50,
+                                color: offColor,
+                              ),
+                              Text(
+                                "Klik untuk mengunggah gambar",
+                                style: normalTextPrimary.copyWith(
+                                    color: offColor),
+                              )
+                            ],
+                          ) : Image.file(File(controller.imagePath.value),
+                            fit: BoxFit.cover,),
+                        ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
                       ),
                       Column(
                         children: [
@@ -150,8 +171,9 @@ class EditVoucher extends GetView<EditVoucherController> {
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
-                            onTap: () => controller.selectDate(
-                                context, controller.startDateController),
+                            onTap: () =>
+                                controller.selectDate(
+                                    context, controller.startDateController),
                           ),
                           MyTextField(
                             controller: controller.endDateController,
@@ -160,8 +182,9 @@ class EditVoucher extends GetView<EditVoucherController> {
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
-                            onTap: () => controller.selectDate(
-                                context, controller.endDateController),
+                            onTap: () =>
+                                controller.selectDate(
+                                    context, controller.endDateController),
                           ),
                         ],
                       ),
@@ -176,7 +199,6 @@ class EditVoucher extends GetView<EditVoucherController> {
                 text: "Change",
                 onPressed: () {
                   controller.editVoucher();
-                  controller.updateVoucher();
                   Get.toNamed(Routes.PROMO_VIEW);
                 },
                 color: primaryColor,

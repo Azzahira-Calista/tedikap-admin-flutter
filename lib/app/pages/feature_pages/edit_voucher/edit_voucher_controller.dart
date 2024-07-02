@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 
 import '../../../../routes/AppPages.dart';
 import '../../../api/promo/promo_service.dart';
@@ -22,6 +24,8 @@ PromoService promoService = PromoService();
   late TextEditingController endDateController;
 
   late String imageUrl;
+  final RxString imagePath = ''.obs;
+
 
   @override
   void onInit() {
@@ -43,6 +47,22 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
     startDateController = TextEditingController(text: arguments['start_date']);
     endDateController = TextEditingController(text: arguments['end_date']);
     imageUrl = arguments['image'];
+  }
+
+  void setImagePath(String path) {
+    imagePath.value = path;
+    update();
+  }
+
+  void pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      setImagePath(pickedFile.path);
+    }
   }
 
    void loadData() async {
@@ -98,7 +118,7 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
         minTransaction: minTransactionController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,
-        imageFile: null,
+        imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null,
       );
 
       isLoading.value = false;
