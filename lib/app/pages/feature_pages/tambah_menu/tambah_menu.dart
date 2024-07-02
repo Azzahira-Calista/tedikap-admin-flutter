@@ -39,7 +39,7 @@ class TambahMenu extends GetView<TambahMenuController> {
                     InkWell(
                         onTap: () => controller.pickImage(),
                         child: Obx(() => Container(
-                              height: MediaQuery.of(context).size.height * 0.2,
+                              height: MediaQuery.of(context).size.height * 0.3,
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(
                                 horizontal:
@@ -128,7 +128,7 @@ class TambahMenu extends GetView<TambahMenuController> {
                                 height: 5,
                               ),
                               TextFormField(
-                                controller: controller.descrptionController,
+                                controller: controller.descriptionController,
                                 decoration: InputDecoration(
                                   hintText: "Enter the description",
                                   hintStyle: hint,

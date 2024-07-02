@@ -22,7 +22,7 @@ class TambahMenuController extends GetxController {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
-  TextEditingController descrptionController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   TextEditingController largePriceController = TextEditingController();
   TextEditingController regularPriceController = TextEditingController();
 
@@ -52,7 +52,7 @@ class TambahMenuController extends GetxController {
 
       final response = await productService.storeProduct(
         name: nameController.text,
-        description: descrptionController.text,
+        description: descriptionController.text,
         category: categoryController.text,
         regularPrice: regularPriceController.text,
         largePrice: largePriceController.text,

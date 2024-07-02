@@ -175,6 +175,7 @@ class EditVoucher extends GetView<EditVoucherController> {
               child: myButton(
                 text: "Change",
                 onPressed: () {
+                  controller.editVoucher();
                   controller.updateVoucher();
                   Get.toNamed(Routes.PROMO_VIEW);
                 },

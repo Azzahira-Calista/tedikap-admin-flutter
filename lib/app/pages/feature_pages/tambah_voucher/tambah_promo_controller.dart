@@ -46,7 +46,7 @@ class TambahPromoController extends GetxController {
       isLoading.value = true;
 
       final response = await promoService.storePromo(
-        name: nameController.text,
+        title: nameController.text,
         description: descriptionController.text,
         discount: discountController.text,
         // maxDiscount: maxDiscountController.text,

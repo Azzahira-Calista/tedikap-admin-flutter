@@ -18,6 +18,8 @@ class DetailMenu extends GetView<DetailMenuController> {
     final String description =
         arguments['description'] ?? 'No description available';
     final String image = arguments['image'];
+    final int id = arguments['id'];
+
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +33,15 @@ class DetailMenu extends GetView<DetailMenuController> {
           alignment: Alignment.centerRight,
           child: InkWell(
             onTap: () {
-              Get.toNamed(Routes.EDIT_MENU, arguments: controller.id);
+              Get.toNamed(Routes.EDIT_MENU, arguments: {
+                'id': id,
+                'name': name,
+                'regular_price': regular_price,
+                'large_price': large_price,
+                'image': image,
+                'description': description,
+              
+              });
             },
             child: Container(
               decoration: BoxDecoration(
