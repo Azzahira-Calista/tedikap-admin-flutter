@@ -47,6 +47,7 @@ dependencies:
   shimmer: ^3.0.0
   image_picker:
   path: ^1.8.0
+  chips_choice: ^3.0.1
 
 dev_dependencies:
   flutter_test:

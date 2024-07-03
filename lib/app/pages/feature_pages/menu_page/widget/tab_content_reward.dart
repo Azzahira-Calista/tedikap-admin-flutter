@@ -8,7 +8,7 @@ import '../../../global_components/button.dart';
 import '../menu_controller.dart';
 import 'menu_filter.dart';
 
-class MenuTabContent extends GetView<MenusController> {
+class MenuRewardTabContent extends GetView<MenusController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -42,15 +42,15 @@ class MenuTabContent extends GetView<MenusController> {
                               (BuildContext context, int index) {
                             final product = controller.productResponseModel[index];
                             return ItemWidget(
-                              description: product.description!,
-                              id: product.id!,
-                              name: product.name!,
-                              regular_price: product.regularPrice!,
-                              large_price: product.largePrice!,
-                              image: product.image!,
+                              id: 1,
+                              description: 'ini description reward product',
+                              name: 'reward product',
+                              regular_price: 100,
+                              large_price: 200,
+                              image: 'https://tedikap-api.rplrus.com/storage/reward-product/1719627832.jpg',
                             );
                           },
-                          childCount: controller.productResponseModel.length,
+                          childCount: 2,
                         ),
                       ),
                     ],

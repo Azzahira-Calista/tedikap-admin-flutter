@@ -150,4 +150,20 @@ class ProductService {
       throw Exception(e);
     }
   }
+
+  Future<Response> getFilterProduct({required String query}) async {
+    try {
+      final response = await _dioInstance.getRequest(
+          endpoint: '${ApiEndpoint.filter}/product/',
+          queryParameters: {
+            'category': query
+          },
+          isAuthorize: true
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
