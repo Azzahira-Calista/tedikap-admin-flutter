@@ -68,26 +68,27 @@ class EditMenuController extends GetxController {
     }
   }
 
-  Future<void> editProduct() async {
-    try{
-      isLoading.value = true;
-      
-      final response = await productService.updateProduct(
-        id: id,
-        name: nameController.text,
-        description: descriptionController.text,
-        category: categoryController.text,
-        // category: selectedCategory.value,
-        regularPrice: regularPriceController.text,
-        largePrice: largePriceController.text,
-        imageFile: null,
-      );
+ Future<void> editProduct() async {
+  try {
+    isLoading.value = true;
 
-      isLoading.value = false;
+    // Parse text inputs to integers
+    int regularPrice = int.tryParse(regularPriceController.text) ?? 0;
+    int largePrice = int.tryParse(largePriceController.text) ?? 0;
 
-      update();
+    final response = await productService.updateProduct(
+      id: id,
+      name: nameController.text,
+      description: descriptionController.text,
+      category: categoryController.text,
+      regularPrice: regularPrice, 
+      largePrice: largePrice, 
+      imageFile: null,
+    );
 
-       if (response.statusCode == 200) {
+    isLoading.value = false;
+
+    if (response.statusCode == 200) {
       Get.toNamed(Routes.NAVBAR + Routes.MENU);
       Get.snackbar("Edit product", "Product edited successfully!");
     } else {
@@ -95,11 +96,12 @@ class EditMenuController extends GetxController {
       print("Response status code: ${response.statusCode}");
       Get.snackbar("Error", "Failed to edit product: ${response.data}");
     }
-    } catch (e) {
-      isLoading.value = false;
-      print("Error: $e");
-      Get.snackbar("Error", e.toString());
-      throw Exception(e);
-    }
+  } catch (e) {
+    isLoading.value = false;
+    print("Error: $e");
+    Get.snackbar("Error", e.toString());
+    throw Exception(e);
   }
+}
+
 }

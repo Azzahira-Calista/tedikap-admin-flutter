@@ -50,12 +50,16 @@ class TambahMenuController extends GetxController {
     try {
       isLoading.value = true;
 
+       // Parse text inputs to integers
+    int regularPrice = int.tryParse(regularPriceController.text) ?? 0;
+    int largePrice = int.tryParse(largePriceController.text) ?? 0;
+
       final response = await productService.storeProduct(
         name: nameController.text,
         description: descriptionController.text,
         category: categoryController.text,
-        regularPrice: regularPriceController.text,
-        largePrice: largePriceController.text,
+        regularPrice: regularPrice,
+        largePrice: largePrice,
         imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
       );
 

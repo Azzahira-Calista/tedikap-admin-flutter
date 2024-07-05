@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_menu.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_reward.dart';
 
 import '../../../../../common/themes.dart';
 import '../../../../../routes/AppPages.dart';
@@ -8,7 +10,8 @@ import '../../../global_components/button.dart';
 import '../menu_controller.dart';
 import 'menu_filter.dart';
 
-class MenuRewardTabContent extends GetView<MenusController> {
+class MenuRewardTabContent extends GetView<RewardController> {
+  RewardController controller = Get.put(RewardController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -25,7 +28,7 @@ class MenuRewardTabContent extends GetView<MenusController> {
                 if (controller.isLoading.value) {
                   return Center(child: CircularProgressIndicator());
                 }
-                if (controller.productResponseModel.isEmpty) {
+                if (controller.rewardResponseModel.isEmpty) {
                   return Center(child: Text('No product available'));
                 }
                 return Expanded(
@@ -40,17 +43,17 @@ class MenuRewardTabContent extends GetView<MenusController> {
                         ),
                         delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
-                            final product = controller.productResponseModel[index];
-                            return ItemWidget(
-                              id: 1,
-                              description: 'ini description reward product',
-                              name: 'reward product',
-                              regular_price: 100,
-                              large_price: 200,
-                              image: 'https://tedikap-api.rplrus.com/storage/reward-product/1719627832.jpg',
+                            final reward = controller.rewardResponseModel[index];
+                            return ItemWidgetReward(
+                              id: reward.id!,
+                              description: reward.description!,
+                              name: reward.name!,
+                              regular_price: reward.regularPrice!,
+                              large_price: reward.largePrice!,
+                              image: reward.image!,
                             );
                           },
-                          childCount: 2,
+                          childCount: controller.rewardResponseModel.length,
                         ),
                       ),
                     ],
