@@ -74,76 +74,77 @@ class EditReward extends GetView<EditRewardController> {
                         Column(
                           children: [
                             MyTextField(
-                          controller: controller.nameController,
-                          hintText: "Enter the name",
-                          name: "Name",
-                          height: 50,
-                          obsecureText: false,
-                        ),
-                        MyTextField(
-                          controller: controller.categoryController,
-                          hintText: "Enter the category",
-                          name: "Category",
-                          height: 50,
-                          obsecureText: false,
-                        ),
-                        // Obx(() => DropdownButtonFormField<String>(
-                        //     value: controller.selectedCategory.value,
-                        //     onChanged: (newValue) {
-                        //       controller.selectedCategory.value = newValue!;
-                        //     },
-                        //     items: ['tea', 'nontea', 'snack'].map((category) {
-                        //       return DropdownMenuItem(
-                        //         child: Text(category),
-                        //         value: category,
-                        //       );
-                        //     }).toList(),
-                        //     decoration: InputDecoration(
-                        //       hintText: "Select a category",
-                        //       hintStyle: hint,
-                        //       border: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(15),
-                        //         borderSide: BorderSide(color: offColor),
-                        //       ),
-                        //     ),
-                        //   )),
-                        MyTextField(
-                          controller: controller.regularPriceController,
-                          obsecureText: false,
-                          hintText: "Enter the price for regular size",
-                          name: "Regular price",
-                          height: 50,
-                        ),
-                        MyTextField(
-                          controller: controller.largePriceController,
-                          obsecureText: false,
-                          hintText: "Enter the price for large size",
-                          name: "Large price",
-                          height: 50,
-                        ),
-                        Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Description",
-                                style: subTitle,
-                                textAlign: TextAlign.left,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              TextFormField(
-                                controller: controller.descriptionController,
-                                decoration: InputDecoration(
-                                  hintText: "Enter the description",
-                                  hintStyle: hint,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    borderSide: BorderSide(color: offColor),
+                              controller: controller.nameController,
+                              hintText: "Enter the name",
+                              name: "Name",
+                              height: 50,
+                              obsecureText: false,
+                            ),
+                            MyTextField(
+                              controller: controller.categoryController,
+                              hintText: "Enter the category",
+                              name: "Category",
+                              height: 50,
+                              obsecureText: false,
+                            ),
+                            // Obx(() => DropdownButtonFormField<String>(
+                            //     value: controller.selectedCategory.value,
+                            //     onChanged: (newValue) {
+                            //       controller.selectedCategory.value = newValue!;
+                            //     },
+                            //     items: ['tea', 'nontea', 'snack'].map((category) {
+                            //       return DropdownMenuItem(
+                            //         child: Text(category),
+                            //         value: category,
+                            //       );
+                            //     }).toList(),
+                            //     decoration: InputDecoration(
+                            //       hintText: "Select a category",
+                            //       hintStyle: hint,
+                            //       border: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(15),
+                            //         borderSide: BorderSide(color: offColor),
+                            //       ),
+                            //     ),
+                            //   )),
+                            MyTextField(
+                              controller: controller.regularPointController,
+                              obsecureText: false,
+                              hintText: "Enter the point for regular size",
+                              name: "Regular price",
+                              height: 50,
+                            ),
+                            MyTextField(
+                              controller: controller.largePointController,
+                              obsecureText: false,
+                              hintText: "Enter the point for large size",
+                              name: "Large price",
+                              height: 50,
+                            ),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Description",
+                                    style: subTitle,
+                                    textAlign: TextAlign.left,
                                   ),
-                                ),
-                              ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  TextFormField(
+                                    controller:
+                                        controller.descriptionController,
+                                    decoration: InputDecoration(
+                                      hintText: "Enter the description",
+                                      hintStyle: hint,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(color: offColor),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -160,7 +161,7 @@ class EditReward extends GetView<EditRewardController> {
                   text: "Change",
                   onPressed: () {
                     //  error
-                    // controller.editProduct();
+                    controller.editProduct();
                     // Get.toNamed(Routes.NAVBAR + Routes.MENU);
                   },
                   color: primaryColor,

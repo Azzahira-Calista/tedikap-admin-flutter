@@ -26,6 +26,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_page_view.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_list.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
@@ -46,7 +48,7 @@ part 'AppRoutes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVBAR  ;
+  static const INITIAL = Routes.SPLASH1  ;
 
   static final routes = [
     GetPage(
@@ -186,8 +188,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TAMBAH_REWARD,
-      page: () => TambahPromo(),
-      binding: TambahPromoBinding(),
+      page: () => TambahReward(),
+      binding: TambahRewardBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

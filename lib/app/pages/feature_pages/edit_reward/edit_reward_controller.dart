@@ -20,8 +20,8 @@ class EditRewardController extends GetxController {
   late TextEditingController nameController;
   late TextEditingController descriptionController;
   late TextEditingController categoryController;
-  late TextEditingController regularPriceController;
-  late TextEditingController largePriceController;
+  late TextEditingController regularPointController;
+  late TextEditingController largePointController;
 
   // RxString selectedCategory = ''.obs;
 
@@ -50,10 +50,12 @@ class EditRewardController extends GetxController {
     categoryController =
         TextEditingController(text: arguments['category'] ?? '');
     // selectedCategory.value = arguments['category'] ?? '';
-    regularPriceController =
-        TextEditingController(text: arguments['regular_price'].toString());
-    largePriceController =
-        TextEditingController(text: arguments['large_price'].toString());
+    regularPointController =
+        TextEditingController(text: arguments['regular_point'].toString());
+    largePointController =
+        TextEditingController(text: arguments['large_point'].toString());
+    // regularPointController = TextEditingController(text: arguments['regular_point']);
+    // largePointController = TextEditingController(text: arguments['large_point']);
 
     imageUrl = arguments['image'];
   }
@@ -76,8 +78,8 @@ class EditRewardController extends GetxController {
       isLoading.value = true;
 
       // Parse text inputs to integers
-      int regularPrice = int.tryParse(regularPriceController.text) ?? 0;
-      int largePrice = int.tryParse(largePriceController.text) ?? 0;
+      int regularPoint = int.tryParse(regularPointController.text) ?? 0;
+      int largePoint = int.tryParse(largePointController.text) ?? 0;
 
       final response = await rewardService.updateReward(
         id: id,
@@ -85,8 +87,10 @@ class EditRewardController extends GetxController {
         description: descriptionController.text,
         category: categoryController.text,
         // category: selectedCategory.value,
-        regularPrice: regularPrice,
-        largePrice: largePrice,
+        // regularPrice: regularPrice,
+        // largePrice: largePrice,
+        regularPoint: regularPoint,
+        largePoint: largePoint,
         imageFile: null,
       );
 
@@ -95,7 +99,7 @@ class EditRewardController extends GetxController {
       update();
 
       if (response.statusCode == 200) {
-        Get.toNamed(Routes.NAVBAR + Routes.MENU);
+        Get.toNamed(Routes.NAVBAR );
         Get.snackbar("Edit reward", "Reward edited successfully!");
       } else {
         print("Response status code: ${response.statusCode}");

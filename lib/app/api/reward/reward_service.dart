@@ -23,8 +23,8 @@ class RewardService {
   Future<Response> storeReward({
     required String name,
     required String description,
-    required int regularPrice,
-    required int largePrice,
+    required int regularPoint,
+    required int largePoint,
     required String category,
     File? imageFile,
   }) async {
@@ -32,8 +32,8 @@ class RewardService {
       final formData = FormData.fromMap({
         'name': name,
         'description': description,
-        'regular_price': regularPrice,
-        'large_price': largePrice,
+        'regular_point': regularPoint,
+        'large_point': largePoint,
         'category': category,
         if (imageFile != null)
           'image': await MultipartFile.fromFile(imageFile.path, filename: imageFile.path),
@@ -53,27 +53,30 @@ class RewardService {
 
   Future<Response> updateReward({
     int? id,
-    String? name,
-    String? description,
-    int? regularPrice,
-    int? largePrice,
-    String? category,
+    required String name,
+    required String description,
+    int? regularPoint,
+    int? largePoint,
+    required String category,
     File? imageFile,
   }) async {
     try {
       final formData = FormData.fromMap({
         if (id != null) 'id': id,
-        if (name != null) 'name': name,
-        if (description != null) 'description': description,
-        if (regularPrice != null) 'regular_price': regularPrice,
-        if (largePrice != null) 'large_price': largePrice,
-        if (category != null) 'category': category,
+        // if (name != null) 'name': name,
+        'name': name,
+        // if (description != null) 'description': description,
+        'description': description,
+        if (regularPoint != null) 'regular_point': regularPoint,
+        if (largePoint != null) 'large_point': largePoint,
+        // if (category != null) 'category': category,
+        'category': category,
         if (imageFile != null)
           'image': await MultipartFile.fromFile(imageFile.path, filename: imageFile.path),
       });
 
       final response = await _dioInstance.postRequest(
-        endpoint: '${ApiEndpoint.reward}/update',
+        endpoint: '${ApiEndpoint.reward}/update/$id',
         data: formData,
         isAuthorize: true,
       );

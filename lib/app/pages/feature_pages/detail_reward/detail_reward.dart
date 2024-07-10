@@ -12,9 +12,21 @@ class DetailReward extends GetView<DetailRewardController> {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
+
+    if (arguments == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("Error"),
+        ),
+        body: Center(
+          child: Text("No arguments provided"),
+        ),
+      );
+    }
+
     final String name = arguments['name'];
-    final int regular_price = arguments['regular_price'];
-    final int large_price = arguments['large_price'];
+    final int regular_point = arguments['regular_point'];
+    final int large_point = arguments['large_point'];
     final String description =
         arguments['description'] ?? 'No description available';
     final String image = arguments['image'];
@@ -35,8 +47,8 @@ class DetailReward extends GetView<DetailRewardController> {
               Get.toNamed(Routes.EDIT_REWARD, arguments: {
                 'id': id,
                 'name': name,
-                'regular_price': regular_price,
-                'large_price': large_price,
+                'regular_point': regular_point,
+                'large_point': large_point,
                 'image': image,
                 'description': description,
               });
@@ -136,12 +148,18 @@ class DetailReward extends GetView<DetailRewardController> {
                                   Row(
                                     children: [
                                       Text(
-                                        "Rp",
-                                        style: normalTextPrimary,
+                                        regular_point.toString(),
+                                        // regular_point,
+                                        style: cardText,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.02,
                                       ),
                                       Text(
-                                        regular_price.toString(),
-                                        style: cardText,
+                                        "(Point)",
+                                        style: normalTextPrimary,
                                       ),
                                     ],
                                   ),
@@ -155,12 +173,18 @@ class DetailReward extends GetView<DetailRewardController> {
                                   Row(
                                     children: [
                                       Text(
-                                        "Rp",
-                                        style: normalTextPrimary,
+                                        large_point.toString(),
+                                        // large_point,
+                                        style: cardText,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.02,
                                       ),
                                       Text(
-                                        large_price.toString(),
-                                        style: cardText,
+                                        "(Point)",
+                                        style: normalTextPrimary,
                                       ),
                                     ],
                                   ),

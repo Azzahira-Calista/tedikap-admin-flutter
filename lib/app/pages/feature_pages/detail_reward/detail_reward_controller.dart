@@ -52,7 +52,7 @@ class DetailRewardController extends GetxController {
       print("Response: $response");
 
       isLoading.value = false;
-      Get.snackbar("Delete product", "Product deleted successfully!");
+      Get.snackbar("Delete reward product", "Product deleted successfully!");
       Get.toNamed(Routes.NAVBAR + Routes.MENU);
     } catch (e) {
       isLoading.value = false;

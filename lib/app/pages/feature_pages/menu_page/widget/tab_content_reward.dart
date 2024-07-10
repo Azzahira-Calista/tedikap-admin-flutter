@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_controller.dart';
@@ -7,7 +9,6 @@ import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_rewa
 import '../../../../../common/themes.dart';
 import '../../../../../routes/AppPages.dart';
 import '../../../global_components/button.dart';
-import '../menu_controller.dart';
 import 'menu_filter.dart';
 
 class MenuRewardTabContent extends GetView<RewardController> {
@@ -23,7 +24,9 @@ class MenuRewardTabContent extends GetView<RewardController> {
           child: Column(
             children: [
               MenuFilter(),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Obx(() {
                 if (controller.isLoading.value) {
                   return Center(child: CircularProgressIndicator());
@@ -42,14 +45,15 @@ class MenuRewardTabContent extends GetView<RewardController> {
                           childAspectRatio: 1.4,
                         ),
                         delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                            final reward = controller.rewardResponseModel[index];
+                          (BuildContext context, int index) {
+                            final reward =
+                                controller.rewardResponseModel[index];
                             return ItemWidgetReward(
                               id: reward.id!,
                               description: reward.description!,
                               name: reward.name!,
-                              regular_price: reward.regularPrice!,
-                              large_price: reward.largePrice!,
+                              regular_point: reward.regularPoint!,
+                              large_point: reward.largePoint!,
                               image: reward.image!,
                             );
                           },
@@ -64,7 +68,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
               myButton(
                 text: 'Tambah menu',
                 onPressed: () {
-                  Get.toNamed(Routes.TAMBAH_MENU);
+                  Get.toNamed(Routes.TAMBAH_REWARD);
                 },
                 color: primaryColor,
                 textColor: white,
@@ -76,4 +80,3 @@ class MenuRewardTabContent extends GetView<RewardController> {
     );
   }
 }
-

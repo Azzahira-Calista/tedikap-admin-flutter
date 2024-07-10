@@ -10,19 +10,19 @@ import '../../../../../routes/AppPages.dart';
 
 // ignore: must_be_immutable
 class ItemWidgetReward extends GetView<RewardController> {
-  RewardController controller = Get.put(RewardController());
+  final RewardController controller = Get.put(RewardController());
 
   final String description;
   final String name;
-  final int regular_price;
-  final int large_price;
+  final int regular_point;
+  final int large_point;
   final String image;
   final int id;
 
   ItemWidgetReward({
     required this.name,
-    required this.regular_price,
-    required this.large_price,
+    required this.regular_point,
+    required this.large_point,
     required this.image,
     required this.id,
     required this.description,
@@ -46,8 +46,8 @@ class ItemWidgetReward extends GetView<RewardController> {
                 'id': id,
                 'name': name,
                 // 'price': int.parse(price.toString()),
-                'regular_price': regular_price,
-                'large_price': large_price,
+                'regular_point': regular_point,
+                'large_point': large_point,
                 'image': image,
                 'description': description,
               });
@@ -131,7 +131,8 @@ class ItemWidgetReward extends GetView<RewardController> {
                             width: 5,
                           ),
                           Text(
-                            regular_price.toString(),
+                             regular_point.toString(),
+                            
                             style: cardTitle,
                           ),
                           // Text("/"),
@@ -153,7 +154,8 @@ class ItemWidgetReward extends GetView<RewardController> {
                             width: 5,
                           ),
                           Text(
-                            large_price.toString(),
+                            large_point.toString(),
+                            
                             style: cardTitle,
                           )
                         ],
@@ -172,8 +174,8 @@ class ItemWidgetReward extends GetView<RewardController> {
               Get.toNamed(Routes.EDIT_REWARD, arguments: {
                 'id': id,
                 'name': name,
-                'regular_price': regular_price,
-                'large_price': large_price,
+                'regular_point': regular_point,
+                'large_point': large_point,
                 'image': image,
                 'description': description,
               });
