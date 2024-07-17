@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/api/promo/promo_service.dart';
 import 'package:tedikap_admin/app/data/model/promo/promo_response.dart';
@@ -42,7 +41,7 @@ class TambahPromoController extends GetxController {
     }
   }
 
-  Future<dio.Response> addPromo() async {
+  Future<void> addPromo() async {
     try {
       isLoading.value = true;
 
@@ -67,7 +66,7 @@ class TambahPromoController extends GetxController {
       } else {
         Get.snackbar("Error", "Failed to add product");
       }
-      return response;
+
     } catch (e) {
       throw Exception(e);
     } finally {

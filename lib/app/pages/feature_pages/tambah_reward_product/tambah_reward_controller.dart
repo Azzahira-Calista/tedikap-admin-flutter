@@ -7,24 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tedikap_admin/app/api/product/product_service.dart';
-import 'package:tedikap_admin/app/data/model/product/data_model.dart';
+import 'package:tedikap_admin/app/api/reward/reward_service.dart';
+import 'package:tedikap_admin/app/data/model/reward/reward_model.dart';
+
 import 'package:tedikap_admin/routes/AppPages.dart';
-import 'dart:io' as i;
 
 import '../../../data/model/product/product_response.dart';
 
-class TambahMenuController extends GetxController {
+class TambahRewardController extends GetxController {
   RxString imagePath = ''.obs;
-  ProductService productService = ProductService();
+  RewardService rewardService = RewardService();
   late ProductResponse productResponse;
   var productResponseModel = <Data>[].obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController largePriceController = TextEditingController();
-  TextEditingController regularPriceController = TextEditingController();
+  TextEditingController largePointController = TextEditingController();
+  TextEditingController regularPointController = TextEditingController();
 
   RxBool isLoading = false.obs;
 
@@ -51,15 +51,15 @@ class TambahMenuController extends GetxController {
       isLoading.value = true;
 
        // Parse text inputs to integers
-    int regularPrice = int.tryParse(regularPriceController.text) ?? 0;
-    int largePrice = int.tryParse(largePriceController.text) ?? 0;
+    int regularPoint = int.tryParse(regularPointController.text) ?? 0;
+    int largePoint = int.tryParse(largePointController.text) ?? 0;
 
-      final response = await productService.storeProduct(
+      final response = await rewardService.storeReward(
         name: nameController.text,
         description: descriptionController.text,
         category: categoryController.text,
-        regularPrice: regularPrice,
-        largePrice: largePrice,
+        regularPoint: regularPoint,
+        largePoint: largePoint,
         imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
       );
 
@@ -73,9 +73,9 @@ class TambahMenuController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.toNamed(Routes.NAVBAR + Routes.MENU);
-        Get.snackbar("Add product", "Product added successfully!");
+        Get.snackbar("Add reward product", "Reward added successfully!");
       } else {
-        Get.snackbar("Error", "Failed to add product");
+        Get.snackbar("Error", "Failed to add reward");
       }
 
       return response;

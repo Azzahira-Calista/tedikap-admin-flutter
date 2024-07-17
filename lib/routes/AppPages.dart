@@ -5,12 +5,18 @@ import 'package:tedikap_admin/app/pages/feature_pages/chat_page/chat_binding.dar
 import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/detail_menu/detail_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/detail_menu/detail_menu_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/detail_reward/detail_reward.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/detail_reward/detail_reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/order_status_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu_binding.dart';
@@ -20,6 +26,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_page_view.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_list.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
@@ -40,7 +48,7 @@ part 'AppRoutes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVBAR  ;
+  static const INITIAL = Routes.SPLASH1  ;
 
   static final routes = [
     GetPage(
@@ -157,6 +165,31 @@ class AppPages {
       name: _Paths.DETAIL_MENU,
       page: () => DetailMenu(),
       binding: DetailMenuBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(name: _Paths.REWARD,
+     page: ()=> MenuRewardTabContent(),
+     binding: RewardBinding(),
+     ),
+     GetPage(
+      name: _Paths.DETAIL_REWARD,
+      page: () => DetailReward(),
+      binding: DetailRewardBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.EDIT_REWARD,
+      page: () => EditReward(),
+      binding: EditRewardBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_REWARD,
+      page: () => TambahReward(),
+      binding: TambahRewardBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

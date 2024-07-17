@@ -21,6 +21,10 @@ abstract class Routes {
   static const EDIT_PROMO = _Paths.EDIT_PROMO;
   static const EDIT_MENU = _Paths.EDIT_MENU;
   static const DETAIL_MENU = _Paths.DETAIL_MENU;
+  static const REWARD = _Paths.REWARD;
+  static const DETAIL_REWARD = _Paths.DETAIL_REWARD;
+  static const EDIT_REWARD = _Paths.EDIT_REWARD;
+  static const TAMBAH_REWARD = _Paths.TAMBAH_REWARD;
 }
 
 abstract class _Paths {
@@ -41,4 +45,8 @@ abstract class _Paths {
   static const PROMO_VIEW = '/promo-view';
   static const EDIT_PROMO = '/edit-promo';
   static const EDIT_MENU = '/edit-menu';
-  static const DETAIL_MENU = '/detail-menu/:id';}
+  static const DETAIL_MENU = '/detail-menu/:id';
+  static const REWARD = '/reward';
+  static const DETAIL_REWARD = '/detail-reward/:id';
+  static const EDIT_REWARD = '/edit-reward';
+  static const TAMBAH_REWARD = '/tambah-reward';}

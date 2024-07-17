@@ -78,8 +78,8 @@ class ProductService {
     required String name,
     required String description,
     required String category,
-    required String regularPrice,
-    required String largePrice,
+    required int regularPrice,
+    required int largePrice,
     File? imageFile,
   }) async {
     try {
@@ -111,8 +111,8 @@ class ProductService {
     String? name,
     String? description,
     String? category,
-    String? regularPrice,
-    String? largePrice,
+    int? regularPrice,
+    int? largePrice,
     File? imageFile,
   }) async {
     try {
@@ -145,6 +145,22 @@ class ProductService {
         endpoint: '${ApiEndpoint.product}/delete/$id',
         isAuthorize: true,
       );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> getFilterProduct({required String query}) async {
+    try {
+      final response = await _dioInstance.getRequest(
+          endpoint: '${ApiEndpoint.filter}/product/',
+          queryParameters: {
+            'category': query
+          },
+          isAuthorize: true
+      );
+
       return response;
     } catch (e) {
       throw Exception(e);

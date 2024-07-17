@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_controller.dart';
 
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 import '../../../../../routes/AppPages.dart';
 
-class ItemWidget extends GetView<MenusController> {
+// ignore: must_be_immutable
+class ItemWidgetReward extends GetView<RewardController> {
+  final RewardController controller = Get.put(RewardController());
+
   final String description;
   final String name;
-  final int regular_price;
-  final int large_price;
+  final int regular_point;
+  final int large_point;
   final String image;
   final int id;
 
-  ItemWidget({
+  ItemWidgetReward({
     required this.name,
-    required this.regular_price,
-    required this.large_price,
+    required this.regular_point,
+    required this.large_point,
     required this.image,
     required this.id,
     required this.description,
@@ -39,12 +42,12 @@ class ItemWidget extends GetView<MenusController> {
         children: [
           InkWell(
             onTap: () {
-              Get.toNamed(Routes.DETAIL_MENU, arguments: {
+              Get.toNamed(Routes.DETAIL_REWARD, arguments: {
                 'id': id,
                 'name': name,
                 // 'price': int.parse(price.toString()),
-                'regular_price': regular_price,
-                'large_price': large_price,
+                'regular_point': regular_point,
+                'large_point': large_point,
                 'image': image,
                 'description': description,
               });
@@ -63,7 +66,7 @@ class ItemWidget extends GetView<MenusController> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(
-                                      "https://tedikap-api.rplrus.com/storage/product/$image")
+                                      "https://tedikap-api.rplrus.com/storage/reward-product/$image")
                                   as ImageProvider,
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(15),
@@ -128,9 +131,15 @@ class ItemWidget extends GetView<MenusController> {
                             width: 5,
                           ),
                           Text(
-                            regular_price.toString(),
+                             regular_point.toString(),
+                            
                             style: cardTitle,
                           ),
+                          // Text("/"),
+                          // Text(
+                          //   large_price.toString(),
+                          //   style: cardTitle,
+                          // ),
                         ],
                       ),
                       Row(
@@ -145,7 +154,8 @@ class ItemWidget extends GetView<MenusController> {
                             width: 5,
                           ),
                           Text(
-                            large_price.toString(),
+                            large_point.toString(),
+                            
                             style: cardTitle,
                           )
                         ],
@@ -161,11 +171,11 @@ class ItemWidget extends GetView<MenusController> {
           ),
           InkWell(
             onTap: () {
-              Get.toNamed(Routes.EDIT_MENU, arguments: {
+              Get.toNamed(Routes.EDIT_REWARD, arguments: {
                 'id': id,
                 'name': name,
-                'regular_price': regular_price,
-                'large_price': large_price,
+                'regular_point': regular_point,
+                'large_point': large_point,
                 'image': image,
                 'description': description,
               });
