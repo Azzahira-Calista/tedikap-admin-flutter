@@ -7,17 +7,17 @@ class SalesGrafic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.sizeOf(context).height * 0.25,
+        height: MediaQuery.sizeOf(context).height * 0.35,
         width: MediaQuery.sizeOf(context).width * 0.898,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: darkGrey)),
         child: SfCartesianChart(
           primaryXAxis: CategoryAxis(),
-          title: ChartTitle(
-            text: "Inventory Data - Today",
-            textStyle: subTitle,
-          ),
+          // title: ChartTitle(
+          //   text: "Inventory Data - Today",
+          //   textStyle: subTitle,
+          // ),
           tooltipBehavior: TooltipBehavior(enable: true),
           series: <ColumnSeries<salesData, double>>[
             ColumnSeries<salesData, double>(
