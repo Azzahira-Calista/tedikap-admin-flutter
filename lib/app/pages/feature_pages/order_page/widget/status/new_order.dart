@@ -25,7 +25,7 @@ class NewOrder extends StatelessWidget {
               shrinkWrap: true,
               itemCount: 2,
               itemBuilder: (BuildContext context, int index) {
-                return OrderCard();
+                // return OrderCard();
               },
             ),
           ),

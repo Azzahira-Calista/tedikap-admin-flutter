@@ -12,7 +12,7 @@ class PromoService {
   Future<Response> getPromo() async {
     try {
       final response = await _dioInstance.getRequest(
-        endpoint: ApiEndpoint.promo,
+        endpoint: ApiEndpoint.voucher,
         isAuthorize: true,
       );
 
@@ -44,7 +44,7 @@ class PromoService {
       });
 
       final response = await _dioInstance.postRequest(
-        endpoint: '${ApiEndpoint.promo}/store',
+        endpoint: '${ApiEndpoint.voucher}/store',
         data: formData,
         isAuthorize: true,
       );
@@ -78,7 +78,7 @@ class PromoService {
     });
 
     final response = await _dioInstance.postRequest(
-      endpoint: '${ApiEndpoint.promo}/update/$id',
+      endpoint: '${ApiEndpoint.voucher}/update/$id',
       data: formData,
       isAuthorize: true,
     );
@@ -93,7 +93,7 @@ class PromoService {
   Future<Response> deletePromo(int id) async {
     try {
       final response = await _dioInstance.deleteRequest(
-        endpoint: '${ApiEndpoint.promo}/delete/$id',
+        endpoint: '${ApiEndpoint.voucher}/delete/$id',
         isAuthorize: true,
       );
 

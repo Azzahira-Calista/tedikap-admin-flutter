@@ -12,6 +12,17 @@ class DetailMenu extends GetView<DetailMenuController> {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
+
+    if (arguments == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("Error"),
+        ),
+        body: Center(
+          child: Text("No arguments provided"),
+        ),
+      );
+    }
     final String name = arguments['name'];
     final int regular_price = arguments['regular_price'];
     final int large_price = arguments['large_price'];
@@ -19,7 +30,6 @@ class DetailMenu extends GetView<DetailMenuController> {
         arguments['description'] ?? 'No description available';
     final String image = arguments['image'];
     final int id = arguments['id'];
-
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +50,6 @@ class DetailMenu extends GetView<DetailMenuController> {
                 'large_price': large_price,
                 'image': image,
                 'description': description,
-              
               });
             },
             child: Container(
