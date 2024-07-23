@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/common/themes.dart';
@@ -22,9 +23,19 @@ class AppBarHome extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.sizeOf(context).width * 0.05,
               ),
-              Text(
-                "Selamat datang, Admin",
-                style: appBarText,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Hello 👋🏻",
+                    style: appBarText,
+                  ),
+                  Text(
+                    "Admin Tedikap",
+                    style: normalText,
+                  ),
+                ],
               ),
             ],
           ),

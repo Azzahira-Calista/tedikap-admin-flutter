@@ -48,6 +48,7 @@ dependencies:
   image_picker:
   path: ^1.8.0
   chips_choice: ^3.0.1
+  sliding_up_panel: 
 
 dev_dependencies:
   flutter_test:
