@@ -1,14 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
+import 'package:tedikap_admin/routes/AppPages.dart';
 
-class OrderCard extends StatelessWidget {
-  const OrderCard({super.key});
+import '../../../../data/model/order/order_item_model.dart';
+
+class OrderCard extends GetView<OrderController> {
+  // const OrderCard({super.key});
+
+  final String id;
+  final int userId;
+  final int cartId;
+  final int? voucherId;
+  final int totalPrice;
+  final int discountAmount;
+  final int rewardPoint;
+  final int originalPrice;
+  final String status;
+  final String paymentChannel;
+  final String createdAt;
+  final String updatedAt;
+  final String schedulePickup;
+  final List<OrderItems>? orderItems;
+
+  OrderCard({
+    required this.id,
+    required this.userId,
+    required this.cartId,
+    this.voucherId,
+    required this.totalPrice,
+    required this.discountAmount,
+    required this.rewardPoint,
+    required this.originalPrice,
+    required this.status,
+    required this.paymentChannel,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.schedulePickup,
+    this.orderItems,
+  });
 
   @override
   Widget build(BuildContext context) {
+    int totalQuantity = (orderItems?.isNotEmpty ?? false)
+        ? orderItems!.fold<int>(0, (sum, item) => sum + (item.quantity ?? 0))
+        : 0;
+
     return Container(
       height: 200,
       margin: EdgeInsets.only(bottom: 20),
@@ -49,7 +89,7 @@ class OrderCard extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  "Yasa kafi",
+                  "User's name",
                   style: cardText.copyWith(color: white),
                 )
               ],
@@ -78,7 +118,7 @@ class OrderCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Text("5 minutes ago",
+                    Text(status,
                         style: smallText.copyWith(
                             color: offColor, fontWeight: FontWeight.w700)),
                   ],
@@ -94,7 +134,9 @@ class OrderCard extends StatelessWidget {
                       Container(
                           width: 180,
                           child: Text(
-                            "Original tea, Chocolate Hazelnut",
+                            orderItems!
+                                .map((item) => item.productName)
+                                .join(", "),
                             style: normalText,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -104,7 +146,7 @@ class OrderCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("2 items",
+                          Text(totalQuantity.toString() + " items",
                               style: smallText.copyWith(
                                   color: offColor,
                                   fontWeight: FontWeight.w500)),
@@ -114,7 +156,7 @@ class OrderCard extends StatelessWidget {
                                   style: smallText.copyWith(
                                       color: offColor,
                                       fontWeight: FontWeight.w500)),
-                              Text("Rp 50.000",
+                              Text(totalPrice.toString(),
                                   style: smallText.copyWith(
                                       color: offColor,
                                       fontWeight: FontWeight.w700)),
@@ -129,7 +171,22 @@ class OrderCard extends StatelessWidget {
                           height: 30,
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.toNamed("/order-status");
+                              Get.toNamed(Routes.ORDER_STATUS, arguments: {
+                              'id': id,
+                              'userId': userId,
+                              'cartId': cartId,
+                              'voucherId': voucherId,
+                              'totalPrice': totalPrice,
+                              'discountAmount': discountAmount,
+                              'rewardPoint': rewardPoint,
+                              'originalPrice': originalPrice,
+                              'status': status,
+                              'paymentChannel': paymentChannel,
+                              'createdAt': createdAt,
+                              'updatedAt': updatedAt,
+                              'schedulePickup': schedulePickup,
+                              'orderItems': orderItems,
+                              });
                             },
                             child: Center(
                               child: Text("Detail Pesanan",

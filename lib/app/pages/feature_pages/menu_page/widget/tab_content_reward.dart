@@ -13,8 +13,11 @@ import 'menu_filter.dart';
 
 class MenuRewardTabContent extends GetView<RewardController> {
   RewardController controller = Get.put(RewardController());
+
   @override
   Widget build(BuildContext context) {
+    // controller.getReward();
+
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.all(20),
@@ -24,9 +27,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
           child: Column(
             children: [
               MenuFilter(),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Obx(() {
                 if (controller.isLoading.value) {
                   return Center(child: CircularProgressIndicator());
@@ -46,8 +47,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            final reward =
-                                controller.rewardResponseModel[index];
+                            final reward = controller.rewardResponseModel[index];
                             return ItemWidgetReward(
                               id: reward.id!,
                               description: reward.description!,
@@ -67,8 +67,10 @@ class MenuRewardTabContent extends GetView<RewardController> {
               SizedBox(height: 30),
               myButton(
                 text: 'Tambah menu',
-                onPressed: () {
-                  Get.toNamed(Routes.TAMBAH_REWARD);
+                onPressed: () async {
+                  await Get.toNamed(Routes.TAMBAH_REWARD);
+                  // Refresh data when coming back from add reward page
+                  controller.getReward();
                 },
                 color: primaryColor,
                 textColor: white,
@@ -80,3 +82,4 @@ class MenuRewardTabContent extends GetView<RewardController> {
     );
   }
 }
+

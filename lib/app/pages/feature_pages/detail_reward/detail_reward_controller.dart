@@ -32,6 +32,13 @@ class DetailRewardController extends GetxController {
     }
   }
 
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    loadData();
+  }
+
   void loadData() async {
     isLoading.value = true;
     try {

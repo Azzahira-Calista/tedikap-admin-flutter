@@ -160,7 +160,7 @@ class EditMenu extends GetView<EditMenuController> {
                   text: "Change",
                   onPressed: () {
                     //  error
-                    // controller.editProduct();
+                    controller.editProduct();
                     // Get.toNamed(Routes.NAVBAR + Routes.MENU);
                   },
                   color: primaryColor,

@@ -52,6 +52,7 @@ class DetailReward extends GetView<DetailRewardController> {
                 'image': image,
                 'description': description,
               });
+              controller.loadData();
             },
             child: Container(
               decoration: BoxDecoration(

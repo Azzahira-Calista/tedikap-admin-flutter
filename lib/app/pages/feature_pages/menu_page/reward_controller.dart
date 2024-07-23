@@ -25,6 +25,11 @@ class RewardController extends GetxController {
     getReward();
   }
 
+@override
+  void onReady() {
+    super.onReady();
+    getReward();
+  }
   Future<void> getReward() async {
     try {
       isLoading.value = true;
