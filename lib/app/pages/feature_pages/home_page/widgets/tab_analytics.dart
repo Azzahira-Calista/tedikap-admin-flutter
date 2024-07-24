@@ -18,58 +18,7 @@ class AnalyticsTab extends StatelessWidget {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.02,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Summary',
-                  style: subTitle,
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  height: 25,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: offColor)),
-                  child: GetX<HomeController>(
-                    builder: (controller) {
-                      return DropdownButton<String>(
-                        icon: Icon(Icons.keyboard_arrow_down),
-                        iconSize: 15,
-                        style: smallText,
-                        onChanged: (String? value) {
-                          if (value != null) {
-                            controller.changeRange(value);
-                          }
-                        },
-                        hint: Text(
-                          controller.selectedRange.value,
-                          style: smallText,
-                        ),
-                        underline: Container(),
-                        items: [
-                          DropdownMenuItem<String>(
-                            value: 'Today',
-                            child: Text('Today'),
-                          ),
-                          DropdownMenuItem<String>(
-                            value: 'This Week',
-                            child: Text('This Week'),
-                          ),
-                          DropdownMenuItem<String>(
-                            value: 'This Month',
-                            child: Text('This Month'),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.02,
-            ),
+            
             SalesGrafic(),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.02,
