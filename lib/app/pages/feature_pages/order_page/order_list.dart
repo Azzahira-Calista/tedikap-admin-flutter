@@ -5,6 +5,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/n
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/processed_order.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/taken_order.dart';
 import 'package:tedikap_admin/common/themes.dart';
+import 'package:tedikap_admin/routes/AppPages.dart';
 
 class OrderList extends GetView<OrderController> {
   final List<String> items = [
@@ -20,12 +21,20 @@ class OrderList extends GetView<OrderController> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.arrow_back_ios),
-          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.HISTORY_PAGE);
+                },
+                icon: Icon(Icons.history))
+          ],
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Get.back();
+          //   },
+          //   icon: Icon(Icons.arrow_back_ios),
+          // ),
+          automaticallyImplyLeading: false,
           title: Text(
             "Order List",
             style: appBarText,
