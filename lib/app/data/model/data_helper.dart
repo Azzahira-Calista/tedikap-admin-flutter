@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class DataHelper {
   static T parseJson<T>(dynamic json, T Function(Map<String, dynamic>) fromJson) {
