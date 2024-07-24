@@ -25,6 +25,7 @@ abstract class Routes {
   static const DETAIL_REWARD = _Paths.DETAIL_REWARD;
   static const EDIT_REWARD = _Paths.EDIT_REWARD;
   static const TAMBAH_REWARD = _Paths.TAMBAH_REWARD;
+  static const HISTORY_PAGE = _Paths.HISTORY_PAGE;
 }
 
 abstract class _Paths {
@@ -49,4 +50,6 @@ abstract class _Paths {
   static const REWARD = '/reward';
   static const DETAIL_REWARD = '/detail-reward/:id';
   static const EDIT_REWARD = '/edit-reward';
-  static const TAMBAH_REWARD = '/tambah-reward';}
+  static const TAMBAH_REWARD = '/tambah-reward';
+  static const HISTORY_PAGE = '/history-page';
+}

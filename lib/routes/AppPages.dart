@@ -13,6 +13,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward.da
 import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/history%20page/history_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/history%20page/history_page.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_binding.dart';
@@ -48,13 +50,19 @@ part 'AppRoutes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVBAR  ;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
       name: _Paths.NAVBAR,
       page: () => MyNavBar(),
-      bindings: [NavBarBinding(), MenuBinding(), HomeBinding(), ChatBinding()],
+      bindings: [
+        NavBarBinding(),
+        MenuBinding(),
+        HomeBinding(),
+        OrderBinding(),
+        PromoBinding()
+      ],
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
@@ -168,11 +176,12 @@ class AppPages {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
-    GetPage(name: _Paths.REWARD,
-     page: ()=> MenuRewardTabContent(),
-     binding: RewardBinding(),
-     ),
-     GetPage(
+    GetPage(
+      name: _Paths.REWARD,
+      page: () => MenuRewardTabContent(),
+      binding: RewardBinding(),
+    ),
+    GetPage(
       name: _Paths.DETAIL_REWARD,
       page: () => DetailReward(),
       binding: DetailRewardBinding(),
@@ -193,5 +202,12 @@ class AppPages {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
+    GetPage(
+      name: _Paths.HISTORY_PAGE,
+      page: () => HistoryPage(),
+      binding: HistoryBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    )
   ];
 }
