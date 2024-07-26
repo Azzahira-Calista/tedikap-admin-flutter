@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/taken_order.dart';
+import 'package:tedikap_admin/app/data/model/order/order_model.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_taken_order.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/order_status_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_2.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_1.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_3.dart';
 import '../../../data/model/order/order_item_model.dart';
+import '../../../data/model/order/order_reward_item.dart';
 
 class OrderStatus extends GetView<OrderStatusController> {
   const OrderStatus({super.key});
@@ -43,6 +45,8 @@ class OrderStatus extends GetView<OrderStatusController> {
     final String? id = arguments['id'];
     final int? userId = arguments['userId'];
     final int? cartId = arguments['cartId'];
+    final String? name = arguments['name'];
+    final String? avatar = arguments['avatar'];
     final int? voucherId = arguments['voucherId'];
     final int? totalPrice = arguments['totalPrice'];
     final int? discountAmount = arguments['discountAmount'];
@@ -53,6 +57,8 @@ class OrderStatus extends GetView<OrderStatusController> {
     final String? schedulePickup = arguments['schedulePickup'];
     final List<OrderItems>? orderItems = arguments['orderItems'];
     final String? paymentChannel = arguments['paymentChannel'];
+    final List<OrderRewardItems>? orderRewardItems =
+        arguments['orderRewardItems'];
 
     return Scaffold(
       appBar: AppBar(
@@ -77,6 +83,8 @@ class OrderStatus extends GetView<OrderStatusController> {
                 id: id,
                 userId: userId,
                 cartId: cartId,
+                name: name!,
+                avatar: avatar!,
                 voucherId: voucherId,
                 totalPrice: totalPrice,
                 discountAmount: discountAmount,
@@ -87,9 +95,10 @@ class OrderStatus extends GetView<OrderStatusController> {
                 schedulePickup: schedulePickup,
                 orderItems: orderItems,
                 paymentChannel: paymentChannel,
+                orderRewardItems: orderRewardItems,
               ),
             ),
-            Text(status ?? 'No status'),
+            // Text(status ?? 'No status'),
           ],
         ),
       ),
@@ -101,7 +110,9 @@ class OrderStatus extends GetView<OrderStatusController> {
     required String? id,
     required int? userId,
     required int? cartId,
-    required int? voucherId,
+    int? voucherId,
+    required String name,
+    required String avatar,
     required int? totalPrice,
     required int? discountAmount,
     required int? rewardPoint,
@@ -109,7 +120,8 @@ class OrderStatus extends GetView<OrderStatusController> {
     required String? createdAt,
     required String? updatedAt,
     required String? schedulePickup,
-    required List<OrderItems>? orderItems,
+    List<OrderItems>? orderItems,
+    List<OrderRewardItems>? orderRewardItems,
     required String? paymentChannel,
   }) {
     if (status == null) {
@@ -118,17 +130,13 @@ class OrderStatus extends GetView<OrderStatusController> {
 
     switch (status) {
       case "menunggu konfirmasi":
-        return NewOrderStatus();
-      case "pesanan diproses":
-        return ProcessedOrderStatus();
-      case "pesanan siap diambil":
-      case "pesanan selesai":
-      case "menunggu pembayaran":
-        return TakenOrderStatus(
+        return NewOrderStatus(
           id: id!,
           userId: userId!,
           cartId: cartId!,
-          voucherId: voucherId, 
+          name: "name",
+          avatar: "avatar",
+          voucherId: voucherId,
           totalPrice: totalPrice!,
           discountAmount: discountAmount!,
           rewardPoint: rewardPoint!,
@@ -138,11 +146,51 @@ class OrderStatus extends GetView<OrderStatusController> {
           createdAt: createdAt!,
           updatedAt: updatedAt!,
           schedulePickup: schedulePickup!,
-          orderItems: orderItems!,
+          orderItems: orderItems,
+          orderRewardItems: orderRewardItems,
+        );
+      case "pesanan diproses":
+        return ProcessedOrderStatus(
+          id: id!,
+          userId: userId!,
+          cartId: cartId!,
+          name: "name",
+          avatar: "avatar",
+          voucherId: voucherId,
+          totalPrice: totalPrice!,
+          discountAmount: discountAmount!,
+          rewardPoint: rewardPoint!,
+          originalPrice: originalPrice!,
+          status: status,
+          paymentChannel: paymentChannel!,
+          createdAt: createdAt!,
+          updatedAt: updatedAt!,
+          schedulePickup: schedulePickup!,
+          orderItems: orderItems,
+          orderRewardItems: orderRewardItems,
+        );
+      case "pesanan siap diambil":
+        return TakenOrderStatus(
+          id: id!,
+          userId: userId!,
+          cartId: cartId!,
+          name: "name",
+          avatar: "avatar",
+          voucherId: voucherId,
+          totalPrice: totalPrice!,
+          discountAmount: discountAmount!,
+          rewardPoint: rewardPoint!,
+          originalPrice: originalPrice!,
+          status: status,
+          paymentChannel: paymentChannel!,
+          createdAt: createdAt!,
+          updatedAt: updatedAt!,
+          schedulePickup: schedulePickup!,
+          orderItems: orderItems,
+          orderRewardItems: orderRewardItems,
         );
       default:
         return Center(child: Text("Unknown status"));
     }
   }
 }
-
