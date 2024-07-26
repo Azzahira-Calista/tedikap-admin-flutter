@@ -21,25 +21,25 @@ class HistoryController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     orderService = OrderService();
-    getHistoryOrder();
+    // getHistoryOrder();
   }
 
-  Future<void> getHistoryOrder() async {
-    try {
-      isLoading.value = true;
+  // Future<void> getHistoryOrder() async {
+  //   try {
+  //     isLoading.value = true;
 
-      final response = await orderService.getHistoryOrders();
+  //     final response = await orderService.getHistoryOrders();
 
-      print("API Response: ${response.data}");
+  //     print("API Response: ${response.data}");
 
-      OrderResponse orderResponse = OrderResponse.fromJson(response.data);
-      orderResponseModel.value = orderResponse.orders ?? [];
+  //     OrderResponse orderResponse = OrderResponse.fromJson(response.data);
+  //     orderResponseModel.value = orderResponse.orders ?? [];
 
-      print("Order Response Model: ${orderResponseModel}");
-    } catch (e) {
-      print("Error: $e");
-    } finally {
-      isLoading.value = false;
-    }
-  }
+  //     print("Order Response Model: ${orderResponseModel}");
+  //   } catch (e) {
+  //     print("Error: $e");
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 }

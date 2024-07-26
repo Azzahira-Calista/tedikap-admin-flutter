@@ -37,7 +37,13 @@ class PanelOrder extends StatelessWidget {
           ),
           Container(
             child: Obx(() {
-              if (controller.orderResponseModel.isEmpty) {
+              if (controller.isLoading.value) {
+                return Center(
+                  heightFactor: 5,
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (controller.newOrderResponseModel.isEmpty) {
                 return Center(
                   heightFactor: 5,
                   child: Text(
@@ -46,29 +52,35 @@ class PanelOrder extends StatelessWidget {
                   ),
                 );
               } else {
-                return ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: controller.orderResponseModel.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final order = controller.orderResponseModel[index];
-                    return OrderCard(
-                      id: order.id ?? 'N/A',
-                      userId: order.userId ?? 0,
-                      cartId: order.cartId ?? 0,
-                      voucherId: order.voucherId,
-                      totalPrice: order.totalPrice ?? 0,
-                      discountAmount: order.discountAmount ?? 0,
-                      rewardPoint: order.rewardPoint ?? 0,
-                      originalPrice: order.originalPrice ?? 0,
-                      status: order.status ?? 'Unknown',
-                      paymentChannel: order.paymentChannel ?? 'N/A',
-                      createdAt: order.createdAt ?? 'N/A',
-                      updatedAt: order.updatedAt ?? 'N/A',
-                      schedulePickup: order.schedulePickup ?? 'N/A',
-                      orderItems: order.orderItems,
-                    );
-                  },
+                return SingleChildScrollView(
+                 
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: controller.newOrderResponseModel.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final order = controller.newOrderResponseModel[index];
+                      return OrderCard(
+                        id: order.id!,
+                        userId: order.userId!,
+                        cartId: order.cartId ?? 0,
+                        name: order.name!,
+                        avatar: order.avatar!,
+                        voucherId: order.voucherId,
+                        totalPrice: order.totalPrice ?? 0,
+                        discountAmount: order.discountAmount ?? 0,
+                        rewardPoint: order.rewardPoint ?? 0,
+                        originalPrice: order.originalPrice ?? 0,
+                        status: order.status!,
+                        orderType: order.orderType ?? '0',
+                        paymentChannel: order.paymentChannel ?? '0',
+                        createdAt: order.createdAt.toString(),
+                        updatedAt: order.updatedAt.toString(),
+                        schedulePickup: order.schedulePickup!,
+                        orderItems: order.orderItems,
+                      );
+                    },
+                  ),
                 );
               }
             }),

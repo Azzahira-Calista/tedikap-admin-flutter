@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
 
-import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:tedikap_admin/app/api/order/order_service.dart';
 import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/app/data/model/order/order_response.dart';
+
+import '../../../../routes/AppPages.dart';
 
 class OrderController extends GetxController {
   RxBool isLoading = false.obs;
   late OrderService orderService;
   late OrderResponse orderResponse;
-  RxList<Orders> orderResponseModel = <Orders>[].obs;
+  RxList<Orders> newOrderResponseModel = <Orders>[].obs;
+  RxList<Orders> processedOrderResponseModel = <Orders>[].obs;
+  RxList<Orders> takenOrderResponseModel = <Orders>[].obs;
 
   var currentIndex = 0.obs;
 
@@ -20,45 +22,163 @@ class OrderController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    super.onInit();
     orderService = OrderService();
-    getHistoryOrder();
+
+    getOrdersByStatusNew();
+    getOrdersByStatusProcessed();
+    getOrdersByStatusTaken();
+    super.onInit();
   }
 
-  // Future<void> getHistoryOrder() async {
-  //   try {
-  //     isLoading.value = true;
-
-  //     final response = await orderService.getHistoryOrders();
-
-  //     orderResponse = OrderResponse.fromJson(response.data);
-  //     orderResponseModel = orderResponse.orders!.obs;
-
-  //     print("orderResponseModel: ");
-  //     print(orderResponseModel);
-  //   } catch (e) {
-  //     isLoading.value = true;
-  //     print(e);
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
-
-  Future<void> getHistoryOrder() async {
+  Future<void> getOrdersByStatusNew() async {
     try {
       isLoading.value = true;
-
-      final response = await orderService.getHistoryOrders();
-
-      print("API Response: ${response.data}");
-
-      OrderResponse orderResponse = OrderResponse.fromJson(response.data);
-      orderResponseModel.value = orderResponse.orders ?? [];
-
-      print("Order Response Model: ${orderResponseModel}");
+      final response = await orderService.getOrdersByStatus('new order');
+      orderResponse = OrderResponse.fromJson(response.data);
+      newOrderResponseModel.value = orderResponse.orders ?? [];
+      print("New Orders: ${newOrderResponseModel.length}");
     } catch (e) {
       print("Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> getOrdersByStatusProcessed() async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.getOrdersByStatus('proccess');
+      orderResponse = OrderResponse.fromJson(response.data);
+      processedOrderResponseModel.value = orderResponse.orders ?? [];
+      print("Processed Orders: ${processedOrderResponseModel.length}");
+
+      print(response.data);
+    } catch (e) {
+      print("Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> getOrdersByStatusTaken() async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.getOrdersByStatus('taken');
+      orderResponse = OrderResponse.fromJson(response.data);
+      takenOrderResponseModel.value = orderResponse.orders ?? [];
+      print("Taken Orders: ${takenOrderResponseModel.length}");
+    } catch (e) {
+      print("Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> acceptOrder(String orderId) async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.acceptanceOrder(orderId, 'accepted');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.snackbar("Order Accepted", "Order has been accepted successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to accept order");
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar("Error", "An error occurred while accepting the order");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> rejectOrder(String orderId) async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.acceptanceOrder(orderId, 'rejected');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.snackbar("Order Rejected", "Order has been rejected successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to reject order");
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar("Error", "An error occurred while rejecting the order");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> readyOrder(String orderId) async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.readyOrder(orderId, 'accepted');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.snackbar("Order Ready", "Order is ready for pickup!");
+      } else {
+        Get.snackbar("Error", "Failed to set order as ready");
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar(
+          "Error", "An error occurred while setting the order as ready");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> rejectReadyOrder(String orderId) async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.readyOrder(orderId, 'rejected');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.snackbar("Order Rejected", "Order has been rejected successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to reject order");
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar("Error", "An error occurred while rejecting the order");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> finishOrder(String orderId) async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.finishOrder(orderId, 'accepted');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.snackbar(
+            "Order Finished", "Order has been completed successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to complete order");
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar("Error", "An error occurred while completing the order");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> rejectFinishOrder(String orderId) async {
+    try {
+      isLoading.value = true;
+      final response = await orderService.finishOrder(orderId, 'rejected');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.snackbar("Order Rejected", "Order has been rejected successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to reject order");
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar("Error", "An error occurred while rejecting the order");
     } finally {
       isLoading.value = false;
     }

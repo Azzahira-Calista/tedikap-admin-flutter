@@ -50,7 +50,7 @@ part 'AppRoutes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.NAVBAR;
 
   static final routes = [
     GetPage(

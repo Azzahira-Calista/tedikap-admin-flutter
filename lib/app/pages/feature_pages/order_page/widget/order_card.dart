@@ -1,52 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
 import '../../../../data/model/order/order_item_model.dart';
+import '../../../../data/model/order/order_reward_item.dart';
 
 class OrderCard extends GetView<OrderController> {
-  // const OrderCard({super.key});
-
   final String id;
   final int userId;
   final int cartId;
+  final String name;
+  final String avatar;
   final int? voucherId;
   final int totalPrice;
   final int discountAmount;
   final int rewardPoint;
   final int originalPrice;
   final String status;
+  final String orderType;
   final String paymentChannel;
   final String createdAt;
   final String updatedAt;
   final String schedulePickup;
   final List<OrderItems>? orderItems;
+  final List<OrderRewardItems>? orderRewardItems;
 
   OrderCard({
     required this.id,
     required this.userId,
     required this.cartId,
+    required this.name,
+    required this.avatar,
     this.voucherId,
     required this.totalPrice,
     required this.discountAmount,
     required this.rewardPoint,
     required this.originalPrice,
     required this.status,
+    required this.orderType,
     required this.paymentChannel,
     required this.createdAt,
     required this.updatedAt,
     required this.schedulePickup,
     this.orderItems,
+    this.orderRewardItems,
   });
 
   @override
   Widget build(BuildContext context) {
-    int totalQuantity = (orderItems?.isNotEmpty ?? false)
+    int totalQuantityOrder = (orderItems?.isNotEmpty ?? false)
         ? orderItems!.fold<int>(0, (sum, item) => sum + (item.quantity ?? 0))
+        : 0;
+    int totalQuantityReward = (orderRewardItems != null)
+        ? orderRewardItems!
+            .fold<int>(0, (sum, item) => sum + (item.quantity ?? 0))
+        : 0;
+    int totalPoints = (orderRewardItems != null)
+        ? orderRewardItems!
+            .fold<int>(0, (sum, item) => sum + (item.totalPoints ?? 0))
         : 0;
 
     return Container(
@@ -78,137 +95,165 @@ class OrderCard extends GetView<OrderController> {
             child: Row(
               children: [
                 Container(
-                  height: 25,
-                  width: 25,
+                  height: 30,
+                  width: 30,
                   decoration: BoxDecoration(
-                    color: white,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
+                      fit: BoxFit.cover,
+                    ),
                     borderRadius: BorderRadius.circular(20),
                   ),
+                  // child: Image.network(
+                  //   "https://tedikap-api.rplrus.com/storage/avatar/avatar.jpg",
+                  //   fit: BoxFit.cover,
+
+                  //   errorBuilder: (context, error, stackTrace) {
+                  //     return Icon(Icons
+                  //         .error); // Display an error icon if image fails to load
+                  //   },
+                  // ),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "User's name",
-                  style: cardText.copyWith(color: white),
-                )
+                SizedBox(width: 10),
+                Text(name, style: cardText.copyWith(color: white))
               ],
             ),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            deliveryIcon,
-                            height: 25,
-                          ),
-                          Text(
-                            "Delivery",
-                            style: cardTitle.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    Text(_getOrderTitle(),
+                        style: cardTitle.copyWith(fontWeight: FontWeight.w500)),
                     Text(status,
                         style: smallText.copyWith(
                             color: offColor, fontWeight: FontWeight.w700)),
                   ],
                 ),
-                Divider(
-                  color: offColor,
-                ),
-                Container(
-                  child: Column(
+                Divider(color: offColor),
+                // Show Order Items if available
+                if (orderItems != null && orderItems!.isNotEmpty) ...[
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        orderItems!
+                            .map((item) => "${item.productName} ")
+                            .toList()
+                            .join(", "),
+                      )),
+                  SizedBox(height: 10),
+                ],
+                // Show Order Reward Items if available
+                if (orderRewardItems != null &&
+                    orderRewardItems!.isNotEmpty) ...[
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      orderRewardItems!
+                          .map((item) => "${item.productName} ")
+                          .toList()
+                          .join(", "),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          width: 180,
-                          child: Text(
-                            orderItems!
-                                .map((item) => item.productName)
-                                .join(", "),
-                            style: normalText,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          )),
-                      SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.01),
+                      if (orderItems != null && orderItems!.isNotEmpty) ...[
+                        Text(totalQuantityOrder.toString() + " items",
+                            style: smallText.copyWith(
+                                color: offColor, fontWeight: FontWeight.w500)),
+                      ],
+                      if (orderRewardItems != null &&
+                          orderRewardItems!.isNotEmpty) ...[
+                        Text(totalQuantityReward.toString() + " items",
+                            style: smallText.copyWith(
+                                color: offColor, fontWeight: FontWeight.w500)),
+                      ],
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(totalQuantity.toString() + " items",
+                          Text("Total:",
                               style: smallText.copyWith(
                                   color: offColor,
                                   fontWeight: FontWeight.w500)),
-                          Row(
-                            children: [
-                              Text("Total :",
-                                  style: smallText.copyWith(
-                                      color: offColor,
-                                      fontWeight: FontWeight.w500)),
-                              Text(totalPrice.toString(),
-                                  style: smallText.copyWith(
-                                      color: offColor,
-                                      fontWeight: FontWeight.w700)),
-                            ],
-                          ),
+                          if (orderItems != null && orderItems!.isNotEmpty) ...[
+                            Text("Rp " + totalPrice.toString(),
+                                style: smallText.copyWith(
+                                    color: offColor,
+                                    fontWeight: FontWeight.w700)),
+                          ],
+                          if (orderRewardItems != null &&
+                              orderRewardItems!.isNotEmpty) ...[
+                            Text(" $totalPoints Points",
+                                style: smallText.copyWith(
+                                    color: offColor,
+                                    fontWeight: FontWeight.w700)),
+                          ],
                         ],
                       ),
-                      SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.015),
-                      Container(
-                          width: MediaQuery.sizeOf(context).width,
-                          height: 30,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Get.toNamed(Routes.ORDER_STATUS, arguments: {
-                              'id': id,
-                              'userId': userId,
-                              'cartId': cartId,
-                              'voucherId': voucherId,
-                              'totalPrice': totalPrice,
-                              'discountAmount': discountAmount,
-                              'rewardPoint': rewardPoint,
-                              'originalPrice': originalPrice,
-                              'status': status,
-                              'paymentChannel': paymentChannel,
-                              'createdAt': createdAt,
-                              'updatedAt': updatedAt,
-                              'schedulePickup': schedulePickup,
-                              'orderItems': orderItems,
-                              });
-                            },
-                            child: Center(
-                              child: Text("Detail Pesanan",
-                                  style: button2.copyWith(color: white)),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                // primary: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                backgroundColor: primaryColor,
-                                foregroundColor: white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                )),
-                          ))
-                    ],
+                    ]),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.ORDER_STATUS, arguments: {
+                        'id': id,
+                        'userId': userId,
+                        'cartId': cartId,
+                        'voucherId': voucherId,
+                        'totalPrice': totalPrice,
+                        'name': name,
+                        'avatar': avatar,
+                        'discountAmount': discountAmount,
+                        'rewardPoint': rewardPoint,
+                        'originalPrice': originalPrice,
+                        'status': status,
+                        'paymentChannel': paymentChannel,
+                        'createdAt': createdAt,
+                        'updatedAt': updatedAt,
+                        'schedulePickup': schedulePickup,
+                        'orderItems': orderItems,
+                        'orderRewardItems': orderRewardItems,
+                      });
+                    },
+                    child: Center(
+                      child: Text("Detail Pesanan",
+                          style: button2.copyWith(color: white)),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.transparent,
+                        backgroundColor: primaryColor,
+                        foregroundColor: white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
                   ),
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  String _getOrderTitle() {
+    print("Order Items: ${orderItems}");
+    print("Order Reward Items: ${orderRewardItems}");
+    if (orderItems != null && orderItems!.isNotEmpty) {
+      return "Order Items";
+    } else if (orderRewardItems != null && orderRewardItems!.isNotEmpty) {
+      return "Order Reward Items";
+    } else {
+      return "No items available";
+    }
   }
 }

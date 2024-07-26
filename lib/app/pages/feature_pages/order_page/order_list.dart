@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/new_order.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/processed_order.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/status/taken_order.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_new_order.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_processed_order.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_taken_order.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
