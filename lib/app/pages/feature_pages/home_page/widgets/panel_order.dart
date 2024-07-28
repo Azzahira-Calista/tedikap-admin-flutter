@@ -26,14 +26,23 @@ class PanelOrder extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.NAVBAR + Routes.PROMO_VIEW);
+                  Get.toNamed(Routes.NAVBAR + Routes.ORDER);
                 },
-                child: Text(
-                  "View All",
-                  style: normalTextPrimary,
+                child: Container(
+                  color: lightGrey,
+                  width: 80,
+                  height: 30,
+                  child: Text(
+                    "View All",
+                    style: normalTextPrimary,
+                  ),
                 ),
-              )
+              ),
+              
             ],
+          ),
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.04,
           ),
           Container(
             child: Obx(() {
@@ -53,7 +62,6 @@ class PanelOrder extends StatelessWidget {
                 );
               } else {
                 return SingleChildScrollView(
-                 
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
