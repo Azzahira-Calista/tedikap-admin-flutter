@@ -21,8 +21,11 @@ class MyNavBar extends StatelessWidget {
       body: Obx(() {
         final currentPage = controller.currentPage.value;
         if (currentPage < 0 || currentPage >= pages.length) {
-          return Container(); // Fallback in case of invalid index
+          return Container(); 
         }
+        // if (Get.arguments != null) {
+        //   controller.currentPage.value = 2;
+        // }
         return pages[currentPage];
       }),
       bottomNavigationBar: Obx(

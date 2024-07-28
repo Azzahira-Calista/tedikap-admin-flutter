@@ -18,7 +18,7 @@ class NewOrderStatus extends GetView<OrderController> {
   final String id;
   final int userId;
   final int cartId;
-  final String name;
+  final String? name;
   final String avatar;
   final int? voucherId;
   final int totalPrice;
@@ -37,7 +37,7 @@ class NewOrderStatus extends GetView<OrderController> {
     required this.id,
     required this.userId,
     required this.cartId,
-    required this.name,
+     this.name,
     required this.avatar,
     this.voucherId,
     required this.totalPrice,
@@ -104,13 +104,18 @@ class NewOrderStatus extends GetView<OrderController> {
                   decoration: BoxDecoration(
                     color: primaryColor,
                     borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: NetworkImage
+                      ("https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Text(
-                  name,
+                  name ?? 'ksoong',
                   style: cardText.copyWith(color: primaryTextColor),
                 ),
               ],

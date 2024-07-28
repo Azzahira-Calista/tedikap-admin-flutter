@@ -30,7 +30,7 @@ class TakenOrder extends GetView<OrderController> {
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: ListView.builder(
-                    physics: ScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: controller.takenOrderResponseModel.length,
                     itemBuilder: (BuildContext context, int index) {

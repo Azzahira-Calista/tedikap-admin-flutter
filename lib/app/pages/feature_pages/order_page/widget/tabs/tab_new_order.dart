@@ -32,7 +32,7 @@ class NewOrder extends GetView<OrderController> {
                   child: Container(
                     padding: EdgeInsets.only(left: 20, top: 10, right: 20),
                     child: ListView.builder(
-                      physics: ScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: controller.newOrderResponseModel.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -55,7 +55,7 @@ class NewOrder extends GetView<OrderController> {
                           updatedAt: order.updatedAt.toString(),
                           schedulePickup: order.schedulePickup!,
                           orderItems: order.orderItems,
-                          orderRewardItems: [],
+                          orderRewardItems: order.orderRewardItems,
                         );
                       },
                     ),
