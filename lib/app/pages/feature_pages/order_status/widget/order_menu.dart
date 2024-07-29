@@ -84,11 +84,10 @@ class OrderItemWidget extends StatelessWidget {
                         overflow: TextOverflow.visible,
                       ),
                     ),
-                  Container(
+                Container(
                     width: MediaQuery.of(context).size.width * 0.55,
                     child: Text(
-                      'Note: ' + orderItem.note!,
-                      // "Note: -",
+                      'Note: ' + (orderItem.note ?? ''),
                       style: cardTitle.copyWith(color: offColor),
                     ),
                   ),
@@ -166,10 +165,12 @@ class RewardItemWidget extends StatelessWidget {
                         overflow: TextOverflow.visible,
                       ),
                     ),
-                  Text(
-                    // 'Note: ' + rewardItem.note!,
-                    "Note: -",
-                    style: cardTitle.copyWith(color: offColor),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.55,
+                    child: Text(
+                      'Note: ' + (rewardItem.note ?? ''),
+                      style: cardTitle.copyWith(color: offColor),
+                    ),
                   ),
                 ],
               ),

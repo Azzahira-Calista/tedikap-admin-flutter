@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+// import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/crud_page/crud_page.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_list.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/promo_page/promo_view.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/app/pages/global_components/navbar/navbar_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
@@ -13,7 +13,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart'
 
 class MyNavBar extends StatelessWidget {
   final NavigationController controller = Get.put(NavigationController());
-  final List<Widget> pages = [HomePage(), MenuPage(), OrderList(), PromoView()];
+  final List<Widget> pages = [HomePage(), MenuPage(), OrderList(), CrudPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MyNavBar extends StatelessWidget {
       body: Obx(() {
         final currentPage = controller.currentPage.value;
         if (currentPage < 0 || currentPage >= pages.length) {
-          return Container(); 
+          return Container();
         }
         // if (Get.arguments != null) {
         //   controller.currentPage.value = 2;
@@ -66,13 +66,13 @@ class MyNavBar extends StatelessWidget {
             BottomNavigationBarItem(
               icon: Icon(
                 controller.currentPage.value == 3
-                    ? Icons.local_offer
-                    : Icons.local_offer_outlined,
+                    ? Icons.widgets_rounded
+                    : Icons.widgets_outlined,
                 color:
                     controller.currentPage.value == 3 ? activeColor : offColor,
                 size: 24.0,
               ),
-              label: "Voucher",
+              label: "Crud",
             ),
           ],
         ),

@@ -11,8 +11,8 @@ import '../../../data/model/promo/promo_response.dart';
 
 class EditVoucherController extends GetxController {
   late final int id;
-    RxBool isLoading = false.obs;
-PromoService promoService = PromoService();
+  RxBool isLoading = false.obs;
+  PromoService promoService = PromoService();
   late PromoResponse promoResponse;
   var promoResponseModel = <Data>[].obs;
 
@@ -26,12 +26,11 @@ PromoService promoService = PromoService();
   late String imageUrl;
   final RxString imagePath = ''.obs;
 
-
   @override
   void onInit() {
     super.onInit();
 
-if (Get.arguments != null && Get.arguments.containsKey('id')) {
+    if (Get.arguments != null && Get.arguments.containsKey('id')) {
       id = Get.arguments['id'] as int;
       loadData();
     } else {
@@ -41,9 +40,12 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
 
     final Map<String, dynamic> arguments = Get.arguments;
     titleController = TextEditingController(text: arguments['title']);
-    descriptionController = TextEditingController(text: arguments['description']);
-    discountController = TextEditingController(text: arguments['discount'].toString());
-    minTransactionController = TextEditingController(text: arguments['min_transaction'].toString());
+    descriptionController =
+        TextEditingController(text: arguments['description']);
+    discountController =
+        TextEditingController(text: arguments['discount'].toString());
+    minTransactionController =
+        TextEditingController(text: arguments['min_transaction'].toString());
     startDateController = TextEditingController(text: arguments['start_date']);
     endDateController = TextEditingController(text: arguments['end_date']);
     imageUrl = arguments['image'];
@@ -65,7 +67,7 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
     }
   }
 
-   void loadData() async {
+  void loadData() async {
     isLoading.value = true;
     try {
       // Simulate data loading
@@ -78,7 +80,8 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
     }
   }
 
-  Future<void> selectDate(BuildContext context, TextEditingController controller) async {
+  Future<void> selectDate(
+      BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -91,7 +94,7 @@ if (Get.arguments != null && Get.arguments.containsKey('id')) {
   }
 
   Future<void> deleteVoucher() async {
-     try {
+    try {
       isLoading.value = true;
       final response = await promoService.deletePromo(id);
       print("Response: $response");

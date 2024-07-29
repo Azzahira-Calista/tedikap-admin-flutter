@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/box_promo/box_promo_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/box_promo/widget/box_promo.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/promo_page/promo_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/promo_page/widget/promo_banner.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
-class PromoView extends GetView<PromoController> {
-  const PromoView({super.key});
+class BoxPromoView extends GetView<BoxPromoController> {
+  const BoxPromoView({super.key});
 
   Future<void> refreshData() async {
-    controller.getPromoo();
+    controller.getBoxPromo();
   }
 
   @override
@@ -20,12 +22,12 @@ class PromoView extends GetView<PromoController> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Get.offAndToNamed(Routes.NAVBAR);
+            Get.back();
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text(
-          'Vouchers',
+          'Box Promos',
           style: appBarText,
         ),
         automaticallyImplyLeading: false,
@@ -43,26 +45,21 @@ class PromoView extends GetView<PromoController> {
                   child: Obx(() {
                     if (controller.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
-                    } else if (controller.promoResponseModel.isEmpty) {
+                    } else if (controller.boxPromoResponseModel.isEmpty) {
                       return Center(child: Text("No Promos Available"));
                     } else {
                       return ListView.builder(
-                        itemCount: controller.promoResponseModel.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final promo = controller.promoResponseModel[index];
+                          itemCount: controller.boxPromoResponseModel.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final boxPromo =
+                                controller.boxPromoResponseModel[index];
 
-                          return PromoBanner(
-                              id: promo.id,
-                              title: promo.title,
-                              description: promo.description,
-                              image: promo.image,
-                              discount: promo.discount,
-                              // maxDiscount: promo.maxDiscount,
-                              min_transaction: promo.min_transaction,
-                              start_date: promo.start_date,
-                              end_date: promo.end_date);
-                        },
-                      );
+                            return BoxPromo(
+                                id: boxPromo.id!,
+                                title: boxPromo.title!,
+                                subtitle: boxPromo.subtitle!,
+                                image: boxPromo.image!);
+                          });
                     }
                   }),
                 ),
@@ -72,9 +69,9 @@ class PromoView extends GetView<PromoController> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: myButton(
-                      text: 'Tambah voucher',
+                      text: 'Tambah box promo',
                       onPressed: () {
-                        Get.toNamed(Routes.TAMBAH_PROMO);
+                        Get.toNamed(Routes.TAMBAH_BOX_PROMO);
                       },
                       color: primaryColor,
                       textColor: white,
