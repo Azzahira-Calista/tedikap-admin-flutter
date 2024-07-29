@@ -11,4 +11,9 @@ class ApiEndpoint {
   static const String reward = '$baseUrl/reward-product';
 
   static const String order = '$baseUrl/order';
+  
+  static const String boxPromo = '$baseUrl/box-promo';
+
+  static const String banner = '$baseUrl/banner';
+  
 }
