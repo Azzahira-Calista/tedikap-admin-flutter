@@ -25,6 +25,16 @@ abstract class Routes {
   static const DETAIL_REWARD = _Paths.DETAIL_REWARD;
   static const EDIT_REWARD = _Paths.EDIT_REWARD;
   static const TAMBAH_REWARD = _Paths.TAMBAH_REWARD;
+  static const HISTORY_PAGE = _Paths.HISTORY_PAGE;
+  static const CRUD_PAGE = _Paths.CRUD_PAGE;
+
+  static const BOX_PROMO = _Paths.BOX_PROMO;
+  static const TAMBAH_BOX_PROMO = _Paths.TAMBAH_BOX_PROMO;
+  static const EDIT_BOX_PROMO = _Paths.EDIT_BOX_PROMO;
+
+  static const IMAGE_BANNER = _Paths.IMAGE_BANNER;
+  static const TAMBAH_IMAGE_BANNER = _Paths.TAMBAH_IMAGE_BANNER;
+  static const EDIT_IMAGE_BANNER = _Paths.EDIT_IMAGE_BANNER;
 }
 
 abstract class _Paths {
@@ -49,4 +59,15 @@ abstract class _Paths {
   static const REWARD = '/reward';
   static const DETAIL_REWARD = '/detail-reward/:id';
   static const EDIT_REWARD = '/edit-reward';
-  static const TAMBAH_REWARD = '/tambah-reward';}
+  static const TAMBAH_REWARD = '/tambah-reward';
+  static const HISTORY_PAGE = '/history-page';
+  static const CRUD_PAGE = '/crud-page';
+
+  static const BOX_PROMO = '/box-promo';
+  static const TAMBAH_BOX_PROMO = '/tambah-box-promo';
+  static const EDIT_BOX_PROMO = '/edit-box-promo';
+
+  static const IMAGE_BANNER = '/image-banner';
+  static const TAMBAH_IMAGE_BANNER = '/tambah-image-banner';
+  static const EDIT_IMAGE_BANNER = '/edit-image-banner';
+}

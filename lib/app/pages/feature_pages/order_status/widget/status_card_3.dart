@@ -1,17 +1,28 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order_item_model.dart';
+import '../../../../data/model/order/order_reward_item.dart';
+import '../../order_page/order_page_controller.dart';
+import '../order_status_controller.dart';
+import 'order_menu.dart';
 
-class TakenOrderStatus extends StatelessWidget {
+class TakenOrderStatus extends GetView<OrderController> {
   // const TakenOrderStatus({super.key});
 
   final String id;
   final int userId;
   final int cartId;
+  final String name;
+  final String avatar;
   final int? voucherId;
   final int totalPrice;
   final int discountAmount;
@@ -22,26 +33,43 @@ class TakenOrderStatus extends StatelessWidget {
   final String createdAt;
   final String updatedAt;
   final String schedulePickup;
-  final List<OrderItems> orderItems;
+  final List<OrderItems>? orderItems;
+  final List<OrderRewardItems>? orderRewardItems;
 
-  TakenOrderStatus(
-      {required this.id,
-      required this.userId,
-      required this.cartId,
-      this.voucherId,
-      required this.totalPrice,
-      required this.discountAmount,
-      required this.rewardPoint,
-      required this.originalPrice,
-      required this.status,
-      required this.paymentChannel,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.schedulePickup,
-      required this.orderItems});
+  TakenOrderStatus({
+    required this.id,
+    required this.userId,
+    required this.cartId,
+    required this.name,
+    required this.avatar,
+    this.voucherId,
+    required this.totalPrice,
+    required this.discountAmount,
+    required this.rewardPoint,
+    required this.originalPrice,
+    required this.status,
+    required this.paymentChannel,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.schedulePickup,
+    this.orderItems,
+    this.orderRewardItems,
+  });
 
   @override
   Widget build(BuildContext context) {
+    int totalQuantityOrder = (orderItems != null)
+        ? orderItems!.fold<int>(0, (sum, item) => sum + (item.quantity ?? 0))
+        : 0;
+    int totalQuantityReward = (orderRewardItems != null)
+        ? orderRewardItems!
+            .fold<int>(0, (sum, item) => sum + (item.quantity ?? 0))
+        : 0;
+    int totalPoints = (orderRewardItems != null)
+        ? orderRewardItems!
+            .fold<int>(0, (sum, item) => sum + (item.totalPoints ?? 0))
+        : 0;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       // height: MediaQuery.of(context).size.height * 0.51,
@@ -86,7 +114,7 @@ class TakenOrderStatus extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  "Yasa kafi",
+                  name,
                   style: cardText.copyWith(color: primaryTextColor),
                 ),
               ],
@@ -123,112 +151,44 @@ class TakenOrderStatus extends StatelessWidget {
                   style: cardText,
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.02,
-              ),
-              // Container(
-              //   height: ,
-              //   child: ListView.builder(
-              //     itemCount: orderItems.length,
-              //     physics: NeverScrollableScrollPhysics(),
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Row(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               Text(
-              //                 orderItems.map((item) => item.quantity).toString(),
-              //                 style: subTitle,
-              //               ),
-              //               SizedBox(
-              //                 width: MediaQuery.sizeOf(context).width * 0.04,
-              //               ),
-              //               Column(
-              //                 crossAxisAlignment: CrossAxisAlignment.start,
-              //                 children: [
-              //                   Text(
-              //                     "Teh Lemon Tedikap",
-              //                     style: subTitle,
-              //                   ),
-              //                   Text(
-              //                     "Ice Temp, Regular Size, Less Ice",
-              //                     style: cardTitle.copyWith(color: offColor),
-              //                   )
-              //                 ],
-              //               ),
-              //             ],
-              //           ),
-              //           Row(
-              //             children: [
-              //               Text(
-              //                 "Rp",
-              //                 style: cardTitle,
-              //               ),
-              //               Text(
-              //                 // originalPrice.toString(),
-              //                 "20000",
-              //                 style: cardTitle,
-              //               ),
-              //             ],
-              //           )
-              //         ],
-              //       );
-              //     },
-              //   ),
+              // SizedBox(
+              // height: MediaQuery.sizeOf(context).height * 0.01,
               // ),
-              Column(
-                children: orderItems.map((item) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.quantity.toString(),
-                              style: subTitle,
+              Row(
+                children: [
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(id,
+                          style: normalText.copyWith(color: primaryTextColor))),
+                  IconButton(
+                      onPressed: () {
+                        Clipboard.setData(ClipboardData(text: id));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Copied to clipboard',
+                              style: normalText,
                             ),
-                            SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.04,
+                            backgroundColor: lightGrey,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.productName!,
-                                  style: subTitle,
-                                ),
-                                Text(
-                                  "Ice Temp, Regular Size, Less Ice", 
-                                  style: cardTitle.copyWith(color: offColor),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Rp",
-                              style: cardTitle,
-                            ),
-                            Text(
-                              item.price
-                                  .toString(), 
-                              style: cardTitle,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.copy,
+                        size: 16,
+                      ))
+                ],
+              ),
+              // SizedBox(
+              //   height: MediaQuery.sizeOf(context).height * 0.02,
+              // ),
+
+              OrderMenu(
+                orderItems: orderItems,
+                orderRewardItems: orderRewardItems,
               ),
 
               Divider(
@@ -243,7 +203,15 @@ class TakenOrderStatus extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Total Pesanan :", style: cardTitle),
-                        Text("2", style: cardTitle),
+                        if (orderItems != null && orderItems!.isNotEmpty) ...[
+                          Text(totalQuantityOrder.toString() + " items",
+                              style: cardTitle),
+                        ],
+                        if (orderRewardItems != null &&
+                            orderRewardItems!.isNotEmpty) ...[
+                          Text(totalQuantityReward.toString() + " items",
+                              style: cardTitle),
+                        ],
                       ],
                     ),
                     Row(
@@ -252,15 +220,20 @@ class TakenOrderStatus extends StatelessWidget {
                         Text("Total Harga :", style: cardTitle),
                         Row(
                           children: [
-                            Text(
-                              "Rp",
-                              style: cardTitle,
-                            ),
-                            Text(
-                              // totalPrice.toString(),
-                              "40000",
-                              style: cardTitle,
-                            ),
+                            if (orderItems != null &&
+                                orderItems!.isNotEmpty) ...[
+                              Text(
+                                "Rp " + totalPrice.toString(),
+                                style: cardTitle,
+                              ),
+                            ],
+                            if (orderRewardItems != null &&
+                                orderRewardItems!.isNotEmpty) ...[
+                              Text(
+                                totalPoints.toString() + " Points",
+                                style: cardTitle,
+                              ),
+                            ],
                           ],
                         )
                       ],
@@ -269,7 +242,13 @@ class TakenOrderStatus extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Metode Pembayaran :", style: cardTitle),
-                        Text("Cash", style: cardTitle),
+                        if (orderItems != null && orderItems!.isNotEmpty) ...[
+                          Text(paymentChannel, style: cardTitle),
+                        ],
+                        if (orderRewardItems != null &&
+                            orderRewardItems!.isNotEmpty) ...[
+                          Text("Bayar dengan Points", style: cardTitle),
+                        ],
                       ],
                     ),
                   ],
@@ -283,29 +262,23 @@ class TakenOrderStatus extends StatelessWidget {
                   child: myButton(
                       sideColor: primaryColor,
                       text: "Selesaikan Pesanan",
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.finishOrder(id);
+                      },
                       color: primaryColor,
                       textColor: white)),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.02,
               ),
-              // myButtonLogo(
-              //     logoColor: primaryColor,
-              //     sideColor: cream,
-              //     text: "Hubungi Pelanggan",
-              //     onPressed: () {},
-              //     color: cream,
-              //     textColor: primaryColor,
-              //     logo: chatIcon),
-              // SizedBox(
-              //   height: MediaQuery.sizeOf(context).height * 0.02,
-              // ),
+
               Container(
                   // height: MediaQuery.of(context).size.height * 0.05,
                   child: myButton(
                       sideColor: red,
                       text: "Batalkan Pesanan",
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.rejectFinishOrder(id);
+                      },
                       color: white,
                       textColor: red)),
             ],

@@ -13,16 +13,7 @@ class DetailMenu extends GetView<DetailMenuController> {
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
 
-    if (arguments == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Error"),
-        ),
-        body: Center(
-          child: Text("No arguments provided"),
-        ),
-      );
-    }
+  
     final String name = arguments['name'];
     final int regular_price = arguments['regular_price'];
     final int large_price = arguments['large_price'];
