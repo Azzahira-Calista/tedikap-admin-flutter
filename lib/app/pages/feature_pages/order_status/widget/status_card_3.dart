@@ -108,6 +108,11 @@ class TakenOrderStatus extends GetView<OrderController> {
                   decoration: BoxDecoration(
                     color: primaryColor,
                     borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(

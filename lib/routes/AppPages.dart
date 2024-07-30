@@ -21,8 +21,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/edit_slider_banner/edit_sl
 import 'package:tedikap_admin/app/pages/feature_pages/edit_slider_banner/edit_slider_banner_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_binding.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/history%20page/history_binding.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/history%20page/history_page.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/history_page/history_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/history_page/history_page.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_view.dart';
@@ -272,6 +272,5 @@ class AppPages {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
-    
   ];
 }
