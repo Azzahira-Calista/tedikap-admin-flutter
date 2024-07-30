@@ -18,8 +18,8 @@ class TakenOrder extends GetView<OrderController> {
       child: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
                 // OrderFilter(),

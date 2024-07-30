@@ -17,18 +17,18 @@ class OrderService {
     }
   }
 
-  // Future<Response> acceptanceOrder(String orderId, String action) async {
-  //   try {
-  //     final response = await _dioInstance.putRequest(
-  //       endpoint: '${ApiEndpoint.order}/update-status/$orderId?action=$action',
-  //       data: {},
-  //       isAuthorize: true,
-  //     );
-  //     return response;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+  Future<Response> getHistoryOrderByType(String type) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndpoint.order}$type/history?type=history',
+        isAuthorize: true,
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Response> acceptanceOrder(String orderId, String action) async {
     try {
       final response = await _dioInstance.putRequest(
@@ -51,7 +51,8 @@ class OrderService {
   Future<Response> readyOrder(String orderId, String action) async {
     try {
       final response = await _dioInstance.putRequest(
-        endpoint: '${ApiEndpoint.order}/update-status-siap/$orderId?action=$action',
+        endpoint:
+            '${ApiEndpoint.order}/update-status-siap/$orderId?action=$action',
         data: {},
         isAuthorize: true,
       );
@@ -64,7 +65,8 @@ class OrderService {
   Future<Response> finishOrder(String orderId, String action) async {
     try {
       final response = await _dioInstance.putRequest(
-        endpoint: '${ApiEndpoint.order}/update-status-selesai/$orderId?action=$action',
+        endpoint:
+            '${ApiEndpoint.order}/update-status-selesai/$orderId?action=$action',
         data: {},
         isAuthorize: true,
       );
