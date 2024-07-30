@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/box_promo/box_promo_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/box_promo/widget/box_promo.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/promo_page/promo_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/promo_page/widget/promo_banner.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';

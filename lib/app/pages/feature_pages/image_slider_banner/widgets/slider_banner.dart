@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/box_promo/box_promo_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_controller.dart';
 
 import '../../../../../common/constant.dart';
 import '../../../../../common/themes.dart';
 import '../../../../../routes/AppPages.dart';
+import '../../../../api/api_endpoint.dart';
 
-class BoxPromo extends GetView<BoxPromoController> {
-  
+class SliderBanner extends GetView<ImageSliderController> {
   final int id;
-  final String title;
-  final String subtitle;
   final String image;
+    final String imageUrl = ApiEndpoint.imageUrl;
 
-  BoxPromo({
+
+  SliderBanner({
     required this.id,
-    required this.title,
-    required this.subtitle,
     required this.image,
   });
 
@@ -47,7 +44,7 @@ class BoxPromo extends GetView<BoxPromoController> {
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                          "https://tedikap-api.rplrus.com/storage/box-promo/$image")
+                          "$imageUrl/banner/$image")
                       as ImageProvider,
                   fit: BoxFit.cover),
               color: primaryColor,
@@ -63,18 +60,12 @@ class BoxPromo extends GetView<BoxPromoController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(title,
-                        style: normalText.copyWith(
-                          fontWeight: FontWeight.bold,
-                        )),
                     InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.EDIT_BOX_PROMO, arguments: {
+                        Get.toNamed(Routes.EDIT_IMAGE_BANNER, arguments: {
                           'id': id,
-                          'title': title,
-                          'subtitle': subtitle,
                           'image': image,
                         });
                       },
@@ -99,11 +90,6 @@ class BoxPromo extends GetView<BoxPromoController> {
                       ),
                     ),
                   ],
-                ),
-                SizedBox(height: 5),
-                Text(
-                  subtitle,
-                  style: cardTitle,
                 ),
               ],
             ),
