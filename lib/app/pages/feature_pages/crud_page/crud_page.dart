@@ -27,7 +27,7 @@ class CrudPage extends GetView<CrudController> {
             CrudButton(
                 title: "Image Slide Banner",
                 iconData: Icons.image,
-                routeName: 'routeName'),
+                routeName: Routes.IMAGE_BANNER),
             CrudButton(
                 title: "Box Promo",
                 iconData: Icons.abc,

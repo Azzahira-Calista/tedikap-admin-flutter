@@ -17,11 +17,15 @@ import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_slider_banner/edit_slider_banner.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_slider_banner/edit_slider_banner_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/history%20page/history_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/history%20page/history_page.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_view.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content_reward.dart';
@@ -38,6 +42,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_list.dart
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_slider_banner/tambah_slider_banner.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
@@ -52,6 +57,7 @@ import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_scree
 import 'package:tedikap_admin/app/pages/global_components/navbar/bottom_navbar.dart';
 
 import '../app/pages/feature_pages/order_status/order_status.dart';
+import '../app/pages/feature_pages/tambah_slider_banner/tambah_slider_banner_binding.dart';
 
 part 'AppRoutes.dart';
 
@@ -245,5 +251,27 @@ class AppPages {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
+    GetPage(
+      name: _Paths.IMAGE_BANNER,
+      page: () => ImageSliderView(),
+      binding: ImageSliderBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.EDIT_IMAGE_BANNER,
+      page: () => EditSliderBanner(),
+      binding: EditSliderBannerBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_IMAGE_BANNER,
+      page: () => TambahSliderBanner(),
+      binding: TambahSliderBannerBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    
   ];
 }

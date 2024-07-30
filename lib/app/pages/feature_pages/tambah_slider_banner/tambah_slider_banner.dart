@@ -2,28 +2,26 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_box_promo/tambah_box_promo_controller.dart';
-
 import '../../../../common/themes.dart';
 import '../../global_components/button.dart';
-import '../../global_components/textfield.dart';
+import 'tambah_slider_banner_controller.dart.dart';
 
-class TambahBoxPromo extends GetView<TambahBoxPromoController> {
-  const TambahBoxPromo({super.key});
+class TambahSliderBanner extends GetView<TambahSliderBannerController> {
+  const TambahSliderBanner({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Tambah Box Promo", style: appBarText),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.arrow_back_ios)),
-      ),
-      body: SafeArea(
+        appBar: AppBar(
+      title: Text("Tambah Slider Banner", style: appBarText),
+      centerTitle: true,
+      leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_ios)),
+    ),
+    body: SafeArea(
         child: Column(
           children: [
             Expanded(
@@ -78,28 +76,6 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
                                         ),
                                       ),
                               ))),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      Column(
-                        children: [
-                          MyTextField(
-                            controller: controller.titleController,
-                            hintText: "Enter the name",
-                            name: "Name",
-                            height: 50,
-                            obsecureText: false,
-                          ),
-                          MyTextField(
-                            controller: controller.subTitleController,
-                            hintText: "Enter the description",
-                            name: "Deskripsi",
-                            height: 50,
-                            obsecureText: false,
-                          ),
-                         
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -110,7 +86,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
               child: myButton(
                 text: "Tambah",
                 onPressed: () {
-                  controller.addBoxPromo();
+                  controller.addSliderBanner();
                 },
                 color: primaryColor,
                 textColor: white,
@@ -118,7 +94,6 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
             ),
           ],
         ),
-      ),
-    );
+      ),);
   }
 }
