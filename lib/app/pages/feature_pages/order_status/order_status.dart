@@ -4,6 +4,7 @@ import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_taken_order.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/order_status_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_2.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_4.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_1.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_3.dart';
@@ -154,8 +155,8 @@ class OrderStatus extends GetView<OrderStatusController> {
           id: id!,
           userId: userId!,
           cartId: cartId!,
-          name: "name",
-          avatar: "avatar",
+          name: name,
+          avatar: avatar,
           voucherId: voucherId,
           totalPrice: totalPrice!,
           discountAmount: discountAmount!,
@@ -174,8 +175,28 @@ class OrderStatus extends GetView<OrderStatusController> {
           id: id!,
           userId: userId!,
           cartId: cartId!,
-          name: "name",
-          avatar: "avatar",
+          name: name,
+          avatar: avatar,
+          voucherId: voucherId,
+          totalPrice: totalPrice!,
+          discountAmount: discountAmount!,
+          rewardPoint: rewardPoint!,
+          originalPrice: originalPrice!,
+          status: status,
+          paymentChannel: paymentChannel!,
+          createdAt: createdAt!,
+          updatedAt: updatedAt!,
+          schedulePickup: schedulePickup!,
+          orderItems: orderItems,
+          orderRewardItems: orderRewardItems,
+        );
+      case "pesanan selesai" || "pesanan ditolak" || "pesanan dibatalkan":
+        return HistoryOrderStatus(
+          id: id!,
+          userId: userId!,
+          cartId: cartId!,
+          name: name,
+          avatar: avatar,
           voucherId: voucherId,
           totalPrice: totalPrice!,
           discountAmount: discountAmount!,

@@ -1,17 +1,23 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
+import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order_item_model.dart';
 import '../../../../data/model/order/order_reward_item.dart';
+import '../../order_page/order_page_controller.dart';
 import '../order_status_controller.dart';
 import 'order_menu.dart';
 
-class ProcessedOrderStatus extends GetView<OrderController> {
+class HistoryOrderStatus extends GetView<OrderController> {
+  // const TakenOrderStatus({super.key});
+
   final String id;
   final int userId;
   final int cartId;
@@ -30,7 +36,7 @@ class ProcessedOrderStatus extends GetView<OrderController> {
   final List<OrderItems>? orderItems;
   final List<OrderRewardItems>? orderRewardItems;
 
-  ProcessedOrderStatus({
+  HistoryOrderStatus({
     required this.id,
     required this.userId,
     required this.cartId,
@@ -91,7 +97,7 @@ class ProcessedOrderStatus extends GetView<OrderController> {
               ),
             ),
             child:
-                // child: Row(
+                // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [
                 Row(
@@ -118,25 +124,6 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                 ),
               ],
             ),
-            // Container(
-            //     height: 25,
-            //     child: ElevatedButton(
-            //       onPressed: () {},
-            //       child: Center(
-            //         child: Text("Belum siap",
-            //             style: button2.copyWith(color: primaryTextColor)),
-            //       ),
-            //       style: ElevatedButton.styleFrom(
-            //           // primary: Colors.transparent,
-            //           // shadowColor: Colors.transparent,
-            //           backgroundColor: offColor,
-            //           foregroundColor: white,
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(10),
-            //           )),
-            //     ))
-            //   ],
-            // ),
           ),
           SizedBox(
             height: MediaQuery.sizeOf(context).height * 0.02,
@@ -150,6 +137,9 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                   style: cardText,
                 ),
               ),
+              // SizedBox(
+              // height: MediaQuery.sizeOf(context).height * 0.01,
+              // ),
               Row(
                 children: [
                   Align(
@@ -181,10 +171,12 @@ class ProcessedOrderStatus extends GetView<OrderController> {
               // SizedBox(
               //   height: MediaQuery.sizeOf(context).height * 0.02,
               // ),
+
               OrderMenu(
                 orderItems: orderItems,
                 orderRewardItems: orderRewardItems,
               ),
+
               Divider(
                 color: offColor,
               ),
@@ -248,28 +240,6 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.02,
-              ),
-              myButton(
-                  sideColor: primaryColor,
-                  text: "Sudah Siap",
-                  onPressed: () {
-                    controller.readyOrder(id);
-                  },
-                  color: white,
-                  textColor: primaryColor),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.02,
-              ),
-              myButton(
-                  sideColor: red,
-                  text: "Batalkan Pesanan",
-                  onPressed: () {
-                    controller.rejectReadyOrder(id);
-                  },
-                  color: white,
-                  textColor: red),
             ],
           ),
         ],
