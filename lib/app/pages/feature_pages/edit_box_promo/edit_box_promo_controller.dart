@@ -97,7 +97,7 @@ class EditBoxPromoController extends GetxController {
       update();
 
       if (response.statusCode == 200) {
-        Get.toNamed(Routes.NAVBAR + Routes.PROMO_VIEW);
+        Get.toNamed(Routes.NAVBAR + Routes.BOX_PROMO);
         Get.snackbar("Edit box promo", "Box promo edited successfully!");
       } else {
         Get.snackbar("Error", "Failed to edit box promo");

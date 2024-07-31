@@ -35,7 +35,7 @@ class CrudPage extends GetView<CrudController> {
             CrudButton(
                 title: "Voucher",
                 iconData: Icons.discount,
-                routeName: Routes.PROMO_VIEW),
+                routeName: Routes.VOUCHER_VIEW),
           ],
         ),
       ),

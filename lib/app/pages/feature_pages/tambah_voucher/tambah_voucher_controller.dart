@@ -9,7 +9,7 @@ import 'package:tedikap_admin/app/data/model/promo/promo_response.dart';
 import '../../../../routes/AppPages.dart';
 import '../../../data/model/product/data_model.dart';
 
-class TambahPromoController extends GetxController {
+class TambahVoucherController extends GetxController {
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
 
@@ -20,7 +20,7 @@ class TambahPromoController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController discountController = TextEditingController();
-  // TextEditingController maxDiscountController = TextEditingController();
+  TextEditingController maxDiscountController = TextEditingController();
   TextEditingController minTransactionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
@@ -49,7 +49,7 @@ class TambahPromoController extends GetxController {
         title: nameController.text,
         description: descriptionController.text,
         discount: discountController.text,
-        // maxDiscount: maxDiscountController.text,
+        maxDiscount: maxDiscountController.text,
         minTransaction: minTransactionController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,

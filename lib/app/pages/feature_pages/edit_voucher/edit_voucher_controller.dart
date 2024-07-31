@@ -19,6 +19,7 @@ class EditVoucherController extends GetxController {
   late TextEditingController titleController;
   late TextEditingController descriptionController;
   late TextEditingController discountController;
+  late TextEditingController maxDiscountController;
   late TextEditingController minTransactionController;
   late TextEditingController startDateController;
   late TextEditingController endDateController;
@@ -44,6 +45,8 @@ class EditVoucherController extends GetxController {
         TextEditingController(text: arguments['description']);
     discountController =
         TextEditingController(text: arguments['discount'].toString());
+    maxDiscountController = TextEditingController(
+        text: arguments['max_discount'].toString());
     minTransactionController =
         TextEditingController(text: arguments['min_transaction'].toString());
     startDateController = TextEditingController(text: arguments['start_date']);
@@ -101,7 +104,7 @@ class EditVoucherController extends GetxController {
 
       isLoading.value = false;
       Get.snackbar("Delete voucher", "Voucher deleted successfully!");
-      Get.toNamed(Routes.NAVBAR + Routes.PROMO_VIEW);
+      Get.toNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");
@@ -118,6 +121,7 @@ class EditVoucherController extends GetxController {
         title: titleController.text,
         description: descriptionController.text,
         discount: discountController.text,
+        maxDiscount: maxDiscountController.text,
         minTransaction: minTransactionController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,
@@ -128,8 +132,8 @@ class EditVoucherController extends GetxController {
 
       update();
 
-      if (response.statusCode == 200) {
-        Get.toNamed(Routes.NAVBAR + Routes.PROMO_VIEW);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
         Get.snackbar("Edit voucher", "Voucher edited successfully!");
       } else {
         Get.snackbar("Error", "Failed to edit voucher");

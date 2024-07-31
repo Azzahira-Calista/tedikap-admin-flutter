@@ -11,7 +11,7 @@ class PromoBanner extends StatelessWidget {
   final String description;
   final String image;
   final double discount;
-  // final int? maxDiscount; 
+  final int max_discount;
   final int min_transaction;
   final String start_date;
   final String end_date;
@@ -22,7 +22,7 @@ class PromoBanner extends StatelessWidget {
     required this.description,
     required this.image,
     required this.discount,
-    // this.maxDiscount, 
+    required this.max_discount,
     required this.min_transaction,
     required this.start_date,
     required this.end_date,
@@ -77,17 +77,17 @@ class PromoBanner extends StatelessWidget {
                         )),
                     InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.EDIT_PROMO, arguments: 
-                          {
-                            'id': id,
-                            'title': title,
-                            'description': description,
-                            'image': image,
-                            'discount': discount,
-                            'min_transaction': min_transaction,
-                            'start_date': start_date,
-                            'end_date': end_date,
-                          });
+                        Get.toNamed(Routes.EDIT_VOUCHER, arguments: {
+                          'id': id,
+                          'title': title,
+                          'description': description,
+                          'image': image,
+                          'discount': discount,
+                          'min_transaction': min_transaction,
+                          'max_discount': max_discount,
+                          'start_date': start_date,
+                          'end_date': end_date,
+                        });
                       },
                       child: Container(
                         padding:
@@ -122,11 +122,13 @@ class PromoBanner extends StatelessWidget {
                   style: cardTitle,
                 ),
                 SizedBox(height: 5),
+                Text('Max Discount: $max_discount', style: cardTitle),
+                SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Minimal transaction: Rp$min_transaction',
+                      'Min transaction: Rp$min_transaction',
                       style: cardTitle,
                     ),
                     Text(

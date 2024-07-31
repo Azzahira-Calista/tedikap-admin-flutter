@@ -2,15 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_promo_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
-import '../../../../routes/AppPages.dart';
-
-class TambahPromo extends GetView<TambahPromoController> {
-  const TambahPromo({Key? key}) : super(key: key);
+class TambahVoucher extends GetView<TambahVoucherController> {
+  const TambahVoucher({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +100,13 @@ class TambahPromo extends GetView<TambahPromoController> {
                             controller: controller.discountController,
                             hintText: "Enter the doscount percentage",
                             name: "Persentasi diskon",
+                            height: 50,
+                            obsecureText: false,
+                          ),
+                          MyTextField(
+                            controller: controller.maxDiscountController,
+                            hintText: "Enter the maximal discount",
+                            name: "Maksimal diskon",
                             height: 50,
                             obsecureText: false,
                           ),

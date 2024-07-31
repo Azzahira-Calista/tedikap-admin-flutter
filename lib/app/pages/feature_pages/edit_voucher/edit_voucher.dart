@@ -157,6 +157,13 @@ class EditVoucher extends GetView<EditVoucherController> {
                             height: 50,
                             obsecureText: false,
                           ),
+                           MyTextField(
+                            controller: controller.maxDiscountController,
+                            hintText: "Enter the maximal discount",
+                            name: "Maksimal diskon",
+                            height: 50,
+                            obsecureText: false,
+                          ),
                           MyTextField(
                             controller: controller.minTransactionController,
                             hintText: "Enter the minimum transaction",
@@ -199,7 +206,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                 text: "Change",
                 onPressed: () {
                   controller.editVoucher();
-                  Get.toNamed(Routes.PROMO_VIEW);
+                  Get.toNamed(Routes.VOUCHER_VIEW);
                 },
                 color: primaryColor,
                 textColor: white,
