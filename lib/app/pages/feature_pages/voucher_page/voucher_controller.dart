@@ -5,7 +5,7 @@ import '../../../data/model/data_helper.dart';
 import '../../../data/model/promo/promo_model.dart';
 import '../../../data/model/promo/promo_response.dart';
 
-class PromoController extends GetxController {
+class VoucherController extends GetxController {
   RxBool isLoading = false.obs;
   late PromoService promoService;
   late PromoResponse promoResponse;
