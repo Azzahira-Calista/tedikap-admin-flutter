@@ -44,62 +44,22 @@ class TambahRewardController extends GetxController {
     }
   }
 
-  // Rx<Data> arguments = Get.arguments;
-
-  // Future<dio.Response> addProduct() async {
-  //   try {
-  //     isLoading.value = true;
-
-  //      // Parse text inputs to integers
-  //   int regularPoint = int.tryParse(regularPointController.text) ?? 0;
-  //   int largePoint = int.tryParse(largePointController.text) ?? 0;
-
-  //     final response = await rewardService.storeReward(
-  //       name: nameController.text,
-  //       description: descriptionController.text,
-  //       category: categoryController.text,
-  //       regularPoint: regularPoint,
-  //       largePoint: largePoint,
-  //       imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
-  //     );
-
-  //     print('ini add response $response');
-  //     print('ini  response image ${imagePath.value}');
-
-  //     // productResponseModel.add(Data.fromJson(response.data['data']));
-  //     isLoading.value = false;
-
-  //     update();
-
-  //     if (response.statusCode == 200) {
-  //       Get.toNamed(Routes.NAVBAR + Routes.MENU);
-  //       Get.snackbar("Add reward product", "Reward added successfully!");
-  //     } else {
-  //       Get.snackbar("Error", "Failed to add reward");
-  //     }
-
-  //     return response;
-  //   } catch (e) {
-  //     isLoading.value = false;
-  //     print("Error: $e");
-  //     Get.snackbar("Error", e.toString());
-  //     throw Exception(e);
-  //   }
-  // }
   Future<dio.Response> addProduct() async {
     try {
       isLoading.value = true;
 
       // Parse text inputs to integers
-      int regularPoint = int.tryParse(regularPointController.text) ?? 0;
-      int largePoint = int.tryParse(largePointController.text) ?? 0;
+      // int regularPoint = int.tryParse(regularPointController.text) ?? 0;
+      // int largePoint = int.tryParse(largePointController.text) ?? 0;
 
       final response = await rewardService.storeReward(
         name: nameController.text,
         description: descriptionController.text,
         category: categoryController.text,
-        regularPoint: regularPoint,
-        largePoint: largePoint,
+        // regularPoint: regularPoint,
+        // largePoint: largePoint,
+        regularPoint: int.tryParse(regularPointController.text) ?? 0,
+        largePoint: int.tryParse(largePointController.text) ?? 0,
         imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null,
       );
 

@@ -25,6 +25,11 @@ class RewardController extends GetxController {
     getReward();
   }
 
+   void updateCategory(String category) {
+    currentCategory.value = category;
+    fetchFilteredProducts(category);
+  }
+
 @override
   void onReady() {
     super.onReady();
@@ -43,6 +48,25 @@ class RewardController extends GetxController {
       print(e);
     } finally {
       isLoading.value = false;
+    }
+  }
+
+   Future<void> fetchFilteredProducts(String category) async {
+    try {
+      isLoading(true);
+      final response = await rewardService.getFilterReward(query: category);
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'];
+        rewardResponseModel.value = data.map((json) => Data.fromJson(json)).toList();
+        print('Filtered products loaded: ${rewardResponseModel.length}');
+      } else {
+        rewardResponseModel.clear();
+        print('No products found for category: $category');
+      }
+    } catch (e) {
+      print('Error fetching filtered products: $e');
+    } finally {
+      isLoading(false);
     }
   }
 }

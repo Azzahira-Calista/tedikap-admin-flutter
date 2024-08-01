@@ -47,13 +47,12 @@ class EditRewardController extends GetxController {
     nameController = TextEditingController(text: arguments['name']);
     descriptionController =
         TextEditingController(text: arguments['description']);
-    categoryController =
-        TextEditingController(text: arguments['category'] ?? '');
+    categoryController = TextEditingController(text: arguments['category']);
     // selectedCategory.value = arguments['category'] ?? '';
     regularPointController =
-        TextEditingController(text: arguments['regular_point'].toString());
+        TextEditingController(text: arguments['regularPoint'].toString());
     largePointController =
-        TextEditingController(text: arguments['large_point'].toString());
+        TextEditingController(text: arguments['largePoint'].toString());
     // regularPointController = TextEditingController(text: arguments['regular_point']);
     // largePointController = TextEditingController(text: arguments['large_point']);
 
@@ -98,8 +97,8 @@ class EditRewardController extends GetxController {
 
       update();
 
-      if (response.statusCode == 200) {
-        Get.toNamed(Routes.NAVBAR );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.toNamed(Routes.NAVBAR);
         Get.snackbar("Edit reward", "Reward edited successfully!");
       } else {
         print("Response status code: ${response.statusCode}");

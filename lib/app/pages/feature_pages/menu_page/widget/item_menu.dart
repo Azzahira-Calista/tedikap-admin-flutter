@@ -30,9 +30,14 @@ class ItemWidget extends GetView<MenusController> {
     BuildContext context,
   ) {
     return Container(
-      // decoration: BoxDecoration(color: cream),
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        color: cream,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      padding: EdgeInsets.all(10),
       width: 180,
-      height: 120,
+      height: 100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,145 +57,148 @@ class ItemWidget extends GetView<MenusController> {
             child: Container(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Obx(() {
-                    if (controller.isLoading.value) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
-                      return Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                      "https://tedikap-api.rplrus.com/storage/product/$image")
-                                  as ImageProvider,
-                              fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      );
-                    }
-                  }),
-                  SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.19,
-                        child: Text(
-                          name,
-                          style: subTitle,
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(
-                            Icons.star_rounded,
-                            color: primaryColor,
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "rating",
-                            style: cardTitle,
-                          )
-                        ],
-                      ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Icon(
-                      //       Icons.favorite_rounded,
-                      //       color: primaryColor,
-                      //       size: 18,
-                      //     ),
-                      //     SizedBox(
-                      //       width: 5,
-                      //     ),
-                      //     Text(
-                      //       "favourite",
-                      //       style: cardTitle,
-                      //     )
-                      //   ],
-                      // ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SvgPicture.asset(
-                            priceIcon,
-                            color: primaryColor,
-                            height: 18,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            regular_price.toString(),
-                            style: cardTitle,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SvgPicture.asset(
-                            priceIcon,
-                            color: primaryColor,
-                            height: 18,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            large_price.toString(),
-                            style: cardTitle,
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          InkWell(
-            onTap: () {
-              Get.toNamed(Routes.EDIT_MENU, arguments: {
-                'id': id,
-                'name': name,
-                'regular_price': regular_price,
-                'large_price': large_price,
-                'image': image,
-                'description': description,
-              });
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              height: 25,
-              width: 80,
-              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset(editIcon),
-                  Text(
-                    "Edit",
-                    style: smallTextWhite,
+                  Container(
+                    child: Row(
+                      children: [
+                        Obx(() {
+                          if (controller.isLoading.value) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            return Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: offColor,
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                            "https://tedikap-api.rplrus.com/storage/reward-product/$image")
+                                        as ImageProvider,
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            );
+                          }
+                        }),
+                        SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: subTitle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(
+                                  Icons.favorite_rounded,
+                                  color: primaryColor,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "rating",
+                                  style: cardTitle,
+                                )
+                              ],
+                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Icon(
+                            //       Icons.favorite_rounded,
+                            //       color: primaryColor,
+                            //       size: 18,
+                            //     ),
+                            //     SizedBox(
+                            //       width: 5,
+                            //     ),
+                            //     Text(
+                            //       "favourite",
+                            //       style: cardTitle,
+                            //     )
+                            //   ],
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  priceIcon,
+                                  color: primaryColor,
+                                  height: 18,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  regular_price.toString(),
+                                  style: cardTitle,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  priceIcon,
+                                  color: primaryColor,
+                                  height: 18,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  large_price.toString(),
+                                  style: cardTitle,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.EDIT_MENU, arguments: {
+                        'id': id,
+                        'name': name,
+                        'regular_price': regular_price,
+                        'large_price': large_price,
+                        'image': image,
+                        'description': description,
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      height: 25,
+                      width: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset(editIcon),
+                          Text(
+                            "Edit",
+                            style: smallTextWhite,
+                          )
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
-          )
-        ],
+          ),
+        ]
       ),
     );
   }
