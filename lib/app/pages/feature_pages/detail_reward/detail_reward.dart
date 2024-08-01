@@ -9,9 +9,14 @@ import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 
 class DetailReward extends GetView<DetailRewardController> {
+  final DetailRewardController controller = Get.put(DetailRewardController());
+
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> arguments = Get.arguments;
+    final Map<String, dynamic>? arguments =
+        Get.arguments as Map<String, dynamic>?;
+
+    // final Map<String, dynamic> arguments = Get.arguments;
 
     if (arguments == null) {
       return Scaffold(
@@ -24,13 +29,16 @@ class DetailReward extends GetView<DetailRewardController> {
       );
     }
 
-    final String name = arguments['name'];
-    final int regular_point = arguments['regular_point'];
-    final int large_point = arguments['large_point'];
+    final String name = arguments['name'] ?? 'Unknown';
+    final String category = arguments['category'] ?? 'Unknown';
+    final int regularPoint =
+        int.tryParse(arguments['regularPoint'].toString()) ?? 0;
+    final int largePoint =
+        int.tryParse(arguments['largePoint'].toString()) ?? 0;
     final String description =
         arguments['description'] ?? 'No description available';
-    final String image = arguments['image'];
-    final int id = arguments['id'];
+    final String image = arguments['image'] ?? '';
+    final int id = int.tryParse(arguments['id'].toString()) ?? 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -47,10 +55,11 @@ class DetailReward extends GetView<DetailRewardController> {
               Get.toNamed(Routes.EDIT_REWARD, arguments: {
                 'id': id,
                 'name': name,
-                'regular_point': regular_point,
-                'large_point': large_point,
+                'regularPoint': regularPoint.toString(),
+                'largePoint': largePoint.toString(),
                 'image': image,
                 'description': description,
+                'category': category,
               });
               controller.loadData();
             },
@@ -149,7 +158,7 @@ class DetailReward extends GetView<DetailRewardController> {
                                   Row(
                                     children: [
                                       Text(
-                                        regular_point.toString(),
+                                        regularPoint.toString(),
                                         // regular_point,
                                         style: cardText,
                                       ),
@@ -174,7 +183,7 @@ class DetailReward extends GetView<DetailRewardController> {
                                   Row(
                                     children: [
                                       Text(
-                                        large_point.toString(),
+                                        largePoint.toString(),
                                         // large_point,
                                         style: cardText,
                                       ),

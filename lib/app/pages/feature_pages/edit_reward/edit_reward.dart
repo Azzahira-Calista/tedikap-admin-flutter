@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/themes.dart';
-import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 import '../../global_components/textfield.dart';
 import 'edit_reward_controller.dart';
