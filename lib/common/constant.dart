@@ -19,3 +19,4 @@ String coupon = "${SvgIcon}coupon_icon.svg";
 String priceIcon = "${SvgIcon}price_icon.svg";
 String deliveryIcon = "${SvgIcon}delivery_icon.svg";
 String deleteIcon = "${SvgIcon}delete_icon.svg";
+String orderEmptyIcon = "${SvgIcon}ic_order_empty.svg";

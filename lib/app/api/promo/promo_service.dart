@@ -83,7 +83,7 @@ class PromoService {
               filename: basename(imageFile.path)),
       });
       
-      final response = await _dioInstance.postRequest(
+      final response = await _dioInstance.putRequest(
         endpoint: '${ApiEndpoint.voucher}/update/$id',
         data: formData,
         isAuthorize: true,

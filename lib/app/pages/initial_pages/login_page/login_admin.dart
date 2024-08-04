@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/firebase/global_service.dart';
 import 'package:tedikap_admin/app/pages/initial_pages/login_page/login_controller.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
@@ -46,7 +47,7 @@ class LoginPage extends GetView<LoginController> {
                       MyTextField(
                         controller: controller.emailController,
                         obsecureText: false,
-                        hintText: "Enter your email",
+                        hintText: GlobalVariables.deviceToken ?? "Enter your email",
                         name: "Email",
                         height: 50,
                       ),

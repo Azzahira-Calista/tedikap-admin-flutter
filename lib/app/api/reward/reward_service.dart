@@ -36,7 +36,8 @@ class RewardService {
         'large_point': largePoint,
         'category': category,
         if (imageFile != null)
-          'image': await MultipartFile.fromFile(imageFile.path, filename: imageFile.path),
+          'image': await MultipartFile.fromFile(imageFile.path,
+              filename: imageFile.path),
       });
 
       final response = await _dioInstance.postRequest(
@@ -53,11 +54,11 @@ class RewardService {
 
   Future<Response> updateReward({
     int? id,
-    required String name,
-    required String description,
-    required int regularPoint,
-    required int largePoint,
-    required String category,
+     String? name,
+     String? description,
+     int? regularPoint,
+     int? largePoint,
+     String? category,
     File? imageFile,
   }) async {
     try {
@@ -74,7 +75,8 @@ class RewardService {
         // if (category != null) 'category': category,
         'category': category,
         if (imageFile != null)
-          'image': await MultipartFile.fromFile(imageFile.path, filename: imageFile.path),
+          'image': await MultipartFile.fromFile(imageFile.path,
+              filename: imageFile.path),
       });
 
       final response = await _dioInstance.postRequest(
@@ -105,16 +107,12 @@ class RewardService {
     try {
       final response = await _dioInstance.getRequest(
           endpoint: '${ApiEndpoint.filter}/reward-product/',
-          queryParameters: {
-            'category': query
-          },
-          isAuthorize: true
-      );
+          queryParameters: {'category': query},
+          isAuthorize: true);
 
       return response;
     } catch (e) {
       throw Exception(e);
     }
   }
-  
 }

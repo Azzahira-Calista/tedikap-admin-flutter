@@ -49,6 +49,10 @@ dependencies:
   path: ^1.8.0
   chips_choice: ^3.0.1
   sliding_up_panel: 
+  fl_chart: ^0.68.0
+  firebase_core: ^3.3.0
+  firebase_messaging: ^15.0.4
+  flutter_local_notifications: ^17.2.1+2
 
 dev_dependencies:
   flutter_test:
