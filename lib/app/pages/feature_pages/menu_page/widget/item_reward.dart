@@ -178,8 +178,8 @@ class ItemWidgetReward extends GetView<RewardController> {
                       Get.toNamed(Routes.EDIT_REWARD, arguments: {
                         'id': id,
                         'name': name,
-                        'regular_point': regularPoint,
-                        'large_point': largePoint,
+                        'regularPoint': regularPoint,
+                        'largePoint': largePoint,
                         'image': image,
                         'description': description,
                         'category': category,

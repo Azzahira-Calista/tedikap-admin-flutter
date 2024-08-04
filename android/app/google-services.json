@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "792893188066",
+    "project_id": "tedikap-messaging",
+    "storage_bucket": "tedikap-messaging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792893188066:android:0e81db40bd609066473bbb",
+        "android_client_info": {
+          "package_name": "com.example.tedikap_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4h7jST3NxuwRouXIAEVI3IqoRQ1fksso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792893188066:android:b339b05a478040a1473bbb",
+        "android_client_info": {
+          "package_name": "com.example.tedikap_user_bloc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4h7jST3NxuwRouXIAEVI3IqoRQ1fksso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -74,7 +74,7 @@ class ProductService {
 //     }
 //   }
 
- Future<Response> storeProduct({
+  Future<Response> storeProduct({
     required String name,
     required String description,
     required String category,
@@ -90,7 +90,8 @@ class ProductService {
         'regular_price': regularPrice,
         'large_price': largePrice,
         if (imageFile != null)
-          'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
+          'image': await MultipartFile.fromFile(imageFile.path,
+              filename: basename(imageFile.path)),
       });
 
       final response = await _dioInstance.postRequest(
@@ -123,7 +124,8 @@ class ProductService {
         if (regularPrice != null) 'regular_price': regularPrice,
         if (largePrice != null) 'large_price': largePrice,
         if (imageFile != null)
-          'image': await MultipartFile.fromFile(imageFile.path, filename: basename(imageFile.path)),
+          'image': await MultipartFile.fromFile(imageFile.path,
+              filename: basename(imageFile.path)),
       });
 
       final response = await _dioInstance.postRequest(
@@ -132,6 +134,8 @@ class ProductService {
         isAuthorize: true,
         // options: Options(contentType: 'multipart/form-data'),
       );
+
+      print(formData);
 
       return response;
     } catch (e) {
@@ -155,11 +159,8 @@ class ProductService {
     try {
       final response = await _dioInstance.getRequest(
           endpoint: '${ApiEndpoint.filter}/product/',
-          queryParameters: {
-            'category': query
-          },
-          isAuthorize: true
-      );
+          queryParameters: {'category': query},
+          isAuthorize: true);
 
       return response;
     } catch (e) {

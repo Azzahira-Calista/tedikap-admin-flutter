@@ -45,14 +45,16 @@ class EditMenuController extends GetxController {
 
     final Map<String, dynamic> arguments = Get.arguments;
     nameController = TextEditingController(text: arguments['name']);
-    descriptionController = TextEditingController(text: arguments['description']);
-    categoryController = TextEditingController(text: arguments['category'] ?? '');
+    descriptionController =
+        TextEditingController(text: arguments['description']);
+    categoryController = TextEditingController(text: arguments['category']);
     // selectedCategory.value = arguments['category'] ?? '';
-    regularPriceController = TextEditingController(text: arguments['regular_price'].toString());
-    largePriceController = TextEditingController(text: arguments['large_price'].toString());
+    regularPriceController =
+        TextEditingController(text: arguments['regular_price'].toString());
+    largePriceController =
+        TextEditingController(text: arguments['large_price'].toString());
 
     imageUrl = arguments['image'];
-
   }
 
   void loadData() async {
@@ -68,40 +70,39 @@ class EditMenuController extends GetxController {
     }
   }
 
- Future<void> editProduct() async {
-  try {
-    isLoading.value = true;
+  Future<void> editProduct() async {
+    try {
+      isLoading.value = true;
 
-    // Parse text inputs to integers
-    int regularPrice = int.tryParse(regularPriceController.text) ?? 0;
-    int largePrice = int.tryParse(largePriceController.text) ?? 0;
+      // Parse text inputs to integers
+      int regularPrice = int.tryParse(regularPriceController.text) ?? 0;
+      int largePrice = int.tryParse(largePriceController.text) ?? 0;
 
-    final response = await productService.updateProduct(
-      id: id,
-      name: nameController.text,
-      description: descriptionController.text,
-      category: categoryController.text,
-      regularPrice: regularPrice, 
-      largePrice: largePrice, 
-      imageFile: null,
-    );
+      final response = await productService.updateProduct(
+        id: id,
+        name: nameController.text,
+        description: descriptionController.text,
+        category: categoryController.text,
+        regularPrice: regularPrice,
+        largePrice: largePrice,
+        imageFile: null,
+      );
 
-    isLoading.value = false;
+      isLoading.value = false;
 
-    if (response.statusCode == 200) {
-      Get.toNamed(Routes.NAVBAR + Routes.MENU);
-      Get.snackbar("Edit product", "Product edited successfully!");
-    } else {
-      // Handle other status codes
-      print("Response status code: ${response.statusCode}");
-      Get.snackbar("Error", "Failed to edit product: ${response.data}");
+      if (response.statusCode == 200) {
+        Get.toNamed(Routes.NAVBAR + Routes.MENU);
+        Get.snackbar("Edit product", "Product edited successfully!");
+      } else {
+        // Handle other status codes
+        print("Response status code: ${response.statusCode}");
+        Get.snackbar("Error", "Failed to edit product: ${response.data}");
+      }
+    } catch (e) {
+      isLoading.value = false;
+      print("Error: $e");
+      Get.snackbar("Error", e.toString());
+      throw Exception(e);
     }
-  } catch (e) {
-    isLoading.value = false;
-    print("Error: $e");
-    Get.snackbar("Error", e.toString());
-    throw Exception(e);
   }
-}
-
 }

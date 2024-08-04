@@ -23,7 +23,9 @@ class HomePage extends GetView<HomeController> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: AppBarHome(),
+              foregroundColor: white,
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(70),
                 child: Column(
@@ -95,8 +97,8 @@ class HomePage extends GetView<HomeController> {
               padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.05,
                   vertical: screenHeight * 0.02),
-              minHeight: screenHeight * 0.15,
-              maxHeight: screenHeight * 0.8,
+              minHeight: screenHeight * 0.05,
+              // maxHeight: screenHeight * 0.8,
               panelSnapping: false,
               body: TabBarView(
                 children: [EarningsTab(), AnalyticsTab()],

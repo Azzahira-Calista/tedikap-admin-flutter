@@ -84,7 +84,7 @@ class OrderItemWidget extends StatelessWidget {
                         overflow: TextOverflow.visible,
                       ),
                     ),
-                Container(
+                  Container(
                     width: MediaQuery.of(context).size.width * 0.55,
                     child: Text(
                       'Note: ' + (orderItem.note ?? ''),
@@ -143,15 +143,19 @@ class RewardItemWidget extends StatelessWidget {
                     rewardItem.productName!,
                     style: subTitle,
                   ),
-                 if (rewardItem.temperatur != null)
+                  if (rewardItem.temperatur != null)
                     Container(
                       width: MediaQuery.of(context).size.width * 0.55,
                       child: Text(
                         (rewardItem.temperatur == 'ice'
-                                ? 'temperature: ' + rewardItem.temperatur! + ', '
+                                ? 'temperature: ' +
+                                    rewardItem.temperatur! +
+                                    ', '
                                 : '') +
                             (rewardItem.temperatur == 'hot'
-                                ? 'temperature: ' + rewardItem.temperatur! + ', '
+                                ? 'temperature: ' +
+                                    rewardItem.temperatur! +
+                                    ', '
                                 : 'ice: ' +
                                     (rewardItem.ice ?? 'normal') +
                                     ', ') +
@@ -183,7 +187,7 @@ class RewardItemWidget extends StatelessWidget {
                 style: cardTitle,
               ),
               Text(
-                " Points ",
+                " Point", 
                 style: cardTitle,
               ),
             ],
