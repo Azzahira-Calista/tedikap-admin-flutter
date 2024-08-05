@@ -10,7 +10,7 @@ import 'menu_filter.dart';
 
 class MenuTabContent extends GetView<MenusController> {
   Future<void> refreshData() async {
-    controller.getProducts();
+    controller.getProductsTea();
   }
 
   @override
@@ -23,7 +23,8 @@ class MenuTabContent extends GetView<MenusController> {
           child: Stack(
             children: [
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [

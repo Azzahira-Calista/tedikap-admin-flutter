@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/themes.dart';
 import '../../global_components/button.dart';
@@ -34,38 +36,55 @@ class EditReward extends GetView<EditRewardController> {
                     padding: EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width * 0.1,
-                            vertical: MediaQuery.of(context).size.height * 0.02,
+                        GestureDetector(
+                           onTap: () async {
+                              final ImagePicker _picker = ImagePicker();
+                              final XFile? image = await _picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (image != null) {
+                                controller.setImage(image);
+                              }
+                            },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: MediaQuery.of(context).size.width * 0.1,
+                              vertical: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: offColor, width: 2),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width,
+                            child: Obx(
+                                  () => controller.selectedImage.value != null
+                                      ? Image.file(
+                                          controller.selectedImage.value!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : controller.imageUrl.isNotEmpty
+                                          ? Image.network(
+                                              "https://tedikap-api.rplrus.com/storage/reward-product/${controller.imageUrl}",
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.add_photo_alternate,
+                                                  size: 50,
+                                                  color: offColor,
+                                                ),
+                                                Text(
+                                                  "Klik untuk mengunggah gambar",
+                                                  style: normalTextPrimary
+                                                      .copyWith(
+                                                          color: offColor),
+                                                ),
+                                              ],
+                                            )),
                           ),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: offColor, width: 2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width,
-                          child: controller.imageUrl.isNotEmpty
-                              ? Image(
-                                  image: NetworkImage(
-                                      "https://tedikap-api.rplrus.com/storage/reward-product/${controller.imageUrl}"),
-                                  fit: BoxFit.cover,
-                                )
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.add_photo_alternate,
-                                      size: 50,
-                                      color: offColor,
-                                    ),
-                                    Text(
-                                      "Klik untuk mengunggah gambar",
-                                      style: normalTextPrimary.copyWith(
-                                          color: offColor),
-                                    )
-                                  ],
-                                ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,

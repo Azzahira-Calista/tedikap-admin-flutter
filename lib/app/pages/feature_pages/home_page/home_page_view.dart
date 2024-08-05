@@ -6,10 +6,12 @@ import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/panel_or
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/tab_analytics.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/tab_earnings.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 class HomePage extends GetView<HomeController> {
   final PanelController _panelController = PanelController();
+  final OrderController orderController = Get.find<OrderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,10 @@ class HomePage extends GetView<HomeController> {
               panel: PanelOrder(),
               header: Container(
                 width: screenWidth,
+                height: 30,
+                // color: primaryColor,
                 child: Center(
+                  // alignment: Alignment.topCenter,
                   child: Container(
                     width: 50,
                     height: 5,
@@ -93,15 +98,29 @@ class HomePage extends GetView<HomeController> {
                 topLeft: Radius.circular(24.0),
                 topRight: Radius.circular(24.0),
               ),
-              defaultPanelState: PanelState.OPEN,
-              padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05,
-                  vertical: screenHeight * 0.02),
+              defaultPanelState: PanelState.CLOSED,
+              padding: EdgeInsets.only(
+                top: screenHeight * 0.01,
+              ),
               minHeight: screenHeight * 0.05,
-              // maxHeight: screenHeight * 0.8,
+              backdropOpacity: 0.5,
+              backdropEnabled: false,
               panelSnapping: false,
-              body: TabBarView(
-                children: [EarningsTab(), AnalyticsTab()],
+              body: RefreshIndicator(
+                triggerMode: RefreshIndicatorTriggerMode.anywhere,
+                onRefresh: () async {
+                  orderController.getOrdersByStatusNew();
+                },
+                child: ListView(
+                  children: [
+                    Container(
+                      height: screenHeight,
+                      child: TabBarView(
+                        children: [EarningsTab(), AnalyticsTab()],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

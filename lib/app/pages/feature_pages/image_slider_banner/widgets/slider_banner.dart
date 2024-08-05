@@ -11,8 +11,7 @@ import '../../../../api/api_endpoint.dart';
 class SliderBanner extends GetView<ImageSliderController> {
   final int id;
   final String image;
-    final String imageUrl = ApiEndpoint.imageUrl;
-
+  final String imageUrl = ApiEndpoint.imageUrl;
 
   SliderBanner({
     required this.id,
@@ -43,9 +42,8 @@ class SliderBanner extends GetView<ImageSliderController> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(
-                          "$imageUrl/banner/$image")
-                      as ImageProvider,
+                  image:
+                      NetworkImage("$imageUrl/banner/$image") as ImageProvider,
                   fit: BoxFit.cover),
               color: primaryColor,
               borderRadius: BorderRadius.only(
@@ -64,27 +62,38 @@ class SliderBanner extends GetView<ImageSliderController> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.EDIT_IMAGE_BANNER, arguments: {
-                          'id': id,
-                          'image': image,
-                        });
+                        // Get.toNamed(Routes.EDIT_IMAGE_BANNER, arguments: {
+                        //   'id': id,
+                        //   'image': image,
+                        // });
+                        Get.defaultDialog(
+                            title: "Delete menu",
+                            middleText:
+                                "Are you sure want to delete this menu?",
+                            textConfirm: "Yes",
+                            textCancel: "No",
+                            onConfirm: () {
+                              Get.back(); // Close the dialog first
+                              controller.deleteImageSlider(id);
+                            },
+                            onCancel: () {});
                       },
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: red,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                              editIcon,
-                              color: Colors.white,
-                            ),
+                            // SvgPicture.asset(
+                            //   editIcon,
+                            //   color: Colors.white,
+                            // ),
                             // Icon(Icons.edit, color: Colors.white, size: 15),
                             SizedBox(width: 5),
-                            Text("Edit", style: smallTextWhite),
+                            Text("Delete", style: smallTextWhite),
                           ],
                         ),
                       ),

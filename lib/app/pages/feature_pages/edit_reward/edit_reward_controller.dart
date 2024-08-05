@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/api/reward/reward_service.dart';
 import 'package:tedikap_admin/app/data/model/reward/reward_model.dart';
 import 'package:tedikap_admin/app/data/model/reward/reward_response.dart';
@@ -8,6 +12,7 @@ import '../../../api/dio_instance.dart';
 
 class EditRewardController extends GetxController {
   late final int id;
+  Rx<File?> selectedImage = Rx<File?>(null);
 
   RxBool isLoading = false.obs;
   late RewardService rewardService;
@@ -59,6 +64,13 @@ class EditRewardController extends GetxController {
     imageUrl = arguments['image'];
   }
 
+  void setImage(XFile? image) {
+    if (image != null) {
+      selectedImage.value = File(image.path);
+      print("New image selected: ${selectedImage.value!.path}");
+    }
+  }
+
   void loadData() async {
     isLoading.value = true;
     try {
@@ -85,12 +97,9 @@ class EditRewardController extends GetxController {
         name: nameController.text,
         description: descriptionController.text,
         category: categoryController.text,
-        // category: selectedCategory.value,
-        // regularPrice: regularPrice,
-        // largePrice: largePrice,
         regularPoint: regularPoint,
         largePoint: largePoint,
-        imageFile: null,
+        imageFile: selectedImage.value,
       );
 
       isLoading.value = false;

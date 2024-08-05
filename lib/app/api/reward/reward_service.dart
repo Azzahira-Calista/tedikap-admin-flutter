@@ -63,17 +63,15 @@ class RewardService {
   }) async {
     try {
       final formData = FormData.fromMap({
-        if (id != null) 'id': id,
-        // if (name != null) 'name': name,
-        'name': name,
-        // if (description != null) 'description': description,
-        // 'description': description,
-        // if (regularPoint != null) 'regular_point': regularPoint,
-        // if (largePoint != null) 'large_point': largePoint,
-        'regular_point': regularPoint,
-        'large_point': largePoint,
+        // if (id != null) 'id': id,
+        if (name != null) 'name': name,
+        if (description != null) 'description': description,
+        // 'regular_point': regularPoint,
+        // 'large_point': largePoint,
+        if (regularPoint != null) 'regular_point': regularPoint,
+        if (largePoint != null) 'large_point': largePoint,
         // if (category != null) 'category': category,
-        'category': category,
+        if (category != null) 'category': category,
         if (imageFile != null)
           'image': await MultipartFile.fromFile(imageFile.path,
               filename: imageFile.path),

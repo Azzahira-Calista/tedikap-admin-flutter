@@ -71,10 +71,14 @@ class PromoBanner extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(title,
-                        style: normalText.copyWith(
-                          fontWeight: FontWeight.bold,
-                        )),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: Text(title,
+                          overflow: TextOverflow.ellipsis,
+                          style: normalText.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                     InkWell(
                       onTap: () {
                         Get.toNamed(Routes.EDIT_VOUCHER, arguments: {

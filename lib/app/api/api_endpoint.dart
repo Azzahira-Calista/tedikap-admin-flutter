@@ -16,5 +16,7 @@ class ApiEndpoint {
   static const String boxPromo = '$baseUrl/box-promo';
 
   static const String banner = '$baseUrl/banner';
+
+  static const String notification = '$baseUrlAuth/send-notification';
   
 }
