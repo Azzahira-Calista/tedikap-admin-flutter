@@ -111,7 +111,8 @@ class OrderCard extends GetView<OrderController> {
 
                   //   errorBuilder: (context, error, stackTrace) {
                   //     return Icon(Icons
-                  //         .error); // Display an error icon if image fails to load
+                  //         .error);
+                  // Display an error icon if image fails to load
                   //   },
                   // ),
                 ),
@@ -136,28 +137,28 @@ class OrderCard extends GetView<OrderController> {
                   ],
                 ),
                 Divider(color: offColor),
-                // Show Order Items if available
                 if (orderItems != null && orderItems!.isNotEmpty) ...[
                   Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       child: Text(
                         orderItems!
                             .map((item) => "${item.productName} ")
                             .toList()
                             .join(", "),
+                        overflow: TextOverflow.ellipsis,
                       )),
                   SizedBox(height: 10),
                 ],
-                // Show Order Reward Items if available
                 if (orderRewardItems != null &&
                     orderRewardItems!.isNotEmpty) ...[
                   Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       orderRewardItems!
                           .map((item) => "${item.productName} ")
                           .toList()
                           .join(", "),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   SizedBox(height: 10),

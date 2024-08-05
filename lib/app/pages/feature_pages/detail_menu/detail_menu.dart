@@ -13,6 +13,25 @@ class DetailMenu extends GetView<DetailMenuController> {
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
 
+     if (arguments == null) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          automaticallyImplyLeading: false,
+          title: Text("Menu Details"),
+        ),
+        body: Center(
+          child: Text("No menu data available."),
+        ),
+      );
+    }
+
+
     final String name = arguments['name'];
     final int regular_price = arguments['regular_price'];
     final int large_price = arguments['large_price'];

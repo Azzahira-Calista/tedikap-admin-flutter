@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/api/dio_instance.dart';
 import 'package:tedikap_admin/app/api/product/product_service.dart';
 import 'package:tedikap_admin/app/data/model/product/data_model.dart';
 import 'package:tedikap_admin/app/data/model/product/product_response.dart';
@@ -16,8 +15,8 @@ class MenusController extends GetxController {
   void setCurrentIndex(int index) {
     currentIndex.value = index;
   }
-  var productResponseModel = <Data>[].obs;
 
+  var productResponseModel = <Data>[].obs;
 
   @override
   void onInit() {
@@ -26,7 +25,7 @@ class MenusController extends GetxController {
 
     productService = ProductService();
 
-    getProducts();
+    // getProducts();
     getProductsTea();
   }
 
@@ -35,25 +34,23 @@ class MenusController extends GetxController {
     fetchFilteredProducts(category);
   }
 
-  
+  // Future<void> getProducts() async {
+  //   try {
+  //     isLoading.value = true;
 
-  Future<void> getProducts() async {
-    try {
-      isLoading.value = true;
+  //     final response = await productService.getProducts();
 
-      final response = await productService.getProducts();
+  //     productResponse = ProductResponse.fromJson(response.data);
+  //     productResponseModel = productResponse.data.obs;
 
-      productResponse = ProductResponse.fromJson(response.data);
-      productResponseModel = productResponse.data.obs;
-
-      // print("produkkkkkkk: $productResponseModel");
-    } catch (e) {
-      isLoading.value = true;
-      print(e);
-    } finally {
-      isLoading.value = false;
-    }
-  }
+  //     // print("produkkkkkkk: $productResponseModel");
+  //   } catch (e) {
+  //     isLoading.value = true;
+  //     print(e);
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 
   Future<void> getProductsTea() async {
     try {
@@ -109,7 +106,8 @@ class MenusController extends GetxController {
       final response = await productService.getFilterProduct(query: category);
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['data'];
-        productResponseModel.value = data.map((json) => Data.fromJson(json)).toList();
+        productResponseModel.value =
+            data.map((json) => Data.fromJson(json)).toList();
         print('Filtered products loaded: ${productResponseModel.length}');
       } else {
         productResponseModel.clear();

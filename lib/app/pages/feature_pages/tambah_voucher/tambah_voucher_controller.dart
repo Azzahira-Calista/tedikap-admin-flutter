@@ -60,7 +60,7 @@ class TambahVoucherController extends GetxController {
 
       update();
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         Get.toNamed(Routes.NAVBAR + Routes.MENU);
         Get.snackbar("Add voucher", "Voucher added successfully!");
       } else {

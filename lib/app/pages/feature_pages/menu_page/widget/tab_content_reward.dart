@@ -30,7 +30,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
           child: Stack(
             children: [
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [

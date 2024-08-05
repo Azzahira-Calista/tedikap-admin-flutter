@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 import '../../../api/dio_instance.dart';
 import '../../../api/product/product_service.dart';
@@ -8,6 +11,7 @@ import '../../../data/model/product/product_response.dart';
 
 class EditMenuController extends GetxController {
   late final int id;
+  Rx<File?> selectedImage = Rx<File?>(null);
 
   RxBool isLoading = false.obs;
   late ProductService productService;
@@ -35,15 +39,17 @@ class EditMenuController extends GetxController {
     super.onInit();
 
     productService = ProductService();
-    if (Get.arguments != null && Get.arguments.containsKey('id')) {
-      id = Get.arguments['id'] as int;
-      loadData();
-    } else {
-      Get.snackbar("Error", "No ID found in arguments");
-      Get.back();
-    }
-
+    // if (Get.arguments != null && Get.arguments.containsKey('id')) {
+    //   id = Get.arguments['id'];
+    //   loadData();
+    // } else {
+    //   Get.snackbar("Error", "No ID found in arguments");
+    //   Get.back();
+    // }
     final Map<String, dynamic> arguments = Get.arguments;
+    id = arguments['id'];
+    print(id);
+    loadData();
     nameController = TextEditingController(text: arguments['name']);
     descriptionController =
         TextEditingController(text: arguments['description']);
@@ -53,8 +59,14 @@ class EditMenuController extends GetxController {
         TextEditingController(text: arguments['regular_price'].toString());
     largePriceController =
         TextEditingController(text: arguments['large_price'].toString());
-
     imageUrl = arguments['image'];
+  }
+
+  void setImage(XFile? image) {
+    if (image != null) {
+      selectedImage.value = File(image.path);
+      print("New image selected: ${selectedImage.value!.path}");
+    }
   }
 
   void loadData() async {
@@ -85,12 +97,12 @@ class EditMenuController extends GetxController {
         category: categoryController.text,
         regularPrice: regularPrice,
         largePrice: largePrice,
-        imageFile: null,
+        imageFile: selectedImage.value,
       );
 
       isLoading.value = false;
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         Get.toNamed(Routes.NAVBAR + Routes.MENU);
         Get.snackbar("Edit product", "Product edited successfully!");
       } else {

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  var selectedRange = "Today".obs;
+  var selectedRange = "This Week".obs;
   var isLoading = true.obs;
 
   @override

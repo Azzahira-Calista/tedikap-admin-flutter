@@ -39,4 +39,18 @@ class ImageSliderController extends GetxController {
       isLoading(false);
     }
   }
+
+  Future<void> deleteImageSlider(int id) async {
+    try {
+      isLoading(true);
+      final response = await imageSliderService.deleteImageBanner(id: id);
+      print("Response: $response");
+
+      isLoading(false);
+      Get.snackbar("Delete image slider", "Image slider deleted successfully!");
+    } catch (e) {
+      isLoading(false);
+      Get.snackbar("Error", "Failed to delete image slider");
+    }
+  }
 }

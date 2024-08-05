@@ -124,8 +124,10 @@ class ProductService {
         if (regularPrice != null) 'regular_price': regularPrice,
         if (largePrice != null) 'large_price': largePrice,
         if (imageFile != null)
-          'image': await MultipartFile.fromFile(imageFile.path,
+          'image': await MultipartFile.fromFile(
+            imageFile.path,
               filename: basename(imageFile.path)),
+
       });
 
       final response = await _dioInstance.postRequest(

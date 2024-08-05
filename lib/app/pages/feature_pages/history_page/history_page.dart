@@ -56,7 +56,7 @@ class HistoryPage extends GetView<HistoryController> {
                               data: ChipTheme.of(context).copyWith(
                                 side: controller.selectrdTab.value ==
                                         _tabs[index]
-                                    ? BorderSide(color: primaryColor, width: 2)
+                                    ? BorderSide(color: primaryColor, width: 1)
                                     : BorderSide(color: offColor, width: 1),
                               ),
                               child: Chip(
@@ -65,13 +65,13 @@ class HistoryPage extends GetView<HistoryController> {
                                   style: subTitle.copyWith(
                                     color: controller.selectrdTab.value ==
                                             _tabs[index]
-                                        ? white
+                                        ? primaryColor
                                         : offColor,
                                   ),
                                 ),
                                 backgroundColor:
                                     controller.selectrdTab.value == _tabs[index]
-                                        ? primaryColor
+                                        ? white
                                         : white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(35),

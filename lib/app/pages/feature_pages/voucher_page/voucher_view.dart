@@ -20,7 +20,7 @@ class VoucherView extends GetView<VoucherController> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Get.offAndToNamed(Routes.NAVBAR);
+            Get.back();
           },
           icon: Icon(Icons.arrow_back_ios),
         ),

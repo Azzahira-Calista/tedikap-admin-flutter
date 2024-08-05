@@ -23,13 +23,18 @@ class DetailMenuController extends GetxController {
     // Initialize productService
     productService = ProductService();
 
-    if (Get.arguments != null && Get.arguments.containsKey('id')) {
-      id = Get.arguments['id'] as int;
-      loadData();
-    } else {
-      Get.snackbar("Error", "No ID found in arguments");
-      Get.back();
-    }
+    // if (Get.arguments != null && Get.arguments.containsKey('id')) {
+    //   id = Get.arguments['id'] as int;
+    //   print(id);
+    //   loadData();
+    // } else {
+    //   Get.snackbar("Error", "No ID found in arguments");
+    //   Get.back();
+    // }
+    final Map<String, dynamic> arguments = Get.arguments;
+    id = arguments['id'];
+    print(id);
+    loadData();
   }
 
   void loadData() async {

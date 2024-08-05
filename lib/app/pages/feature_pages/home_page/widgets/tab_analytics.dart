@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/sales_grafic.dart';
 
-import '../home_controller.dart';
 import '../../../../../common/themes.dart';
 
 class AnalyticsTab extends StatelessWidget {
