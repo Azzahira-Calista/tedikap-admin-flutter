@@ -7,13 +7,14 @@ class AuthService {
   final DioInstance _dioInstance = DioInstance();
 
   Future<Response> login(
-      {required String email, required String password}) async {
+      {required String email, required String password, String? fcmToken}) async {
     try {
       final response = await _dioInstance.postRequest(
         endpoint: ApiEndpoint.baseUrlAuth + '/login',
         data: {
           'email': email,
           'password': password,
+          'fcm_token': fcmToken,
         },
       );
 

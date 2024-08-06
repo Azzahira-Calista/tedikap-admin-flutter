@@ -40,6 +40,7 @@ class DetailMenu extends GetView<DetailMenuController> {
     final String image = arguments['image'];
     final int id = arguments['id'];
     final String category = arguments['category'];
+    final int favorites_count = arguments['favorites_count'];
 
     return Scaffold(
       appBar: AppBar(
@@ -133,7 +134,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                                 Icon(Icons.favorite_rounded,
                                     color: primaryColor, size: 24),
                                 SizedBox(width: 5),
-                                Text("Liked by 1000 people",
+                                Text("Liked by $favorites_count people",
                                     style: normalTextPrimary),
                               ],
                             ),

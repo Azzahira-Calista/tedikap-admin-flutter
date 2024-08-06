@@ -8,6 +8,9 @@ import 'package:tedikap_admin/app/data/model/promo/promo_response.dart';
 
 import '../../../../routes/AppPages.dart';
 import '../../../data/model/product/data_model.dart';
+// ignore: depend_on_referenced_packages
+import 'package:intl/intl.dart';
+
 
 class TambahVoucherController extends GetxController {
   RxString imagePath = ''.obs;
@@ -71,6 +74,19 @@ class TambahVoucherController extends GetxController {
       throw Exception(e);
     } finally {
       isLoading.value = false;
+    }
+  }
+
+   Future<void> selectDate(
+      BuildContext context, TextEditingController controller) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2050),
+    );
+    if (pickedDate != null) {
+      controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
     }
   }
 }

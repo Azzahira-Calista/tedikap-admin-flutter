@@ -57,6 +57,7 @@ class MenuTabContent extends GetView<MenusController> {
                                   regular_price: product.regularPrice!,
                                   large_price: product.largePrice!,
                                   image: product.image!,
+                                  favorites_count: product.favoritesCount,
                                 );
                               },
                             ),

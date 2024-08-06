@@ -11,6 +11,7 @@ import '../../../data/model/promo/promo_response.dart';
 
 class EditVoucherController extends GetxController {
   late final int id;
+  Rx<File?> selectedImage = Rx<File?>(null);
   RxBool isLoading = false.obs;
   PromoService promoService = PromoService();
   late PromoResponse promoResponse;
@@ -59,17 +60,22 @@ class EditVoucherController extends GetxController {
     update();
   }
 
-  void pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
+  // void pickImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-    if (pickedFile != null) {
-      setImagePath(pickedFile.path);
+  //   if (pickedFile != null) {
+  //     setImagePath(pickedFile.path);
+  //   }
+  // }
+
+  void setImage(XFile? image){
+    if (image != null){
+      selectedImage.value = File(image.path);
     }
   }
-
   void loadData() async {
     isLoading.value = true;
     try {
@@ -88,8 +94,8 @@ class EditVoucherController extends GetxController {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2050),
     );
     if (pickedDate != null) {
       controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
@@ -125,7 +131,7 @@ class EditVoucherController extends GetxController {
         minTransaction: minTransactionController.text,
         startDate: startDateController.text,
         endDate: endDateController.text,
-        imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null,
+        imageFile: selectedImage.value,
       );
 
       isLoading.value = false;

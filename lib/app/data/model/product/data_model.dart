@@ -29,15 +29,17 @@ class Data {
   int? largePrice;
   String? category;
   String? image;
+  int? favoritesCount;
 
   Data(
       {this.id,
-        this.name,
-        this.description,
-        this.regularPrice,
-        this.largePrice,
-        this.category,
-        this.image});
+      this.name,
+      this.description,
+      this.regularPrice,
+      this.largePrice,
+      this.category,
+      this.image,
+      this.favoritesCount});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -47,6 +49,7 @@ class Data {
     largePrice = json['large_price'];
     category = json['category'];
     image = json['image'];
+    favoritesCount = json['favorites_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -58,6 +61,7 @@ class Data {
     data['large_price'] = this.largePrice;
     data['category'] = this.category;
     data['image'] = this.image;
+    data['favorites_count'] = this.favoritesCount;
     return data;
   }
 }
