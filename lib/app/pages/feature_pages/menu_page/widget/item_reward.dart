@@ -98,40 +98,6 @@ class ItemWidgetReward extends GetView<RewardController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(
-                                  Icons.favorite_rounded,
-                                  color: primaryColor,
-                                  size: 18,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "rating",
-                                  style: cardTitle,
-                                )
-                              ],
-                            ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Icon(
-                            //       Icons.favorite_rounded,
-                            //       color: primaryColor,
-                            //       size: 18,
-                            //     ),
-                            //     SizedBox(
-                            //       width: 5,
-                            //     ),
-                            //     Text(
-                            //       "favourite",
-                            //       style: cardTitle,
-                            //     )
-                            //   ],
-                            // ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
                                 SvgPicture.asset(
                                   priceIcon,
                                   color: primaryColor,
@@ -167,7 +133,41 @@ class ItemWidgetReward extends GetView<RewardController> {
                                   style: cardTitle,
                                 )
                               ],
-                            )
+                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Icon(
+                            //       Icons.favorite_rounded,
+                            //       color: primaryColor,
+                            //       size: 18,
+                            //     ),
+                            //     SizedBox(
+                            //       width: 5,
+                            //     ),
+                            //     Text(
+                            //       "rating",
+                            //       style: cardTitle,
+                            //     )
+                            //   ],
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Icon(
+                                //   Icons.favorite_rounded,
+                                //   color: primaryColor,
+                                //   size: 18,
+                                // ),
+                                // SizedBox(
+                                //   width: 5,
+                                // ),
+                                Text(
+                                  "",
+                                  style: cardTitle,
+                                )
+                              ],
+                            ),
                           ],
                         )
                       ],

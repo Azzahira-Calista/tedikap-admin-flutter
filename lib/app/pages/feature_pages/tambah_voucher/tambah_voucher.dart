@@ -124,6 +124,8 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
+                            onTap: () => controller.selectDate(
+                                context, controller.startDateController),
                           ),
                           MyTextField(
                             controller: controller.endDateController,
@@ -132,6 +134,8 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
+                            onTap: () => controller.selectDate(
+                                context, controller.endDateController),
                           ),
                         ],
                       ),

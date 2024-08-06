@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tedikap_admin/app/api/auth/auth_service.dart';
+import 'package:tedikap_admin/app/firebase/global_service.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import '../../../../routes/AppPages.dart';
 
@@ -30,7 +31,7 @@ class LoginController extends GetxController {
     try {
       isLoading(true);
       final response = await authenticationService.login(
-          email: emailController.text, password: passwordController.text);
+          email: emailController.text, password: passwordController.text, fcmToken: GlobalVariables.deviceToken);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', response.data['token']);
       Get.snackbar("Login Success", "Welcome Back!");

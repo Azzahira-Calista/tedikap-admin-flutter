@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/themes.dart';
 import '../../../../routes/AppPages.dart';
@@ -29,9 +30,7 @@ class EditVoucher extends GetView<EditVoucherController> {
               style: appBarText,
             ),
             SizedBox(
-              width: MediaQuery
-                  .sizeOf(context)
-                  .width * 0.15,
+              width: MediaQuery.sizeOf(context).width * 0.15,
             ),
             InkWell(
               onTap: () {
@@ -72,67 +71,115 @@ class EditVoucher extends GetView<EditVoucherController> {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.02,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: offColor, width: 2),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.2,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        child: controller.imageUrl.isNotEmpty
-                            ? InkWell(
-                          onTap: () {
-                            controller.pickImage();
-                          },
-                          child: controller.imagePath.isEmpty ? Image(
-                            image: NetworkImage(
-                                "https://tedikap-api.rplrus.com/storage/voucher/${controller
-                                    .imageUrl}"),
-                            fit: BoxFit.cover,
-                          ) : Obx(() {
-                            return Image.file(File(controller.imagePath.value),
-                              fit: BoxFit.cover,);
-                          }),
-                        )
-                            : InkWell(
-                          onTap: () {
-                            controller.pickImage();
-                          },
-                          child: controller.imagePath.isEmpty ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add_photo_alternate,
-                                size: 50,
-                                color: offColor,
-                              ),
-                              Text(
-                                "Klik untuk mengunggah gambar",
-                                style: normalTextPrimary.copyWith(
-                                    color: offColor),
-                              )
-                            ],
-                          ) : Image.file(File(controller.imagePath.value),
-                            fit: BoxFit.cover,),
+                      // Container(
+                      //   margin: EdgeInsets.symmetric(
+                      //     vertical: MediaQuery
+                      //         .of(context)
+                      //         .size
+                      //         .height * 0.02,
+                      //   ),
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(color: offColor, width: 2),
+                      //     borderRadius: BorderRadius.circular(15),
+                      //   ),
+                      //   height: MediaQuery
+                      //       .of(context)
+                      //       .size
+                      //       .height * 0.2,
+                      //   width: MediaQuery
+                      //       .of(context)
+                      //       .size
+                      //       .width,
+                      //   child: controller.imageUrl.isNotEmpty
+                      //       ? InkWell(
+                      //     onTap: () {
+                      //       controller.pickImage();
+                      //     },
+                      //     child: controller.imagePath.isEmpty ? Image(
+                      //       image: NetworkImage(
+                      //           "https://tedikap-api.rplrus.com/storage/voucher/${controller
+                      //               .imageUrl}"),
+                      //       fit: BoxFit.cover,
+                      //     ) : Obx(() {
+                      //       return Image.file(File(controller.imagePath.value),
+                      //         fit: BoxFit.cover,);
+                      //     }),
+                      //   )
+                      //       : InkWell(
+                      //     onTap: () {
+                      //       controller.pickImage();
+                      //     },
+                      //     child: controller.imagePath.isEmpty ? Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Icon(
+                      //           Icons.add_photo_alternate,
+                      //           size: 50,
+                      //           color: offColor,
+                      //         ),
+                      //         Text(
+                      //           "Klik untuk mengunggah gambar",
+                      //           style: normalTextPrimary.copyWith(
+                      //               color: offColor),
+                      //         )
+                      //       ],
+                      //     ) : Image.file(File(controller.imagePath.value),
+                      //       fit: BoxFit.cover,),
+                      //   ),
+                      // ),
+                      GestureDetector(
+                        onTap: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          final XFile? image = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          if (image != null) {
+                            controller.setImage(image);
+                          }
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.05,
+                            vertical: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: offColor, width: 2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width,
+                          child:
+                              Obx(() => controller.selectedImage.value != null
+                                  ? Image.file(
+                                      controller.selectedImage.value!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : controller.imageUrl.isNotEmpty
+                                      ? Image.network(
+                                          "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.add_photo_alternate,
+                                              size: 50,
+                                              color: offColor,
+                                            ),
+                                            Text(
+                                              "Klik untuk mengunggah gambar",
+                                              style: normalTextPrimary.copyWith(
+                                                  color: offColor),
+                                            ),
+                                          ],
+                                        )),
                         ),
                       ),
+
                       SizedBox(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.05,
+                        height: MediaQuery.of(context).size.height * 0.05,
                       ),
                       Column(
                         children: [
@@ -157,7 +204,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                             height: 50,
                             obsecureText: false,
                           ),
-                           MyTextField(
+                          MyTextField(
                             controller: controller.maxDiscountController,
                             hintText: "Enter the maximal discount",
                             name: "Maksimal diskon",
@@ -178,9 +225,8 @@ class EditVoucher extends GetView<EditVoucherController> {
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
-                            onTap: () =>
-                                controller.selectDate(
-                                    context, controller.startDateController),
+                            onTap: () => controller.selectDate(
+                                context, controller.startDateController),
                           ),
                           MyTextField(
                             controller: controller.endDateController,
@@ -189,9 +235,8 @@ class EditVoucher extends GetView<EditVoucherController> {
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
-                            onTap: () =>
-                                controller.selectDate(
-                                    context, controller.endDateController),
+                            onTap: () => controller.selectDate(
+                                context, controller.endDateController),
                           ),
                         ],
                       ),

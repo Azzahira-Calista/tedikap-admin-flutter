@@ -16,6 +16,7 @@ class ItemWidget extends GetView<MenusController> {
   final String image;
   final int id;
   final String category;
+  int? favorites_count;
 
   ItemWidget({
     required this.name,
@@ -25,6 +26,7 @@ class ItemWidget extends GetView<MenusController> {
     required this.id,
     required this.description,
     required this.category,
+    this.favorites_count,
   });
 
   @override
@@ -55,6 +57,7 @@ class ItemWidget extends GetView<MenusController> {
                   'image': image,
                   'description': description,
                   'category': category,
+                  'favorites_count': favorites_count,
                 });
               },
               child: Container(
@@ -105,7 +108,7 @@ class ItemWidget extends GetView<MenusController> {
                                     width: 5,
                                   ),
                                   Text(
-                                    "rating",
+                                    favorites_count.toString(),
                                     style: cardTitle,
                                   )
                                 ],

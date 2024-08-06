@@ -21,13 +21,13 @@ class OrderList extends GetView<OrderController> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.toNamed(Routes.HISTORY_PAGE);
-                },
-                icon: Icon(Icons.history))
-          ],
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {
+          //         Get.toNamed(Routes.HISTORY_PAGE);
+          //       },
+          //       icon: Icon(Icons.history))
+          // ],
           // leading: IconButton(
           //   onPressed: () {
           //     Get.back();
