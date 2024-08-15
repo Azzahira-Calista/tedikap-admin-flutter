@@ -103,7 +103,19 @@ class EditMenuController extends GetxController {
       isLoading.value = false;
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.MENU);
+        // Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
+        // Get.snackbar("Edit product", "Product edited successfully!");
+        Get.offAndToNamed(Routes.DETAIL_MENU, arguments: {
+          'id': id,
+          'name': nameController.text,
+          'regular_price': regularPrice,
+          'large_price': largePrice,
+          'image': selectedImage.value != null
+              ? selectedImage.value!.path
+              : imageUrl,
+          'description': descriptionController.text,
+          'category': categoryController.text,
+        });
         Get.snackbar("Edit product", "Product edited successfully!");
       } else {
         // Handle other status codes

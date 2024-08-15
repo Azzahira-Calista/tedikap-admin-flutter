@@ -184,7 +184,6 @@ class ItemWidgetReward extends GetView<RewardController> {
                         'description': description,
                         'category': category,
                       });
-                      controller.getReward();
                     },
                     child: Container(
                       decoration: BoxDecoration(

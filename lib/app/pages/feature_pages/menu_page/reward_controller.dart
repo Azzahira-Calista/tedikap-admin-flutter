@@ -22,33 +22,12 @@ class RewardController extends GetxController {
     super.onInit();
 
     rewardService = RewardService();
-    getReward();
+    fetchFilteredProducts('tea');
   }
 
    void updateCategory(String category) {
     currentCategory.value = category;
     fetchFilteredProducts(category);
-  }
-
-@override
-  void onReady() {
-    super.onReady();
-    getReward();
-  }
-  Future<void> getReward() async {
-    try {
-      isLoading.value = true;
-
-      final response = await rewardService.getReward();
-
-      rewardResponse = RewardResponse.fromJson(response.data);
-      rewardResponseModel = rewardResponse.data.obs;
-    } catch (e) {
-      isLoading.value = true;
-      print(e);
-    } finally {
-      isLoading.value = false;
-    }
   }
 
    Future<void> fetchFilteredProducts(String category) async {

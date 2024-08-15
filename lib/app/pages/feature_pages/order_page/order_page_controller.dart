@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
 
 import 'package:tedikap_admin/app/api/order/order_service.dart';
 import 'package:tedikap_admin/app/data/model/order/order_model.dart';
@@ -13,6 +16,12 @@ class OrderController extends GetxController {
   RxList<Orders> newOrderResponseModel = <Orders>[].obs;
   RxList<Orders> processedOrderResponseModel = <Orders>[].obs;
   RxList<Orders> takenOrderResponseModel = <Orders>[].obs;
+
+  TextEditingController endDateController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+
+   var isCheckedSession1 = false.obs;
+  var isCheckedSession2 = false.obs;
 
   var currentIndex = 0.obs;
 
@@ -184,5 +193,26 @@ class OrderController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+Future<void> selectDate(
+      BuildContext context, TextEditingController controller) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2050),
+    );
+    if (pickedDate != null) {
+      controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+    }
+  }
+
+void toggleSession1() {
+    isCheckedSession1.value = !isCheckedSession1.value;
+  }
+
+  void toggleSession2() {
+    isCheckedSession2.value = !isCheckedSession2.value;
   }
 }

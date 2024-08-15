@@ -6,6 +6,7 @@ import 'dart:io';
 
 import '../../../../routes/AppPages.dart';
 import '../../../api/promo/promo_service.dart';
+import '../../../data/model/data_helper.dart';
 import '../../../data/model/product/data_model.dart';
 import '../../../data/model/promo/promo_response.dart';
 
@@ -46,8 +47,8 @@ class EditVoucherController extends GetxController {
         TextEditingController(text: arguments['description']);
     discountController =
         TextEditingController(text: arguments['discount'].toString());
-    maxDiscountController = TextEditingController(
-        text: arguments['max_discount'].toString());
+    maxDiscountController =
+        TextEditingController(text: arguments['max_discount'].toString());
     minTransactionController =
         TextEditingController(text: arguments['min_transaction'].toString());
     startDateController = TextEditingController(text: arguments['start_date']);
@@ -71,11 +72,12 @@ class EditVoucherController extends GetxController {
   //   }
   // }
 
-  void setImage(XFile? image){
-    if (image != null){
+  void setImage(XFile? image) {
+    if (image != null) {
       selectedImage.value = File(image.path);
     }
   }
+
   void loadData() async {
     isLoading.value = true;
     try {
@@ -118,37 +120,101 @@ class EditVoucherController extends GetxController {
     }
   }
 
-  Future<void> editVoucher() async {
-    try {
-      isLoading.value = true;
+  // Future<void> editVoucher() async {
+  //   try {
+  //     isLoading.value = true;
 
-      final response = await promoService.updatePromo(
-        id: id,
-        title: titleController.text,
-        description: descriptionController.text,
-        discount: discountController.text,
-        maxDiscount: maxDiscountController.text,
-        minTransaction: minTransactionController.text,
-        startDate: startDateController.text,
-        endDate: endDateController.text,
-        imageFile: selectedImage.value,
-      );
+  //     // Parse text inputs to integers
+  //     int discount = DataHelper.parseInt(discountController.text) ?? 0;
+  //     int maxDiscount = DataHelper.parseInt(maxDiscountController.text) ?? 0;
+  //     int minTransaction =
+  //         DataHelper.parseInt(minTransactionController.text) ?? 0;
 
-      isLoading.value = false;
+  //     final response = await promoService.updatePromo(
+  //       id: id,
+  //       title: titleController.text,
+  //       description: descriptionController.text,
+  //       discount: discount,
+  //       maxDiscount: maxDiscount,
+  //       minTransaction: minTransaction,
+  //       startDate: startDateController.text,
+  //       endDate: endDateController.text,
+  //       imageFile: selectedImage.value,
+  //     );
 
-      update();
+  //     isLoading.value = false;
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
-        Get.snackbar("Edit voucher", "Voucher edited successfully!");
-      } else {
-        Get.snackbar("Error", "Failed to edit voucher");
+  //     update();
+
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       promoResponseModel.value = DataHelper.parseJsonList<Data>(
+  //           response.data['data'], (json) => Data.fromJson(json));
+
+  //       Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
+  //       Get.snackbar("Edit voucher", "Voucher edited successfully!");
+  //     } else {
+  //       print("Error Response: ${response.data}");
+  //       Get.snackbar("Error", "Failed to edit voucher");
+  //     }
+  //   } catch (e) {
+  //     isLoading.value = false;
+  //     print("Error: $e");
+  //     Get.snackbar("Error", e.toString());
+  //     throw Exception(e);
+  //   }
+  // }
+
+Future<void> editVoucher() async {
+  try {
+    isLoading.value = true;
+
+    // Parse text inputs to integers
+    int discount = DataHelper.parseInt(discountController.text) ?? 0;
+    int maxDiscount = DataHelper.parseInt(maxDiscountController.text) ?? 0;
+    int minTransaction = DataHelper.parseInt(minTransactionController.text) ?? 0;
+
+    final response = await promoService.updatePromo(
+      id: id,
+      title: titleController.text,
+      description: descriptionController.text,
+      discount: discount,
+      maxDiscount: maxDiscount,
+      minTransaction: minTransaction,
+      startDate: startDateController.text,
+      endDate: endDateController.text,
+      imageFile: selectedImage.value,
+    );
+
+    isLoading.value = false;
+    update();
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Example response format check
+      if (response.data['data'] is List) {
+        promoResponseModel.value = DataHelper.parseJsonList<Data>(
+          response.data['data'], 
+          (json) => Data.fromJson(json)
+        );
+      } else if (response.data['data'] is Map<String, dynamic>) {
+        // Handle if the response is a single object
+        var parsedData = DataHelper.parseJson<Data>(
+          response.data['data'], 
+          (json) => Data.fromJson(json)
+        );
+        promoResponseModel.value = [parsedData];
       }
-    } catch (e) {
-      isLoading.value = false;
-      print("Error: $e");
-      Get.snackbar("Error", e.toString());
-      throw Exception(e);
+
+      Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
+      Get.snackbar("Edit voucher", "Voucher edited successfully!");
+    } else {
+      print("Error Response: ${response.data}");
+      Get.snackbar("Error", "Failed to edit voucher");
     }
+  } catch (e) {
+    isLoading.value = false;
+    print("Error: $e");
+    Get.snackbar("Error", e.toString());
   }
+}
+
 }

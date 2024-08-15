@@ -10,7 +10,7 @@ class PromoBanner extends StatelessWidget {
   final String title;
   final String description;
   final String image;
-  final double discount;
+  final int discount;
   final int max_discount;
   final int min_transaction;
   final String start_date;
@@ -122,17 +122,18 @@ class PromoBanner extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'Discount: $discount%',
+                  // 'Discount: $discount%',
+                  'Discount: ' + discount.toString() + '%',
                   style: cardTitle,
                 ),
                 SizedBox(height: 5),
-                Text('Max Discount: $max_discount', style: cardTitle),
+                Text('Max Discount: ' + max_discount.toString(), style: cardTitle),
                 SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Min transaction: Rp$min_transaction',
+                      'Min transaction: Rp' + min_transaction.toString(),
                       style: cardTitle,
                     ),
                     Text(

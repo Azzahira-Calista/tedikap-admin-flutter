@@ -4,5 +4,5 @@ import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif_
 class TambahNotifBinding extends Bindings {
  @override
   void dependencies() {
-    Get.lazyPut(() => TambahNotfController());
+    Get.lazyPut(() => TambahNotifController());
   }}

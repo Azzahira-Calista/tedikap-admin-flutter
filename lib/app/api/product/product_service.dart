@@ -8,72 +8,7 @@ import 'package:path/path.dart';
 
 class ProductService {
   final DioInstance _dioInstance = DioInstance();
-
-  Future<Response> getProducts() async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: ApiEndpoint.product,
-        isAuthorize: true,
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<Response> getProductsTea() async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: ApiEndpoint.product,
-        queryParameters: {'type': 'tea'},
-        isAuthorize: true,
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<Response> getProductsNonTea() async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: ApiEndpoint.product,
-        queryParameters: {'type': 'non-tea'},
-        isAuthorize: true,
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<Response> getProductsSnack() async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: ApiEndpoint.product,
-        queryParameters: {'type': 'snack'},
-        isAuthorize: true,
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-// Future<Response> storeProduct() async {
-//     try {
-//       final response = await _dioInstance.postImageRequest(
-//         endpoint: '${ApiEndpoint.product}/store',
-//         data: formsData,
-//         isAuthorize: true,
-//       );
-//
-//       return response;
-//     } catch (e) {
-//       throw Exception(e);
-//     }
-//   }
-
+  
   Future<Response> storeProduct({
     required String name,
     required String description,

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/api/promo/promo_service.dart';
+import 'package:tedikap_admin/app/data/model/promo/promo_model.dart';
 import 'package:tedikap_admin/app/data/model/promo/promo_response.dart';
 
 import '../../../../routes/AppPages.dart';
-import '../../../data/model/product/data_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
@@ -48,12 +48,17 @@ class TambahVoucherController extends GetxController {
     try {
       isLoading.value = true;
 
+      // Parse text inputs to integers
+      int discount = int.tryParse(discountController.text) ?? 0;
+      int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
+      int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
+
       final response = await promoService.storePromo(
         title: nameController.text,
         description: descriptionController.text,
-        discount: discountController.text,
-        maxDiscount: maxDiscountController.text,
-        minTransaction: minTransactionController.text,
+        discount: discount,
+        maxDiscount: maxDiscount,
+        minTransaction: minTransaction,
         startDate: startDateController.text,
         endDate: endDateController.text,
         imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
@@ -64,7 +69,7 @@ class TambahVoucherController extends GetxController {
       update();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.MENU);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
         Get.snackbar("Add voucher", "Voucher added successfully!");
       } else {
         Get.snackbar("Error", "Failed to add product");

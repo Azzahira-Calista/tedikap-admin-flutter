@@ -10,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/api/product/product_service.dart';
 import 'package:tedikap_admin/app/data/model/product/data_model.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
-import 'dart:io' as i;
 
 import '../../../data/model/product/product_response.dart';
 
@@ -19,9 +18,10 @@ class TambahMenuController extends GetxController {
   ProductService productService = ProductService();
   late ProductResponse productResponse;
   var productResponseModel = <Data>[].obs;
+  RxString selectedCategory = 'tea'.obs;
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController categoryController = TextEditingController();
+  // TextEditingController categoryController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController largePriceController = TextEditingController();
   TextEditingController regularPriceController = TextEditingController();
@@ -57,7 +57,8 @@ class TambahMenuController extends GetxController {
       final response = await productService.storeProduct(
         name: nameController.text,
         description: descriptionController.text,
-        category: categoryController.text,
+        // category: categoryController.text,
+        category: selectedCategory.value,
         regularPrice: regularPrice,
         largePrice: largePrice,
         imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null

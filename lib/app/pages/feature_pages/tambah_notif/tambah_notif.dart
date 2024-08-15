@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
 import '../../../../routes/AppPages.dart';
 
-class TambahNotif extends StatelessWidget {
+class TambahNotif extends GetView<TambahNotifController> {
   const TambahNotif({super.key});
 
   @override
@@ -29,43 +32,66 @@ class TambahNotif extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: offColor, width: 2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.add_photo_alternate,
-                            size: 50,
-                            color: offColor,
-                          ),
-                          Text(
-                            "Klik untuk mengunggah gambar",
-                            style: normalTextPrimary.copyWith(color: offColor),
-                          )
-                        ],
-                      ),
-                    ),
+                    InkWell(
+                        onTap: () => controller.pickImage(),
+                        child: Obx(() => Container(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.symmetric(
+                                // horizontal:
+                                //     MediaQuery.of(context).size.width * 0.1,
+                                vertical:
+                                    MediaQuery.of(context).size.height * 0.02,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: offColor, width: 2),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: controller.imagePath.value.isNotEmpty
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        image: DecorationImage(
+                                          image: FileImage(
+                                            File(controller.imagePath.value),
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )
+                                  : Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.add_photo_alternate,
+                                            size: 50,
+                                            color: offColor,
+                                          ),
+                                          Text(
+                                            "Klik untuk mengunggah gambar (opsional)",
+                                            style: normalTextPrimary.copyWith(
+                                                color: offColor),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                            ))),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Column(
                       children: [
                         MyTextField(
+                          controller: controller.titleController,
                           hintText: "Enter the title",
                           name: "TItle",
                           height: 50,
                           obsecureText: false,
                         ),
                         MyTextField(
+                          controller: controller.bodyController,
                           hintText: "Enter the description",
                           name: "Description",
                           height: 50,
@@ -83,7 +109,7 @@ class TambahNotif extends StatelessWidget {
             child: myButton(
               text: "Tambah",
               onPressed: () {
-                Get.toNamed(Routes.NAVBAR);
+                controller.sendNotification();
               },
               color: primaryColor,
               textColor: white,

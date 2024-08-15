@@ -7,19 +7,6 @@ import 'package:tedikap_admin/app/api/dio_instance.dart';
 class RewardService {
   final DioInstance _dioInstance = DioInstance();
 
-  Future<Response> getReward() async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: ApiEndpoint.reward,
-        isAuthorize: true,
-      );
-
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
   Future<Response> storeReward({
     required String name,
     required String description,

@@ -15,7 +15,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
   RewardController controller = Get.put(RewardController());
 
   Future<void> refreshData() async {
-    controller.getReward();
+    controller.fetchFilteredProducts('tea');
   }
 
   @override
@@ -83,7 +83,6 @@ class MenuRewardTabContent extends GetView<RewardController> {
                     text: 'Tambah menu',
                     onPressed: () async {
                       await Get.toNamed(Routes.TAMBAH_REWARD);
-                      controller.getReward();
                     },
                     color: primaryColor,
                     textColor: white,
