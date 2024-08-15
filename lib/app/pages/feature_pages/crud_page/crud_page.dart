@@ -25,6 +25,10 @@ class CrudPage extends GetView<CrudController> {
         child: Column(
           children: [
             CrudButton(
+                title: "Notification",
+                iconData: Icons.notification_add,
+                routeName: Routes.TAMBAH_NOTIF),
+            CrudButton(
                 title: "Image Slide Banner",
                 iconData: Icons.image,
                 routeName: Routes.IMAGE_BANNER),

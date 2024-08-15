@@ -10,7 +10,7 @@ import 'menu_filter.dart';
 
 class MenuTabContent extends GetView<MenusController> {
   Future<void> refreshData() async {
-    controller.getProductsTea();
+    controller.fetchFilteredProducts('tea');
   }
 
   @override

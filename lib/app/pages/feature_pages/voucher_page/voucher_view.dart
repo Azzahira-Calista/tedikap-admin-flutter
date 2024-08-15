@@ -52,15 +52,16 @@ class VoucherView extends GetView<VoucherController> {
                           final promo = controller.promoResponseModel[index];
 
                           return PromoBanner(
-                              id: promo.id,
-                              title: promo.title,
-                              description: promo.description,
-                              image: promo.image,
-                              discount: promo.discount,
-                              max_discount: promo.maxDiscount,
-                              min_transaction: promo.min_transaction,
-                              start_date: promo.start_date,
-                              end_date: promo.end_date);
+                              id: promo.id! ,
+                              title: promo.title!,
+                              description: promo.description!,
+                              image: promo.image!,
+                              discount: promo.discount!,
+                              max_discount: promo.maxDiscount!,
+                              min_transaction: promo.minTransaction!,
+                              start_date: promo.startDate!,
+                              end_date: promo.endDate!,
+                              );
                         },
                       );
                     }

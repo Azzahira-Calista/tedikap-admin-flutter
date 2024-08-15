@@ -40,7 +40,7 @@ class DetailMenu extends GetView<DetailMenuController> {
     final String image = arguments['image'];
     final int id = arguments['id'];
     final String category = arguments['category'];
-    final int favorites_count = arguments['favorites_count'];
+    final int favorites_count = arguments['favorites_count']?? 0;
 
     return Scaffold(
       appBar: AppBar(

@@ -127,55 +127,82 @@ class EditVoucher extends GetView<EditVoucherController> {
                       //       fit: BoxFit.cover,),
                       //   ),
                       // ),
-                      GestureDetector(
-                        onTap: () async {
-                          final ImagePicker _picker = ImagePicker();
-                          final XFile? image = await _picker.pickImage(
-                              source: ImageSource.gallery);
-                          if (image != null) {
-                            controller.setImage(image);
-                          }
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.05,
-                            vertical: MediaQuery.of(context).size.height * 0.02,
+                      Stack(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.05,
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: offColor, width: 2),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width,
+                            child:
+                                Obx(() => controller.selectedImage.value != null
+                                    ? Image.file(
+                                        controller.selectedImage.value!,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : controller.imageUrl.isNotEmpty
+                                        ? Image.network(
+                                            "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}",
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.add_photo_alternate,
+                                                size: 50,
+                                                color: offColor,
+                                              ),
+                                              Text(
+                                                "Klik untuk mengunggah gambar",
+                                                style: normalTextPrimary
+                                                    .copyWith(color: offColor),
+                                              ),
+                                            ],
+                                          )),
                           ),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: offColor, width: 2),
-                            borderRadius: BorderRadius.circular(15),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: 10), // Adjust padding as needed
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final ImagePicker _picker = ImagePicker();
+                                  final XFile? image = await _picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  if (image != null) {
+                                    controller.setImage(image);
+                                  }
+                                },
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: white,
+                                    border: Border.all(
+                                        color: primaryColor, width: 2),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Icon(
+                                    Icons.edit,
+                                    size: 40,
+                                    color: primaryColor,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width,
-                          child:
-                              Obx(() => controller.selectedImage.value != null
-                                  ? Image.file(
-                                      controller.selectedImage.value!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : controller.imageUrl.isNotEmpty
-                                      ? Image.network(
-                                          "https://tedikap-api.rplrus.com/storage/voucher/${controller.imageUrl}",
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.add_photo_alternate,
-                                              size: 50,
-                                              color: offColor,
-                                            ),
-                                            Text(
-                                              "Klik untuk mengunggah gambar",
-                                              style: normalTextPrimary.copyWith(
-                                                  color: offColor),
-                                            ),
-                                          ],
-                                        )),
-                        ),
+                        ],
                       ),
 
                       SizedBox(

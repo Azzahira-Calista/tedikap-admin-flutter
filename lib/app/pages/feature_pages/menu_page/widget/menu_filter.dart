@@ -5,7 +5,7 @@ import '/app/pages/feature_pages/menu_page/menu_controller.dart';
 import '../../../../../common/themes.dart';
 
 class MenuFilter extends GetView<MenusController> {
-  final List<String> options = ['tea', 'nontea', 'snack'];
+  final List<String> options = ['tea', 'nontea', 'yakult'];
 
   @override
   Widget build(BuildContext context) {

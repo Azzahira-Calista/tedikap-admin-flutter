@@ -5,7 +5,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_controlle
 import '../../../../../common/themes.dart';
 
 class RewardFilter extends GetView<RewardController> {
-  final List<String> options = ['tea', 'nontea', 'snack'];
+  final List<String> options = ['tea', 'nontea', 'yakult', 'merchandise'];
 
   @override
   Widget build(BuildContext context) {

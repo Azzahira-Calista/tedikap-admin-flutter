@@ -94,13 +94,59 @@ class TambahMenu extends GetView<TambahMenuController> {
                           height: 50,
                           obsecureText: false,
                         ),
-                        MyTextField(
-                          controller: controller.categoryController,
-                          hintText: "Enter the category",
-                          name: "Category",
-                          height: 50,
-                          obsecureText: false,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Category",
+                              style: subTitle,
+                              textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                focusColor: primaryColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(color: offColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(color: primaryColor),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10),
+                              ),
+                              value: controller.selectedCategory.value,
+                              items: ['tea', 'nontea', 'yakult']
+                                  .map((category) => DropdownMenuItem(
+                                        value: category,
+                                        child:
+                                            Text(category, style: normalText),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                controller.selectedCategory.value = value!;
+                              },
+                              hint: Text(
+                                "Select a category",
+                                style:
+                                    normalTextPrimary.copyWith(color: offColor),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                          ],
                         ),
+
+                        // MyTextField(
+                        //   controller: controller.categoryController,
+                        //   hintText: "Enter the category",
+                        //   name: "Category",
+                        //   height: 50,
+                        //   obsecureText: false,
+                        // ),
                         MyTextField(
                           controller: controller.regularPriceController,
                           obsecureText: false,

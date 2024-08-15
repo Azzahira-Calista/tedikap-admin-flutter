@@ -18,5 +18,7 @@ class ApiEndpoint {
   static const String banner = '$baseUrl/banner';
 
   static const String notification = '$baseUrlAuth/send-notification';
+
+  static const String statusStore = '$baseUrl/status-store';
   
 }

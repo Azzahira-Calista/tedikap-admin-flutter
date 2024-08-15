@@ -24,9 +24,7 @@ class MenusController extends GetxController {
     super.onInit();
 
     productService = ProductService();
-
-    // getProducts();
-    getProductsTea();
+    fetchFilteredProducts('tea');
   }
 
   void updateCategory(String category) {
@@ -34,71 +32,6 @@ class MenusController extends GetxController {
     fetchFilteredProducts(category);
   }
 
-  // Future<void> getProducts() async {
-  //   try {
-  //     isLoading.value = true;
-
-  //     final response = await productService.getProducts();
-
-  //     productResponse = ProductResponse.fromJson(response.data);
-  //     productResponseModel = productResponse.data.obs;
-
-  //     // print("produkkkkkkk: $productResponseModel");
-  //   } catch (e) {
-  //     isLoading.value = true;
-  //     print(e);
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
-
-  Future<void> getProductsTea() async {
-    try {
-      isLoading.value = true;
-
-      final response = await productService.getProductsTea();
-
-      productResponse = ProductResponse.fromJson(response.data);
-      productResponseModel = productResponse.data.obs;
-    } catch (e) {
-      isLoading.value = true;
-      print(e);
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  Future<void> getProductsNonTea() async {
-    try {
-      isLoading.value = true;
-
-      final response = await productService.getProductsNonTea();
-
-      productResponse = ProductResponse.fromJson(response.data);
-      productResponseModel = productResponse.data.obs;
-    } catch (e) {
-      isLoading.value = true;
-      print(e);
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  Future<void> getProductsSnack() async {
-    try {
-      isLoading.value = true;
-
-      final response = await productService.getProductsSnack();
-
-      productResponse = ProductResponse.fromJson(response.data);
-      productResponseModel = productResponse.data.obs;
-    } catch (e) {
-      isLoading.value = true;
-      print(e);
-    } finally {
-      isLoading.value = false;
-    }
-  }
 
   Future<void> fetchFilteredProducts(String category) async {
     try {

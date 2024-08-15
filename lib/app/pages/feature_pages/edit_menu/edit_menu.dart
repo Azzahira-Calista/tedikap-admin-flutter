@@ -13,6 +13,8 @@ class EditMenu extends GetView<EditMenuController> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -73,29 +75,21 @@ class EditMenu extends GetView<EditMenuController> {
                           //           ],
                           //         ),
                           // ),
-                          GestureDetector(
-                            onTap: () async {
-                              final ImagePicker _picker = ImagePicker();
-                              final XFile? image = await _picker.pickImage(
-                                  source: ImageSource.gallery);
-                              if (image != null) {
-                                controller.setImage(image);
-                              }
-                            },
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.1,
-                                vertical:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: offColor, width: 2),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              height: MediaQuery.of(context).size.height * 0.3,
-                              width: MediaQuery.of(context).size.width,
-                              child: Obx(
+                          Stack(
+                            children: [
+                              // Image display container
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: width * 0.1,
+                                  vertical: height * 0.02,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: offColor, width: 2),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height: height * 0.3,
+                                width: width,
+                                child: Obx(
                                   () => controller.selectedImage.value != null
                                       ? Image.file(
                                           controller.selectedImage.value!,
@@ -122,8 +116,43 @@ class EditMenu extends GetView<EditMenuController> {
                                                           color: offColor),
                                                 ),
                                               ],
-                                            )),
-                            ),
+                                            ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: 10), // Adjust padding as needed
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      final ImagePicker _picker = ImagePicker();
+                                      final XFile? image =
+                                          await _picker.pickImage(
+                                              source: ImageSource.gallery);
+                                      if (image != null) {
+                                        controller.setImage(image);
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        color: white,
+                                        border: Border.all(
+                                            color: primaryColor, width: 2),
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      child: Icon(
+                                        Icons.edit,
+                                        size: 40,
+                                        color: primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
 
                           SizedBox(
