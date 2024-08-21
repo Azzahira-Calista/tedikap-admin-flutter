@@ -18,29 +18,35 @@ class CrudPage extends GetView<CrudController> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        // color: lightGrey,
-        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: Column(
-          children: [
-            CrudButton(
-                title: "Notification",
-                iconData: Icons.notification_add,
-                routeName: Routes.TAMBAH_NOTIF),
-            CrudButton(
-                title: "Image Slide Banner",
-                iconData: Icons.image,
-                routeName: Routes.IMAGE_BANNER),
-            // CrudButton(
-            //     title: "Box Promo",
-            //     iconData: Icons.abc,
-            //     routeName: Routes.BOX_PROMO),
-            CrudButton(
-                title: "Voucher",
-                iconData: Icons.discount,
-                routeName: Routes.VOUCHER_VIEW),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          // color: lightGrey,
+          margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          child: Column(
+            children: [
+              CrudButton(
+                  title: "Customer Review",
+                  iconData: Icons.reviews,
+                  routeName: Routes.REVIEW_PAGE),
+              CrudButton(
+                  title: "Notification",
+                  iconData: Icons.notification_add,
+                  routeName: Routes.TAMBAH_NOTIF),
+              CrudButton(
+                  title: "Image Slide Banner",
+                  iconData: Icons.image,
+                  routeName: Routes.IMAGE_BANNER),
+              CrudButton(
+                  title: "Box Promo",
+                  iconData: Icons.abc,
+                  routeName: Routes.BOX_PROMO),
+              CrudButton(
+                  title: "Voucher",
+                  iconData: Icons.discount,
+                  routeName: Routes.VOUCHER_VIEW),
+            ],
+          ),
         ),
       ),
     );

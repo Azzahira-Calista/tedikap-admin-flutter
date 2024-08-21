@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
-import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 

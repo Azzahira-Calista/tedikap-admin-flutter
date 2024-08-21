@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/review_card.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/review_headline.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/headline/review_headline.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/review_filter.dart';
+import 'package:tedikap_admin/common/constant.dart';
 
 import '../../../../common/themes.dart';
 
@@ -18,7 +22,6 @@ class ReviewPage extends GetView<ReviewController> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
-    List<String> _tabs = ['All', '1 ⭐', '2 ⭐', '3 ⭐', '4 ⭐', '5 ⭐'];
 
     return Scaffold(
       appBar: AppBar(
@@ -36,84 +39,64 @@ class ReviewPage extends GetView<ReviewController> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: RefreshIndicator(
-            onRefresh: _refreshData,
-            triggerMode: RefreshIndicatorTriggerMode.anywhere,
-            child: Obx(
-              ()=> Column(
-                children: [
-                  Container(
-                    height: 50,
-                    child: ListView.builder(
-                      itemCount: _tabs.length,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.changeIndex(index);
-                              _refreshData();
+        child: RefreshIndicator(
+          onRefresh: _refreshData,
+          triggerMode: RefreshIndicatorTriggerMode.anywhere,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ReviewFilter(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Obx(() {
+                    if (controller.isLoading.value) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (controller.reviewResponseModel.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                                height: 100,
+                                width: 200,
+                                child: SvgPicture.asset(reviewEmptyIcon)),
+                            Text('No review available', style: normalText),
+                          ],
+                        ),
+                      );
+                    }
+                    if (controller.reviewResponseModel.isNotEmpty) {
+                      return Column(
+                        children: [
+                          ListView.builder(
+                            itemCount: controller.reviewResponseModel.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              final review =
+                                  controller.reviewResponseModel[index];
+                              return ReviewCard(
+                                id: review.id!,
+                                user_id: review.userId!,
+                                order_id: review.orderId!,
+                                name: review.name!,
+                                avatar: review.avatar!,
+                                staff_service: review.staffService!,
+                                product_quality: review.productQuality!,
+                                note: review.note ?? 'Customers note',
+                              );
                             },
-                            child: Obx(() => ChipTheme(
-                                  data: ChipTheme.of(context).copyWith(
-                                    side: controller.selectrdTab.value ==
-                                            _tabs[index]
-                                        ? BorderSide(color: primaryColor, width: 1)
-                                        : BorderSide(color: offColor, width: 1),
-                                  ),
-                                  child: Chip(
-                                    label: Text(
-                                      _tabs[index],
-                                      style: subTitle.copyWith(
-                                        color: controller.selectrdTab.value ==
-                                                _tabs[index]
-                                            ? primaryColor
-                                            : offColor,
-                                      ),
-                                    ),
-                                    backgroundColor:
-                                        controller.selectrdTab.value ==
-                                                _tabs[index]
-                                            ? white
-                                            : white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(35),
-                                    ),
-                                  ),
-                                )),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: _refreshData,
-                      child: ListView.builder(
-                        itemCount: controller.reviewResponseModel.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          final review = controller.reviewResponseModel[index];
-                          return ReviewCard(
-                            id: review.id!,
-                            user_id: review.userId!,
-                            order_id: review.orderId!,
-                            name: review.name!,
-                            avatar: review.avatar!,
-                            staff_service: review.staffService!,
-                            product_quality: review.productQuality!,
-                            note: review.note ?? '',
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                        ],
+                      );
+                    }
+                    return Center(
+                      child: Text("haha"),
+                    );
+                  }),
+                ),
+              ],
             ),
           ),
         ),

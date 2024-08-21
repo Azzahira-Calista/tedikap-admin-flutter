@@ -16,6 +16,7 @@ class EditMenuController extends GetxController {
   RxBool isLoading = false.obs;
   late ProductService productService;
   late ProductResponse productResponse;
+  RxString selectedCategory = 'tea'.obs;
 
   var productResponseModel = <Data>[].obs;
 
@@ -23,13 +24,9 @@ class EditMenuController extends GetxController {
 
   late TextEditingController nameController;
   late TextEditingController descriptionController;
-  late TextEditingController categoryController;
+  // late TextEditingController categoryController;
   late TextEditingController regularPriceController;
   late TextEditingController largePriceController;
-
-  // RxString selectedCategory = ''.obs;
-
-  // final List<String> categories = ['tea', 'nontea', 'snack'];
 
   late String imageUrl;
 
@@ -53,8 +50,8 @@ class EditMenuController extends GetxController {
     nameController = TextEditingController(text: arguments['name']);
     descriptionController =
         TextEditingController(text: arguments['description']);
-    categoryController = TextEditingController(text: arguments['category']);
-    // selectedCategory.value = arguments['category'] ?? '';
+    // categoryController = TextEditingController(text: arguments['category']);
+    selectedCategory.value = arguments['category'] ?? 'tea';
     regularPriceController =
         TextEditingController(text: arguments['regular_price'].toString());
     largePriceController =
@@ -72,9 +69,10 @@ class EditMenuController extends GetxController {
   void loadData() async {
     isLoading.value = true;
     try {
-      // Simulate data loading
+;
+
+
       await Future.delayed(Duration(seconds: 2));
-      // Here you can fetch data from the server using the `id`
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;
@@ -94,7 +92,8 @@ class EditMenuController extends GetxController {
         id: id,
         name: nameController.text,
         description: descriptionController.text,
-        category: categoryController.text,
+        // category: categoryController.text,
+        category: selectedCategory.value,
         regularPrice: regularPrice,
         largePrice: largePrice,
         imageFile: selectedImage.value,
@@ -114,7 +113,8 @@ class EditMenuController extends GetxController {
               ? selectedImage.value!.path
               : imageUrl,
           'description': descriptionController.text,
-          'category': categoryController.text,
+          // 'category': categoryController.text,
+          'category': selectedCategory.value,
         });
         Get.snackbar("Edit product", "Product edited successfully!");
       } else {

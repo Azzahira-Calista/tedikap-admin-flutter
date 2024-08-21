@@ -1,3 +1,5 @@
+import 'package:custom_rating_bar/custom_rating_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_controller.dart';
@@ -22,7 +24,7 @@ class ReviewCard extends GetView<ReviewController> {
     required this.staff_service,
     required this.product_quality,
     required this.note,
-  }); 
+  });
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -72,14 +74,13 @@ class ReviewCard extends GetView<ReviewController> {
                       Text(name, style: cardText),
                       Text(
                         order_id,
-                        style: normalText,
+                        style: cardTitle.copyWith(color: offColor),
                       ),
                     ],
                   ),
                 ],
               ),
-              Text("August-09-2025",
-                  style: cardTitle.copyWith(color: offColor)),
+              Text("August-09-2025", style: cardTitle),
             ],
           ),
           SizedBox(
@@ -90,9 +91,23 @@ class ReviewCard extends GetView<ReviewController> {
               Row(
                 children: [
                   Text('Product Quality', style: normalText),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  RatingBar.readOnly(
+                    filledIcon: Icons.star_rate_rounded,
+                    emptyIcon: Icons.star_border_rounded,
+                    size: 20,
+                    initialRating: product_quality,
+                    isHalfAllowed: true,
+                    halfFilledIcon: Icons.star_half_rounded,
+                    filledColor: primaryColor,
+                    emptyColor: offColor,
+                    halfFilledColor: primaryColor,
+                  ),
                   Text(
-                    product_quality.toString() + '⭐⭐⭐⭐',
-                    style: normalText,
+                    product_quality.toString(),
+                    style: smallText,
                   ),
                 ],
               ),
@@ -102,9 +117,23 @@ class ReviewCard extends GetView<ReviewController> {
               Row(
                 children: [
                   Text('Staff Serving', style: normalText),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  RatingBar.readOnly(
+                    filledIcon: Icons.star_rate_rounded,
+                    emptyIcon: Icons.star_border_rounded,
+                    size: 20,
+                    initialRating: staff_service,
+                    isHalfAllowed: true,
+                    halfFilledIcon: Icons.star_half_rounded,
+                    filledColor: primaryColor,
+                    emptyColor: offColor,
+                    halfFilledColor: primaryColor,
+                  ),
                   Text(
-                    staff_service.toString() + '⭐⭐⭐⭐', 
-                    style: normalText,
+                    staff_service.toString(),
+                    style: smallText,
                   ),
                 ],
               ),
@@ -113,11 +142,7 @@ class ReviewCard extends GetView<ReviewController> {
           SizedBox(
             height: 15,
           ),
-          Text(
-              '"' +
-                  note +
-                  '"',
-              style: normalText),
+          Text('"' + note + '"', style: normalText),
         ],
       ),
     );

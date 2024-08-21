@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/themes.dart';
-import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 import '../../global_components/textfield.dart';
 import 'edit_menu_controller.dart';
@@ -42,39 +41,7 @@ class EditMenu extends GetView<EditMenuController> {
                       padding: EdgeInsets.all(20),
                       child: Column(
                         children: [
-                          // Container(
-                          //   margin: EdgeInsets.symmetric(
-                          //     horizontal: MediaQuery.of(context).size.width * 0.1,
-                          //     vertical: MediaQuery.of(context).size.height * 0.02,
-                          //   ),
-                          //   decoration: BoxDecoration(
-                          //     border: Border.all(color: offColor, width: 2),
-                          //     borderRadius: BorderRadius.circular(15),
-                          //   ),
-                          //   height: MediaQuery.of(context).size.height * 0.3,
-                          //   width: MediaQuery.of(context).size.width,
-                          //   child: controller.imageUrl.isNotEmpty
-                          //       ? Image(
-                          //           image: NetworkImage(
-                          //               "https://tedikap-api.rplrus.com/storage/product/${controller.imageUrl}"),
-                          //           fit: BoxFit.cover,
-                          //         )
-                          //       : Column(
-                          //           mainAxisAlignment: MainAxisAlignment.center,
-                          //           children: [
-                          //             Icon(
-                          //               Icons.add_photo_alternate,
-                          //               size: 50,
-                          //               color: offColor,
-                          //             ),
-                          //             Text(
-                          //               "Klik untuk mengunggah gambar",
-                          //               style: normalTextPrimary.copyWith(
-                          //                   color: offColor),
-                          //             )
-                          //           ],
-                          //         ),
-                          // ),
+                        
                           Stack(
                             children: [
                               // Image display container
@@ -167,33 +134,58 @@ class EditMenu extends GetView<EditMenuController> {
                                 height: 50,
                                 obsecureText: false,
                               ),
-                              MyTextField(
-                                controller: controller.categoryController,
-                                hintText: "Enter the category",
-                                name: "Category",
-                                height: 50,
-                                obsecureText: false,
+                              // MyTextField(
+                              //   controller: controller.categoryController,
+                              //   hintText: "Enter the category",
+                              //   name: "Category",
+                              //   height: 50,
+                              //   obsecureText: false,
+                              // ),
+                               Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Category",
+                              style: subTitle,
+                              textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                focusColor: primaryColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(color: offColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(color: primaryColor),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10),
                               ),
-                              // Obx(() => DropdownButtonFormField<String>(
-                              //     value: controller.selectedCategory.value,
-                              //     onChanged: (newValue) {
-                              //       controller.selectedCategory.value = newValue!;
-                              //     },
-                              //     items: ['tea', 'nontea', 'snack'].map((category) {
-                              //       return DropdownMenuItem(
-                              //         child: Text(category),
-                              //         value: category,
-                              //       );
-                              //     }).toList(),
-                              //     decoration: InputDecoration(
-                              //       hintText: "Select a category",
-                              //       hintStyle: hint,
-                              //       border: OutlineInputBorder(
-                              //         borderRadius: BorderRadius.circular(15),
-                              //         borderSide: BorderSide(color: offColor),
-                              //       ),
-                              //     ),
-                              //   )),
+                              value: controller.selectedCategory.value,
+                              items: ['tea', 'nontea', 'yakult']
+                                  .map((category) => DropdownMenuItem(
+                                        value: category,
+                                        child:
+                                            Text(category, style: normalText),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                controller.selectedCategory.value = value!;
+                              },
+                              hint: Text(
+                                "Select a category",
+                                style:
+                                    normalTextPrimary.copyWith(color: offColor),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        ),
                               MyTextField(
                                 controller: controller.regularPriceController,
                                 obsecureText: false,
