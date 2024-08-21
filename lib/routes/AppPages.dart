@@ -31,6 +31,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_binding.d
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/order_status_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_page.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_box_promo/tambah_box_promo.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_box_promo/tambah_box_promo_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu_binding.dart';
@@ -269,6 +271,13 @@ class AppPages {
       name: _Paths.TAMBAH_IMAGE_BANNER,
       page: () => TambahSliderBanner(),
       binding: TambahSliderBannerBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.REVIEW_PAGE,
+      page: () => ReviewPage(),
+      binding: ReviewBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

@@ -35,6 +35,8 @@ abstract class Routes {
   static const IMAGE_BANNER = _Paths.IMAGE_BANNER;
   static const TAMBAH_IMAGE_BANNER = _Paths.TAMBAH_IMAGE_BANNER;
   static const EDIT_IMAGE_BANNER = _Paths.EDIT_IMAGE_BANNER;
+
+  static const REVIEW_PAGE = _Paths.REVIEW_PAGE;
 }
 
 abstract class _Paths {
@@ -76,4 +78,6 @@ abstract class _Paths {
 
   static const CHAT = '/chat';
   static const CHAT_ROOM = '/chat-room';
+
+  static const REVIEW_PAGE = '/review-page';
 }
