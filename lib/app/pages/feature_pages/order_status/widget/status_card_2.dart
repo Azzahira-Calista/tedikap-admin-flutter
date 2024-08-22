@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
-import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order_item_model.dart';
 import '../../../../data/model/order/order_reward_item.dart';
-import '../order_status_controller.dart';
 import 'order_menu.dart';
 
 class ProcessedOrderStatus extends GetView<OrderController> {
@@ -91,9 +89,6 @@ class ProcessedOrderStatus extends GetView<OrderController> {
               ),
             ),
             child:
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
                 Row(
               children: [
                 Container(
@@ -118,25 +113,6 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                 ),
               ],
             ),
-            // Container(
-            //     height: 25,
-            //     child: ElevatedButton(
-            //       onPressed: () {},
-            //       child: Center(
-            //         child: Text("Belum siap",
-            //             style: button2.copyWith(color: primaryTextColor)),
-            //       ),
-            //       style: ElevatedButton.styleFrom(
-            //           // primary: Colors.transparent,
-            //           // shadowColor: Colors.transparent,
-            //           backgroundColor: offColor,
-            //           foregroundColor: white,
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(10),
-            //           )),
-            //     ))
-            //   ],
-            // ),
           ),
           SizedBox(
             height: MediaQuery.sizeOf(context).height * 0.02,
@@ -178,9 +154,6 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                       ))
                 ],
               ),
-              // SizedBox(
-              //   height: MediaQuery.sizeOf(context).height * 0.02,
-              // ),
               OrderMenu(
                 orderItems: orderItems,
                 orderRewardItems: orderRewardItems,

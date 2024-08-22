@@ -19,6 +19,8 @@ class TambahRewardController extends GetxController {
   RewardService rewardService = RewardService();
   late ProductResponse productResponse;
   var productResponseModel = <Data>[].obs;
+    RxString selectedCategory = 'tea'.obs;
+
 
   TextEditingController nameController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
@@ -55,7 +57,9 @@ class TambahRewardController extends GetxController {
       final response = await rewardService.storeReward(
         name: nameController.text,
         description: descriptionController.text,
-        category: categoryController.text,
+        // category: categoryController.text,
+                category: selectedCategory.value,
+
         // regularPoint: regularPoint,
         // largePoint: largePoint,
         regularPoint: int.tryParse(regularPointController.text) ?? 0,

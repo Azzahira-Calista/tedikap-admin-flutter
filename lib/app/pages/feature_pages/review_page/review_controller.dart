@@ -10,6 +10,7 @@ class ReviewController extends GetxController {
   late ReviewResponse reviewResponse;
   RxList<Data> reviewResponseModel = <Data>[].obs;
   var currentIndex = 0.obs;
+  RxString currentFilter = 'All'.obs;
 
   @override
   void onInit() {
@@ -32,26 +33,33 @@ class ReviewController extends GetxController {
     }
   }
 
-  void changeIndex(int index) {
-    currentIndex.value = index;
-    if (index == 0) {
-      selectrdTab.value = 'All';
-      // getHistoryOrder();
-    } else if (index == 1) {
-      selectrdTab.value = '1 ⭐';
-      // getHistoryOrderReward();
-    } else if (index == 2) {
-      selectrdTab.value = '2 ⭐';
-      // getHistoryOrderAll();
-    } else if (index == 3) {
-      selectrdTab.value = '3 ⭐';
-      // getHistoryOrderCancel();
-    } else if (index == 4) {
-      selectrdTab.value = '4 ⭐';
-      // getHistoryOrderCancel();
-    } else if (index == 5) {
-      selectrdTab.value = '5 ⭐';
-      // getHistoryOrderCancel();
+  Future<void> getReviewByRatings(int rating) async {
+    try {
+      isLoading(true);
+      final response = await reviewService.getReviewByRating(rating);
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'];
+        reviewResponseModel.value =
+            data.map((json) => Data.fromJson(json)).toList();
+        print('Filtered products loaded: ${reviewResponseModel.length}');
+      } else {
+        reviewResponseModel.clear();
+        print('No products found for rating: $rating');
+      }
+    } catch (e) {
+      print('Error fetching filtered rating: $e');
+    } finally {
+      isLoading(false);
     }
   }
+
+  void updateRating(int rating) {
+    if (rating == 0) {
+      getReview();
+    } else {
+      getReviewByRatings(rating);
+    }
+    currentFilter.value = rating == 0 ? 'All' : rating.toString();
+  }
+  
 }

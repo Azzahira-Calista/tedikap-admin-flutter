@@ -27,9 +27,8 @@ class BoxPromoController extends GetxController {
       print("CHECK CURRENT RESPONSE");
       print(response.data);
 
-      boxPromoResponse = DataHelper.parseJson(
-          response.data, (json) => BoxPromoResponse.fromJson(json));
-      boxPromoResponseModel.value = boxPromoResponse.data!;
+       final boxPromoResponse = BoxPromoResponse.fromJson(response.data);
+    boxPromoResponseModel.assignAll(boxPromoResponse.data!.values.toList());
 
       print("check : ${boxPromoResponseModel}");
       print("check oiii : ${boxPromoResponse}");

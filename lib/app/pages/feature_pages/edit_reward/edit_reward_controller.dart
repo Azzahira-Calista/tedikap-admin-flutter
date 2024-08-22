@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/api/reward/reward_service.dart';
 import 'package:tedikap_admin/app/data/model/reward/reward_model.dart';
@@ -19,12 +20,13 @@ class EditRewardController extends GetxController {
   late RewardResponse rewardResponse;
 
   var productResponseModel = <Data>[].obs;
+  RxString selectedCategory = 'tea'.obs;
 
   DioInstance instance = DioInstance();
 
   late TextEditingController nameController;
   late TextEditingController descriptionController;
-  late TextEditingController categoryController;
+  // late TextEditingController categoryController;
   late TextEditingController regularPointController;
   late TextEditingController largePointController;
 
@@ -52,8 +54,8 @@ class EditRewardController extends GetxController {
     nameController = TextEditingController(text: arguments['name']);
     descriptionController =
         TextEditingController(text: arguments['description']);
-    categoryController = TextEditingController(text: arguments['category']);
-    // selectedCategory.value = arguments['category'] ?? '';
+    // categoryController = TextEditingController(text: arguments['category']);
+    selectedCategory.value = arguments['category'] ?? '';
     regularPointController =
         TextEditingController(text: arguments['regularPoint'].toString());
     largePointController =
@@ -96,7 +98,8 @@ class EditRewardController extends GetxController {
         id: id,
         name: nameController.text,
         description: descriptionController.text,
-        category: categoryController.text,
+        // category: categoryController.text,
+        category: selectedCategory.value,
         regularPoint: regularPoint,
         largePoint: largePoint,
         imageFile: selectedImage.value,
@@ -107,7 +110,7 @@ class EditRewardController extends GetxController {
       update();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR);
+        Get.offAndToNamed(Routes.NAVBAR);
         Get.snackbar("Edit reward", "Reward edited successfully!");
       } else {
         print("Response status code: ${response.statusCode}");

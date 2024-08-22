@@ -16,4 +16,17 @@ class ReviewService {
       throw Exception(e);
     }
   }
+
+  Future<Response> getReviewByRating(int rating) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: ApiEndpoint.review, 
+        queryParameters: {'rating': rating},
+        isAuthorize: true,
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

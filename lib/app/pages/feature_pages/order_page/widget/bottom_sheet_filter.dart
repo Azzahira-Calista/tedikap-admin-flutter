@@ -25,7 +25,7 @@ class PanelFilter extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      height: height * 0.55,
+      height: height * 0.4,
       width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +52,7 @@ class PanelFilter extends StatelessWidget {
                       style: normalText.copyWith(fontSize: 15),
                     ),
                     GestureDetector(
-                      onTap: controller.isCheckedSession1.toggle,
+                    onTap: controller.toggleSession1,
                       child: Obx(
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +62,7 @@ class PanelFilter extends StatelessWidget {
                               style: normalText,
                             ),
                             Checkbox(
-                              value: controller.isCheckedSession1.value,
+                            value: controller.isCheckedSession1.value,
                               tristate: true,
                               checkColor: primaryColor,
                               onChanged: (value) {
@@ -74,7 +74,7 @@ class PanelFilter extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: controller.isCheckedSession2.toggle,
+                    onTap: controller.toggleSession2,
                       child: Obx(
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +84,7 @@ class PanelFilter extends StatelessWidget {
                               style: normalText,
                             ),
                             Checkbox(
-                              value: controller.isCheckedSession2.value,
+                            value: controller.isCheckedSession2.value,
                               tristate: true,
                               checkColor: primaryColor,
                               onChanged: (value) {
@@ -97,42 +97,42 @@ class PanelFilter extends StatelessWidget {
                     ),
                   ],
                 ),
-                Divider(
-                  color: lightGrey,
-                  thickness: 2,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Periode pesanan",
-                      style: normalText.copyWith(fontSize: 15),
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DatePickerWidget(
-                            text: "Start date",
-                            controllers: controller.startDateController,
-                            onTap: () => controller.selectDate(
-                                context, controller.startDateController),
-                          ),
-                          SizedBox(
-                              width: 30,
-                              height: 2,
-                              child: Divider(color: lightGrey)),
-                          DatePickerWidget(
-                            text: "End date",
-                            controllers: controller.endDateController,
-                            onTap: () => controller.selectDate(
-                                context, controller.endDateController),
-                          ),
-                        ]),
-                  ],
-                ),
+                //   Divider(
+                //     color: lightGrey,
+                //     thickness: 2,
+                //   ),
+                //   Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         "Periode pesanan",
+                //         style: normalText.copyWith(fontSize: 15),
+                //       ),
+                //       SizedBox(
+                //         height: height * 0.02,
+                //       ),
+                //       Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             DatePickerWidget(
+                //               text: "Start date",
+                //               controllers: controller.startDateController,
+                //               onTap: () => controller.selectDate(
+                //                   context, controller.startDateController),
+                //             ),
+                //             SizedBox(
+                //                 width: 30,
+                //                 height: 2,
+                //                 child: Divider(color: lightGrey)),
+                //             DatePickerWidget(
+                //               text: "End date",
+                //               controllers: controller.endDateController,
+                //               onTap: () => controller.selectDate(
+                //                   context, controller.endDateController),
+                //             ),
+                //           ]),
+                //     ],
+                //   ),
               ],
             ),
           ),
@@ -143,12 +143,8 @@ class PanelFilter extends StatelessWidget {
                 width: width * 0.42,
                 child: myButton(
                     text: 'Reset Filter',
-                    onPressed: () {
-                      controller.isCheckedSession1.value = false;
-                      controller.isCheckedSession2.value = false;
-                      controller.startDateController.clear();
-                      controller.endDateController.clear();
-                    },
+                                      onPressed: controller.resetFilters,
+
                     color: white,
                     textColor: primaryTextColor),
               ),
@@ -156,7 +152,10 @@ class PanelFilter extends StatelessWidget {
                 width: width * 0.42,
                 child: myButton(
                     text: 'Save',
-                    onPressed: () {},
+                    onPressed: () {
+                            controller.saveSessionFilter();
+                            Get.back(); 
+                    },
                     color: primaryColor,
                     textColor: white),
               )

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tmbah_menu_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
@@ -95,13 +94,58 @@ class TambahReward extends GetView<TambahRewardController> {
                           height: 50,
                           obsecureText: false,
                         ),
-                        MyTextField(
-                          controller: controller.categoryController,
-                          hintText: "Enter the category",
-                          name: "Category",
-                          height: 50,
-                          obsecureText: false,
+                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Category",
+                              style: subTitle,
+                              textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                focusColor: primaryColor,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(color: offColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(color: primaryColor),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10),
+                              ),
+                              value: controller.selectedCategory.value,
+                              items: ['tea', 'nontea', 'yakult', 'merchandise']
+                                  .map((category) => DropdownMenuItem(
+                                        value: category,
+                                        child:
+                                            Text(category, style: normalText),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                controller.selectedCategory.value = value!;
+                              },
+                              hint: Text(
+                                "Select a category",
+                                style:
+                                    normalTextPrimary.copyWith(color: offColor),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                          ],
                         ),
+                        // MyTextField(
+                        //   controller: controller.categoryController,
+                        //   hintText: "Enter the category",
+                        //   name: "Category",
+                        //   height: 50,
+                        //   obsecureText: false,
+                        // ),
                         MyTextField(
                           controller: controller.regularPointController,
                           obsecureText: false,
