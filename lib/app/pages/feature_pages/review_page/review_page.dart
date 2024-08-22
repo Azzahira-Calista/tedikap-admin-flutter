@@ -53,46 +53,46 @@ class ReviewPage extends GetView<ReviewController> {
                       return Center(child: CircularProgressIndicator());
                     }
                     if (controller.reviewResponseModel.isEmpty) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 100,
-                                width: 200,
-                                child: SvgPicture.asset(reviewEmptyIcon)),
-                            Text('No review available', style: normalText),
-                          ],
+                      return Container(
+                        height: height * 0.7,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 100,
+                                  width: 200,
+                                  child: SvgPicture.asset(reviewEmptyIcon)),
+                              Text('No review available', style: normalText),
+                            ],
+                          ),
                         ),
                       );
                     }
-                    if (controller.reviewResponseModel.isNotEmpty) {
-                      return Column(
-                        children: [
-                          ListView.builder(
-                            itemCount: controller.reviewResponseModel.length,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              final review =
-                                  controller.reviewResponseModel[index];
-                              return ReviewCard(
-                                id: review.id!,
-                                user_id: review.userId!,
-                                order_id: review.orderId!,
-                                name: review.name!,
-                                avatar: review.avatar!,
-                                staff_service: review.staffService!,
-                                product_quality: review.productQuality!,
-                                note: review.note ?? 'Customers note',
-                              );
-                            },
-                          ),
-                        ],
-                      );
-                    }
-                    return Center(
-                      child: Text("haha"),
+
+                    return Column(
+                      children: [
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: controller.reviewResponseModel.length,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            final review =
+                                controller.reviewResponseModel[index];
+                            return ReviewCard(
+                              id: review.id!,
+                              user_id: review.userId!,
+                              order_id: review.orderId!,
+                              name: review.name!,
+                              avatar: review.avatar!,
+                              staff_service: review.staffService!,
+                              product_quality: review.productQuality!,
+                              note: review.note ?? 'Customers note',
+                            );
+                          },
+                        ),
+                      ],
                     );
                   }),
                 ),

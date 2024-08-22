@@ -33,57 +33,9 @@ class BoxPromoView extends GetView<BoxPromoController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
-      body:
-
-          // Obx(() {
-          //   if (controller.isLoading.value) {
-          //     return Center(child: CircularProgressIndicator());
-          //   } else if (controller.boxPromoResponseModel.isEmpty) {
-          //     return Center(child: Text("No Promos Available"));
-          //   } else {
-          //     return Padding(
-          //       padding: EdgeInsets.all(20),
-          //       child: Stack(
-          //         children: [
-          //           Container(
-          //             height: MediaQuery.of(context).size.height,
-          //             child: ListView.builder(
-          //                 itemCount: controller.boxPromoResponseModel.length,
-          //                 itemBuilder: (BuildContext context, int index) {
-          //                   final boxPromo =
-          //                       controller.boxPromoResponseModel[index];
-
-          //                   return BoxPromo(
-          //                       id: boxPromo.id!,
-          //                       title: boxPromo.title!,
-          //                       subtitle: boxPromo.subtitle!,
-          //                       image: boxPromo.image!);
-          //                 }),
-          //           ),
-          //           Container(
-          //             padding: EdgeInsets.only(bottom: 20),
-          //             height: MediaQuery.of(context).size.height,
-          //             child: Align(
-          //               alignment: Alignment.bottomCenter,
-          //               child: myButton(
-          //                 text: 'Tambah box promo',
-          //                 onPressed: () {
-          //                   Get.toNamed(Routes.TAMBAH_BOX_PROMO);
-          //                 },
-          //                 color: primaryColor,
-          //                 textColor: white,
-          //               ),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     );
-          //   }
-          // })
-
-          SafeArea(
+      body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: RefreshIndicator(
             onRefresh: refreshData,
             child: Stack(
@@ -115,18 +67,22 @@ class BoxPromoView extends GetView<BoxPromoController> {
                         ),
                       ]);
                     } else {
-                      return ListView.builder(
-                          itemCount: controller.boxPromoResponseModel.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final boxPromo =
-                                controller.boxPromoResponseModel[index];
+                      return SingleChildScrollView(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: controller.boxPromoResponseModel.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final boxPromo =
+                                  controller.boxPromoResponseModel[index];
 
-                            return BoxPromo(
-                                id: boxPromo.id!,
-                                title: boxPromo.title!,
-                                subtitle: boxPromo.subtitle!,
-                                image: boxPromo.image!);
-                          });
+                              return BoxPromo(
+                                  id: boxPromo.id!,
+                                  title: boxPromo.title!,
+                                  subtitle: boxPromo.subtitle!,
+                                  image: boxPromo.image!);
+                            }),
+                      );
                     }
                   }),
                 ),

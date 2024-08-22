@@ -17,6 +17,19 @@ class OrderService {
     }
   }
 
+  //  Future<Response> getOrdersByStatus(String status, {int? session}) async {
+  //   try {
+  //     // final String sessionQuery = session != null ? '&session=$session' : '';
+  //     final response = await _dioInstance.getRequest(
+  //       endpoint: '${ApiEndpoint.order}/get-order?status=$status order&session=$session',
+  //       isAuthorize: true,
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
+
   Future<Response> getHistoryOrderByType(String type) async {
     try {
       final response = await _dioInstance.getRequest(

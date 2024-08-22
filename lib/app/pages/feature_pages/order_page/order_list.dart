@@ -75,57 +75,57 @@ class OrderList extends GetView<OrderController> {
               ),
             ],
           ),
-          InkWell(
-            onTap: () {
-              Get.bottomSheet(
-                PanelFilter(),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-              height: height,
-              width: width,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
-                  height: height * 0.06,
-                  width: width * 0.3,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Icon(
-                          Icons.filter_alt_outlined,
-                          color: primaryColor,
-                        ),
-                      ),
-                      SizedBox(
-                          width: width * 0.15,
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Filter',
-                                style: subTitle.copyWith(color: Colors.white),
-                              )))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
+          // Container(
+          //   padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          //   // height: height,
+          //   // width: width,
+          //   child: Align(
+          //     alignment: Alignment.bottomCenter,
+          //     child: GestureDetector(
+          //       onTap: () {
+          //         Get.bottomSheet(
+          //           PanelFilter(),
+          //         );
+          //       },
+          //       child: Container(
+          //         padding: EdgeInsets.symmetric(
+          //           horizontal: 10,
+          //         ),
+          //         height: height * 0.06,
+          //         width: width * 0.3,
+          //         decoration: BoxDecoration(
+          //           color: primaryColor,
+          //           borderRadius: BorderRadius.circular(50),
+          //         ),
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           children: [
+          //             Container(
+          //               height: 30,
+          //               width: 30,
+          //               decoration: BoxDecoration(
+          //                 color: Colors.white,
+          //                 borderRadius: BorderRadius.circular(50),
+          //               ),
+          //               child: Icon(
+          //                 Icons.filter_alt_outlined,
+          //                 color: primaryColor,
+          //               ),
+          //             ),
+          //             SizedBox(
+          //                 width: width * 0.15,
+          //                 child: Align(
+          //                     alignment: Alignment.center,
+          //                     child: Text(
+          //                       'Filter',
+          //                       style: subTitle.copyWith(color: Colors.white),
+          //                     )))
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // )
         ]),
       ),
     );
