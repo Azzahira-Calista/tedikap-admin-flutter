@@ -187,7 +187,7 @@ class RewardItemWidget extends StatelessWidget {
                 style: cardTitle,
               ),
               Text(
-                " Point", 
+                " Pts",
                 style: cardTitle,
               ),
             ],
