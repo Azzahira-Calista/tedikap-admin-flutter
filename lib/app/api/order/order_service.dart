@@ -33,7 +33,7 @@ class OrderService {
   Future<Response> getHistoryOrderByType(String type) async {
     try {
       final response = await _dioInstance.getRequest(
-        endpoint: '${ApiEndpoint.order}$type/history?type=history',
+        endpoint: '${ApiEndpoint.order}/get-order?status=done&type=$type',
         isAuthorize: true,
       );
       return response;

@@ -21,7 +21,7 @@ class HistoryController extends GetxController {
   Future<void> getHistoryOrder() async {
     try {
       isLoading.value = true;
-      final response = await orderService.getHistoryOrderByType('');
+      final response = await orderService.getHistoryOrderByType('order');
       orderResponse = OrderResponse.fromJson(response.data);
       orderResponseModel.value = orderResponse.orders ?? [];
     } catch (e) {
@@ -34,7 +34,7 @@ class HistoryController extends GetxController {
   Future<void> getHistoryOrderReward() async {
     try {
       isLoading.value = true;
-      final response = await orderService.getHistoryOrderByType('-reward');
+      final response = await orderService.getHistoryOrderByType('reward');
       orderResponse = OrderResponse.fromJson(response.data);
       orderResponseModel.value = orderResponse.orders ?? [];
     } catch (e) {

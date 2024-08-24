@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_vouc
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
+import 'package:tedikap_admin/routes/AppPages.dart';
 
 class TambahVoucher extends GetView<TambahVoucherController> {
   const TambahVoucher({Key? key}) : super(key: key);
@@ -150,6 +152,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                 text: "Tambah",
                 onPressed: () {
                   controller.addPromo();
+                  Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
                 },
                 color: primaryColor,
                 textColor: white,

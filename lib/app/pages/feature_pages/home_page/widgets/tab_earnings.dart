@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
-class EarningsTab extends StatelessWidget {
+class EarningsTab extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -23,7 +25,8 @@ class EarningsTab extends StatelessWidget {
                     style: subTitle,
                   ),
                   Text(
-                    "Rp " + "350.000",
+                    controller.formatRupiah(
+                        controller.earningsResponseModel.value.totalSales ?? 0),
                     style: headline,
                   )
                 ],
@@ -49,7 +52,12 @@ class EarningsTab extends StatelessWidget {
                       children: [
                         Text("Avg Per Week",
                             style: normalText.copyWith(color: darkGrey)),
-                        Text("Rp " + "100.000",
+                        Text(
+                            controller.formatRupiah(controller
+                                    .earningsResponseModel
+                                    .value
+                                    .averagePerWeek ??
+                                0),
                             style: cardText.copyWith(
                                 fontSize: 20, color: darkGrey)),
                       ],
@@ -68,7 +76,8 @@ class EarningsTab extends StatelessWidget {
                       children: [
                         Text("Earnings Growth",
                             style: normalText.copyWith(color: darkGrey)),
-                        Text("75 " + "%",
+                        Text(
+                            '${controller.earningsResponseModel.value.earningGrowth?.toString() ?? 0.toString()}%',
                             style: cardText.copyWith(
                                 fontSize: 20, color: darkGrey)),
                       ],

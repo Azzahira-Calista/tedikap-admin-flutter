@@ -15,6 +15,8 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+      final earnings = controller.earningsResponseModel;
+
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Obx(() {
@@ -116,7 +118,11 @@ class HomePage extends GetView<HomeController> {
                     Container(
                       height: screenHeight,
                       child: TabBarView(
-                        children: [EarningsTab(), AnalyticsTab()],
+                        children: [EarningsTab(
+                          // total_sales: earnings.total_sales,
+                          // avg_per_week: earnings.avg_per_week,
+                          // earnings_growth: earnings.earnings_growth,
+                        ), AnalyticsTab()],
                       ),
                     ),
                   ],

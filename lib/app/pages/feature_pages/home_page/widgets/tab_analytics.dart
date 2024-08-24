@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/sales_grafic.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/analytics/bar_chart_container.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/analytics/sales_grafic.dart';
 
 import '../../../../../common/themes.dart';
 
-class AnalyticsTab extends StatelessWidget {
+class AnalyticsTab extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -14,14 +16,16 @@ class AnalyticsTab extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.02,
-            ),
-            
-            SalesGrafic(),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.02,
-            ),
+            // SizedBox(
+            //   height: MediaQuery.sizeOf(context).height * 0.02,
+            // ),
+
+            // SalesGrafic(),
+            BarChartContainer(),
+
+            // SizedBox(
+            //   height: MediaQuery.sizeOf(context).height * 0.01,
+            // ),
             Container(
               width: screenWidth,
               height: screenHeight * 0.1,
@@ -42,9 +46,23 @@ class AnalyticsTab extends StatelessWidget {
                       children: [
                         Text("Income",
                             style: normalText.copyWith(color: darkGrey)),
-                        Text("+ " + "100.000",
+                        Obx(
+                          () => Text(
+                            controller.formatRupiah(
+                              (controller.selectedRange.value == 'This Week')
+                                  ? controller.sumIncome()
+                                  : (controller.selectedRange.value ==
+                                          'This Month')
+                                      ? controller.sumIncomeMonth()
+                                      : (controller.selectedRange.value ==
+                                              'This Year')
+                                          ? controller.sumIncomeYear()
+                                          : controller.sumIncome(),
+                            ),
                             style: cardText.copyWith(
-                                fontSize: 20, color: darkGrey)),
+                                fontSize: 20, color: darkGrey),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -61,9 +79,13 @@ class AnalyticsTab extends StatelessWidget {
                       children: [
                         Text("Product Sales",
                             style: normalText.copyWith(color: darkGrey)),
-                        Text("30 " + "Pcs",
+                        Obx(
+                          () => Text(
+                            '${(controller.selectedRange.value == 'This Week') ? controller.sumSales().toString() : (controller.selectedRange.value == 'This Month') ? controller.sumSalesMonth().toString() : (controller.selectedRange.value == 'This Year') ? controller.sumSalesYear().toString() : controller.sumSales().toString()} Pcs',
                             style: cardText.copyWith(
-                                fontSize: 20, color: darkGrey)),
+                                fontSize: 20, color: darkGrey),
+                          ),
+                        ),
                       ],
                     ),
                   ),

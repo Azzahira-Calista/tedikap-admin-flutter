@@ -22,4 +22,6 @@ class ApiEndpoint {
   static const String statusStore = '$baseUrl/status-store';
 
   static const String review = '$baseUrl/review';
+
+  static const String statistic = '$baseUrl/statistic';
 }
