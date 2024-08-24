@@ -50,7 +50,7 @@ class HistoryPage extends GetView<HistoryController> {
                       child: GestureDetector(
                         onTap: () {
                           controller.changeIndex(index);
-                          _refreshData();
+                          // _refreshData();
                         },
                         child: Obx(() => ChipTheme(
                               data: ChipTheme.of(context).copyWith(
