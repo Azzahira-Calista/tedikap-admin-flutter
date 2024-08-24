@@ -37,7 +37,7 @@ class NewOrderStatus extends GetView<OrderController> {
     required this.id,
     required this.userId,
     required this.cartId,
-     this.name,
+    this.name,
     required this.avatar,
     this.voucherId,
     required this.totalPrice,
@@ -67,225 +67,228 @@ class NewOrderStatus extends GetView<OrderController> {
         ? orderRewardItems!
             .fold<int>(0, (sum, item) => sum + (item.totalPoints ?? 0))
         : 0;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-              color: offColor,
-              offset: Offset(0, 4),
-              blurRadius: 4,
-              spreadRadius: 0.25)
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              // color: primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        margin: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+                color: offColor,
+                offset: Offset(0, 4),
+                blurRadius: 4,
+                spreadRadius: 0.25)
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                // color: primaryColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+              ),
+              child:
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    name ?? 'ksoong',
+                    style: cardText.copyWith(color: primaryTextColor),
+                  ),
+                ],
               ),
             ),
-            child:
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                Row(
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.02,
+            ),
+            Column(
               children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Daftar Pesanan",
+                    style: cardText,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(id,
+                            style:
+                                normalText.copyWith(color: primaryTextColor))),
+                    IconButton(
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: id));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Copied to clipboard',
+                                style: normalText,
+                              ),
+                              backgroundColor: lightGrey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          );
+                        },
+                        icon: Icon(
+                          Icons.copy,
+                          size: 16,
+                        ))
+                  ],
+                ),
+                // SizedBox(
+                //   height: MediaQuery.sizeOf(context).height * 0.02,
+                // ),
+                OrderMenu(
+                  orderItems: orderItems,
+                  orderRewardItems: orderRewardItems,
+                ),
+                Divider(
+                  color: offColor,
+                ),
                 Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: NetworkImage
-                      ("https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
-                      fit: BoxFit.cover,
-                    ),
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Total Pesanan :", style: cardTitle),
+                          if (orderItems != null && orderItems!.isNotEmpty) ...[
+                            Text(totalQuantityOrder.toString() + " items",
+                                style: cardTitle),
+                          ],
+                          if (orderRewardItems != null &&
+                              orderRewardItems!.isNotEmpty) ...[
+                            Text(totalQuantityReward.toString() + " items",
+                                style: cardTitle),
+                          ],
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Total Harga :", style: cardTitle),
+                          Row(
+                            children: [
+                              if (orderItems != null &&
+                                  orderItems!.isNotEmpty) ...[
+                                Text(
+                                  "Rp " + totalPrice.toString(),
+                                  style: cardTitle,
+                                ),
+                              ],
+                              if (orderRewardItems != null &&
+                                  orderRewardItems!.isNotEmpty) ...[
+                                Text(
+                                  totalPoints.toString() + " Points",
+                                  style: cardTitle,
+                                ),
+                              ],
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Metode Pembayaran :", style: cardTitle),
+                          if (orderItems != null && orderItems!.isNotEmpty) ...[
+                            Text(paymentChannel, style: cardTitle),
+                          ],
+                          if (orderRewardItems != null &&
+                              orderRewardItems!.isNotEmpty) ...[
+                            Text("Bayar dengan Points", style: cardTitle),
+                          ],
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
-                  width: 10,
+                  height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
-                Text(
-                  name ?? 'ksoong',
-                  style: cardText.copyWith(color: primaryTextColor),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.38,
+                      child: myButton(
+                          text: "Terima",
+                          onPressed: () {
+                            controller.acceptOrder(id);
+                          },
+                          // async {
+                          //   try {
+                          //     final controller = Get.find<OrderController>();
+                          //     await controller.acceptOrder(id);
+                          //     Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+                          //   } catch (e) {
+                          //     print("Error accepting order: $e");
+                          //   }
+                          // },
+                          color: primaryColor,
+                          textColor: white),
+                    ),
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.38,
+                        child: Container(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.38,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                controller.rejectOrder(id);
+                              },
+                              child: Center(
+                                child: Text("Tolak",
+                                    style: button.copyWith(color: red)),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  // primary: Colors.transparent,
+                                  surfaceTintColor: white,
+                                  shadowColor: Colors.transparent,
+                                  backgroundColor: white,
+                                  foregroundColor: red,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      side: BorderSide(color: red, width: 1))),
+                            ))),
+                  ],
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.02,
-          ),
-          Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Daftar Pesanan",
-                  style: cardText,
-                ),
-              ),
-               Row(
-                children: [
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(id,
-                          style: normalText.copyWith(color: primaryTextColor))),
-                  IconButton(
-                      onPressed: () {
-                        Clipboard.setData(ClipboardData(text: id));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Copied to clipboard',
-                              style: normalText,
-                            ),
-                            backgroundColor: lightGrey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.copy,
-                        size: 16,
-                      ))
-                ],
-              ),
-              // SizedBox(
-              //   height: MediaQuery.sizeOf(context).height * 0.02,
-              // ),
-              OrderMenu(
-                orderItems: orderItems,
-                orderRewardItems: orderRewardItems,
-              ),
-              Divider(
-                color: offColor,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.08,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Total Pesanan :", style: cardTitle),
-                        if (orderItems != null && orderItems!.isNotEmpty) ...[
-                          Text(totalQuantityOrder.toString() + " items",
-                              style: cardTitle),
-                        ],
-                        if (orderRewardItems != null &&
-                            orderRewardItems!.isNotEmpty) ...[
-                          Text(totalQuantityReward.toString() + " items",
-                              style: cardTitle),
-                        ],
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Total Harga :", style: cardTitle),
-                        Row(
-                          children: [
-                            if (orderItems != null &&
-                                orderItems!.isNotEmpty) ...[
-                              Text(
-                                "Rp " + totalPrice.toString(),
-                                style: cardTitle,
-                              ),
-                            ],
-                            if (orderRewardItems != null &&
-                                orderRewardItems!.isNotEmpty) ...[
-                              Text(
-                                totalPoints.toString() + " Points",
-                                style: cardTitle,
-                              ),
-                            ],
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Metode Pembayaran :", style: cardTitle),
-                        if (orderItems != null && orderItems!.isNotEmpty) ...[
-                          Text(paymentChannel, style: cardTitle),
-                        ],
-                        if (orderRewardItems != null &&
-                            orderRewardItems!.isNotEmpty) ...[
-                          Text("Bayar dengan Points", style: cardTitle),
-                        ],
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.02,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.38,
-                    child: myButton(
-                        text: "Terima",
-                        onPressed: (){
-                          controller.acceptOrder(id);
-                        } ,
-                        // async {
-                        //   try {
-                        //     final controller = Get.find<OrderController>();
-                        //     await controller.acceptOrder(id);
-                        //     Get.toNamed(Routes.NAVBAR + Routes.ORDER);
-                        //   } catch (e) {
-                        //     print("Error accepting order: $e");
-                        //   }
-                        // },
-                        color: primaryColor,
-                        textColor: white),
-                  ),
-                  Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.38,
-                      child: Container(
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery.of(context).size.width * 0.38,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              controller.rejectOrder(id);
-                            },
-                            child: Center(
-                              child: Text("Tolak",
-                                  style: button.copyWith(color: red)),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                // primary: Colors.transparent,
-                                surfaceTintColor: white,
-                                shadowColor: Colors.transparent,
-                                backgroundColor: white,
-                                foregroundColor: red,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    side: BorderSide(color: red, width: 1))),
-                          ))),
-                ],
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
