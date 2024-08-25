@@ -13,7 +13,7 @@ class CrudPage extends GetView<CrudController> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'CRUD Page',
+          'Widgets Page',
           style: appBarText,
         ),
         centerTitle: true,
@@ -39,7 +39,7 @@ class CrudPage extends GetView<CrudController> {
                   routeName: Routes.IMAGE_BANNER),
               CrudButton(
                   title: "Box Promo",
-                  iconData: Icons.abc,
+                  iconData: Icons.confirmation_number_sharp,
                   routeName: Routes.BOX_PROMO),
               CrudButton(
                   title: "Voucher",

@@ -7,7 +7,6 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/bottom_s
 import '../../../../../../common/constant.dart';
 import '../../../../../../common/themes.dart';
 import '../order_card.dart';
-import '../order_filter.dart';
 
 class ProcessedOrder extends GetView<OrderController> {
   const ProcessedOrder({super.key});
@@ -64,6 +63,7 @@ class ProcessedOrder extends GetView<OrderController> {
                       final order =
                           controller.processedOrderResponseModel[index];
                       return OrderCard(
+                        whatsappUser: order.whatsappUser!,
                         id: order.id!,
                         userId: order.userId!,
                         cartId: order.cartId ?? 0,

@@ -15,7 +15,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Box Promo", style: appBarText),
+        title: Text("Add Box Promo", style: appBarText),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -70,7 +70,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
                                               color: offColor,
                                             ),
                                             Text(
-                                              "Klik untuk mengunggah gambar",
+                                              "Click to upload image",
                                               style: normalTextPrimary.copyWith(
                                                   color: offColor),
                                             )
@@ -85,15 +85,15 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
                         children: [
                           MyTextField(
                             controller: controller.titleController,
-                            hintText: "Enter the name",
-                            name: "Name",
+                            hintText: "Enter the title",
+                            name: "Title",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.subTitleController,
                             hintText: "Enter the description",
-                            name: "Deskripsi",
+                            name: "Description",
                             height: 50,
                             obsecureText: false,
                           ),
@@ -108,7 +108,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
             Container(
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: myButton(
-                text: "Tambah",
+                text: "Add",
                 onPressed: () {
                   controller.addBoxPromo();
                 },

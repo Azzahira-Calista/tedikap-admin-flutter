@@ -76,7 +76,7 @@ class MenuTabContent extends GetView<MenusController> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: myButton(
-                    text: 'Tambah menu',
+                    text: 'Add menu',
                     onPressed: () {
                       Get.toNamed(Routes.TAMBAH_MENU);
                     },

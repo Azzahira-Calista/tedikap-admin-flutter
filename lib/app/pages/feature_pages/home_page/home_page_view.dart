@@ -15,7 +15,7 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-      final earnings = controller.earningsResponseModel;
+    // final earnings = controller.earningsResponseModel;
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -112,17 +112,14 @@ class HomePage extends GetView<HomeController> {
                 triggerMode: RefreshIndicatorTriggerMode.anywhere,
                 onRefresh: () async {
                   orderController.getOrdersByStatusNew(null);
+                  controller.isSwitched.value;
                 },
                 child: ListView(
                   children: [
                     Container(
                       height: screenHeight,
                       child: TabBarView(
-                        children: [EarningsTab(
-                          // total_sales: earnings.total_sales,
-                          // avg_per_week: earnings.avg_per_week,
-                          // earnings_growth: earnings.earnings_growth,
-                        ), AnalyticsTab()],
+                        children: [EarningsTab(), AnalyticsTab()],
                       ),
                     ),
                   ],

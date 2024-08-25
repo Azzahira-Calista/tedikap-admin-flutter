@@ -17,6 +17,8 @@ class Orders {
   String? status;
   String? statusDescription;
   String? whatsapp;
+  String? whatsappUser;
+
   String? orderType;
   String? schedulePickup;
   String? iconStatus;
@@ -45,6 +47,7 @@ class Orders {
       this.status,
       this.statusDescription,
       this.whatsapp,
+      this.whatsappUser,
       this.orderType,
       this.schedulePickup,
       this.iconStatus,
@@ -73,6 +76,8 @@ class Orders {
     status = json['status'];
     statusDescription = json['status_description'];
     whatsapp = json['whatsapp'];
+    whatsappUser = json['whatsapp_user'];
+
     orderType = json['order_type'];
     schedulePickup = json['schedule_pickup'];
     iconStatus = json['icon_status'];
@@ -113,6 +118,7 @@ class Orders {
     data['status'] = this.status;
     data['status_description'] = this.statusDescription;
     data['whatsapp'] = this.whatsapp;
+    data['whatsapp_user'] = this.whatsappUser;
     data['order_type'] = this.orderType;
     data['schedule_pickup'] = this.schedulePickup;
     data['icon_status'] = this.iconStatus;

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/item_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/reward_filter.dart';
 
@@ -81,7 +80,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: myButton(
-                    text: 'Tambah menu',
+                    text: 'Add menu',
                     onPressed: () async {
                       await Get.toNamed(Routes.TAMBAH_REWARD);
                     },

@@ -87,7 +87,7 @@ class ImageSliderView extends GetView<ImageSliderController> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: myButton(
-                  text: 'Tambah image slider',
+                  text: 'Add Image Slider Banner',
                   onPressed: () {
                     Get.toNamed(Routes.TAMBAH_IMAGE_BANNER);
                   },

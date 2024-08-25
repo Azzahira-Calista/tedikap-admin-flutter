@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/global_components/alert.dart';
-import 'package:tedikap_admin/common/constant.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/contact_customer_button.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
-import 'package:tedikap_admin/routes/AppPages.dart';
-
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order items/order_item_model.dart';
-import '../../../../data/model/order/order_model.dart';
 import '../../../../data/model/order/order items/order_reward_item.dart';
 import '../../order_page/order_page_controller.dart';
 import 'order_menu.dart';
@@ -19,7 +15,7 @@ class NewOrderStatus extends GetView<OrderController> {
   final String id;
   final int userId;
   final int cartId;
-  final String? name;
+  final String name;
   final String avatar;
   final int? voucherId;
   final int totalPrice;
@@ -33,12 +29,13 @@ class NewOrderStatus extends GetView<OrderController> {
   final String schedulePickup;
   final List<OrderItems>? orderItems;
   final List<OrderRewardItems>? orderRewardItems;
+  final String whatsappUser;
 
   NewOrderStatus({
     required this.id,
     required this.userId,
     required this.cartId,
-    this.name,
+    required this.name,
     required this.avatar,
     this.voucherId,
     required this.totalPrice,
@@ -51,7 +48,8 @@ class NewOrderStatus extends GetView<OrderController> {
     required this.updatedAt,
     required this.schedulePickup,
     this.orderItems,
-    required this.orderRewardItems,
+    this.orderRewardItems,
+    required this.whatsappUser,
   });
 
   @override
@@ -116,13 +114,21 @@ class NewOrderStatus extends GetView<OrderController> {
                         width: 10,
                       ),
                       Text(
-                        name ?? 'ksoong',
+                        name,
                         style: cardText.copyWith(color: primaryTextColor),
                       ),
                     ],
                   ),
-                  Text(schedulePickup,
-                      style: cardText.copyWith(color: darkGrey)),
+                  Column(
+                    children: [
+                      Text(schedulePickup,
+                          style: cardText.copyWith(color: darkGrey)),
+                      Text(
+                        controller.dateFormat.format(DateTime.parse(createdAt)),
+                        style: smallText,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -134,7 +140,7 @@ class NewOrderStatus extends GetView<OrderController> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "Daftar Pesanan",
+                    "Order List",
                     style: cardText,
                   ),
                 ),
@@ -182,7 +188,7 @@ class NewOrderStatus extends GetView<OrderController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total Pesanan :", style: cardTitle),
+                          Text("Total Order :", style: cardTitle),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
                             Text(totalQuantityOrder.toString() + " items",
                                 style: cardTitle),
@@ -197,7 +203,7 @@ class NewOrderStatus extends GetView<OrderController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total Harga :", style: cardTitle),
+                          Text("Total Price :", style: cardTitle),
                           Row(
                             children: [
                               if (orderItems != null &&
@@ -221,13 +227,13 @@ class NewOrderStatus extends GetView<OrderController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Metode Pembayaran :", style: cardTitle),
+                          Text("Payment Method :", style: cardTitle),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
                             Text(paymentChannel, style: cardTitle),
                           ],
                           if (orderRewardItems != null &&
                               orderRewardItems!.isNotEmpty) ...[
-                            Text("Bayar dengan Points", style: cardTitle),
+                            Text("Pay With Points", style: cardTitle),
                           ],
                         ],
                       ),
@@ -237,44 +243,55 @@ class NewOrderStatus extends GetView<OrderController> {
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.38,
-                      child: myButton(
-                          text: "Terima",
-                          onPressed: () {
-                            controller.acceptOrder(id);
-                          },
-                          color: primaryColor,
-                          textColor: white),
-                    ),
-                    Container(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        width: MediaQuery.of(context).size.width * 0.38,
-                        child: Container(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.38,
+                          child: myButton(
+                              text: "Accept",
+                              onPressed: () {
+                                controller.acceptOrder(id);
+                              },
+                              color: primaryColor,
+                              textColor: white),
+                        ),
+                        Container(
                             height: MediaQuery.of(context).size.height * 0.05,
                             width: MediaQuery.of(context).size.width * 0.38,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                controller.showRejectOrderDialog(id);
-                              },
-                              child: Center(
-                                child: Text("Tolak",
-                                    style: button.copyWith(color: red)),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                  // primary: Colors.transparent,
-                                  surfaceTintColor: white,
-                                  shadowColor: Colors.transparent,
-                                  backgroundColor: white,
-                                  foregroundColor: red,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      side: BorderSide(color: red, width: 1))),
-                            ))),
+                            child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.38,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    controller.showRejectOrderDialog(id);
+                                  },
+                                  child: Center(
+                                    child: Text("Reject",
+                                        style: button.copyWith(color: red)),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      // primary: Colors.transparent,
+                                      surfaceTintColor: white,
+                                      shadowColor: Colors.transparent,
+                                      backgroundColor: white,
+                                      foregroundColor: red,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          side: BorderSide(
+                                              color: red, width: 1))),
+                                ))),
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.02,
+                    ),
+                    ContactCustomerButton(whatsappUser: whatsappUser),
                   ],
                 ),
               ],

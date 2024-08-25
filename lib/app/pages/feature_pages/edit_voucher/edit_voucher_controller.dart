@@ -29,19 +29,23 @@ class EditVoucherController extends GetxController {
   late String imageUrl;
   final RxString imagePath = ''.obs;
 
+  
   @override
   void onInit() {
     super.onInit();
 
-    if (Get.arguments != null && Get.arguments.containsKey('id')) {
-      id = Get.arguments['id'] as int;
-      loadData();
-    } else {
-      Get.snackbar("Error", "No ID found in arguments");
-      Get.back();
-    }
+    // if (Get.arguments != null && Get.arguments.containsKey('id')) {
+    //   id = Get.arguments['id'] as int;
+    //   loadData();
+    // } else {
+    //   Get.snackbar("Error", "No ID found in arguments");
+    //   Get.back();
+    // }
+
 
     final Map<String, dynamic> arguments = Get.arguments;
+    id = arguments['id'];
+
     titleController = TextEditingController(text: arguments['title']);
     descriptionController =
         TextEditingController(text: arguments['description']);
@@ -112,66 +116,31 @@ class EditVoucherController extends GetxController {
 
       isLoading.value = false;
       Get.snackbar("Delete voucher", "Voucher deleted successfully!");
-      Get.toNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
+      Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");
       Get.snackbar("Error", e.toString());
     }
   }
-
-  // Future<void> editVoucher() async {
-  //   try {
-  //     isLoading.value = true;
-
-  //     // Parse text inputs to integers
-  //     int discount = DataHelper.parseInt(discountController.text) ?? 0;
-  //     int maxDiscount = DataHelper.parseInt(maxDiscountController.text) ?? 0;
-  //     int minTransaction =
-  //         DataHelper.parseInt(minTransactionController.text) ?? 0;
-
-  //     final response = await promoService.updatePromo(
-  //       id: id,
-  //       title: titleController.text,
-  //       description: descriptionController.text,
-  //       discount: discount,
-  //       maxDiscount: maxDiscount,
-  //       minTransaction: minTransaction,
-  //       startDate: startDateController.text,
-  //       endDate: endDateController.text,
-  //       imageFile: selectedImage.value,
-  //     );
-
-  //     isLoading.value = false;
-
-  //     update();
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       promoResponseModel.value = DataHelper.parseJsonList<Data>(
-  //           response.data['data'], (json) => Data.fromJson(json));
-
-  //       Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
-  //       Get.snackbar("Edit voucher", "Voucher edited successfully!");
-  //     } else {
-  //       print("Error Response: ${response.data}");
-  //       Get.snackbar("Error", "Failed to edit voucher");
-  //     }
-  //   } catch (e) {
-  //     isLoading.value = false;
-  //     print("Error: $e");
-  //     Get.snackbar("Error", e.toString());
-  //     throw Exception(e);
-  //   }
-  // }
-
 Future<void> editVoucher() async {
   try {
     isLoading.value = true;
 
-    // Parse text inputs to integers
-    int discount = DataHelper.parseInt(discountController.text) ?? 0;
-    int maxDiscount = DataHelper.parseInt(maxDiscountController.text) ?? 0;
-    int minTransaction = DataHelper.parseInt(minTransactionController.text) ?? 0;
+    // Debug prints to check the values before parsing
+    print("Discount Text: ${discountController.text}");
+    print("Max Discount Text: ${maxDiscountController.text}");
+    print("Min Transaction Text: ${minTransactionController.text}");
+
+    // Parse text inputs to integers with validation
+    int discount = int.tryParse(discountController.text) ?? 0;
+    int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
+    int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
+
+    // Additional debug prints after parsing
+    print("Parsed Discount: $discount");
+    print("Parsed Max Discount: $maxDiscount");
+    print("Parsed Min Transaction: $minTransaction");
 
     final response = await promoService.updatePromo(
       id: id,
@@ -188,6 +157,8 @@ Future<void> editVoucher() async {
     isLoading.value = false;
     update();
 
+
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       // Example response format check
       if (response.data['data'] is List) {
@@ -203,6 +174,8 @@ Future<void> editVoucher() async {
         );
         promoResponseModel.value = [parsedData];
       }
+
+
 
       Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
       Get.snackbar("Edit voucher", "Voucher edited successfully!");

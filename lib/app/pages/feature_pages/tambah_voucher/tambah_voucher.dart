@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_vouc
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
-import 'package:tedikap_admin/routes/AppPages.dart';
 
 class TambahVoucher extends GetView<TambahVoucherController> {
   const TambahVoucher({Key? key}) : super(key: key);
@@ -16,7 +14,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Voucher", style: appBarText),
+        title: Text("Add Voucher", style: appBarText),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -71,7 +69,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                                               color: offColor,
                                             ),
                                             Text(
-                                              "Klik untuk mengunggah gambar",
+                                              "Click to upload image",
                                               style: normalTextPrimary.copyWith(
                                                   color: offColor),
                                             )
@@ -86,43 +84,55 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                         children: [
                           MyTextField(
                             controller: controller.nameController,
-                            hintText: "Enter the name",
-                            name: "Name",
+                            hintText: "Enter the title",
+                            name: "Title",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.descriptionController,
                             hintText: "Enter the description",
-                            name: "Deskripsi",
+                            name: "Description",
                             height: 50,
                             obsecureText: false,
+                            
                           ),
                           MyTextField(
                             controller: controller.discountController,
-                            hintText: "Enter the doscount percentage",
-                            name: "Persentasi diskon",
+                             hintText: "Enter the discount (eg. 10)",
+                            name: "Discount Percentage (%)",
                             height: 50,
                             obsecureText: false,
+                            onTap: () {
+                              int maxDiscount = int.tryParse(
+                                      controller.maxDiscountController.text) ??
+                                  0;
+                              if (maxDiscount > 100) {
+                                controller.maxDiscountController.text = '100';
+                                Get.snackbar("Notice",
+                                    "Maximum discount cannot be more than 100");
+                              }
+                            },
                           ),
                           MyTextField(
                             controller: controller.maxDiscountController,
-                            hintText: "Enter the maximal discount",
-                            name: "Maksimal diskon",
+                            hintText: "Enter the maximum discount",
+                            name: "Maximum discount",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.minTransactionController,
                             hintText: "Enter the minimum transaction",
-                            name: "Minimal transaksi",
+                            name: "Minimum transaction",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
+                            readOnly: true,
                             controller: controller.startDateController,
                             hintText: "Enter the date",
-                            name: "Berlaku mulai",
+                            name: "Valid From",
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
@@ -130,9 +140,10 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                                 context, controller.startDateController),
                           ),
                           MyTextField(
+                            readOnly: true,
                             controller: controller.endDateController,
                             hintText: "Enter the date",
-                            name: "Berlaku hingga",
+                            name: "Valid Until",
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
@@ -149,10 +160,9 @@ class TambahVoucher extends GetView<TambahVoucherController> {
             Container(
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: myButton(
-                text: "Tambah",
+                text: "Add",
                 onPressed: () {
                   controller.addPromo();
-                  Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
                 },
                 color: primaryColor,
                 textColor: white,

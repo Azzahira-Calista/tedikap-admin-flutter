@@ -18,7 +18,7 @@ class TambahReward extends GetView<TambahRewardController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Tambah Menu Reward",
+          "Add Reward Menu",
           style: appBarText,
         ),
         centerTitle: true,
@@ -74,7 +74,7 @@ class TambahReward extends GetView<TambahRewardController> {
                                             color: offColor,
                                           ),
                                           Text(
-                                            "Klik untuk mengunggah gambar",
+                                            "Click to upload image",
                                             style: normalTextPrimary.copyWith(
                                                 color: offColor),
                                           )
@@ -196,7 +196,7 @@ class TambahReward extends GetView<TambahRewardController> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
             child: myButton(
-              text: "Tambah",
+              text: "Add",
               onPressed: () {
                 controller.addProduct();
               },

@@ -13,7 +13,7 @@ class TambahSliderBanner extends GetView<TambahSliderBannerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Slider Banner", style: appBarText),
+        title: Text("Add Slider Banner", style: appBarText),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
@@ -68,7 +68,7 @@ class TambahSliderBanner extends GetView<TambahSliderBannerController> {
                                               color: offColor,
                                             ),
                                             Text(
-                                              "Klik untuk mengunggah gambar",
+                                              "Click to upload image",
                                               style: normalTextPrimary.copyWith(
                                                   color: offColor),
                                             )
@@ -84,7 +84,7 @@ class TambahSliderBanner extends GetView<TambahSliderBannerController> {
             Container(
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: myButton(
-                text: "Tambah",
+                text: "Add",
                 onPressed: () {
                   controller.addSliderBanner();
                 },

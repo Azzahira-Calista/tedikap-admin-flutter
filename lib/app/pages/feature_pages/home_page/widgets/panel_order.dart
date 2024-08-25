@@ -75,6 +75,7 @@ class PanelOrder extends GetView<HomeController> {
                   itemBuilder: (BuildContext context, int index) {
                     final order = limitedOrders[index];
                     return OrderCard(
+                      whatsappUser: order.whatsappUser!,
                       id: order.id!,
                       userId: order.userId!,
                       cartId: order.cartId ?? 0,

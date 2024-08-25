@@ -14,7 +14,6 @@ import 'package:tedikap_admin/app/data/model/statistic/analystic/year/year_model
 import 'package:tedikap_admin/app/data/model/statistic/earnings/earnings_model.dart';
 import 'package:tedikap_admin/app/data/model/statistic/earnings/earnings_response.dart';
 import 'package:tedikap_admin/app/data/model/status%20store/status_store_response.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/analytics/sales_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 class HomeController extends GetxController {

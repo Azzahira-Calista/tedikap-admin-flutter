@@ -1,7 +1,7 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_box_promo/edit_box_promo_controller.dart';
 
 import '../../../../common/themes.dart';
@@ -14,6 +14,8 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -69,60 +71,80 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
                 padding: EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: offColor, width: 2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.width,
-                      child: controller.imageUrl.isNotEmpty
-                          ? InkWell(
-                              onTap: () {
-                                controller.pickImage();
-                              },
-                              child: controller.imagePath.isEmpty
-                                  ? Image(
-                                      image: NetworkImage(
-                                          "https://tedikap-api.rplrus.com/storage/box-promo/${controller.imageUrl}"),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Obx(() {
-                                      return Image.file(
-                                        File(controller.imagePath.value),
+                    Stack(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                            // horizontal: width,
+                            vertical: height * 0.03,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: offColor, width: 2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: height * 0.2,
+                          width: width,
+                          child: Obx(
+                            () => controller.selectedImage.value != null
+                                ? Image.file(
+                                    controller.selectedImage.value!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : controller.imageUrl.isNotEmpty
+                                    ? Image.network(
+                                        "https://tedikap-api.rplrus.com/storage/box-promo/${controller.imageUrl}",
                                         fit: BoxFit.cover,
-                                      );
-                                    }),
-                            )
-                          : InkWell(
-                              onTap: () {
-                                controller.pickImage();
+                                      )
+                                    : Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.add_photo_alternate,
+                                            size: 50,
+                                            color: offColor,
+                                          ),
+                                          Text(
+                                            "Click to upload image",
+                                            style: normalTextPrimary.copyWith(
+                                                color: offColor),
+                                          ),
+                                        ],
+                                      ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: GestureDetector(
+                              onTap: () async {
+                                final ImagePicker _picker = ImagePicker();
+                                final XFile? image = await _picker.pickImage(
+                                    source: ImageSource.gallery);
+                                if (image != null) {
+                                  controller.setImage(image);
+                                }
                               },
-                              child: controller.imagePath.isEmpty
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.add_photo_alternate,
-                                          size: 50,
-                                          color: offColor,
-                                        ),
-                                        Text(
-                                          "Klik untuk mengunggah gambar",
-                                          style: normalTextPrimary.copyWith(
-                                              color: offColor),
-                                        )
-                                      ],
-                                    )
-                                  : Image.file(
-                                      File(controller.imagePath.value),
-                                      fit: BoxFit.cover,
-                                    ),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: white,
+                                  border:
+                                      Border.all(color: primaryColor, width: 2),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 40,
+                                  color: primaryColor,
+                                ),
+                              ),
                             ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -156,7 +178,6 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
               text: "Change",
               onPressed: () {
                 controller.editBoxPromo();
-                Get.toNamed(Routes.EDIT_BOX_PROMO);
               },
               color: primaryColor,
               textColor: white,

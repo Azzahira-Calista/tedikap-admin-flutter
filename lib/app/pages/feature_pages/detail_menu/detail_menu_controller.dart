@@ -93,7 +93,7 @@ class DetailMenuController extends GetxController {
 
       isLoading.value = false;
       Get.snackbar("Delete product", "Product deleted successfully!");
-      Get.toNamed(Routes.NAVBAR + Routes.MENU);
+      Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");

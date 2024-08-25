@@ -78,7 +78,7 @@ class TambahRewardController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.snackbar("Add reward product", "Reward added successfully!");
-        Get.toNamed(Routes.NAVBAR + Routes.MENU);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
       } else {
         Get.snackbar("Error", "Failed to add reward");
       }

@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/data/model/order/order_model.dart';
-import 'package:tedikap_admin/common/constant.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/contact_customer_button.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order items/order_item_model.dart';
 import '../../../../data/model/order/order items/order_reward_item.dart';
 import '../../order_page/order_page_controller.dart';
-import '../order_status_controller.dart';
 import 'order_menu.dart';
 
 class TakenOrderStatus extends GetView<OrderController> {
@@ -35,6 +33,7 @@ class TakenOrderStatus extends GetView<OrderController> {
   final String schedulePickup;
   final List<OrderItems>? orderItems;
   final List<OrderRewardItems>? orderRewardItems;
+  final String whatsappUser;
 
   TakenOrderStatus({
     required this.id,
@@ -54,6 +53,7 @@ class TakenOrderStatus extends GetView<OrderController> {
     required this.schedulePickup,
     this.orderItems,
     this.orderRewardItems,
+    required this.whatsappUser,
   });
 
   @override
@@ -90,61 +90,52 @@ class TakenOrderStatus extends GetView<OrderController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              decoration: BoxDecoration(
-                // color: primaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                decoration: BoxDecoration(
+                  // color: primaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
                 ),
-              ),
-              child:
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  Row(
-                children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
-                        fit: BoxFit.cover,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            name,
+                            style: cardText.copyWith(color: primaryTextColor),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    name,
-                    style: cardText.copyWith(color: primaryTextColor),
-                  ),
-                ],
-              ),
-              // Container(
-              //     height: 25,
-              //     child: ElevatedButton(
-              //       onPressed: () {},
-              //       child: Center(
-              //         child: Text("Belum siap",
-              //             style: button2.copyWith(color: primaryTextColor)),
-              //       ),
-              //       style: ElevatedButton.styleFrom(
-              //           // primary: Colors.transparent,
-              //           // shadowColor: Colors.transparent,
-              //           backgroundColor: offColor,
-              //           foregroundColor: white,
-              //           shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //           )),
-              //     ))
-              //   ],
-              // ),
-            ),
+                      Column(
+                        children: [
+                          Text(schedulePickup,
+                              style: cardText.copyWith(color: darkGrey)),
+                          Text(
+                            controller.dateFormat
+                                .format(DateTime.parse(createdAt)),
+                            style: smallText,
+                          ),
+                        ],
+                      ),
+                    ])),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.02,
             ),
@@ -153,7 +144,7 @@ class TakenOrderStatus extends GetView<OrderController> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "Daftar Pesanan",
+                    "Order List",
                     style: cardText,
                   ),
                 ),
@@ -209,7 +200,7 @@ class TakenOrderStatus extends GetView<OrderController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total Pesanan :", style: cardTitle),
+                          Text("Total Order :", style: cardTitle),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
                             Text(totalQuantityOrder.toString() + " items",
                                 style: cardTitle),
@@ -224,7 +215,7 @@ class TakenOrderStatus extends GetView<OrderController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total Harga :", style: cardTitle),
+                          Text("Total Price :", style: cardTitle),
                           Row(
                             children: [
                               if (orderItems != null &&
@@ -248,13 +239,13 @@ class TakenOrderStatus extends GetView<OrderController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Metode Pembayaran :", style: cardTitle),
+                          Text("Payment Method :", style: cardTitle),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
                             Text(paymentChannel, style: cardTitle),
                           ],
                           if (orderRewardItems != null &&
                               orderRewardItems!.isNotEmpty) ...[
-                            Text("Bayar dengan Points", style: cardTitle),
+                            Text("Pay With Points", style: cardTitle),
                           ],
                         ],
                       ),
@@ -268,7 +259,7 @@ class TakenOrderStatus extends GetView<OrderController> {
                     // height: MediaQuery.of(context).size.height * 0.05,
                     child: myButton(
                         sideColor: primaryColor,
-                        text: "Selesaikan Pesanan",
+                        text: "Finish Order",
                         onPressed: () {
                           controller.finishOrder(id);
                         },
@@ -277,12 +268,16 @@ class TakenOrderStatus extends GetView<OrderController> {
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
+                ContactCustomerButton(whatsappUser: whatsappUser),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.02,
+                ),
 
                 Container(
                     // height: MediaQuery.of(context).size.height * 0.05,
                     child: myButton(
                         sideColor: red,
-                        text: "Batalkan Pesanan",
+                        text: "Cancel Order",
                         onPressed: () {
                           controller.rejectFinishOrder(id);
                         },

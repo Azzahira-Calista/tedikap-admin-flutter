@@ -44,7 +44,7 @@ class TambahSliderBannerController extends GetxController {
       update();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.IMAGE_BANNER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.IMAGE_BANNER);
         Get.snackbar("Add Slider Banner", "Slider Banner added successfully!");
       } else {
         Get.snackbar("Error", "Failed to add Slider Banner");

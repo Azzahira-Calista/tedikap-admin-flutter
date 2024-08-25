@@ -45,9 +45,11 @@ class LoginPage extends GetView<LoginController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyTextField(
+                        textInputType: TextInputType.emailAddress,
                         controller: controller.emailController,
                         obsecureText: false,
-                        hintText: GlobalVariables.deviceToken ?? "Enter your email",
+                        hintText:
+                            GlobalVariables.deviceToken ?? "Enter your email",
                         name: "Email",
                         height: 50,
                       ),
@@ -71,7 +73,8 @@ class LoginPage extends GetView<LoginController> {
                           height: 50,
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.020),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.020),
                       myButton(
                         text: "Login",
                         onPressed: () {

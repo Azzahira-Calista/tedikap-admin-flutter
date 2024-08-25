@@ -109,7 +109,7 @@ class EditSliderBanner extends GetView<EditSliderBannerController> {
                                 color: offColor,
                               ),
                               Text(
-                                "Klik untuk mengunggah gambar",
+                                "Click to upload image",
                                 style:
                                     normalTextPrimary.copyWith(color: offColor),
                               )
@@ -128,7 +128,7 @@ class EditSliderBanner extends GetView<EditSliderBannerController> {
             text: "Change",
             onPressed: () {
               controller.editImageBanner();
-              Get.toNamed(Routes.EDIT_IMAGE_BANNER);
+              // Get.toNamed(Routes.EDIT_IMAGE_BANNER);
             },
             color: primaryColor,
             textColor: white,
