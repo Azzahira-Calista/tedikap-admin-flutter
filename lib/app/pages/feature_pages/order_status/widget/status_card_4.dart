@@ -9,8 +9,8 @@ import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 
 import '../../../../../common/themes.dart';
-import '../../../../data/model/order/order_item_model.dart';
-import '../../../../data/model/order/order_reward_item.dart';
+import '../../../../data/model/order/order items/order_item_model.dart';
+import '../../../../data/model/order/order items/order_reward_item.dart';
 import '../../order_page/order_page_controller.dart';
 import '../order_status_controller.dart';
 import 'order_menu.dart';

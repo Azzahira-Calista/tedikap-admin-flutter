@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../data/model/order/order_item_model.dart';
-import '../../../../data/model/order/order_reward_item.dart';
+import '../../../../data/model/order/order items/order_item_model.dart';
+import '../../../../data/model/order/order items/order_reward_item.dart';
 import '../../../../../common/themes.dart';
 
 class OrderMenu extends StatelessWidget {

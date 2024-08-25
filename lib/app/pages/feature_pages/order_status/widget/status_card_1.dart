@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tedikap_admin/app/pages/global_components/alert.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
 import '../../../../../common/themes.dart';
-import '../../../../data/model/order/order_item_model.dart';
+import '../../../../data/model/order/order items/order_item_model.dart';
 import '../../../../data/model/order/order_model.dart';
-import '../../../../data/model/order/order_reward_item.dart';
+import '../../../../data/model/order/order items/order_reward_item.dart';
 import '../../order_page/order_page_controller.dart';
 import 'order_menu.dart';
 
@@ -93,32 +94,35 @@ class NewOrderStatus extends GetView<OrderController> {
                   topRight: Radius.circular(10),
                 ),
               ),
-              child:
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  Row(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
-                        fit: BoxFit.cover,
+                  Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://tedikap-api.rplrus.com/storage/avatar/$avatar"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        name ?? 'ksoong',
+                        style: cardText.copyWith(color: primaryTextColor),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    name ?? 'ksoong',
-                    style: cardText.copyWith(color: primaryTextColor),
-                  ),
+                  Text(schedulePickup,
+                      style: cardText.copyWith(color: darkGrey)),
                 ],
               ),
             ),
@@ -163,9 +167,6 @@ class NewOrderStatus extends GetView<OrderController> {
                         ))
                   ],
                 ),
-                // SizedBox(
-                //   height: MediaQuery.sizeOf(context).height * 0.02,
-                // ),
                 OrderMenu(
                   orderItems: orderItems,
                   orderRewardItems: orderRewardItems,
@@ -247,15 +248,6 @@ class NewOrderStatus extends GetView<OrderController> {
                           onPressed: () {
                             controller.acceptOrder(id);
                           },
-                          // async {
-                          //   try {
-                          //     final controller = Get.find<OrderController>();
-                          //     await controller.acceptOrder(id);
-                          //     Get.toNamed(Routes.NAVBAR + Routes.ORDER);
-                          //   } catch (e) {
-                          //     print("Error accepting order: $e");
-                          //   }
-                          // },
                           color: primaryColor,
                           textColor: white),
                     ),
@@ -267,7 +259,7 @@ class NewOrderStatus extends GetView<OrderController> {
                             width: MediaQuery.of(context).size.width * 0.38,
                             child: ElevatedButton(
                               onPressed: () {
-                                controller.rejectOrder(id);
+                                controller.showRejectOrderDialog(id);
                               },
                               child: Center(
                                 child: Text("Tolak",

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tedikap_admin/app/api/order/order_service.dart';
 import 'package:tedikap_admin/app/data/model/order/order_model.dart';
 import 'package:tedikap_admin/app/data/model/order/order_response.dart';
+import 'package:tedikap_admin/app/pages/global_components/alert.dart';
 
 import '../../../../routes/AppPages.dart';
 
@@ -16,6 +17,9 @@ class OrderController extends GetxController {
   RxList<Orders> processedOrderResponseModel = <Orders>[].obs;
   RxList<Orders> takenOrderResponseModel = <Orders>[].obs;
  
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController bodyController = TextEditingController();
 
   var currentIndex = 0.obs;
 
@@ -118,18 +122,43 @@ class OrderController extends GetxController {
     }
   }
 
+ Future<void> showRejectOrderDialog(String orderId) async {
+    await Get.dialog(
+      CustomAlert(
+        titleController: titleController,
+        bodyController: bodyController,
+        onConfirm: () {
+          rejectOrder(orderId);
+        },
+        onCancel: () {
+          Get.back();
+        },
+      ),
+    );
+  }
+
   Future<void> rejectOrder(String orderId) async {
+     if (titleController.text.isEmpty || bodyController.text.isEmpty) {
+      Get.snackbar('Missing Information', 'Title and Body cannot be empty.');
+      return;
+    }
     try {
       isLoading.value = true;
-      final response = await orderService.acceptanceOrder(orderId, 'rejected');
+      final response = await orderService.acceptanceOrder(orderId, 'rejected', title: titleController.text, body: bodyController.text);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar("Order Rejected", "Order has been rejected successfully!");
+        titleController.clear();
+      bodyController.clear();
       } else {
         Get.snackbar("Error", "Failed to reject order");
+
+        print("cukiFailed response: ${response.statusCode}");
+      print("cukimay Response body: ${response.data}");
+      Get.snackbar("cukimax Error", "Failed to reject order");
       }
     } catch (e) {
-      print("Error: $e");
+      print("Error brot: $e");
       Get.snackbar("Error", "An error occurred while rejecting the order");
     } finally {
       isLoading.value = false;
@@ -275,15 +304,5 @@ class OrderController extends GetxController {
     }
   }
 
-  // void resetFilters(RxBool isCheckedSession1, RxBool isCheckedSession2) {   
-  //   isCheckedSession1.value = false;
-  //   isCheckedSession2.value = false;
-  //   getOrdersByStatusNew(null);
-  //   getOrdersByStatusProcessed(null);
-  //   getOrdersByStatusTaken(null);
-  // }
-
-  // void saveSessionFilter() {
-
-  // }
+  
 }

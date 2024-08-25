@@ -8,8 +8,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_1.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_3.dart';
-import '../../../data/model/order/order_item_model.dart';
-import '../../../data/model/order/order_reward_item.dart';
+import '../../../data/model/order/order items/order_item_model.dart';
+import '../../../data/model/order/order items/order_reward_item.dart';
 
 class OrderStatus extends GetView<OrderStatusController> {
   const OrderStatus({super.key});
