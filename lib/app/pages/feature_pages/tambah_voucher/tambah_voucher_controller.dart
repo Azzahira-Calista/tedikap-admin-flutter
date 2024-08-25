@@ -11,7 +11,6 @@ import '../../../../routes/AppPages.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
-
 class TambahVoucherController extends GetxController {
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
@@ -45,15 +44,27 @@ class TambahVoucherController extends GetxController {
   }
 
   Future<void> addPromo() async {
-    try {
-      isLoading.value = true;
+  if (nameController.text.isEmpty ||
+      descriptionController.text.isEmpty ||
+      discountController.text.isEmpty ||
+      maxDiscountController.text.isEmpty ||
+      minTransactionController.text.isEmpty ||
+      startDateController.text.isEmpty ||
+      endDateController.text.isEmpty ||
+      imagePath.value.isEmpty) {
+    Get.snackbar("Error", "All fields must be filled");
+    return;
+  }
+  
+  try {
+    isLoading.value = true;
 
-      // Parse text inputs to integers
-      int discount = int.tryParse(discountController.text) ?? 0;
-      int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
-      int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
+    // Parse text inputs to integers
+    int discount = int.tryParse(discountController.text) ?? 0;
+    int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
+    int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
 
-      final response = await promoService.storePromo(
+    final response = await promoService.storePromo(
         title: nameController.text,
         description: descriptionController.text,
         discount: discount,
@@ -61,28 +72,23 @@ class TambahVoucherController extends GetxController {
         minTransaction: minTransaction,
         startDate: startDateController.text,
         endDate: endDateController.text,
-        imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null
-      );
-      
-      isLoading.value = false;
+        imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null);
 
-      update();
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
-        Get.snackbar("Add voucher", "Voucher added successfully!");
-      } else {
-        Get.snackbar("Error", "Failed to add product");
-      }
-
-    } catch (e) {
-      throw Exception(e);
-    } finally {
-      isLoading.value = false;
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
+      Get.snackbar("Add voucher", "Voucher added successfully!");
+    } else {
+      Get.snackbar("Error", "Failed to add product");
     }
+  } catch (e) {
+    Get.snackbar("Error", "An error occurred: ${e.toString()}");
+  } finally {
+    isLoading.value = false;
   }
+}
 
-   Future<void> selectDate(
+
+  Future<void> selectDate(
       BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,

@@ -15,7 +15,8 @@ class DetailMenu extends GetView<DetailMenuController> {
   DetailMenuController controller = Get.put(DetailMenuController());
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> arguments = Get.arguments;
+    final Map<String, dynamic>? arguments =
+        Get.arguments as Map<String, dynamic>?;
 
     if (arguments == null) {
       return Scaffold(

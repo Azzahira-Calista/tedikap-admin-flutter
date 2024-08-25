@@ -70,7 +70,7 @@ class EditSliderBannerController extends GetxController{
 
       isLoading.value = false;
       Get.snackbar("Delete image banner", "Image banner deleted successfully!");
-      Get.toNamed(Routes.NAVBAR + Routes.IMAGE_BANNER);
+      Get.offAndToNamed(Routes.NAVBAR + Routes.IMAGE_BANNER);
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");
@@ -88,8 +88,9 @@ class EditSliderBannerController extends GetxController{
       print("Response: $response");
 
       isLoading.value = false;
-      Get.snackbar("Update image banner", "Image banner updated successfully!");
-      Get.toNamed(Routes.NAVBAR + Routes.IMAGE_BANNER);
+      Get.offAllNamed(Routes.NAVBAR + Routes.IMAGE_BANNER);
+            Get.snackbar("Update image banner", "Image banner updated successfully!");
+
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");

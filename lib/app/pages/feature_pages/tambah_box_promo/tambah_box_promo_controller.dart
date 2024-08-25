@@ -37,29 +37,32 @@ class TambahBoxPromoController extends GetxController {
   }
 
   Future<void> addBoxPromo() async {
-    try {
-      isLoading.value = true;
-
-      final response = await boxPromoService.storeBoxPromo(
-          title: titleController.text,
-          subtitle: subTitleController.text,
-          image: imagePath.value.isNotEmpty ? File(imagePath.value) : null);
-
-      isLoading.value = false;
-
-      update();
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.BOX_PROMO);
-        Get.snackbar("Add Box promo", "Box Promo added successfully!");
-      } else {
-        Get.snackbar("Error", "Failed to add Box promo");
-      }
-      update();
-    } catch (e) {
-      throw Exception(e);
-    } finally {
-      isLoading.value = false;
-    }
+  if (titleController.text.isEmpty || subTitleController.text.isEmpty || imagePath.value.isEmpty) {
+    Get.snackbar("Error", "All fields must be filled");
+    return;
   }
+
+  try {
+    isLoading.value = true;
+
+    final response = await boxPromoService.storeBoxPromo(
+      title: titleController.text,
+      subtitle: subTitleController.text,
+      image: imagePath.value.isNotEmpty ? File(imagePath.value) : null,
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Get.offAndToNamed(Routes.NAVBAR + Routes.BOX_PROMO);
+      Get.snackbar("Add Box Promo", "Box Promo added successfully!");
+    } else {
+      Get.snackbar("Error", "Failed to add Box Promo");
+    }
+  } catch (e) {
+    Get.snackbar("Error", "An error occurred: $e");
+  } finally {
+    isLoading.value = false;
+    update();
+  }
+}
+
 }

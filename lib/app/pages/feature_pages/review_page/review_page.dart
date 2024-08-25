@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/review_card.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/headline/review_headline.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/review_filter.dart';
 import 'package:tedikap_admin/common/constant.dart';
 
@@ -20,7 +19,6 @@ class ReviewPage extends GetView<ReviewController> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
 
     return Scaffold(

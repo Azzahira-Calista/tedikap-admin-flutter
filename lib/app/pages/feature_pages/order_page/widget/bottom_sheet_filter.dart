@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/date_picker.dart';
-import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 // ignore: must_be_immutable
@@ -29,7 +27,7 @@ class PanelFilter extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      height: height * 0.4,
+      height: height * 0.3,
       width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +50,7 @@ class PanelFilter extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Sesi pesanan",
+                      "Order Session",
                       style: normalText.copyWith(fontSize: 15),
                     ),
                     Obx(
@@ -60,7 +58,7 @@ class PanelFilter extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Sesi 1 (09.30 - 10.00)",
+                            "Session 1 (09.30 - 10.00)",
                             style: normalText,
                           ),
                           Checkbox(
@@ -68,7 +66,8 @@ class PanelFilter extends StatelessWidget {
                             tristate: true,
                             checkColor: primaryColor,
                             onChanged: (value) {
-                              controller.toggleSession1(statusType, isCheckedSession1);
+                              controller.toggleSession1(
+                                  statusType, isCheckedSession1);
                             },
                           ),
                         ],
@@ -79,7 +78,7 @@ class PanelFilter extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Sesi 2 (12.00 - 10.30)",
+                            "Session 2 (12.00 - 10.30)",
                             style: normalText,
                           ),
                           Checkbox(
@@ -87,7 +86,8 @@ class PanelFilter extends StatelessWidget {
                             tristate: true,
                             checkColor: primaryColor,
                             onChanged: (value) {
-                              controller.toggleSession2(statusType, isCheckedSession2);
+                              controller.toggleSession2(
+                                  statusType, isCheckedSession2);
                             },
                           ),
                         ],

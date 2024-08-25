@@ -6,7 +6,6 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/bottom_s
 import '../../../../../../common/constant.dart';
 import '../../../../../../common/themes.dart';
 import '../order_card.dart';
-import '../order_filter.dart';
 
 class TakenOrder extends GetView<OrderController> {
   const TakenOrder({super.key});
@@ -60,6 +59,7 @@ class TakenOrder extends GetView<OrderController> {
                     itemBuilder: (BuildContext context, int index) {
                       final order = controller.takenOrderResponseModel[index];
                       return OrderCard(
+                        whatsappUser: order.whatsappUser!,
                         id: order.id!,
                         userId: order.userId!,
                         cartId: order.cartId ?? 0,
@@ -92,7 +92,9 @@ class TakenOrder extends GetView<OrderController> {
                   child: GestureDetector(
                     onTap: () {
                       Get.bottomSheet(
-                        PanelFilter(statusType: 'taken',),
+                        PanelFilter(
+                          statusType: 'taken',
+                        ),
                       );
                     },
                     child: Container(

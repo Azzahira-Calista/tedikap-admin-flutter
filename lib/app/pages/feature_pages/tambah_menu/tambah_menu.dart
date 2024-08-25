@@ -18,7 +18,7 @@ class TambahMenu extends GetView<TambahMenuController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Tambah Menu",
+          "Add Menu",
           style: appBarText,
         ),
         centerTitle: true,
@@ -74,7 +74,7 @@ class TambahMenu extends GetView<TambahMenuController> {
                                             color: offColor,
                                           ),
                                           Text(
-                                            "Klik untuk mengunggah gambar",
+                                            "Click to upload image",
                                             style: normalTextPrimary.copyWith(
                                                 color: offColor),
                                           )
@@ -197,7 +197,7 @@ class TambahMenu extends GetView<TambahMenuController> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
             child: myButton(
-              text: "Tambah",
+              text: "Add",
               onPressed: () {
                 controller.addProduct();
               },

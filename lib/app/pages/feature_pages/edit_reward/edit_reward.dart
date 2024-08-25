@@ -40,7 +40,6 @@ class EditReward extends GetView<EditRewardController> {
                       children: [
                         Stack(
                           children: [
-                            // Image display container
                             Container(
                               margin: EdgeInsets.symmetric(
                                 horizontal: width * 0.1,
@@ -73,7 +72,7 @@ class EditReward extends GetView<EditRewardController> {
                                                 color: offColor,
                                               ),
                                               Text(
-                                                "Klik untuk mengunggah gambar",
+                                                "Click to upload image",
                                                 style: normalTextPrimary
                                                     .copyWith(color: offColor),
                                               ),

@@ -77,7 +77,7 @@ class EditMenu extends GetView<EditMenuController> {
                                                   color: offColor,
                                                 ),
                                                 Text(
-                                                  "Klik untuk mengunggah gambar",
+                                                  "Click to upload image",
                                                   style: normalTextPrimary
                                                       .copyWith(
                                                           color: offColor),
@@ -243,7 +243,6 @@ class EditMenu extends GetView<EditMenuController> {
                     onPressed: () {
                       //  error
                       controller.editProduct();
-                      // Get.toNamed(Routes.NAVBAR + Routes.MENU);
                     },
                     color: primaryColor,
                     textColor: white,

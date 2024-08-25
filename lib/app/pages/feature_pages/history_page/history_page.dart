@@ -28,7 +28,7 @@ class HistoryPage extends GetView<HistoryController> {
           },
         ),
         title: Text(
-          "History orders",
+          "Order History",
           style: appBarText,
         ),
         centerTitle: true,
@@ -113,6 +113,7 @@ class HistoryPage extends GetView<HistoryController> {
                     itemBuilder: (context, index) {
                       final order = controller.orderResponseModel[index];
                       return OrderCard(
+                        whatsappUser: order.whatsappUser!,
                         id: order.id!,
                         userId: order.userId!,
                         cartId: order.cartId ?? 0,

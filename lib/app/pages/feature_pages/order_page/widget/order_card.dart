@@ -26,6 +26,7 @@ class OrderCard extends GetView<OrderController> {
   final String schedulePickup;
   final List<OrderItems>? orderItems;
   final List<OrderRewardItems>? orderRewardItems;
+  final String whatsappUser;
 
   OrderCard({
     required this.id,
@@ -46,6 +47,7 @@ class OrderCard extends GetView<OrderController> {
     required this.schedulePickup,
     this.orderItems,
     this.orderRewardItems,
+    required this.whatsappUser,
   });
 
   @override
@@ -219,10 +221,11 @@ class OrderCard extends GetView<OrderController> {
                         'schedulePickup': schedulePickup,
                         'orderItems': orderItems,
                         'orderRewardItems': orderRewardItems,
+                        'whatsappUser' : whatsappUser
                       });
                     },
                     child: Center(
-                      child: Text("Detail Pesanan",
+                      child: Text("Detail Order",
                           style: button2.copyWith(color: white)),
                     ),
                     style: ElevatedButton.styleFrom(

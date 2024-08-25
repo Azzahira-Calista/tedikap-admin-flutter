@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
-import 'package:tedikap_admin/routes/AppPages.dart';
 
 import '../../../../../common/constant.dart';
 

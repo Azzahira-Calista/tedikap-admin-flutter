@@ -14,6 +14,8 @@ class EditBoxPromoController extends GetxController {
   BoxPromoService boxPromoService = BoxPromoService();
   late BoxPromoResponse boxPromoResponse;
   var boxPromoResponseModel = <Data>[].obs;
+    Rx<File?> selectedImage = Rx<File?>(null);
+
 
   late TextEditingController titleController;
   late TextEditingController subTitleController;
@@ -36,19 +38,25 @@ class EditBoxPromoController extends GetxController {
     }
   }
 
-  void setImagePath(String path) {
-    imagePath.value = path;
-    update();
-  }
+  // void setImagePath(String path) {
+  //   imagePath.value = path;
+  //   update();
+  // }
 
-  void pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
+  // void pickImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-    if (pickedFile != null) {
-      setImagePath(pickedFile.path);
+  //   if (pickedFile != null) {
+  //     setImagePath(pickedFile.path);
+  //   }
+  // }
+   void setImage(XFile? image) {
+    if (image != null) {
+      selectedImage.value = File(image.path);
+      print("New image selected: ${selectedImage.value!.path}");
     }
   }
 
@@ -73,7 +81,7 @@ class EditBoxPromoController extends GetxController {
 
       isLoading.value = false;
       Get.snackbar("Delete box promo", "Box promo deleted successfully!");
-      Get.toNamed(Routes.NAVBAR + Routes.BOX_PROMO);
+      Get.offAndToNamed(Routes.NAVBAR + Routes.BOX_PROMO);
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");
@@ -89,7 +97,7 @@ class EditBoxPromoController extends GetxController {
         id: id,
         title: titleController.text,
         subtitle: subTitleController.text,
-        image: imagePath.value.isNotEmpty ? File(imagePath.value) : null,
+        image: selectedImage.value,
       );
 
       isLoading.value = false;
@@ -97,7 +105,7 @@ class EditBoxPromoController extends GetxController {
       update();
 
       if (response.statusCode == 200) {
-        Get.toNamed(Routes.NAVBAR + Routes.BOX_PROMO);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.BOX_PROMO);
         Get.snackbar("Edit box promo", "Box promo edited successfully!");
       } else {
         Get.snackbar("Error", "Failed to edit box promo");

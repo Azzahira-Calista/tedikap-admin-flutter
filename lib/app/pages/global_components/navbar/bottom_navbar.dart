@@ -72,7 +72,7 @@ class MyNavBar extends StatelessWidget {
                     controller.currentPage.value == 3 ? activeColor : offColor,
                 size: 24.0,
               ),
-              label: "Crud",
+              label: "Widgets",
             ),
           ],
         ),

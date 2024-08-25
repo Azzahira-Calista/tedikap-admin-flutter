@@ -60,6 +60,7 @@ class OrderStatus extends GetView<OrderStatusController> {
     final String? paymentChannel = arguments['paymentChannel'];
     final List<OrderRewardItems>? orderRewardItems =
         arguments['orderRewardItems'];
+    final String? whatsappUser = arguments['whatsappUser'];
 
     return Scaffold(
       appBar: AppBar(
@@ -97,6 +98,7 @@ class OrderStatus extends GetView<OrderStatusController> {
                 orderItems: orderItems,
                 paymentChannel: paymentChannel,
                 orderRewardItems: orderRewardItems,
+                whatsappUser: whatsappUser,
               ),
             ),
             // Text(status ?? 'No status'),
@@ -124,6 +126,7 @@ class OrderStatus extends GetView<OrderStatusController> {
     List<OrderItems>? orderItems,
     List<OrderRewardItems>? orderRewardItems,
     required String? paymentChannel,
+    required String? whatsappUser,
   }) {
     if (status == null) {
       return Center(child: Text('No status available'));
@@ -132,6 +135,7 @@ class OrderStatus extends GetView<OrderStatusController> {
     switch (status) {
       case "menunggu konfirmasi":
         return NewOrderStatus(
+          whatsappUser: whatsappUser!,
           id: id!,
           userId: userId!,
           cartId: cartId!,
@@ -152,6 +156,7 @@ class OrderStatus extends GetView<OrderStatusController> {
         );
       case "pesanan diproses":
         return ProcessedOrderStatus(
+          whatsappUser: whatsappUser!,
           id: id!,
           userId: userId!,
           cartId: cartId!,
@@ -172,6 +177,7 @@ class OrderStatus extends GetView<OrderStatusController> {
         );
       case "pesanan siap diambil":
         return TakenOrderStatus(
+          whatsappUser: whatsappUser!,
           id: id!,
           userId: userId!,
           cartId: cartId!,
@@ -192,6 +198,7 @@ class OrderStatus extends GetView<OrderStatusController> {
         );
       case "pesanan selesai" || "pesanan ditolak" || "pesanan dibatalkan":
         return HistoryOrderStatus(
+          whatsappUser: whatsappUser!,
           id: id!,
           userId: userId!,
           cartId: cartId!,

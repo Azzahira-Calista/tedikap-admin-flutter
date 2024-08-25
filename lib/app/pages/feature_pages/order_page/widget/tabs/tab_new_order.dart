@@ -7,7 +7,6 @@ import 'package:tedikap_admin/common/themes.dart';
 
 import '../../order_page_controller.dart';
 import '../order_card.dart';
-import '../order_filter.dart';
 
 class NewOrder extends GetView<OrderController> {
   const NewOrder({super.key});
@@ -61,6 +60,7 @@ class NewOrder extends GetView<OrderController> {
                 itemBuilder: (BuildContext context, int index) {
                   final order = controller.newOrderResponseModel[index];
                   return OrderCard(
+                    whatsappUser: order.whatsappUser!,
                     id: order.id!,
                     userId: order.userId!,
                     cartId: order.cartId ?? 0,

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,7 +15,6 @@ class EditVoucher extends GetView<EditVoucherController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -41,7 +38,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                     textConfirm: "Yes",
                     textCancel: "No",
                     onConfirm: () {
-                      Get.back(); // Close the dialog first
+                      Get.back();
                       controller.deleteVoucher();
                     },
                     onCancel: () {});
@@ -72,76 +69,18 @@ class EditVoucher extends GetView<EditVoucherController> {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      // Container(
-                      //   margin: EdgeInsets.symmetric(
-                      //     vertical: MediaQuery
-                      //         .of(context)
-                      //         .size
-                      //         .height * 0.02,
-                      //   ),
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(color: offColor, width: 2),
-                      //     borderRadius: BorderRadius.circular(15),
-                      //   ),
-                      //   height: MediaQuery
-                      //       .of(context)
-                      //       .size
-                      //       .height * 0.2,
-                      //   width: MediaQuery
-                      //       .of(context)
-                      //       .size
-                      //       .width,
-                      //   child: controller.imageUrl.isNotEmpty
-                      //       ? InkWell(
-                      //     onTap: () {
-                      //       controller.pickImage();
-                      //     },
-                      //     child: controller.imagePath.isEmpty ? Image(
-                      //       image: NetworkImage(
-                      //           "https://tedikap-api.rplrus.com/storage/voucher/${controller
-                      //               .imageUrl}"),
-                      //       fit: BoxFit.cover,
-                      //     ) : Obx(() {
-                      //       return Image.file(File(controller.imagePath.value),
-                      //         fit: BoxFit.cover,);
-                      //     }),
-                      //   )
-                      //       : InkWell(
-                      //     onTap: () {
-                      //       controller.pickImage();
-                      //     },
-                      //     child: controller.imagePath.isEmpty ? Column(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         Icon(
-                      //           Icons.add_photo_alternate,
-                      //           size: 50,
-                      //           color: offColor,
-                      //         ),
-                      //         Text(
-                      //           "Klik untuk mengunggah gambar",
-                      //           style: normalTextPrimary.copyWith(
-                      //               color: offColor),
-                      //         )
-                      //       ],
-                      //     ) : Image.file(File(controller.imagePath.value),
-                      //       fit: BoxFit.cover,),
-                      //   ),
-                      // ),
                       Stack(
                         children: [
                           Container(
                             margin: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.05,
                               vertical:
-                                  MediaQuery.of(context).size.height * 0.02,
+                                  MediaQuery.of(context).size.height * 0.03,
                             ),
                             decoration: BoxDecoration(
                               border: Border.all(color: offColor, width: 2),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            height: MediaQuery.of(context).size.height * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.2,
                             width: MediaQuery.of(context).size.width,
                             child:
                                 Obx(() => controller.selectedImage.value != null
@@ -164,7 +103,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                                                 color: offColor,
                                               ),
                                               Text(
-                                                "Klik untuk mengunggah gambar",
+                                                "Click to upload image",
                                                 style: normalTextPrimary
                                                     .copyWith(color: offColor),
                                               ),
@@ -174,8 +113,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: 10), // Adjust padding as needed
+                              padding: EdgeInsets.only(bottom: 10),
                               child: GestureDetector(
                                 onTap: () async {
                                   final ImagePicker _picker = ImagePicker();
@@ -205,7 +143,6 @@ class EditVoucher extends GetView<EditVoucherController> {
                           ),
                         ],
                       ),
-
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
@@ -213,43 +150,53 @@ class EditVoucher extends GetView<EditVoucherController> {
                         children: [
                           MyTextField(
                             controller: controller.titleController,
-                            hintText: "Enter the name",
-                            name: "Name",
+                            hintText: "Enter the title",
+                            name: "Title",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.descriptionController,
-                            hintText: "Enter the category",
-                            name: "Deskripsi",
+                            hintText: "Enter the description",
+                            name: "Description",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.discountController,
-                            hintText: "Enter the discount",
-                            name: "Persentasi diskon",
+                            hintText: "Enter the discount (eg. 10)",
+                            name: "Discount Percentage (%)",
                             height: 50,
                             obsecureText: false,
+                            onTap: () {
+                              int maxDiscount = int.tryParse(
+                                      controller.maxDiscountController.text) ??
+                                  0;
+                              if (maxDiscount > 100) {
+                                controller.maxDiscountController.text = '100';
+                                Get.snackbar("Notice",
+                                    "Maximum discount cannot be more than 100");
+                              }
+                            },
                           ),
                           MyTextField(
                             controller: controller.maxDiscountController,
-                            hintText: "Enter the maximal discount",
-                            name: "Maksimal diskon",
+                            hintText: "Enter the maximum discount",
+                            name: "Maximum Discount",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.minTransactionController,
                             hintText: "Enter the minimum transaction",
-                            name: "Minimal transaksi",
+                            name: "Minimum transaction",
                             height: 50,
                             obsecureText: false,
                           ),
                           MyTextField(
                             controller: controller.startDateController,
-                            hintText: "Enter the start date",
-                            name: "Berlaku mulai",
+                            hintText: "Enter the date",
+                            name: "Valid From",
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
@@ -258,8 +205,8 @@ class EditVoucher extends GetView<EditVoucherController> {
                           ),
                           MyTextField(
                             controller: controller.endDateController,
-                            hintText: "Enter the end date",
-                            name: "Berlaku hingga",
+                            hintText: "Enter the date",
+                            name: "Valid Until",
                             height: 50,
                             obsecureText: false,
                             textInputType: TextInputType.datetime,
@@ -279,7 +226,6 @@ class EditVoucher extends GetView<EditVoucherController> {
                 text: "Change",
                 onPressed: () {
                   controller.editVoucher();
-                  Get.toNamed(Routes.VOUCHER_VIEW);
                 },
                 color: primaryColor,
                 textColor: white,

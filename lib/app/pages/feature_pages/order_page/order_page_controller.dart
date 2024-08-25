@@ -13,10 +13,11 @@ class OrderController extends GetxController {
   RxBool isLoading = false.obs;
   late OrderService orderService;
   late OrderResponse orderResponse;
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
   RxList<Orders> newOrderResponseModel = <Orders>[].obs;
   RxList<Orders> processedOrderResponseModel = <Orders>[].obs;
   RxList<Orders> takenOrderResponseModel = <Orders>[].obs;
- 
 
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
@@ -109,7 +110,7 @@ class OrderController extends GetxController {
       isLoading.value = true;
       final response = await orderService.acceptanceOrder(orderId, 'accepted');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar("Order Accepted", "Order has been accepted successfully!");
       } else {
         Get.snackbar("Error", "Failed to accept order");
@@ -122,7 +123,7 @@ class OrderController extends GetxController {
     }
   }
 
- Future<void> showRejectOrderDialog(String orderId) async {
+  Future<void> showRejectOrderDialog(String orderId) async {
     await Get.dialog(
       CustomAlert(
         titleController: titleController,
@@ -138,24 +139,25 @@ class OrderController extends GetxController {
   }
 
   Future<void> rejectOrder(String orderId) async {
-     if (titleController.text.isEmpty || bodyController.text.isEmpty) {
+    if (titleController.text.isEmpty || bodyController.text.isEmpty) {
       Get.snackbar('Missing Information', 'Title and Body cannot be empty.');
       return;
     }
     try {
       isLoading.value = true;
-      final response = await orderService.acceptanceOrder(orderId, 'rejected', title: titleController.text, body: bodyController.text);
+      final response = await orderService.acceptanceOrder(orderId, 'rejected',
+          title: titleController.text, body: bodyController.text);
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar("Order Rejected", "Order has been rejected successfully!");
         titleController.clear();
-      bodyController.clear();
+        bodyController.clear();
       } else {
         Get.snackbar("Error", "Failed to reject order");
 
         print("cukiFailed response: ${response.statusCode}");
-      print("cukimay Response body: ${response.data}");
-      Get.snackbar("cukimax Error", "Failed to reject order");
+        print("cukimay Response body: ${response.data}");
+        Get.snackbar("cukimax Error", "Failed to reject order");
       }
     } catch (e) {
       print("Error brot: $e");
@@ -170,7 +172,7 @@ class OrderController extends GetxController {
       isLoading.value = true;
       final response = await orderService.readyOrder(orderId, 'accepted');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar("Order Ready", "Order is ready for pickup!");
       } else {
         Get.snackbar("Error", "Failed to set order as ready");
@@ -189,7 +191,7 @@ class OrderController extends GetxController {
       isLoading.value = true;
       final response = await orderService.readyOrder(orderId, 'rejected');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar("Order Rejected", "Order has been rejected successfully!");
       } else {
         Get.snackbar("Error", "Failed to reject order");
@@ -207,7 +209,7 @@ class OrderController extends GetxController {
       isLoading.value = true;
       final response = await orderService.finishOrder(orderId, 'accepted');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar(
             "Order Finished", "Order has been completed successfully!");
       } else {
@@ -226,7 +228,7 @@ class OrderController extends GetxController {
       isLoading.value = true;
       final response = await orderService.finishOrder(orderId, 'rejected');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.toNamed(Routes.NAVBAR + Routes.ORDER);
+        Get.offAndToNamed(Routes.NAVBAR + Routes.ORDER);
         Get.snackbar("Order Rejected", "Order has been rejected successfully!");
       } else {
         Get.snackbar("Error", "Failed to reject order");
@@ -248,7 +250,17 @@ class OrderController extends GetxController {
       lastDate: DateTime(2050),
     );
     if (pickedDate != null) {
-      controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      controller.text =dateFormat.format(pickedDate);
+    }
+  }
+
+  String formatDate(String createdAt) {
+    try {
+      final DateTime date = DateTime.parse(createdAt);
+      return dateFormat.format(date);
+    } catch (e) {
+      print("Error parsing date: $e");
+      return "Invalid Date";
     }
   }
 
@@ -303,6 +315,4 @@ class OrderController extends GetxController {
       }
     }
   }
-
-  
 }

@@ -13,6 +13,32 @@ class EarningsTab extends GetView<HomeController> {
         child: Column(
           children: [
             Container(
+              margin: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: screenWidth,
+              height: screenHeight * 0.1,
+              decoration: BoxDecoration(
+                color: controller.isSwitched == true
+                    ? cream
+                    : Color.fromARGB(255, 252, 205, 205),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.storefront_outlined,
+                      color:
+                          controller.isSwitched == true ? primaryColor : red),
+                  SizedBox(width: 10),
+                  Text(
+                      'Store is ${controller.isSwitched == true ? 'open' : 'closed'}',
+                      style: cardText.copyWith(
+                          color: controller.isSwitched == true
+                              ? primaryColor
+                              : red)),
+                ],
+              ),
+            ),
+            Container(
               width: screenWidth,
               height: screenHeight * 0.25,
               // color: Colors.red,

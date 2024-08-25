@@ -73,7 +73,7 @@ class VoucherView extends GetView<VoucherController> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: myButton(
-                      text: 'Tambah voucher',
+                      text: 'Add Voucher',
                       onPressed: () {
                         Get.toNamed(Routes.TAMBAH_VOUCHER);
                       },
