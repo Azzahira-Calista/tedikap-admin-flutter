@@ -13,7 +13,7 @@ class ProcessedOrder extends GetView<OrderController> {
   const ProcessedOrder({super.key});
 
   Future<void> refreshData() async {
-    controller.getOrdersByStatusProcessed();
+    controller.getOrdersByStatusProcessed(null);
   }
 
   @override
@@ -96,7 +96,7 @@ class ProcessedOrder extends GetView<OrderController> {
                   child: GestureDetector(
                     onTap: () {
                       Get.bottomSheet(
-                        PanelFilter(),
+                        PanelFilter(statusType: 'proccess'),
                       );
                     },
                     child: Container(

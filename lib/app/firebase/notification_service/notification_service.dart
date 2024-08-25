@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:tedikap_admin/app/api/api_endpoint.dart';
 import 'package:tedikap_admin/app/api/dio_instance.dart';
+import 'package:tedikap_admin/routes/AppPages.dart';
 
 import '../../data/model/notification/notification_response.dart';
 // import 'package:go_router/go_router.dart';
@@ -137,10 +139,13 @@ class NotificationService {
   }
 
   void handleMesssage(BuildContext context, RemoteMessage message) {
-    print('In handleMesssage function');
-    if (message.data['type'] == 'text') {
-      // navigatorKey.currentState?.context.('dashboard', pathParameters: {'pageIndex' : '0'}, extra: {'message': message});
-    }
+    Get.toNamed(Routes.NAVBAR, arguments:2);
+    // print('In handleMesssage function');
+    // message.data['route'] = message.data['route'] ?? 'dashboard';
+    // print('Message data: ${message.data.toString()}');
+    // if (message.data['type'] == 'text') {
+    //   // navigatorKey.currentState?.context.('dashboard', pathParameters: {'pageIndex' : '0'}, extra: {'message': message});
+    // }
   }
 
   Future<void> showNotification(RemoteMessage message) async {

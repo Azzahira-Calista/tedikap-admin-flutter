@@ -13,6 +13,7 @@ import 'package:tedikap_admin/app/data/model/statistic/analystic/year/statistic_
 import 'package:tedikap_admin/app/data/model/statistic/analystic/year/year_model.dart';
 import 'package:tedikap_admin/app/data/model/statistic/earnings/earnings_model.dart';
 import 'package:tedikap_admin/app/data/model/statistic/earnings/earnings_response.dart';
+import 'package:tedikap_admin/app/data/model/status%20store/status_store_response.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/analytics/sales_controller.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
@@ -24,6 +25,7 @@ class HomeController extends GetxController {
 
   StatisticService statisticService = StatisticService();
   StatusStoreService statusStoreService = StatusStoreService();
+  StatusStoreResponse? statusStoreResponse;
 
   EarningsResponse? earningsResponse;
   Rx<EarningsData> earningsResponseModel = EarningsData().obs;
@@ -42,6 +44,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    isSwitched.value = statusStoreResponse?.data?.StatusStoreResponse ?? false;
     getEarningsData();
     getAnalysticDataWeek();
     loadDataForSelectedRange();
@@ -213,31 +216,46 @@ class HomeController extends GetxController {
   void toggeStoreStatus(bool value) async {
     isSwitched.value = value;
     if (value) {
-      await openStore();
+      await statusStore(true);
     } else {
-      await closeStore();
+      await statusStore(false);
     }
   }
 
-  Future<void> openStore() async {
-    print("Opening store...");
-    bool result = await statusStoreService.updateStatusStore(true);
-    if (result) {
-      print("Store is open");
-    } else {
-      print("Failed to open store");
+  Future<void> statusStore(bool value) async{
+    try {
+      isLoading.value = true;
+      final response = statusStoreService.updateStatusStore(value);
+      print("Response: $response");
+
+      isLoading.value = false;
+      Get.snackbar("Update store status", "Store status updated successfully!");
+    } catch (e) {
+      isLoading.value = false;
+      print("Error: $e");
+      Get.snackbar("Error", e.toString());
     }
   }
 
-  Future<void> closeStore() async {
-    print("Closing store...");
-    bool result = await statusStoreService.updateStatusStore(false);
-    if (result) {
-      print("Store is closed");
-    } else {
-      print("Failed to close store");
-    }
-  }
+  // Future<void> openStore() async {
+  //   print("Opening store...");
+  //   bool result = await statusStoreService.updateStatusStore(true);
+  //   if (result) {
+  //     print("Store is open");
+  //   } else {
+  //     print("Failed to open store");
+  //   }
+  // }
+
+  // Future<void> closeStore() async {
+  //   print("Closing store...");
+  //   bool result = await statusStoreService.updateStatusStore(false);
+  //   if (result) {
+  //     print("Store is closed");
+  //   } else {
+  //     print("Failed to close store");
+  //   }
+  // }
 
   List<BarChartGroupData> get mingguanData => [
         makeGroupData(
@@ -295,26 +313,6 @@ class HomeController extends GetxController {
         makeGroupData(
             11, dataYearModel.value.december?.totalPcsSold?.toDouble() ?? 0.0),
       ];
-
-  // final List<BarChartGroupData> bulananData = [
-  //   makeGroupData(0, 200000),
-  //   makeGroupData(1, 800000),
-  //   makeGroupData(2, 400000),
-  //   makeGroupData(3, 600000),
-  // ];
-
-  // double getMaxValue() {
-  //   List<double> allValues = [];
-
-  //   // Collect all the y-values from your data groups.
-  //   allValues.addAll(mingguanData.map((group) => group.barRods[0].toY));
-  //   allValues.addAll(bulananData.map((group) => group.barRods[0].toY));
-  //   allValues.addAll(tahunanData.map((group) => group.barRods[0].toY));
-
-  //   double maxValue =
-  //       allValues.isNotEmpty ? allValues.reduce((a, b) => a > b ? a : b) : 30;
-  //   return maxValue > 500 ? 500 : maxValue;
-  // }
 
   static BarChartGroupData makeGroupData(int x, double y1) {
     return BarChartGroupData(

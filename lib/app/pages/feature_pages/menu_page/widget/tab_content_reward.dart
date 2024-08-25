@@ -57,6 +57,7 @@ class MenuRewardTabContent extends GetView<RewardController> {
                                     controller.rewardResponseModel[index];
                                 return ItemWidgetReward(
                                   description: product.description!,
+                                  stock: product.stock!,
                                   id: product.id!,
                                   name: product.name!,
                                   regularPoint: product.regularPoint!,

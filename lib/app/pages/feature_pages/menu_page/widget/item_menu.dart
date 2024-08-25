@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,7 @@ class ItemWidget extends GetView<MenusController> {
   final int id;
   final String category;
   int? favorites_count;
+  final bool stock;
 
   ItemWidget({
     required this.name,
@@ -27,6 +30,7 @@ class ItemWidget extends GetView<MenusController> {
     required this.description,
     required this.category,
     this.favorites_count,
+    required this.stock,
   });
 
   @override
@@ -51,6 +55,7 @@ class ItemWidget extends GetView<MenusController> {
                 Get.toNamed(Routes.DETAIL_MENU, arguments: {
                   'id': id,
                   'name': name,
+                  'stock': stock,
                   // 'price': int.parse(price.toString()),
                   'regular_price': regular_price,
                   'large_price': large_price,
@@ -113,23 +118,7 @@ class ItemWidget extends GetView<MenusController> {
                                   )
                                 ],
                               ),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Icon(
-                              //       Icons.favorite_rounded,
-                              //       color: primaryColor,
-                              //       size: 18,
-                              //     ),
-                              //     SizedBox(
-                              //       width: 5,
-                              //     ),
-                              //     Text(
-                              //       "favourite",
-                              //       style: cardTitle,
-                              //     )
-                              //   ],
-                              // ),
+                             
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

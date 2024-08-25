@@ -1,3 +1,23 @@
+class StatusStockProductResponse {
+  String? message;
+  Data? data;
+
+  StatusStockProductResponse({this.message, this.data});
+
+  StatusStockProductResponse.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
 
 class Data {
   int? id;
@@ -7,9 +27,9 @@ class Data {
   int? largePrice;
   String? category;
   String? image;
-  bool? isLiked;
-  int? favoritesCount;
   bool? stock;
+  String? createdAt;
+  String? updatedAt;
 
   Data(
       {this.id,
@@ -19,9 +39,9 @@ class Data {
       this.largePrice,
       this.category,
       this.image,
-      this.isLiked,
-      this.favoritesCount,
-      this.stock});
+      this.stock,
+      this.createdAt,
+      this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -31,9 +51,9 @@ class Data {
     largePrice = json['large_price'];
     category = json['category'];
     image = json['image'];
-    isLiked = json['isLiked'];
-    favoritesCount = json['favorites_count'];
     stock = json['stock'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,9 +65,9 @@ class Data {
     data['large_price'] = this.largePrice;
     data['category'] = this.category;
     data['image'] = this.image;
-    data['isLiked'] = this.isLiked;
-    data['favorites_count'] = this.favoritesCount;
     data['stock'] = this.stock;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

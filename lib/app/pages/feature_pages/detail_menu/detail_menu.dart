@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -8,12 +10,14 @@ import '../../../../common/constant.dart';
 import '../../../../routes/AppPages.dart';
 import 'detail_menu_controller.dart';
 
+// ignore: must_be_immutable
 class DetailMenu extends GetView<DetailMenuController> {
+  DetailMenuController controller = Get.put(DetailMenuController());
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments = Get.arguments;
 
-     if (arguments == null) {
+    if (arguments == null) {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -31,7 +35,6 @@ class DetailMenu extends GetView<DetailMenuController> {
       );
     }
 
-
     final String name = arguments['name'];
     final int regular_price = arguments['regular_price'];
     final int large_price = arguments['large_price'];
@@ -40,7 +43,7 @@ class DetailMenu extends GetView<DetailMenuController> {
     final String image = arguments['image'];
     final int id = arguments['id'];
     final String category = arguments['category'];
-    final int favorites_count = arguments['favorites_count']?? 0;
+    final int favorites_count = arguments['favorites_count'] ?? 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -67,10 +70,6 @@ class DetailMenu extends GetView<DetailMenuController> {
             child: Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                ),
                 borderRadius: BorderRadius.circular(15),
               ),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -119,25 +118,47 @@ class DetailMenu extends GetView<DetailMenuController> {
                       ),
                     ),
                     Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(name, style: cardText),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(description, style: normalText),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                Icon(Icons.favorite_rounded,
-                                    color: primaryColor, size: 24),
-                                SizedBox(width: 5),
-                                Text("Liked by $favorites_count people",
-                                    style: normalTextPrimary),
-                              ],
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(name, style: cardText),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(description, style: normalText),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.favorite_rounded,
+                                        color: primaryColor, size: 24),
+                                    SizedBox(width: 5),
+                                    Text("Liked by $favorites_count people",
+                                        style: normalTextPrimary),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Obx(
+                            () {
+                              
+                              return Switch(
+                                activeColor: primaryColor,
+                                inactiveThumbColor: offColor,
+                                trackOutlineColor:
+                                    MaterialStateProperty.all(white),
+                                value: controller.isSwitched.value,
+                                onChanged: (value) {
+                                  print("Switch toggled with value: $value");
+                                  controller.toggleStockProduct(value);
+                                },
+                              );
+                            },
                           )
                         ],
                       ),

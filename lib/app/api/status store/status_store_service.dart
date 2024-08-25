@@ -16,7 +16,7 @@ class StatusStoreService {
       isAuthorize: true,
     );
 
-    if (response.statusCode == 200 || response.statusCode == 204) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return true;
     } else {
       throw Exception("Failed to update status store");

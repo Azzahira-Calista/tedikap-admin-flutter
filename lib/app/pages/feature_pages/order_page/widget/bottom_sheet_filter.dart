@@ -10,10 +10,14 @@ import 'package:tedikap_admin/common/themes.dart';
 // ignore: must_be_immutable
 class PanelFilter extends StatelessWidget {
   OrderController controller = Get.put(OrderController());
-  // const PanelFilter({super.key});
+  PanelFilter({super.key, required this.statusType});
+
+  final String statusType;
 
   @override
   Widget build(BuildContext context) {
+    RxBool isCheckedSession1 = false.obs;
+    RxBool isCheckedSession2 = false.obs;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
@@ -51,116 +55,73 @@ class PanelFilter extends StatelessWidget {
                       "Sesi pesanan",
                       style: normalText.copyWith(fontSize: 15),
                     ),
-                    GestureDetector(
-                    onTap: controller.toggleSession1,
-                      child: Obx(
-                        () => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Sesi 1 (09.30 - 10.00)",
-                              style: normalText,
-                            ),
-                            Checkbox(
-                            value: controller.isCheckedSession1.value,
-                              tristate: true,
-                              checkColor: primaryColor,
-                              onChanged: (value) {
-                                controller.isCheckedSession1.toggle();
-                              },
-                            ),
-                          ],
-                        ),
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Sesi 1 (09.30 - 10.00)",
+                            style: normalText,
+                          ),
+                          Checkbox(
+                            value: isCheckedSession1.value,
+                            tristate: true,
+                            checkColor: primaryColor,
+                            onChanged: (value) {
+                              controller.toggleSession1(statusType, isCheckedSession1);
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    GestureDetector(
-                    onTap: controller.toggleSession2,
-                      child: Obx(
-                        () => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Sesi 2 (12.0 - 10.45)",
-                              style: normalText,
-                            ),
-                            Checkbox(
-                            value: controller.isCheckedSession2.value,
-                              tristate: true,
-                              checkColor: primaryColor,
-                              onChanged: (value) {
-                                controller.isCheckedSession2.toggle();
-                              },
-                            ),
-                          ],
-                        ),
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Sesi 2 (12.00 - 10.30)",
+                            style: normalText,
+                          ),
+                          Checkbox(
+                            value: isCheckedSession2.value,
+                            tristate: true,
+                            checkColor: primaryColor,
+                            onChanged: (value) {
+                              controller.toggleSession2(statusType, isCheckedSession2);
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                //   Divider(
-                //     color: lightGrey,
-                //     thickness: 2,
-                //   ),
-                //   Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Text(
-                //         "Periode pesanan",
-                //         style: normalText.copyWith(fontSize: 15),
-                //       ),
-                //       SizedBox(
-                //         height: height * 0.02,
-                //       ),
-                //       Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //           children: [
-                //             DatePickerWidget(
-                //               text: "Start date",
-                //               controllers: controller.startDateController,
-                //               onTap: () => controller.selectDate(
-                //                   context, controller.startDateController),
-                //             ),
-                //             SizedBox(
-                //                 width: 30,
-                //                 height: 2,
-                //                 child: Divider(color: lightGrey)),
-                //             DatePickerWidget(
-                //               text: "End date",
-                //               controllers: controller.endDateController,
-                //               onTap: () => controller.selectDate(
-                //                   context, controller.endDateController),
-                //             ),
-                //           ]),
-                //     ],
-                //   ),
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: width * 0.42,
-                child: myButton(
-                    text: 'Reset Filter',
-                                      onPressed: controller.resetFilters,
-
-                    color: white,
-                    textColor: primaryTextColor),
-              ),
-              Container(
-                width: width * 0.42,
-                child: myButton(
-                    text: 'Save',
-                    onPressed: () {
-                            controller.saveSessionFilter();
-                            Get.back(); 
-                    },
-                    color: primaryColor,
-                    textColor: white),
-              )
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Container(
+          //       width: width * 0.42,
+          //       child: myButton(
+          //           text: 'Reset Filter',
+          //           onPressed: controller.resetFilters,
+          //           color: white,
+          //           textColor: primaryTextColor),
+          //     ),
+          //     Container(
+          //       width: width * 0.42,
+          //       child: myButton(
+          //           text: 'Save',
+          //           onPressed: () {
+          //             controller.saveSessionFilter();
+          //             Get.back();
+          //           },
+          //           color: primaryColor,
+          //           textColor: white),
+          //     )
+          //   ],
+          // )
         ],
       ),
     );
