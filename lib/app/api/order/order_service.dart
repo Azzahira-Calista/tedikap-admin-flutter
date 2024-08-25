@@ -42,11 +42,14 @@ class OrderService {
     }
   }
 
-  Future<Response> acceptanceOrder(String orderId, String action) async {
+  Future<Response> acceptanceOrder(String orderId, String action, {String? title, String? body}) async {
     try {
       final response = await _dioInstance.putRequest(
         endpoint: '${ApiEndpoint.order}/update-status/$orderId?action=$action',
-        data: {},
+        data: {
+          "title": title,
+          "body": body,
+        },
         isAuthorize: true,
       );
       return response;

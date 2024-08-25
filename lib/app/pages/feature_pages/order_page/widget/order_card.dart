@@ -4,8 +4,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_cont
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
-import '../../../../data/model/order/order_item_model.dart';
-import '../../../../data/model/order/order_reward_item.dart';
+import '../../../../data/model/order/order items/order_item_model.dart';
+import '../../../../data/model/order/order items/order_reward_item.dart';
 
 class OrderCard extends GetView<OrderController> {
   final String id;
