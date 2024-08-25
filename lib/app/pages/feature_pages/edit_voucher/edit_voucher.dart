@@ -17,6 +17,7 @@ class EditVoucher extends GetView<EditVoucherController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         leading: IconButton(
             onPressed: () {
               Get.back();

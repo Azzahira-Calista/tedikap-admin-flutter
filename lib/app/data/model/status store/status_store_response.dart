@@ -1,10 +1,10 @@
-class statusStore {
+class StatusStoreResponse {
   String? message;
   Data? data;
 
-  statusStore({this.message, this.data});
+  StatusStoreResponse({this.message, this.data});
 
-  statusStore.fromJson(Map<String, dynamic> json) {
+  StatusStoreResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
@@ -20,15 +20,15 @@ class statusStore {
 }
 
 class Data {
-  bool? statusStore;
+  bool? StatusStoreResponse;
   String? description;
   String? session;
   String? time;
 
-  Data({this.statusStore, this.description, this.session, this.time});
+  Data({this.StatusStoreResponse, this.description, this.session, this.time});
 
   Data.fromJson(Map<String, dynamic> json) {
-    statusStore = json['status_store'];
+    StatusStoreResponse = json['status_store'];
     description = json['description'];
     session = json['session'];
     time = json['time'];
@@ -36,7 +36,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status_store'] = this.statusStore;
+    data['status_store'] = this.StatusStoreResponse;
     data['description'] = this.description;
     data['session'] = this.session;
     data['time'] = this.time;

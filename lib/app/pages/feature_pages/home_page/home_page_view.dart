@@ -111,7 +111,7 @@ class HomePage extends GetView<HomeController> {
               body: RefreshIndicator(
                 triggerMode: RefreshIndicatorTriggerMode.anywhere,
                 onRefresh: () async {
-                  orderController.getOrdersByStatusNew();
+                  orderController.getOrdersByStatusNew(null);
                 },
                 child: ListView(
                   children: [

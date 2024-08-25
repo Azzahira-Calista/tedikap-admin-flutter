@@ -9,7 +9,7 @@ import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 
 class DetailReward extends GetView<DetailRewardController> {
-  final DetailRewardController controller = Get.put(DetailRewardController());
+  // final DetailRewardController controller = Get.put(DetailRewardController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +66,6 @@ class DetailReward extends GetView<DetailRewardController> {
             child: Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                ),
                 borderRadius: BorderRadius.circular(15),
               ),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -117,25 +113,37 @@ class DetailReward extends GetView<DetailRewardController> {
                       ),
                     ),
                     Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(name, style: cardText),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(description, style: normalText),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                Icon(Icons.favorite_rounded,
-                                    color: primaryColor, size: 24),
-                                SizedBox(width: 5),
-                                Text("Liked by 1000 people",
-                                    style: normalTextPrimary),
-                              ],
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(name, style: cardText),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(description, style: normalText),
+                              
+                            ],
+                          ),
+                          
+                          Obx(
+                            () {
+                              print(
+                                  "Switch UI rebuild with isSwitched: ${controller.isSwitched.value}");
+                              return Switch(
+                                activeColor: primaryColor,
+                                inactiveThumbColor: offColor,
+                                trackOutlineColor:
+                                    MaterialStateProperty.all(white),
+                                value: controller.isSwitched.value,
+                                onChanged: (value) {
+                                  print("Switch toggled with value: $value");
+                                  controller.toggeStockReward(value);
+                                },
+                              );
+                            },
                           )
                         ],
                       ),

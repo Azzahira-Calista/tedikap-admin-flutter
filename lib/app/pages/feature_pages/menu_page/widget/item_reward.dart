@@ -19,6 +19,7 @@ class ItemWidgetReward extends GetView<RewardController> {
   final int largePoint;
   final String image;
   final int id;
+  final bool stock;
 
   ItemWidgetReward({
     required this.name,
@@ -28,6 +29,7 @@ class ItemWidgetReward extends GetView<RewardController> {
     required this.image,
     required this.id,
     required this.description,
+    required this.stock,
   });
 
   @override
@@ -52,6 +54,7 @@ class ItemWidgetReward extends GetView<RewardController> {
               Get.toNamed(Routes.DETAIL_REWARD, arguments: {
                 'id': id,
                 'name': name,
+                'stock': stock,
                 // 'price': int.parse(price.toString()),
                 'regularPoint': regularPoint,
                 'largePoint': largePoint,

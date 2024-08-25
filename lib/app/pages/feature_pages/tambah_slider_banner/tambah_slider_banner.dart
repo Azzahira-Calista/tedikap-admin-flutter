@@ -12,16 +12,16 @@ class TambahSliderBanner extends GetView<TambahSliderBannerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-      title: Text("Tambah Slider Banner", style: appBarText),
-      centerTitle: true,
-      leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(Icons.arrow_back_ios)),
-    ),
-    body: SafeArea(
+      appBar: AppBar(
+        title: Text("Tambah Slider Banner", style: appBarText),
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios)),
+      ),
+      body: SafeArea(
         child: Column(
           children: [
             Expanded(
@@ -94,6 +94,7 @@ class TambahSliderBanner extends GetView<TambahSliderBannerController> {
             ),
           ],
         ),
-      ),);
+      ),
+    );
   }
 }

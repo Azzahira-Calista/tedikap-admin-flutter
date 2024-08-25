@@ -13,7 +13,7 @@ class NewOrder extends GetView<OrderController> {
   const NewOrder({super.key});
 
   Future<void> refreshData() async {
-    controller.getOrdersByStatusNew();
+    controller.getOrdersByStatusNew(null);
   }
 
   @override
@@ -93,7 +93,7 @@ class NewOrder extends GetView<OrderController> {
               child: GestureDetector(
                 onTap: () {
                   Get.bottomSheet(
-                    PanelFilter(),
+                    PanelFilter(statusType: 'new order',),
                   );
                 },
                 child: Container(

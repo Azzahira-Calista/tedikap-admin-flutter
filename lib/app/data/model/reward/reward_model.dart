@@ -6,6 +6,7 @@ class Data {
   int? largePoint;
   String? category;
   String? image;
+  bool? stock;
 
   Data(
       {this.id,
@@ -14,7 +15,8 @@ class Data {
       this.regularPoint,
       this.largePoint,
       this.category,
-      this.image});
+      this.image,
+      this.stock});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -24,6 +26,7 @@ class Data {
     largePoint = json['large_point'];
     category = json['category'];
     image = json['image'];
+    stock = json['stock'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class Data {
     data['large_point'] = this.largePoint;
     data['category'] = this.category;
     data['image'] = this.image;
+    data['stock'] = this.stock;
     return data;
   }
 }

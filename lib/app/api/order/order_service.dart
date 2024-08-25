@@ -5,23 +5,10 @@ import '../api_endpoint.dart';
 class OrderService {
   final DioInstance _dioInstance = DioInstance();
 
-  Future<Response> getOrdersByStatus(String status) async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: '${ApiEndpoint.order}/get-order?status=$status',
-        isAuthorize: true,
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  //  Future<Response> getOrdersByStatus(String status, {int? session}) async {
+  // Future<Response> getOrdersByStatus(String status) async {
   //   try {
-  //     // final String sessionQuery = session != null ? '&session=$session' : '';
   //     final response = await _dioInstance.getRequest(
-  //       endpoint: '${ApiEndpoint.order}/get-order?status=$status order&session=$session',
+  //       endpoint: '${ApiEndpoint.order}/get-order?status=$status',
   //       isAuthorize: true,
   //     );
   //     return response;
@@ -29,6 +16,19 @@ class OrderService {
   //     throw Exception(e);
   //   }
   // }
+
+   Future<Response> getOrdersByStatus(String status, {int? session}) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndpoint.order}/get-order',
+        isAuthorize: true,
+        queryParameters: {'session': session, 'status': status},
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   Future<Response> getHistoryOrderByType(String type) async {
     try {
