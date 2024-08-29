@@ -21,7 +21,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: SafeArea(
         child: Column(
@@ -29,7 +29,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       InkWell(
@@ -64,7 +64,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.add_photo_alternate,
                                               size: 50,
                                               color: offColor,
@@ -84,20 +84,29 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
                       Column(
                         children: [
                           MyTextField(
+                            expand: false,
                             controller: controller.titleController,
                             hintText: "Enter the title",
                             name: "Title",
-                            height: 50,
-                            obsecureText: false,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
                           ),
                           MyTextField(
+                            expand: false,
                             controller: controller.subTitleController,
                             hintText: "Enter the description",
                             name: "Description",
-                            height: 50,
-                            obsecureText: false,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
                           ),
-                         
                         ],
                       ),
                     ],
@@ -106,7 +115,7 @@ class TambahBoxPromo extends GetView<TambahBoxPromoController> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: myButton(
                 text: "Add",
                 onPressed: () {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/themes.dart';
-import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 import '../../global_components/textfield.dart';
 import 'edit_voucher_controller.dart';
@@ -149,69 +149,120 @@ class EditVoucher extends GetView<EditVoucherController> {
                       Column(
                         children: [
                           MyTextField(
+                            expand: false,
                             controller: controller.titleController,
                             hintText: "Enter the title",
                             name: "Title",
-                            height: 50,
-                            obsecureText: false,
-                          ),
-                          MyTextField(
-                            controller: controller.descriptionController,
-                            hintText: "Enter the description",
-                            name: "Description",
-                            height: 50,
-                            obsecureText: false,
-                          ),
-                          MyTextField(
-                            controller: controller.discountController,
-                            hintText: "Enter the discount (eg. 10)",
-                            name: "Discount Percentage (%)",
-                            height: 50,
-                            obsecureText: false,
-                            onTap: () {
-                              int maxDiscount = int.tryParse(
-                                      controller.maxDiscountController.text) ??
-                                  0;
-                              if (maxDiscount > 100) {
-                                controller.maxDiscountController.text = '100';
-                                Get.snackbar("Notice",
-                                    "Maximum discount cannot be more than 100");
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
                               }
+                              return null;
                             },
                           ),
                           MyTextField(
-                            controller: controller.maxDiscountController,
-                            hintText: "Enter the maximum discount",
-                            name: "Maximum Discount",
-                            height: 50,
-                            obsecureText: false,
+                            expand: false,
+                            controller: controller.descriptionController,
+                            hintText: "Enter the description",
+                            name: "Description",
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
                           ),
                           MyTextField(
+                            expand: false,
+                            controller: controller.discountController,
+                            textInputType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            hintText: "Enter the discount (eg. 10)",
+                            name: "Discount Percentage (%)",
+                            validator: (value) {
+                              int discount = int.tryParse(
+                                      controller.discountController.text) ??
+                                  0;
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              if (discount > 100) {
+                                return "Discount cannot be more than 100";
+                              }
+                              return null;
+                            },
+                          ),
+                          MyTextField(
+                            expand: false,
+                            controller: controller.maxDiscountController,
+                            textInputType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            hintText: "Enter the maximum discount",
+                            name: "Maximum discount",
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
+                          ),
+                          MyTextField(
+                            expand: false,
                             controller: controller.minTransactionController,
+                            textInputType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             hintText: "Enter the minimum transaction",
                             name: "Minimum transaction",
-                            height: 50,
-                            obsecureText: false,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
                           ),
                           MyTextField(
+                            expand: false,
+                            readOnly: true,
                             controller: controller.startDateController,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             hintText: "Enter the date",
                             name: "Valid From",
-                            height: 50,
-                            obsecureText: false,
                             textInputType: TextInputType.datetime,
                             onTap: () => controller.selectDate(
                                 context, controller.startDateController),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
                           ),
                           MyTextField(
+                            expand: false,
+                            readOnly: true,
                             controller: controller.endDateController,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             hintText: "Enter the date",
                             name: "Valid Until",
-                            height: 50,
-                            obsecureText: false,
                             textInputType: TextInputType.datetime,
                             onTap: () => controller.selectDate(
                                 context, controller.endDateController),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "This field cannot be empty";
+                              }
+                              return null;
+                            },
                           ),
                         ],
                       ),

@@ -17,7 +17,7 @@ class HistoryPage extends GetView<HistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _tabs = ['common', 'reward'];
+    List<String> _tabs = ['order', 'reward'];
 
     return Scaffold(
       appBar: AppBar(

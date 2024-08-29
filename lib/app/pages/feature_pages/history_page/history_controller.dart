@@ -8,7 +8,7 @@ class HistoryController extends GetxController {
   late OrderService orderService;
   late OrderResponse orderResponse;
   RxList<Orders> orderResponseModel = <Orders>[].obs;
-  RxString selectrdTab = 'common'.obs;
+  RxString selectrdTab = 'order'.obs;
   var currentIndex = 0.obs;
 
   @override
@@ -19,16 +19,14 @@ class HistoryController extends GetxController {
   }
 
   Future<void> getHistoryOrder() async {
-    try {
+    
       isLoading.value = true;
       final response = await orderService.getHistoryOrderByType('order');
       orderResponse = OrderResponse.fromJson(response.data);
       orderResponseModel.value = orderResponse.orders ?? [];
-    } catch (e) {
-      print("Error: $e");
-    } finally {
+    
       isLoading.value = false;
-    }
+    
   }
 
   Future<void> getHistoryOrderReward() async {
@@ -47,7 +45,7 @@ class HistoryController extends GetxController {
   void changeIndex(int index) {
     currentIndex.value = index;
     if (index == 0) {
-      selectrdTab.value = 'common';
+      selectrdTab.value = 'order';
       getHistoryOrder();
     } else if (index == 1) {
       selectrdTab.value = 'reward';

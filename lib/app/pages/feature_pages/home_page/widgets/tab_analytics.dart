@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/analytics/bar_chart_container.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/home_page/widgets/analytics/sales_grafic.dart';
 
 import '../../../../../common/themes.dart';
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:tedikap_admin/app/api/api_endpoint.dart';
 import 'package:tedikap_admin/app/api/dio_instance.dart';
 
@@ -26,5 +27,23 @@ class StatusStoreService {
     return false;
   }
 }
+
+Future<Response> getStatusStore() async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: ApiEndpoint.statusStore,
+        isAuthorize: true,
+      );
+
+      return response;
+    } on DioException catch (e) {
+      print("DioException: ${e.message}");
+      print("Response data (if any): ${e.response?.data}");
+      throw Exception(e.message);
+    } catch (e) {
+      print("Unexpected error: $e");
+      throw Exception(e.toString());
+    }
+  }
 
 }

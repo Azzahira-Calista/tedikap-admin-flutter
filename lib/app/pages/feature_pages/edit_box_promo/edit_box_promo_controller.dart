@@ -38,25 +38,9 @@ class EditBoxPromoController extends GetxController {
     }
   }
 
-  // void setImagePath(String path) {
-  //   imagePath.value = path;
-  //   update();
-  // }
-
-  // void pickImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-
-  //   if (pickedFile != null) {
-  //     setImagePath(pickedFile.path);
-  //   }
-  // }
    void setImage(XFile? image) {
     if (image != null) {
       selectedImage.value = File(image.path);
-      print("New image selected: ${selectedImage.value!.path}");
     }
   }
 
@@ -64,7 +48,7 @@ class EditBoxPromoController extends GetxController {
     isLoading.value = true;
     try {
       // Simulate data loading
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       // Here you can fetch data from the server using the `id`
       isLoading.value = false;
     } catch (e) {
@@ -76,20 +60,23 @@ class EditBoxPromoController extends GetxController {
   Future<void> deleteBoxPromo() async {
     try {
       isLoading.value = true;
-      final response = await boxPromoService.deleteBoxPromo(id: id);
-      print("Response: $response");
+     await boxPromoService.deleteBoxPromo(id: id);
 
       isLoading.value = false;
       Get.snackbar("Delete box promo", "Box promo deleted successfully!");
       Get.offAndToNamed(Routes.NAVBAR + Routes.BOX_PROMO);
     } catch (e) {
       isLoading.value = false;
-      print("Error: $e");
       Get.snackbar("Error", e.toString());
     }
   }
 
   Future<void> editBoxPromo() async {
+    if (titleController.text.isEmpty || subTitleController.text.isEmpty) {
+      Get.snackbar("Error", "All fields must be filled");
+      return;
+    }
+
     try {
       isLoading.value = true;
 
@@ -112,9 +99,7 @@ class EditBoxPromoController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
-      print("Error: $e");
       Get.snackbar("Error", e.toString());
-      throw Exception(e);
     }
   }
 }

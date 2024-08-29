@@ -18,13 +18,12 @@ class Orders {
   String? statusDescription;
   String? whatsapp;
   String? whatsappUser;
-
   String? orderType;
   String? schedulePickup;
   String? iconStatus;
   String? paymentChannel;
   bool? cartLength;
-  int? rating;
+  // double? rating;
   String? createdAt;
   String? updatedAt;
   String? expiresAt;
@@ -53,7 +52,7 @@ class Orders {
       this.iconStatus,
       this.paymentChannel,
       this.cartLength,
-      this.rating,
+      // this.rating,
       this.createdAt,
       this.updatedAt,
       this.expiresAt,
@@ -77,13 +76,12 @@ class Orders {
     statusDescription = json['status_description'];
     whatsapp = json['whatsapp'];
     whatsappUser = json['whatsapp_user'];
-
     orderType = json['order_type'];
     schedulePickup = json['schedule_pickup'];
     iconStatus = json['icon_status'];
     paymentChannel = json['payment_channel'];
     cartLength = json['cart_length'];
-    rating = json['rating'];
+    // rating = json['rating'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     expiresAt = json['expires_at'];
@@ -124,7 +122,7 @@ class Orders {
     data['icon_status'] = this.iconStatus;
     data['payment_channel'] = this.paymentChannel;
     data['cart_length'] = this.cartLength;
-    data['rating'] = this.rating;
+    // data['rating'] = this.rating;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['expires_at'] = this.expiresAt;

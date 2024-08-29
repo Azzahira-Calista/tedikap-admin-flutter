@@ -13,110 +13,123 @@ class HomePage extends GetView<HomeController> {
   final PanelController _panelController = PanelController();
   final OrderController orderController = Get.find<OrderController>();
 
+  // Separate loading state for the refresh indicator
+  final RxBool isRefreshing = false.obs;
+
+  Future<void> _refreshData() async {
+    try {
+      isRefreshing.value = true; // Start refresh loading state
+      await controller.getEarningsData();
+      await orderController.getOrdersByStatusNew(null);
+      await controller.getStatusStore();
+    } catch (e) {
+    } finally {
+      isRefreshing.value = false; // End refresh loading state
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final earnings = controller.earningsResponseModel;
-
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+    final double dpi = MediaQuery.of(context).devicePixelRatio * 180.0;
+
+    print('Screen DPI: $dpi');
+
     return Obx(() {
-      if (controller.isLoading.value) {
+      // Global loading state, used for initial loading
+      if (controller.isLoading.value && !isRefreshing.value) {
         return Center(child: CircularProgressIndicator());
       } else {
         return DefaultTabController(
           length: 2,
-          child: Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: AppBarHome(),
-              foregroundColor: white,
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(70),
-                child: Column(
-                  children: [
-                    TabBar(
-                      dividerColor: Colors.transparent,
-                      indicator: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.grey,
-                      unselectedLabelStyle: normalText.copyWith(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      labelStyle: normalText.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      tabs: [
-                        Tab(
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border:
-                                    Border.all(color: primaryColor, width: 1)),
-                            child: Text('Earnings'),
-                          ),
+          child: RefreshIndicator(
+            triggerMode: RefreshIndicatorTriggerMode.anywhere,
+            onRefresh: _refreshData,
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: AppBarHome(),
+                foregroundColor: white,
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(70),
+                  child: Column(
+                    children: [
+                      TabBar(
+                        dividerColor: Colors.transparent,
+                        indicator: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(50),
                         ),
-                        Tab(
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border:
-                                    Border.all(color: primaryColor, width: 1)),
-                            child: Text('Analytics'),
-                          ),
+                        labelColor: Colors.white,
+                        unselectedLabelColor: Colors.grey,
+                        unselectedLabelStyle: normalText.copyWith(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w700,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            body: SlidingUpPanel(
-              controller: _panelController,
-              panel: PanelOrder(),
-              header: Container(
-                width: screenWidth,
-                height: 30,
-                // color: primaryColor,
-                child: Center(
-                  // alignment: Alignment.topCenter,
-                  child: Container(
-                    width: 50,
-                    height: 5,
-                    decoration: BoxDecoration(
-                      color: offColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                        labelStyle: normalText.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        tabs: [
+                          Tab(
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(
+                                      color: primaryColor, width: 1)),
+                              child: Text('Earnings'),
+                            ),
+                          ),
+                          Tab(
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(
+                                      color: primaryColor, width: 1)),
+                              child: Text('Analytics'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(24.0),
-                topRight: Radius.circular(24.0),
-              ),
-              defaultPanelState: PanelState.CLOSED,
-              padding: EdgeInsets.only(
-                top: screenHeight * 0.01,
-              ),
-              minHeight: screenHeight * 0.05,
-              backdropOpacity: 0.5,
-              backdropEnabled: false,
-              panelSnapping: false,
-              body: RefreshIndicator(
-                triggerMode: RefreshIndicatorTriggerMode.anywhere,
-                onRefresh: () async {
-                  orderController.getOrdersByStatusNew(null);
-                  controller.isSwitched.value;
-                },
-                child: ListView(
+              body: SlidingUpPanel(
+                controller: _panelController,
+                panel: PanelOrder(),
+                header: SizedBox(
+                  width: screenWidth,
+                  height: 30,
+                  child: Center(
+                    child: Container(
+                      width: 50,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: offColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24.0),
+                  topRight: Radius.circular(24.0),
+                ),
+                defaultPanelState: PanelState.CLOSED,
+                padding: EdgeInsets.only(
+                  top: screenHeight * 0.01,
+                ),
+                minHeight: screenHeight * 0.05,
+                backdropOpacity: 0.5,
+                backdropEnabled: false,
+                panelSnapping: false,
+                body: ListView(
                   children: [
-                    Container(
+                    SizedBox(
                       height: screenHeight,
                       child: TabBarView(
                         children: [EarningsTab(), AnalyticsTab()],
