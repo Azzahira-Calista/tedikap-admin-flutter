@@ -192,7 +192,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                           ],
                         )
                       ],
-                    )
+                     )
                   ],
                 ),
               ),
