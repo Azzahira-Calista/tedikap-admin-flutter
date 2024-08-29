@@ -9,14 +9,13 @@ import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 
 class DetailReward extends GetView<DetailRewardController> {
-  // final DetailRewardController controller = Get.put(DetailRewardController());
+  const DetailReward({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic>? arguments =
         Get.arguments as Map<String, dynamic>?;
-
-    // final Map<String, dynamic> arguments = Get.arguments;
 
     if (arguments == null) {
       return Scaffold(

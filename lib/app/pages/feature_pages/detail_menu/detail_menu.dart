@@ -1,18 +1,19 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
+import 'package:tedikap_admin/common/format.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 import '../../../../common/constant.dart';
 import '../../../../routes/AppPages.dart';
 import 'detail_menu_controller.dart';
 
-// ignore: must_be_immutable
 class DetailMenu extends GetView<DetailMenuController> {
-  DetailMenuController controller = Get.put(DetailMenuController());
+
+  const DetailMenu({super.key});
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic>? arguments =
@@ -25,12 +26,12 @@ class DetailMenu extends GetView<DetailMenuController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
           automaticallyImplyLeading: false,
-          title: Text("Menu Details"),
+          title: const Text("Menu Details"),
         ),
-        body: Center(
+        body: const Center(
           child: Text("No menu data available."),
         ),
       );
@@ -52,7 +53,7 @@ class DetailMenu extends GetView<DetailMenuController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         automaticallyImplyLeading: false,
         title: Align(
           alignment: Alignment.centerRight,
@@ -73,7 +74,7 @@ class DetailMenu extends GetView<DetailMenuController> {
                 color: primaryColor,
                 borderRadius: BorderRadius.circular(15),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               height: 40,
               width: 125,
               child: Row(
@@ -99,7 +100,7 @@ class DetailMenu extends GetView<DetailMenuController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -118,104 +119,79 @@ class DetailMenu extends GetView<DetailMenuController> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(name, style: cardText),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Text(description, style: normalText),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.favorite_rounded,
-                                        color: primaryColor, size: 24),
-                                    SizedBox(width: 5),
-                                    Text("Liked by $favorites_count people",
-                                        style: normalTextPrimary),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Obx(
-                            () {
-                              
-                              return Switch(
-                                activeColor: primaryColor,
-                                inactiveThumbColor: offColor,
-                                trackOutlineColor:
-                                    MaterialStateProperty.all(white),
-                                value: controller.isSwitched.value,
-                                onChanged: (value) {
-                                  print("Switch toggled with value: $value");
-                                  controller.toggleStockProduct(value);
-                                },
-                              );
-                            },
-                          )
-                        ],
-                      ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(name, style: cardText),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(description, style: normalText),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.favorite_rounded,
+                                      color: primaryColor, size: 24),
+                                  const SizedBox(width: 5),
+                                  Text("Liked by $favorites_count people",
+                                      style: normalTextPrimary),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        Obx(
+                          () {
+                            return Switch(
+                              activeColor: primaryColor,
+                              inactiveThumbColor: offColor,
+                              trackOutlineColor:
+                                  MaterialStateProperty.all(white),
+                              value: controller.isSwitched.value,
+                              onChanged: (value) {
+                                controller.toggleStockProduct(value);
+                              },
+                            );
+                          },
+                        )
+                      ],
                     ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(),
-                          Text("Price",
-                              style: normalText.copyWith(
-                                  fontWeight: FontWeight.bold)),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Regular price", style: normalText),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Rp",
-                                        style: normalTextPrimary,
-                                      ),
-                                      Text(
-                                        regular_price.toString(),
-                                        style: cardText,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Large price", style: normalText),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Rp",
-                                        style: normalTextPrimary,
-                                      ),
-                                      Text(
-                                        large_price.toString(),
-                                        style: cardText,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Price",
+                            style: normalText.copyWith(
+                                fontWeight: FontWeight.bold)),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Regular price", style: normalText),
+                                Text(
+                                  formatRupiah(regular_price),
+                                  style: cardText,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Large price", style: normalText),
+                                Text(
+                                  formatRupiah(large_price),
+                                  style: cardText,
+                                )
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
                     )
                   ],
                 ),

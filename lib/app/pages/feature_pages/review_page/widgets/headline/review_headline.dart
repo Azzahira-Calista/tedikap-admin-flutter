@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/widgets/headline/bar_chart_review.dart';
 import 'package:tedikap_admin/common/themes.dart';
 

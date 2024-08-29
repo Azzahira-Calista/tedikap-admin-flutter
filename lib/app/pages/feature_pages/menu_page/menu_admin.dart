@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_controller.dart'
-    as MenuController;
-import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/menu_filter.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content_reward.dart';
 import 'package:tedikap_admin/common/themes.dart';
@@ -10,6 +7,8 @@ import 'package:tedikap_admin/common/themes.dart';
 import 'menu_controller.dart';
 
 class MenuPage extends GetView<MenusController> {
+  const MenuPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,13 +21,13 @@ class MenuPage extends GetView<MenusController> {
         ),
         body: Obx(() {
           if (controller.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else {
             return Column(
               children: [
                 Container(
                   color: Colors.white,
-                  child: Column(
+                  child: const Column(
                     children: [
                       TabBar(
                         unselectedLabelColor: offColor,
@@ -46,7 +45,7 @@ class MenuPage extends GetView<MenusController> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      MenuTabContent(),
+                      const MenuTabContent(),
                       MenuRewardTabContent(),
                     ],
                   ),

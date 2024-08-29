@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/bottom_sheet_filter.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_new_order.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_processed_order.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/widget/tabs/tab_taken_order.dart';
@@ -11,12 +8,14 @@ import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
 class OrderList extends GetView<OrderController> {
-  final List<String> items = [
-    "Newest",
-    "Oldest",
-    "Pickup",
-    "Delivery",
-  ];
+  const OrderList({super.key});
+
+  // final List<String> items = [
+  //   "Newest",
+  //   "Oldest",
+  //   "Pickup",
+  //   "Delivery",
+  // ];
 
   @override
   Widget build(BuildContext context) {

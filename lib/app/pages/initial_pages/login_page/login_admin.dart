@@ -45,16 +45,23 @@ class LoginPage extends GetView<LoginController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyTextField(
+                        expand: false,
                         textInputType: TextInputType.emailAddress,
                         controller: controller.emailController,
                         obsecureText: false,
                         hintText:
                             GlobalVariables.deviceToken ?? "Enter your email",
                         name: "Email",
-                        height: 50,
                       ),
                       Obx(
                         () => MyTextField(
+                          expand: false,
+                          validator: (value) {
+                            if (controller.passwordController.text.length < 8) {
+                              return "Password must be at least 8 characters";
+                            }
+                            return null;
+                          },
                           hintText: "Enter your password",
                           controller: controller.passwordController,
                           obsecureText: controller.obsecureText.value,
@@ -70,11 +77,11 @@ class LoginPage extends GetView<LoginController> {
                               controller.toggle();
                             },
                           ),
-                          height: 50,
                         ),
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.020),
+                        height: MediaQuery.of(context).size.height * 0.020,
+                      ),
                       myButton(
                         text: "Login",
                         onPressed: () {

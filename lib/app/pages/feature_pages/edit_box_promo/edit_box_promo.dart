@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_box_promo/edit_box_promo_controller.dart';
 
 import '../../../../common/themes.dart';
-import '../../../../routes/AppPages.dart';
 import '../../global_components/button.dart';
 import '../../global_components/textfield.dart';
 
@@ -22,12 +20,12 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              'Edit Voucher',
+              'Edit Box Promo',
               style: appBarText,
             ),
             SizedBox(
@@ -47,7 +45,8 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
                     onCancel: () {});
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
                   color: red,
                   borderRadius: BorderRadius.circular(10),
@@ -68,7 +67,7 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
                     Stack(
@@ -99,7 +98,7 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.add_photo_alternate,
                                             size: 50,
                                             color: offColor,
@@ -116,11 +115,11 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: GestureDetector(
                               onTap: () async {
-                                final ImagePicker _picker = ImagePicker();
-                                final XFile? image = await _picker.pickImage(
+                                final ImagePicker picker = ImagePicker();
+                                final XFile? image = await picker.pickImage(
                                     source: ImageSource.gallery);
                                 if (image != null) {
                                   controller.setImage(image);
@@ -135,7 +134,7 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
                                       Border.all(color: primaryColor, width: 2),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.edit,
                                   size: 40,
                                   color: primaryColor,
@@ -152,18 +151,28 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
                     Column(
                       children: [
                         MyTextField(
+                          expand: false,
                           controller: controller.titleController,
                           hintText: "Enter the title",
                           name: "Title",
-                          height: 50,
-                          obsecureText: false,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "This field cannot be empty";
+                            }
+                            return null;
+                          },
                         ),
                         MyTextField(
+                          expand: false,
                           controller: controller.subTitleController,
                           hintText: "Enter the category",
                           name: "Sub title",
-                          height: 50,
-                          obsecureText: false,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "This field cannot be empty";
+                            }
+                            return null;
+                          },
                         ),
                       ],
                     ),
@@ -173,7 +182,7 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
             child: myButton(
               text: "Change",
               onPressed: () {

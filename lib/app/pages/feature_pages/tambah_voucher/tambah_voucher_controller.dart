@@ -8,16 +8,16 @@ import 'package:tedikap_admin/app/data/model/promo/promo_model.dart';
 import 'package:tedikap_admin/app/data/model/promo/promo_response.dart';
 
 import '../../../../routes/AppPages.dart';
-// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class TambahVoucherController extends GetxController {
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
-
   PromoService promoService = PromoService();
   late PromoResponse promoResponse;
   var promoResponseModel = <Data>[].obs;
+  var startDateApiFormat = ''.obs;
+  var endDateApiFormat = ''.obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -44,49 +44,51 @@ class TambahVoucherController extends GetxController {
   }
 
   Future<void> addPromo() async {
-  if (nameController.text.isEmpty ||
-      descriptionController.text.isEmpty ||
-      discountController.text.isEmpty ||
-      maxDiscountController.text.isEmpty ||
-      minTransactionController.text.isEmpty ||
-      startDateController.text.isEmpty ||
-      endDateController.text.isEmpty ||
-      imagePath.value.isEmpty) {
-    Get.snackbar("Error", "All fields must be filled");
-    return;
-  }
-  
-  try {
-    isLoading.value = true;
-
-    // Parse text inputs to integers
-    int discount = int.tryParse(discountController.text) ?? 0;
-    int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
-    int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
-
-    final response = await promoService.storePromo(
-        title: nameController.text,
-        description: descriptionController.text,
-        discount: discount,
-        maxDiscount: maxDiscount,
-        minTransaction: minTransaction,
-        startDate: startDateController.text,
-        endDate: endDateController.text,
-        imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null);
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
-      Get.snackbar("Add voucher", "Voucher added successfully!");
-    } else {
-      Get.snackbar("Error", "Failed to add product");
+    if (nameController.text.isEmpty ||
+        descriptionController.text.isEmpty ||
+        discountController.text.isEmpty ||
+        maxDiscountController.text.isEmpty ||
+        minTransactionController.text.isEmpty ||
+        startDateController.text.isEmpty ||
+        endDateController.text.isEmpty ||
+        imagePath.value.isEmpty) {
+      Get.snackbar("Error", "All fields must be filled");
+      return;
     }
-  } catch (e) {
-    Get.snackbar("Error", "An error occurred: ${e.toString()}");
-  } finally {
-    isLoading.value = false;
-  }
-}
+    if (int.tryParse(discountController.text)! > 100) {
+      Get.snackbar("Error", "Discount cannot be more than 100");
+      return;
+    }
 
+    try {
+      isLoading.value = true;
+
+      int discount = int.tryParse(discountController.text) ?? 0;
+      int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
+      int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
+
+      final response = await promoService.storePromo(
+          title: nameController.text,
+          description: descriptionController.text,
+          discount: discount,
+          maxDiscount: maxDiscount,
+          minTransaction: minTransaction,
+          startDate: startDateApiFormat.value,
+          endDate: endDateApiFormat.value,
+          imageFile: imagePath.value.isNotEmpty ? File(imagePath.value) : null);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.offAndToNamed(Routes.NAVBAR + Routes.CRUD_PAGE);
+        Get.snackbar("Add voucher", "Voucher added successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to add product");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "An error occurred: ${e.toString()}");
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   Future<void> selectDate(
       BuildContext context, TextEditingController controller) async {
@@ -96,8 +98,18 @@ class TambahVoucherController extends GetxController {
       firstDate: DateTime(2020),
       lastDate: DateTime(2050),
     );
+
     if (pickedDate != null) {
-      controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      controller.text = DateFormat('yyyy MMM dd').format(pickedDate);
+
+      final apiDateFormat = DateFormat('yyyy-MM-dd');
+      final apiFormattedDate = apiDateFormat.format(pickedDate);
+
+      if (controller == startDateController) {
+        startDateApiFormat.value = apiFormattedDate;
+      } else if (controller == endDateController) {
+        endDateApiFormat.value = apiFormattedDate;
+      }
     }
   }
 }

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_controller.dart';
 
-import '../../../../../common/constant.dart';
 import '../../../../../common/themes.dart';
-import '../../../../../routes/AppPages.dart';
 import '../../../../api/api_endpoint.dart';
 
 class SliderBanner extends GetView<ImageSliderController> {

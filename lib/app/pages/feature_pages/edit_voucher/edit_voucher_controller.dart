@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,6 +18,8 @@ class EditVoucherController extends GetxController {
   PromoService promoService = PromoService();
   late PromoResponse promoResponse;
   var promoResponseModel = <Data>[].obs;
+  var startDateApiFormat = ''.obs;
+  var endDateApiFormat = ''.obs;
 
   late TextEditingController titleController;
   late TextEditingController descriptionController;
@@ -29,19 +32,9 @@ class EditVoucherController extends GetxController {
   late String imageUrl;
   final RxString imagePath = ''.obs;
 
-  
   @override
   void onInit() {
     super.onInit();
-
-    // if (Get.arguments != null && Get.arguments.containsKey('id')) {
-    //   id = Get.arguments['id'] as int;
-    //   loadData();
-    // } else {
-    //   Get.snackbar("Error", "No ID found in arguments");
-    //   Get.back();
-    // }
-
 
     final Map<String, dynamic> arguments = Get.arguments;
     id = arguments['id'];
@@ -55,9 +48,28 @@ class EditVoucherController extends GetxController {
         TextEditingController(text: arguments['max_discount'].toString());
     minTransactionController =
         TextEditingController(text: arguments['min_transaction'].toString());
-    startDateController = TextEditingController(text: arguments['start_date']);
-    endDateController = TextEditingController(text: arguments['end_date']);
     imageUrl = arguments['image'];
+
+    String startDateApi = arguments['start_date'];
+    String endDateApi = arguments['end_date'];
+
+    final DateFormat apiDateFormat = DateFormat('yyyy-MM-dd');
+    final DateFormat uiDateFormat = DateFormat('yyyy MMM dd');
+
+    try {
+      DateTime startDate = apiDateFormat.parse(startDateApi);
+      DateTime endDate = apiDateFormat.parse(endDateApi);
+
+      startDateController =
+          TextEditingController(text: uiDateFormat.format(startDate));
+      endDateController =
+          TextEditingController(text: uiDateFormat.format(endDate));
+
+      startDateApiFormat.value = startDateApi;
+      endDateApiFormat.value = endDateApi;
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
   }
 
   void setImagePath(String path) {
@@ -65,33 +77,9 @@ class EditVoucherController extends GetxController {
     update();
   }
 
-  // void pickImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-
-  //   if (pickedFile != null) {
-  //     setImagePath(pickedFile.path);
-  //   }
-  // }
-
   void setImage(XFile? image) {
     if (image != null) {
       selectedImage.value = File(image.path);
-    }
-  }
-
-  void loadData() async {
-    isLoading.value = true;
-    try {
-      // Simulate data loading
-      await Future.delayed(Duration(seconds: 2));
-      // Here you can fetch data from the server using the `id`
-      isLoading.value = false;
-    } catch (e) {
-      isLoading.value = false;
-      Get.snackbar("Error", "Failed to load data");
     }
   }
 
@@ -103,91 +91,77 @@ class EditVoucherController extends GetxController {
       firstDate: DateTime(2020),
       lastDate: DateTime(2050),
     );
+
     if (pickedDate != null) {
-      controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      controller.text = DateFormat('yyyy MMM dd').format(pickedDate);
+
+      final apiDateFormat = DateFormat('yyyy-MM-dd');
+      final apiFormattedDate = apiDateFormat.format(pickedDate);
+
+      if (controller == startDateController) {
+        startDateApiFormat.value = apiFormattedDate;
+      } else if (controller == endDateController) {
+        endDateApiFormat.value = apiFormattedDate;
+      }
     }
   }
 
   Future<void> deleteVoucher() async {
     try {
       isLoading.value = true;
-      final response = await promoService.deletePromo(id);
-      print("Response: $response");
+      await promoService.deletePromo(id);
 
       isLoading.value = false;
       Get.snackbar("Delete voucher", "Voucher deleted successfully!");
       Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
     } catch (e) {
       isLoading.value = false;
-      print("Error: $e");
       Get.snackbar("Error", e.toString());
     }
   }
-Future<void> editVoucher() async {
-  try {
-    isLoading.value = true;
 
-    // Debug prints to check the values before parsing
-    print("Discount Text: ${discountController.text}");
-    print("Max Discount Text: ${maxDiscountController.text}");
-    print("Min Transaction Text: ${minTransactionController.text}");
+  Future<void> editVoucher() async {
+    try {
+      isLoading.value = true;
 
-    // Parse text inputs to integers with validation
-    int discount = int.tryParse(discountController.text) ?? 0;
-    int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
-    int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
+      int discount = int.tryParse(discountController.text) ?? 0;
+      int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
+      int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
 
-    // Additional debug prints after parsing
-    print("Parsed Discount: $discount");
-    print("Parsed Max Discount: $maxDiscount");
-    print("Parsed Min Transaction: $minTransaction");
+     
+      final response = await promoService.updatePromo(
+        id: id,
+        title: titleController.text,
+        description: descriptionController.text,
+        discount: discount,
+        maxDiscount: maxDiscount,
+        minTransaction: minTransaction,
+        startDate: startDateApiFormat.value,
+        endDate: endDateApiFormat.value,
+        imageFile: selectedImage.value,
+      );
 
-    final response = await promoService.updatePromo(
-      id: id,
-      title: titleController.text,
-      description: descriptionController.text,
-      discount: discount,
-      maxDiscount: maxDiscount,
-      minTransaction: minTransaction,
-      startDate: startDateController.text,
-      endDate: endDateController.text,
-      imageFile: selectedImage.value,
-    );
+      isLoading.value = false;
+      update();
 
-    isLoading.value = false;
-    update();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data['data'] is List) {
+          promoResponseModel.value = DataHelper.parseJsonList<Data>(
+              response.data['data'], (json) => Data.fromJson(json));
+        } else if (response.data['data'] is Map<String, dynamic>) {
+          var parsedData = DataHelper.parseJson<Data>(
+              response.data['data'], (json) => Data.fromJson(json));
+          promoResponseModel.value = [parsedData];
+        }
 
-
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      // Example response format check
-      if (response.data['data'] is List) {
-        promoResponseModel.value = DataHelper.parseJsonList<Data>(
-          response.data['data'], 
-          (json) => Data.fromJson(json)
-        );
-      } else if (response.data['data'] is Map<String, dynamic>) {
-        // Handle if the response is a single object
-        var parsedData = DataHelper.parseJson<Data>(
-          response.data['data'], 
-          (json) => Data.fromJson(json)
-        );
-        promoResponseModel.value = [parsedData];
+        Get.offAndToNamed(Routes.NAVBAR + Routes.CRUD_PAGE);
+        Get.snackbar("Edit voucher", "Voucher edited successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to edit voucher");
       }
-
-
-
-      Get.offAndToNamed(Routes.NAVBAR + Routes.VOUCHER_VIEW);
-      Get.snackbar("Edit voucher", "Voucher edited successfully!");
-    } else {
-      print("Error Response: ${response.data}");
-      Get.snackbar("Error", "Failed to edit voucher");
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar("Error", e.toString());
     }
-  } catch (e) {
-    isLoading.value = false;
-    print("Error: $e");
-    Get.snackbar("Error", e.toString());
   }
-}
-
 }

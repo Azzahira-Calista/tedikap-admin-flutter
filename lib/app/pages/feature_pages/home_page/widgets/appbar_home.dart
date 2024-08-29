@@ -39,16 +39,7 @@ class AppBarHome extends GetView<HomeController> {
               ),
             ],
           ),
-          Obx(
-            () => Switch(
-                activeColor: primaryColor,
-                inactiveThumbColor: offColor,
-                trackOutlineColor: MaterialStateProperty.all(white),
-                value: controller.isSwitched.value,
-                onChanged: (value) {
-                  controller.toggeStoreStatus(value);
-                }),
-          )
+
           // InkWell(
           //     onTap: () {
           //       Get.toNamed(Routes.TAMBAH_NOTIF);

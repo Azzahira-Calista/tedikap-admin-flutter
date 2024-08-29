@@ -45,8 +45,7 @@ class StatusStockProductService {
       return response;
     } on DioException catch (e) {
       print("DioException: ${e.message}");
-      print(
-          "Response data (if any): ${e.response?.data}");
+      print("Response data (if any): ${e.response?.data}");
       throw Exception(e.message);
     } catch (e) {
       print("Unexpected error: $e");

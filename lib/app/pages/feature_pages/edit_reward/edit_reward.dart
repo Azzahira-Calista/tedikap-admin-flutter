@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -21,7 +21,7 @@ class EditReward extends GetView<EditRewardController> {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back_ios)),
+              icon: const Icon(Icons.arrow_back_ios)),
           title: Text(
             'Edit Menu',
             style: appBarText,
@@ -35,7 +35,7 @@ class EditReward extends GetView<EditRewardController> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         Stack(
@@ -66,7 +66,7 @@ class EditReward extends GetView<EditRewardController> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.add_photo_alternate,
                                                 size: 50,
                                                 color: offColor,
@@ -83,12 +83,12 @@ class EditReward extends GetView<EditRewardController> {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
-                                padding: EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.only(bottom: 10),
                                 child: GestureDetector(
                                   onTap: () async {
-                                    final ImagePicker _picker = ImagePicker();
-                                    final XFile? image = await _picker
-                                        .pickImage(source: ImageSource.gallery);
+                                    final ImagePicker picker = ImagePicker();
+                                    final XFile? image = await picker.pickImage(
+                                        source: ImageSource.gallery);
                                     if (image != null) {
                                       controller.setImage(image);
                                     }
@@ -102,7 +102,7 @@ class EditReward extends GetView<EditRewardController> {
                                           color: primaryColor, width: 2),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.edit,
                                       size: 40,
                                       color: primaryColor,
@@ -119,19 +119,17 @@ class EditReward extends GetView<EditRewardController> {
                         Column(
                           children: [
                             MyTextField(
+                              expand: false,
                               controller: controller.nameController,
                               hintText: "Enter the name",
                               name: "Name",
-                              height: 50,
-                              obsecureText: false,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "This field cannot be empty";
+                                }
+                                return null;
+                              },
                             ),
-                            // MyTextField(
-                            //   controller: controller.categoryController,
-                            //   hintText: "Enter the category",
-                            //   name: "Category",
-                            //   height: 50,
-                            //   obsecureText: false,
-                            // ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -140,7 +138,7 @@ class EditReward extends GetView<EditRewardController> {
                                   style: subTitle,
                                   textAlign: TextAlign.left,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 DropdownButtonFormField<String>(
@@ -148,15 +146,16 @@ class EditReward extends GetView<EditRewardController> {
                                     focusColor: primaryColor,
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(color: offColor),
+                                      borderSide:
+                                          const BorderSide(color: offColor),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15),
                                       borderSide:
-                                          BorderSide(color: primaryColor),
+                                          const BorderSide(color: primaryColor),
                                     ),
-                                    contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
                                   ),
                                   value: controller.selectedCategory.value,
                                   items:
@@ -176,49 +175,53 @@ class EditReward extends GetView<EditRewardController> {
                                         color: offColor),
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                               ],
                             ),
                             MyTextField(
+                              expand: false,
                               controller: controller.regularPointController,
-                              obsecureText: false,
                               hintText: "Enter the point for regular size",
                               name: "Regular price",
-                              height: 50,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "This field cannot be empty";
+                                }
+                                return null;
+                              },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              textInputType: TextInputType.number,
                             ),
                             MyTextField(
+                              expand: false,
                               controller: controller.largePointController,
-                              obsecureText: false,
                               hintText: "Enter the point for large size",
                               name: "Large price",
-                              height: 50,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "This field cannot be empty";
+                                }
+                                return null;
+                              },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              textInputType: TextInputType.number,
                             ),
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Description",
-                                    style: subTitle,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  TextFormField(
-                                    controller:
-                                        controller.descriptionController,
-                                    decoration: InputDecoration(
-                                      hintText: "Enter the description",
-                                      hintStyle: hint,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: BorderSide(color: offColor),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            MyTextField(
+                              hintText: 'Enter the description',
+                              name: 'Description',
+                              expand: false,
+                              textInputType: TextInputType.multiline,
+                              controller: controller.descriptionController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "This field cannot be empty";
+                                }
+                                return null;
+                              },
                             ),
                           ],
                         ),
@@ -228,7 +231,8 @@ class EditReward extends GetView<EditRewardController> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                 child: myButton(
                   text: "Change",
                   onPressed: () {

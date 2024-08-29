@@ -24,17 +24,47 @@ class EarningsTab extends GetView<HomeController> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.storefront_outlined,
-                      color:
-                          controller.isSwitched == true ? primaryColor : red),
-                  SizedBox(width: 10),
-                  Text(
-                      'Store is ${controller.isSwitched == true ? 'open' : 'closed'}',
-                      style: cardText.copyWith(
+                  Row(
+                    children: [
+                      Icon(Icons.storefront_outlined,
                           color: controller.isSwitched == true
                               ? primaryColor
-                              : red)),
+                              : red),
+                      SizedBox(width: 10),
+                      Text(
+                          'Store is ${controller.isSwitched == true ? 'open' : 'closed'}',
+                          style: cardText.copyWith(
+                              color: controller.isSwitched == true
+                                  ? primaryColor
+                                  : red)),
+                    ],
+                  ),
+                  Obx(
+                    () => controller.isLoading.value
+                        ? Center(
+                            child: SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(
+                                color: white,
+                                backgroundColor: primaryColor,
+                                strokeWidth: 2,
+                              ),
+                            ),
+                          )
+                        : Switch(
+                            activeColor: primaryColor,
+                            inactiveThumbColor: offColor,
+                            trackOutlineColor:
+                                MaterialStateProperty.all(Colors.white),
+                            value: controller.isSwitched.value,
+                            onChanged: (value) {
+                              controller.toggeStoreStatus(value);
+                            },
+                          ),
+                  ),
                 ],
               ),
             ),

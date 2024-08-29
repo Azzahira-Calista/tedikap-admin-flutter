@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:tedikap_admin/app/api/statistic/statistic_service.dart';
 import 'package:tedikap_admin/app/api/status%20store/status_store_Service.dart';
 import 'package:tedikap_admin/app/data/model/statistic/analystic/month/month_model.dart';
@@ -21,6 +20,7 @@ class HomeController extends GetxController {
 
   var isLoading = true.obs;
   var isSwitched = false.obs;
+  RxBool isRefreshing = false.obs;
 
   StatisticService statisticService = StatisticService();
   StatusStoreService statusStoreService = StatusStoreService();
@@ -43,11 +43,13 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    isSwitched.value = statusStoreResponse?.data?.StatusStoreResponse ?? false;
+    getStatusStore();
     getEarningsData();
     getAnalysticDataWeek();
     loadDataForSelectedRange();
   }
+
+   
 
   void changeRange(String range) {
     selectedRange.value = range;
@@ -214,17 +216,18 @@ class HomeController extends GetxController {
 
   void toggeStoreStatus(bool value) async {
     isSwitched.value = value;
-    if (value) {
-      await statusStore(true);
-    } else {
-      await statusStore(false);
-    }
+    // if (value) {
+    //   await statusStore(true);
+    // } else {
+    //   await statusStore(false);
+    // }
+    await statusStore(value);
   }
 
-  Future<void> statusStore(bool value) async{
+  Future<void> statusStore(bool value) async {
     try {
       isLoading.value = true;
-      final response = statusStoreService.updateStatusStore(value);
+      final response = await statusStoreService.updateStatusStore(value);
       print("Response: $response");
 
       isLoading.value = false;
@@ -233,6 +236,22 @@ class HomeController extends GetxController {
       isLoading.value = false;
       print("Error: $e");
       Get.snackbar("Error", e.toString());
+    }
+  }
+
+  Future<void> getStatusStore() async {
+    try {
+      isLoading.value = true;
+      final response = await statusStoreService.getStatusStore();
+      statusStoreResponse = StatusStoreResponse.fromJson(response.data);
+      isSwitched.value = statusStoreResponse?.data?.statusStore ?? false;
+      // isSwitched.value = response.data['status_store'] ?? false;
+
+      print("Store status: ${statusStoreResponse?.data?.statusStore}");
+    } catch (e) {
+      print("Error: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
