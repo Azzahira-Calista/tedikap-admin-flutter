@@ -20,3 +20,4 @@ String deleteIcon = "${SvgIcon}delete_icon.svg";
 String orderEmptyIcon = "${SvgIcon}ic_order_empty.svg";
 String reviewEmptyIcon = "${SvgIcon}ic_noReview.svg";
 String sendNotifIcon = "${SvgIcon}send_notif_icon.svg";
+String iconDelete = "${SvgIcon}ic_delete.svg";

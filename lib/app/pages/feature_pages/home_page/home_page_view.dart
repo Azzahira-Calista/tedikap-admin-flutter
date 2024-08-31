@@ -130,7 +130,9 @@ class HomePage extends GetView<HomeController> {
                     SizedBox(
                       height: screenHeight,
                       child: TabBarView(
-                        children: [EarningsTab(), AnalyticsTab()],
+                        children: [
+                          EarningsTab(),
+                          AnalyticsTab()],
                       ),
                     ),
                   ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
+import 'package:tedikap_admin/common/format.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
@@ -82,8 +83,8 @@ class OrderCard extends GetView<OrderController> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: const BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -103,16 +104,6 @@ class OrderCard extends GetView<OrderController> {
                     ),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  // child: Image.network(
-                  //   "https://tedikap-api.rplrus.com/storage/avatar/avatar.jpg",
-                  //   fit: BoxFit.cover,
-
-                  //   errorBuilder: (context, error, stackTrace) {
-                  //     return Icon(Icons
-                  //         .error);
-                  // Display an error icon if image fails to load
-                  //   },
-                  // ),
                 ),
                 SizedBox(width: 10),
                 Text(name, style: cardText.copyWith(color: white))
@@ -120,7 +111,7 @@ class OrderCard extends GetView<OrderController> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -134,9 +125,9 @@ class OrderCard extends GetView<OrderController> {
                             color: offColor, fontWeight: FontWeight.w700)),
                   ],
                 ),
-                Divider(color: offColor),
+                const Divider(color: offColor),
                 if (orderItems != null && orderItems!.isNotEmpty) ...[
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Text(
                         orderItems!
@@ -145,11 +136,11 @@ class OrderCard extends GetView<OrderController> {
                             .join(", "),
                         overflow: TextOverflow.ellipsis,
                       )),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
                 if (orderRewardItems != null &&
                     orderRewardItems!.isNotEmpty) ...[
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       orderRewardItems!
@@ -159,19 +150,19 @@ class OrderCard extends GetView<OrderController> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (orderItems != null && orderItems!.isNotEmpty) ...[
-                        Text(totalQuantityOrder.toString() + " items",
+                        Text("$totalQuantityOrder items",
                             style: smallText.copyWith(
                                 color: offColor, fontWeight: FontWeight.w500)),
                       ],
                       if (orderRewardItems != null &&
                           orderRewardItems!.isNotEmpty) ...[
-                        Text(totalQuantityReward.toString() + " items",
+                        Text("$totalQuantityReward items",
                             style: smallText.copyWith(
                                 color: offColor, fontWeight: FontWeight.w500)),
                       ],
@@ -182,14 +173,14 @@ class OrderCard extends GetView<OrderController> {
                                   color: offColor,
                                   fontWeight: FontWeight.w500)),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
-                            Text("Rp " + totalPrice.toString(),
+                            Text(formatRupiah(totalPrice),
                                 style: smallText.copyWith(
                                     color: offColor,
                                     fontWeight: FontWeight.w700)),
                           ],
                           if (orderRewardItems != null &&
                               orderRewardItems!.isNotEmpty) ...[
-                            Text(" $totalPoints Points",
+                            Text("$totalPoints Points",
                                 style: smallText.copyWith(
                                     color: offColor,
                                     fontWeight: FontWeight.w700)),
@@ -198,7 +189,7 @@ class OrderCard extends GetView<OrderController> {
                       ),
                     ]),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 30,
                   child: ElevatedButton(
@@ -224,10 +215,6 @@ class OrderCard extends GetView<OrderController> {
                         'whatsappUser' : whatsappUser
                       });
                     },
-                    child: Center(
-                      child: Text("Detail Order",
-                          style: button2.copyWith(color: white)),
-                    ),
                     style: ElevatedButton.styleFrom(
                         shadowColor: Colors.transparent,
                         backgroundColor: primaryColor,
@@ -235,6 +222,10 @@ class OrderCard extends GetView<OrderController> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         )),
+                    child: Center(
+                      child: Text("Detail Order",
+                          style: button2.copyWith(color: white)),
+                    ),
                   ),
                 )
               ],
@@ -246,8 +237,6 @@ class OrderCard extends GetView<OrderController> {
   }
 
   String _getOrderTitle() {
-    print("Order Items: ${orderItems}");
-    print("Order Reward Items: ${orderRewardItems}");
     if (orderItems != null && orderItems!.isNotEmpty) {
       return "Order Items";
     } else if (orderRewardItems != null && orderRewardItems!.isNotEmpty) {

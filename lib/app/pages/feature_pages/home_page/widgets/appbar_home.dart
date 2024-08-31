@@ -51,7 +51,7 @@ class AppBarHome extends GetView<HomeController> {
                 },
                 child: Icon(
                   Icons.qr_code_scanner,
-                  color: white,
+                  color: primaryColor,
                   size: 30,
                 )))
       ],

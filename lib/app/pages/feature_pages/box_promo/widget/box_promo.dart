@@ -91,7 +91,6 @@ class BoxPromo extends GetView<BoxPromoController> {
                               editIcon,
                               color: Colors.white,
                             ),
-                            // Icon(Icons.edit, color: Colors.white, size: 15),
                             SizedBox(width: 5),
                             Text("Edit", style: smallTextWhite),
                           ],

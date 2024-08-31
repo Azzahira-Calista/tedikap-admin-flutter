@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_box_promo/edit_box_promo_controller.dart';
 
+import '../../../../common/constant.dart';
 import '../../../../common/themes.dart';
+import '../../global_components/alert.dart';
 import '../../global_components/button.dart';
 import '../../global_components/textfield.dart';
 
@@ -33,16 +36,21 @@ class EditBoxPromo extends GetView<EditBoxPromoController> {
             ),
             InkWell(
               onTap: () {
-                Get.defaultDialog(
-                    title: "Delete menu",
-                    middleText: "Are you sure want to delete this menu?",
-                    textConfirm: "Yes",
-                    textCancel: "No",
-                    onConfirm: () {
-                      Get.back();
+                Get.dialog(
+                  ReusableDialog(
+                      dialogImage: SvgPicture.asset(iconDelete, height: 100,),
+                      title: "Delete Box Promo",
+                      content: "Are you sure want to delete this box promo?",
+                      cancelText: "No",
+                      confirmText: "Yes",
+                      onCancelPressed: (){Get.back();},
+                      onConfirmPressed: (){
+                        Get.back();
                       controller.deleteBoxPromo();
-                    },
-                    onCancel: () {});
+                      }
+                  ),
+                );
+
               },
               child: Container(
                 padding:

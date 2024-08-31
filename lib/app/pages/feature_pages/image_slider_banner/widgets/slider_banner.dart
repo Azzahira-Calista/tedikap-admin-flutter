@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/image_slider_banner/image_slider_controller.dart';
+import 'package:tedikap_admin/app/pages/global_components/alert.dart';
 
+import '../../../../../common/constant.dart';
 import '../../../../../common/themes.dart';
 import '../../../../api/api_endpoint.dart';
 
@@ -59,21 +62,17 @@ class SliderBanner extends GetView<ImageSliderController> {
                   children: [
                     InkWell(
                       onTap: () {
-                        // Get.toNamed(Routes.EDIT_IMAGE_BANNER, arguments: {
-                        //   'id': id,
-                        //   'image': image,
-                        // });
-                        Get.defaultDialog(
-                            title: "Delete menu",
-                            middleText:
-                                "Are you sure want to delete this menu?",
-                            textConfirm: "Yes",
-                            textCancel: "No",
-                            onConfirm: () {
-                              Get.back(); // Close the dialog first
-                              controller.deleteImageSlider(id);
-                            },
-                            onCancel: () {});
+                        Get.dialog(
+                          ReusableDialog(
+                              dialogImage: SvgPicture.asset(iconDelete, height: 100,),
+                              title: "Delete Image Slider Banner",
+                              content: "Are you sure want to delete this image?",
+                              cancelText: "No",
+                              confirmText: "Yes",
+                              onCancelPressed: (){Get.back();},
+                              onConfirmPressed: (){Get.back();
+                                controller.deleteImageSlider(id);}),
+                        );
                       },
                       child: Container(
                         padding:
@@ -84,11 +83,6 @@ class SliderBanner extends GetView<ImageSliderController> {
                         ),
                         child: Row(
                           children: [
-                            // SvgPicture.asset(
-                            //   editIcon,
-                            //   color: Colors.white,
-                            // ),
-                            // Icon(Icons.edit, color: Colors.white, size: 15),
                             SizedBox(width: 5),
                             Text("Delete", style: smallTextWhite),
                           ],

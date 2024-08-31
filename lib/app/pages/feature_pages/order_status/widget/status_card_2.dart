@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_page_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/contact_customer_button.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
+import 'package:tedikap_admin/common/format.dart';
 
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order items/order_item_model.dart';
@@ -67,9 +68,9 @@ class ProcessedOrderStatus extends GetView<OrderController> {
 
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         // height: MediaQuery.of(context).size.height * 0.51,
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: white,
           borderRadius: BorderRadius.circular(10),
@@ -85,7 +86,7 @@ class ProcessedOrderStatus extends GetView<OrderController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 // color: primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -110,7 +111,7 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -120,11 +121,13 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                     ],
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(schedulePickup,
-                          style: cardText.copyWith(color: darkGrey)),
+                          style: subTitle.copyWith(color: darkGrey)),
                       Text(
-                        controller.dateFormat.format(DateTime.parse(createdAt)),
+                        formatDateTime(
+                          DateTime.parse(createdAt), ),
                         style: smallText,
                       ),
                     ],
@@ -167,7 +170,7 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                             ),
                           );
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.copy,
                           size: 16,
                         ))
@@ -177,10 +180,10 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                   orderItems: orderItems,
                   orderRewardItems: orderRewardItems,
                 ),
-                Divider(
+                const Divider(
                   color: offColor,
                 ),
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.08,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,12 +193,12 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                         children: [
                           Text("Total Order :", style: cardTitle),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
-                            Text(totalQuantityOrder.toString() + " items",
+                            Text("$totalQuantityOrder items",
                                 style: cardTitle),
                           ],
                           if (orderRewardItems != null &&
                               orderRewardItems!.isNotEmpty) ...[
-                            Text(totalQuantityReward.toString() + " items",
+                            Text("$totalQuantityReward items",
                                 style: cardTitle),
                           ],
                         ],
@@ -209,14 +212,14 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                               if (orderItems != null &&
                                   orderItems!.isNotEmpty) ...[
                                 Text(
-                                  "Rp " + totalPrice.toString(),
+                                  formatRupiah(totalPrice),
                                   style: cardTitle,
                                 ),
                               ],
                               if (orderRewardItems != null &&
                                   orderRewardItems!.isNotEmpty) ...[
                                 Text(
-                                  totalPoints.toString() + " Points",
+                                  "$totalPoints Points",
                                   style: cardTitle,
                                 ),
                               ],
@@ -244,28 +247,29 @@ class ProcessedOrderStatus extends GetView<OrderController> {
                   height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
                 myButton(
+
                     sideColor: primaryColor,
                     text: "Ready",
                     onPressed: () {
                       controller.readyOrder(id);
                     },
-                    color: white,
-                    textColor: primaryColor),
+                    color: primaryColor,
+                    textColor: white),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.02,
                 ),
                 ContactCustomerButton(whatsappUser: whatsappUser),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.02,
-                ),
-                myButton(
-                    sideColor: red,
-                    text: "Cancel Order",
-                    onPressed: () {
-                      controller.rejectReadyOrder(id);
-                    },
-                    color: white,
-                    textColor: red),
+                // SizedBox(
+                //   height: MediaQuery.sizeOf(context).height * 0.02,
+                // ),
+                // myButton(
+                //     sideColor: red,
+                //     text: "Cancel Order",
+                //     onPressed: () {
+                //       controller.rejectReadyOrder(id);
+                //     },
+                //     color: white,
+                //     textColor: red),
               ],
             ),
           ],

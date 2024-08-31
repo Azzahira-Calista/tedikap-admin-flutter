@@ -6,6 +6,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/detail_reward/detail_rewar
 import '../../../../common/constant.dart';
 import '../../../../common/themes.dart';
 import '../../../../routes/AppPages.dart';
+import '../../global_components/alert.dart';
 import '../../global_components/button.dart';
 
 class DetailReward extends GetView<DetailRewardController> {
@@ -20,23 +21,30 @@ class DetailReward extends GetView<DetailRewardController> {
     if (arguments == null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text("Error"),
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+          ),
+          automaticallyImplyLeading: false,
+          title: const Text("Menu Details"),
         ),
-        body: Center(
-          child: Text("No arguments provided"),
+        body: const Center(
+          child: Text("No menu data available."),
         ),
       );
     }
 
-    final String name = arguments['name'] ?? 'Unknown';
-    final String category = arguments['category'] ?? 'Unknown';
+    final String name = arguments['name'];
+    final String category = arguments['category'];
     final int regularPoint =
         int.tryParse(arguments['regularPoint'].toString()) ?? 0;
     final int largePoint =
         int.tryParse(arguments['largePoint'].toString()) ?? 0;
     final String description =
-        arguments['description'] ?? 'No description available';
-    final String image = arguments['image'] ?? '';
+        arguments['description'];
+    final String image = arguments['image'];
     final int id = int.tryParse(arguments['id'].toString()) ?? 0;
 
     return Scaffold(
@@ -45,7 +53,7 @@ class DetailReward extends GetView<DetailRewardController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         automaticallyImplyLeading: false,
         title: Align(
           alignment: Alignment.centerRight,
@@ -67,7 +75,7 @@ class DetailReward extends GetView<DetailRewardController> {
                 color: primaryColor,
                 borderRadius: BorderRadius.circular(15),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               height: 40,
               width: 125,
               child: Row(
@@ -93,7 +101,7 @@ class DetailReward extends GetView<DetailRewardController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -111,106 +119,99 @@ class DetailReward extends GetView<DetailRewardController> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(name, style: cardText),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Text(description, style: normalText),
-                              
-                            ],
-                          ),
-                          
-                          Obx(
-                            () {
-                              print(
-                                  "Switch UI rebuild with isSwitched: ${controller.isSwitched.value}");
-                              return Switch(
-                                activeColor: primaryColor,
-                                inactiveThumbColor: offColor,
-                                trackOutlineColor:
-                                    MaterialStateProperty.all(white),
-                                value: controller.isSwitched.value,
-                                onChanged: (value) {
-                                  print("Switch toggled with value: $value");
-                                  controller.toggeStockReward(value);
-                                },
-                              );
-                            },
-                          )
-                        ],
-                      ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(name, style: cardText),
+                            SizedBox(
+                                height: MediaQuery.of(context).size.height *
+                                    0.01),
+                            Text(description, style: normalText),
+
+                          ],
+                        ),
+
+                        Obx(
+                          () {
+                            return Switch(
+                              activeColor: primaryColor,
+                              inactiveThumbColor: offColor,
+                              trackOutlineColor:
+                                  WidgetStateProperty.all(white),
+                              value: controller.isSwitched.value,
+                              onChanged: (value) {
+                                controller.toggeStockReward(value);
+                              },
+                            );
+                          },
+                        )
+                      ],
                     ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(),
-                          Text("Price",
-                              style: normalText.copyWith(
-                                  fontWeight: FontWeight.bold)),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Regular price", style: normalText),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        regularPoint.toString(),
-                                        // regular_point,
-                                        style: cardText,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.02,
-                                      ),
-                                      Text(
-                                        "(Point)",
-                                        style: normalTextPrimary,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Large price", style: normalText),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        largePoint.toString(),
-                                        // large_point,
-                                        style: cardText,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.02,
-                                      ),
-                                      Text(
-                                        "(Point)",
-                                        style: normalTextPrimary,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Price",
+                            style: normalText.copyWith(
+                                fontWeight: FontWeight.bold)),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Regular price", style: normalText),
+                                Row(
+                                  children: [
+                                    Text(
+                                      regularPoint.toString(),
+                                      // regular_point,
+                                      style: cardText,
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.sizeOf(context).width *
+                                              0.02,
+                                    ),
+                                    Text(
+                                      "(Point)",
+                                      style: normalTextPrimary,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Large price", style: normalText),
+                                Row(
+                                  children: [
+                                    Text(
+                                      largePoint.toString(),
+                                      // large_point,
+                                      style: cardText,
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.sizeOf(context).width *
+                                              0.02,
+                                    ),
+                                    Text(
+                                      "(Point)",
+                                      style: normalTextPrimary,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
                     )
                   ],
                 ),
@@ -220,16 +221,19 @@ class DetailReward extends GetView<DetailRewardController> {
                 child: myButtonLogo(
                   text: 'Delete menu',
                   onPressed: () {
-                    Get.defaultDialog(
-                        title: "Delete menu",
-                        middleText: "Are you sure want to delete this menu?",
-                        textConfirm: "Yes",
-                        textCancel: "No",
-                        onConfirm: () {
-                          Get.back(); // Close the dialog first
-                          controller.deleteReward();
-                        },
-                        onCancel: () {});
+                    Get.dialog(
+                        ReusableDialog(
+                            dialogImage: SvgPicture.asset(iconDelete, height: 100,),
+                            title: "Delete Reward Menu",
+                            content: "Are you sure want to delete this reward menu?",
+                            cancelText: "No",
+                            confirmText: "Yes",
+                            onCancelPressed: (){Get.back();},
+                            onConfirmPressed: (){Get.back();
+                            controller.deleteReward();})
+                    );
+
+
                   },
                   color: red,
                   textColor: white,

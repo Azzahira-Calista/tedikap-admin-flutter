@@ -10,6 +10,8 @@ import 'package:tedikap_admin/common/themes.dart';
 import '../../../../routes/AppPages.dart';
 
 class CrudPage extends GetView<CrudController> {
+  const CrudPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -27,7 +29,7 @@ class CrudPage extends GetView<CrudController> {
         child: Container(
           width: width,
           // color: lightGrey,
-          margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           child: Column(
             children: [
               Row(
@@ -44,13 +46,18 @@ class CrudPage extends GetView<CrudController> {
                   ),
                 ],
               ),
+
               CrudButton(
                   title: "Customer Review",
                   iconData: Icons.reviews,
                   routeName: Routes.REVIEW_PAGE),
+              const SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
                   Text(
                     'Global Notification',
                     style: normalText.copyWith(color: darkGrey),
@@ -62,13 +69,18 @@ class CrudPage extends GetView<CrudController> {
                   ),
                 ],
               ),
+
               CrudButton(
                   title: "Notification",
                   iconData: Icons.notification_add,
                   routeName: Routes.TAMBAH_NOTIF),
+              const SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
                   Text(
                     'Create and Update',
                     style: normalText.copyWith(color: darkGrey),
@@ -82,7 +94,7 @@ class CrudPage extends GetView<CrudController> {
               ),
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // 2 items per row
                   mainAxisSpacing: 10.0, // Space between rows
