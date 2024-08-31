@@ -26,7 +26,7 @@ class EditVoucherController extends GetxController {
   late TextEditingController discountController;
   late TextEditingController maxDiscountController;
   late TextEditingController minTransactionController;
-  late TextEditingController startDateController;
+  // late TextEditingController startDateController;
   late TextEditingController endDateController;
 
   late String imageUrl;
@@ -50,22 +50,22 @@ class EditVoucherController extends GetxController {
         TextEditingController(text: arguments['min_transaction'].toString());
     imageUrl = arguments['image'];
 
-    String startDateApi = arguments['start_date'];
+    // String startDateApi = arguments['start_date'];
     String endDateApi = arguments['end_date'];
 
     final DateFormat apiDateFormat = DateFormat('yyyy-MM-dd');
     final DateFormat uiDateFormat = DateFormat('yyyy MMM dd');
 
     try {
-      DateTime startDate = apiDateFormat.parse(startDateApi);
+      // DateTime startDate = apiDateFormat.parse(startDateApi);
       DateTime endDate = apiDateFormat.parse(endDateApi);
 
-      startDateController =
-          TextEditingController(text: uiDateFormat.format(startDate));
+      // startDateController =
+      //     TextEditingController(text: uiDateFormat.format(startDate));
       endDateController =
           TextEditingController(text: uiDateFormat.format(endDate));
 
-      startDateApiFormat.value = startDateApi;
+      // startDateApiFormat.value = startDateApi;
       endDateApiFormat.value = endDateApi;
     } catch (e) {
       Get.snackbar("Error", e.toString());
@@ -98,9 +98,10 @@ class EditVoucherController extends GetxController {
       final apiDateFormat = DateFormat('yyyy-MM-dd');
       final apiFormattedDate = apiDateFormat.format(pickedDate);
 
-      if (controller == startDateController) {
-        startDateApiFormat.value = apiFormattedDate;
-      } else if (controller == endDateController) {
+      // if (controller == startDateController) {
+      //   startDateApiFormat.value = apiFormattedDate;
+      // } else
+        if (controller == endDateController) {
         endDateApiFormat.value = apiFormattedDate;
       }
     }
@@ -136,7 +137,7 @@ class EditVoucherController extends GetxController {
         discount: discount,
         maxDiscount: maxDiscount,
         minTransaction: minTransaction,
-        startDate: startDateApiFormat.value,
+        // startDate: startDateApiFormat.value,
         endDate: endDateApiFormat.value,
         imageFile: selectedImage.value,
       );

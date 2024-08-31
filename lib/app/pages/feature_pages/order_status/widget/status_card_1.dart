@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/contact_customer_button.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
+import 'package:tedikap_admin/common/format.dart';
 import '../../../../../common/themes.dart';
 import '../../../../data/model/order/order items/order_item_model.dart';
 import '../../../../data/model/order/order items/order_reward_item.dart';
@@ -68,8 +69,8 @@ class NewOrderStatus extends GetView<OrderController> {
         : 0;
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        margin: EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: white,
           borderRadius: BorderRadius.circular(10),
@@ -85,7 +86,7 @@ class NewOrderStatus extends GetView<OrderController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 // color: primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -110,7 +111,7 @@ class NewOrderStatus extends GetView<OrderController> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -120,11 +121,13 @@ class NewOrderStatus extends GetView<OrderController> {
                     ],
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(schedulePickup,
-                          style: cardText.copyWith(color: darkGrey)),
+                          style: subTitle.copyWith(color: darkGrey)),
                       Text(
-                        controller.dateFormat.format(DateTime.parse(createdAt)),
+                        formatDateTime(
+                          DateTime.parse(createdAt), ),
                         style: smallText,
                       ),
                     ],
@@ -167,7 +170,7 @@ class NewOrderStatus extends GetView<OrderController> {
                             ),
                           );
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.copy,
                           size: 16,
                         ))
@@ -177,10 +180,10 @@ class NewOrderStatus extends GetView<OrderController> {
                   orderItems: orderItems,
                   orderRewardItems: orderRewardItems,
                 ),
-                Divider(
+                const Divider(
                   color: offColor,
                 ),
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.08,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,12 +193,12 @@ class NewOrderStatus extends GetView<OrderController> {
                         children: [
                           Text("Total Order :", style: cardTitle),
                           if (orderItems != null && orderItems!.isNotEmpty) ...[
-                            Text(totalQuantityOrder.toString() + " items",
+                            Text("$totalQuantityOrder items",
                                 style: cardTitle),
                           ],
                           if (orderRewardItems != null &&
                               orderRewardItems!.isNotEmpty) ...[
-                            Text(totalQuantityReward.toString() + " items",
+                            Text("$totalQuantityReward items",
                                 style: cardTitle),
                           ],
                         ],
@@ -209,14 +212,14 @@ class NewOrderStatus extends GetView<OrderController> {
                               if (orderItems != null &&
                                   orderItems!.isNotEmpty) ...[
                                 Text(
-                                  "Rp " + totalPrice.toString(),
+                                  formatRupiah(totalPrice),
                                   style: cardTitle,
                                 ),
                               ],
                               if (orderRewardItems != null &&
                                   orderRewardItems!.isNotEmpty) ...[
                                 Text(
-                                  totalPoints.toString() + " Points",
+                                  "$totalPoints Points",
                                   style: cardTitle,
                                 ),
                               ],
@@ -248,7 +251,7 @@ class NewOrderStatus extends GetView<OrderController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
                           width: MediaQuery.of(context).size.width * 0.38,
                           child: myButton(
@@ -259,10 +262,10 @@ class NewOrderStatus extends GetView<OrderController> {
                               color: primaryColor,
                               textColor: white),
                         ),
-                        Container(
+                        SizedBox(
                             height: MediaQuery.of(context).size.height * 0.05,
                             width: MediaQuery.of(context).size.width * 0.38,
-                            child: Container(
+                            child: SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.05,
                                 width: MediaQuery.of(context).size.width * 0.38,
@@ -270,10 +273,6 @@ class NewOrderStatus extends GetView<OrderController> {
                                   onPressed: () {
                                     controller.showRejectOrderDialog(id);
                                   },
-                                  child: Center(
-                                    child: Text("Reject",
-                                        style: button.copyWith(color: red)),
-                                  ),
                                   style: ElevatedButton.styleFrom(
                                       // primary: Colors.transparent,
                                       surfaceTintColor: white,
@@ -283,8 +282,12 @@ class NewOrderStatus extends GetView<OrderController> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          side: BorderSide(
+                                          side: const BorderSide(
                                               color: red, width: 1))),
+                                  child: Center(
+                                    child: Text("Reject",
+                                        style: button.copyWith(color: red)),
+                                  ),
                                 ))),
                       ],
                     ),

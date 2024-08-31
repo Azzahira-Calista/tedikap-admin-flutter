@@ -14,6 +14,7 @@ class OrderController extends GetxController {
   late OrderService orderService;
   late OrderResponse orderResponse;
   final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+  RxInt orderCounnt = 0.obs;
 
   RxList<Orders> newOrderResponseModel = <Orders>[].obs;
   RxList<Orders> processedOrderResponseModel = <Orders>[].obs;
@@ -30,12 +31,28 @@ class OrderController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     orderService = OrderService();
 
     getOrdersByStatusNew(null);
     getOrdersByStatusProcessed(null);
     getOrdersByStatusTaken(null);
-    super.onInit();
+    fetchOrderCount();
+
+  }
+
+  Future<void> fetchOrderCount() async {
+    try {
+      isLoading.value = true;
+      newOrderResponseModel.length;
+      processedOrderResponseModel.length;
+      takenOrderResponseModel.length;
+
+    } catch (e) {
+      print("Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> getOrdersByStatusNew(int? session) async {
@@ -125,8 +142,8 @@ class OrderController extends GetxController {
 
   Future<void> showRejectOrderDialog(String orderId) async {
     await Get.dialog(
-      CustomAlert(
-        titleController: titleController,
+      AlertRejectOrder(
+        // titleController: titleController,
         bodyController: bodyController,
         onConfirm: () {
           rejectOrder(orderId);

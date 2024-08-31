@@ -2,14 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher_controller.dart';
+import 'package:tedikap_admin/app/pages/global_components/alert.dart';
+import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/app/pages/global_components/textfield.dart';
 
 class TambahVoucher extends GetView<TambahVoucherController> {
-  const TambahVoucher({Key? key}) : super(key: key);
+  const TambahVoucher({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -159,25 +162,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                             return null;
                           },
                         ),
-                        MyTextField(
-                          expand: false,
-                          readOnly: true,
-                          controller: controller.startDateController,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          hintText: "Enter the date",
-                          name: "Valid From",
-                          textInputType: TextInputType.datetime,
-                          onTap: () => controller.selectDate(
-                              context, controller.startDateController),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "This field cannot be empty";
-                            }
-                            return null;
-                          },
-                        ),
+
                         MyTextField(
                           expand: false,
                           readOnly: true,
@@ -208,7 +193,17 @@ class TambahVoucher extends GetView<TambahVoucherController> {
               child: myButton(
                 text: "Add",
                 onPressed: () {
-                  controller.addPromo();
+                  Get.dialog(
+                    ReusableDialog(
+                      title: 'Are you sure you want to add this voucher?',
+                      content: 'Voucher auto valid if you click "Yes" button',
+                      cancelText: 'No',
+                      confirmText: 'Yes',
+                      onCancelPressed: (){Get.back();},
+                      onConfirmPressed: (){controller.addPromo();},
+                      dialogImage: SvgPicture.asset(coupon),
+                    ),
+                  );
                 },
                 color: primaryColor,
                 textColor: white,

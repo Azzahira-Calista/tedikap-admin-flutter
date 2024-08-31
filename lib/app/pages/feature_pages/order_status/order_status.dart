@@ -6,6 +6,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_1.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/widget/status_card_3.dart';
+import 'package:tedikap_admin/routes/AppPages.dart';
 import '../../../data/model/order/order items/order_item_model.dart';
 import '../../../data/model/order/order items/order_reward_item.dart';
 
@@ -14,10 +15,10 @@ class OrderStatus extends GetView<OrderStatusController> {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = Get.arguments as Map<String, dynamic>?;
+    // final arguments = Get.arguments as Map<String, dynamic>?;
 
     // Fallback for missing or null arguments
-    if (arguments == null) {
+    if (Get.arguments == null) {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -26,13 +27,13 @@ class OrderStatus extends GetView<OrderStatusController> {
             style: appBarText,
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Get.back();
+              Get.toNamed(Routes.NAVBAR + Routes.ORDER);
             },
           ),
         ),
-        body: SafeArea(
+        body: const SafeArea(
           child: Center(
             child: Text('No arguments provided'),
           ),
@@ -40,25 +41,25 @@ class OrderStatus extends GetView<OrderStatusController> {
       );
     }
 
-    final String? status = arguments['status'];
-    final String? id = arguments['id'];
-    final int? userId = arguments['userId'];
-    final int? cartId = arguments['cartId'];
-    final String? name = arguments['name'];
-    final String? avatar = arguments['avatar'];
-    final int? voucherId = arguments['voucherId'];
-    final int? totalPrice = arguments['totalPrice'];
-    final int? discountAmount = arguments['discountAmount'];
-    final int? rewardPoint = arguments['rewardPoint'];
-    final int? originalPrice = arguments['originalPrice'];
-    final String? createdAt = arguments['createdAt'];
-    final String? updatedAt = arguments['updatedAt'];
-    final String? schedulePickup = arguments['schedulePickup'];
-    final List<OrderItems>? orderItems = arguments['orderItems'];
-    final String? paymentChannel = arguments['paymentChannel'];
-    final List<OrderRewardItems>? orderRewardItems =
-        arguments['orderRewardItems'];
-    final String? whatsappUser = arguments['whatsappUser'];
+    // final String? status = arguments['status'];
+    // final String? id = arguments['id'];
+    // final int? userId = arguments['userId'];
+    // final int? cartId = arguments['cartId'];
+    // final String? name = arguments['name'];
+    // final String? avatar = arguments['avatar'];
+    // final int? voucherId = arguments['voucherId'];
+    // final int? totalPrice = arguments['totalPrice'];
+    // final int? discountAmount = arguments['discountAmount'];
+    // final int? rewardPoint = arguments['rewardPoint'];
+    // final int? originalPrice = arguments['originalPrice'];
+    // final String? createdAt = arguments['createdAt'];
+    // final String? updatedAt = arguments['updatedAt'];
+    // final String? schedulePickup = arguments['schedulePickup'];
+    // final List<OrderItems>? orderItems = arguments['orderItems'];
+    // final String? paymentChannel = arguments['paymentChannel'];
+    // final List<OrderRewardItems>? orderRewardItems =
+    //     arguments['orderRewardItems'];
+    // final String? whatsappUser = arguments['whatsappUser'];
 
     return Scaffold(
       appBar: AppBar(
@@ -68,7 +69,7 @@ class OrderStatus extends GetView<OrderStatusController> {
           style: appBarText,
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Get.back();
           },
@@ -78,26 +79,34 @@ class OrderStatus extends GetView<OrderStatusController> {
         child: Column(
           children: [
             Expanded(
-              child: _getStatusWidget(
-                status: status,
-                id: id,
-                userId: userId,
-                cartId: cartId,
-                name: name ?? 'No name',
-                avatar: avatar!,
-                voucherId: voucherId,
-                totalPrice: totalPrice,
-                discountAmount: discountAmount,
-                rewardPoint: rewardPoint,
-                originalPrice: originalPrice,
-                createdAt: createdAt,
-                updatedAt: updatedAt,
-                schedulePickup: schedulePickup,
-                orderItems: orderItems,
-                paymentChannel: paymentChannel,
-                orderRewardItems: orderRewardItems,
-                whatsappUser: whatsappUser,
-              ),
+              child: Obx(
+                      ()  {
+                        if (controller.isLoading.value){
+                          return const Center(child: CircularProgressIndicator());
+                        }
+
+                        return _getStatusWidget(
+                          status: controller.status?.value,
+                          id: controller.id?.value,
+                          userId: controller.userId?.value,
+                          cartId: controller.cartId?.value,
+                          name: controller.name!.value,
+                          avatar: controller.avatar!.value,
+                          voucherId: controller.voucherId?.value,
+                          totalPrice: controller.totalPrice?.value,
+                          discountAmount: controller.discountAmount?.value,
+                          rewardPoint: controller.rewardPoint?.value,
+                          originalPrice: controller.originalPrice?.value,
+                          createdAt: controller.createdAt?.value,
+                          updatedAt: controller.updatedAt?.value,
+                          schedulePickup: controller.schedulePickup?.value,
+                          orderItems: controller.orderItems?.value,
+                          orderRewardItems: controller.orderRewardItems?.value,
+                          paymentChannel: controller.paymentChannel?.value,
+                          whatsappUser: controller.whatsappUser?.value,
+                        );
+                      }
+              )
             ),
             // Text(status ?? 'No status'),
           ],
@@ -127,7 +136,7 @@ class OrderStatus extends GetView<OrderStatusController> {
     required String? whatsappUser,
   }) {
     if (status == null) {
-      return Center(child: Text('No status available'));
+      return const Center(child: Text('No status available'));
     }
 
     switch (status) {
@@ -216,7 +225,7 @@ class OrderStatus extends GetView<OrderStatusController> {
           orderRewardItems: orderRewardItems,
         );
       default:
-        return Center(child: Text("Unknown status"));
+        return const Center(child: Text("Unknown status"));
     }
   }
 }

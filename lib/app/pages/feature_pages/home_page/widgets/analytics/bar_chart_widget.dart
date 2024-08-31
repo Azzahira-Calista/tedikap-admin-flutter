@@ -42,23 +42,22 @@ class BarChartWidgets {
   String getWeekDay(double value) {
     switch (value.toInt()) {
       case 0:
-        return 'Sunday';
+        return 'Monday';
       case 1:
-        return 'Mondaay';
-      case 2:
         return 'Tuesday';
-      case 3:
+      case 2:
         return 'Wednesday';
-      case 4:
+      case 3:
         return 'Thursday';
-      case 5:
+      case 4:
         return 'Friday';
-      case 6:
+      case 5:
         return 'Saturday';
       default:
         throw Error();
     }
   }
+
   String getMonth(int value) {
     switch (value) {
       case 0:
@@ -81,7 +80,7 @@ class BarChartWidgets {
         return 'September';
       case 9:
         return 'October';
-      case 10:  
+      case 10:
         return 'November';
       case 11:
         return 'December';
@@ -91,24 +90,49 @@ class BarChartWidgets {
   }
 
   String getWeekNumber(double value) {
-    switch (value.toInt()) {
-      case 0:
-        return 'Week 1';
-      // case 1:
-      //   return 'Week 2';
-      // case 2:
-      //   return 'Week 3';
-      // case 3:
-      //   return 'Week 4';
-      // case 4:
-      //   return 'Week 5';
-      default:
-        throw Error();
+    final List<String> weekNumbers = [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31'
+    ];
+
+    if (value >= 0 && value < weekNumbers.length) {
+      return weekNumbers[value.toInt()];
+    } else {
+      throw Error();
     }
   }
 
   Widget mingguanTitles(double value, TitleMeta meta) {
-    final List<String> weekdays = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
+    final List<String> weekdays = ['M', 'T', 'W', 'T', 'F', 'S'];
 
     if (value >= 0 && value < weekdays.length) {
       return Text(
@@ -116,20 +140,52 @@ class BarChartWidgets {
         style: normalText,
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 
   Widget bulananTitles(double value, TitleMeta meta) {
-    final List<String> weeks = ['1', '2', '3', '4', '5'];
+    final List<String> days = [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31'
+    ];
 
-    if (value >= 0 && value < weeks.length) {
+    if (value >= 0 && value < days.length) {
       return Text(
-        weeks[value.toInt()],
+        days[value.toInt()],
         style: normalText,
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 
@@ -155,7 +211,7 @@ class BarChartWidgets {
         style: normalText,
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }

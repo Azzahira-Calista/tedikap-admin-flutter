@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../common/constant.dart';
 import '../../../../common/themes.dart';
+import '../../global_components/alert.dart';
 import '../../global_components/button.dart';
 import '../../global_components/textfield.dart';
 import 'edit_voucher_controller.dart';
@@ -19,7 +22,7 @@ class EditVoucher extends GetView<EditVoucherController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -32,19 +35,20 @@ class EditVoucher extends GetView<EditVoucherController> {
             ),
             InkWell(
               onTap: () {
-                Get.defaultDialog(
-                    title: "Delete menu",
-                    middleText: "Are you sure want to delete this menu?",
-                    textConfirm: "Yes",
-                    textCancel: "No",
-                    onConfirm: () {
-                      Get.back();
-                      controller.deleteVoucher();
-                    },
-                    onCancel: () {});
+                Get.dialog(
+                  ReusableDialog(
+                      dialogImage: SvgPicture.asset(iconDelete, height: 100,),
+                      title: "Delete Voucher",
+                      content: "Are you sure want to delete this voucher?",
+                      cancelText: "No",
+                      confirmText: "Yes",
+                      onCancelPressed: (){Get.back();},
+                      onConfirmPressed: (){Get.back();controller.deleteVoucher();}),
+                );
+
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
                   color: red,
                   borderRadius: BorderRadius.circular(10),
@@ -66,7 +70,7 @@ class EditVoucher extends GetView<EditVoucherController> {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Stack(
@@ -97,7 +101,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.add_photo_alternate,
                                                 size: 50,
                                                 color: offColor,
@@ -113,7 +117,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
-                              padding: EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.only(bottom: 10),
                               child: GestureDetector(
                                 onTap: () async {
                                   final ImagePicker _picker = ImagePicker();
@@ -132,7 +136,7 @@ class EditVoucher extends GetView<EditVoucherController> {
                                         color: primaryColor, width: 2),
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.edit,
                                     size: 40,
                                     color: primaryColor,
@@ -226,25 +230,25 @@ class EditVoucher extends GetView<EditVoucherController> {
                               return null;
                             },
                           ),
-                          MyTextField(
-                            expand: false,
-                            readOnly: true,
-                            controller: controller.startDateController,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            hintText: "Enter the date",
-                            name: "Valid From",
-                            textInputType: TextInputType.datetime,
-                            onTap: () => controller.selectDate(
-                                context, controller.startDateController),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "This field cannot be empty";
-                              }
-                              return null;
-                            },
-                          ),
+                          // MyTextField(
+                          //   expand: false,
+                          //   readOnly: true,
+                          //   controller: controller.startDateController,
+                          //   inputFormatters: [
+                          //     FilteringTextInputFormatter.digitsOnly
+                          //   ],
+                          //   hintText: "Enter the date",
+                          //   name: "Valid From",
+                          //   textInputType: TextInputType.datetime,
+                          //   onTap: () => controller.selectDate(
+                          //       context, controller.startDateController),
+                          //   validator: (value) {
+                          //     if (value!.isEmpty) {
+                          //       return "This field cannot be empty";
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
                           MyTextField(
                             expand: false,
                             readOnly: true,
@@ -272,7 +276,7 @@ class EditVoucher extends GetView<EditVoucherController> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: myButton(
                 text: "Change",
                 onPressed: () {

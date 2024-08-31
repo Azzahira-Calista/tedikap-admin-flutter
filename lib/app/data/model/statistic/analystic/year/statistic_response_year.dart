@@ -7,18 +7,25 @@ StatisticResponseYear statisticResponseYearFromJson(String str) => StatisticResp
 String statisticResponseYearToJson(StatisticResponseYear data) => json.encode(data.toJson());
 
 class StatisticResponseYear {
-    YearData data;
+    YearData? data;
+    int? product_sales;
+    int? income;
 
-    StatisticResponseYear({
-        required this.data,
-    });
+    StatisticResponseYear({this.data, this.product_sales, this.income});
 
-    factory StatisticResponseYear.fromJson(Map<String, dynamic> json) => StatisticResponseYear(
-        data: YearData.fromJson(json["data"]),
-    );
+    StatisticResponseYear.fromJson(Map<String, dynamic> json) {
+        data = json['data'] != null ? new YearData.fromJson(json['data']) : null;
+        product_sales = json['product_sales'];
+        income = json['income'];
+    }
 
-    Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
-    };
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> data = new Map<String, dynamic>();
+        if (this.data != null) {
+            data['data'] = this.data!.toJson();
+        }
+        data['product_sales'] = this.product_sales;
+        data['income'] = this.income;
+        return data;
+    }
 }
-

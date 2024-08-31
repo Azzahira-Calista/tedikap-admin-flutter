@@ -49,7 +49,6 @@ class TambahVoucherController extends GetxController {
         discountController.text.isEmpty ||
         maxDiscountController.text.isEmpty ||
         minTransactionController.text.isEmpty ||
-        startDateController.text.isEmpty ||
         endDateController.text.isEmpty ||
         imagePath.value.isEmpty) {
       Get.snackbar("Error", "All fields must be filled");

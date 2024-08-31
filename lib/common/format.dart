@@ -7,6 +7,6 @@ String formatRupiah(num amount) {
   }
 
   String formatDateTime(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('dd MMMM yyyy HH:mm');
+    final DateFormat formatter = DateFormat('yyyy MMMM dd, HH:mm');
     return formatter.format(dateTime);
   }

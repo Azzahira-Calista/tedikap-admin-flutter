@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:tedikap_admin/common/constant.dart';
+import 'package:tedikap_admin/common/format.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
@@ -31,7 +33,7 @@ class PromoBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -41,7 +43,7 @@ class PromoBanner extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -57,21 +59,21 @@ class PromoBanner extends StatelessWidget {
                       as ImageProvider,
                   fit: BoxFit.cover),
               color: primaryColor,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: Text(title,
                           overflow: TextOverflow.ellipsis,
@@ -95,7 +97,7 @@ class PromoBanner extends StatelessWidget {
                       },
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(10),
@@ -107,7 +109,7 @@ class PromoBanner extends StatelessWidget {
                               color: Colors.white,
                             ),
                             // Icon(Icons.edit, color: Colors.white, size: 15),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text("Edit", style: smallTextWhite),
                           ],
                         ),
@@ -115,35 +117,34 @@ class PromoBanner extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   description,
                   style: cardTitle,
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   // 'Discount: $discount%',
-                  'Discount: ' + discount.toString() + '%',
+                  'Discount: $discount%',
                   style: cardTitle,
                 ),
-                SizedBox(height: 5),
-                Text('Max Discount: ' + max_discount.toString(), style: cardTitle),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
+                Text('Max Discount: ${formatRupiah(max_discount)}', style: cardTitle),
+                const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Min transaction: Rp' + min_transaction.toString(),
+                      'Min transaction: ${formatRupiah(min_transaction)}',
                       style: cardTitle,
                     ),
                     Text(
-                      'Valid until $end_date',
-                      style: cardTitle,
+                      'Valid until: ${DateFormat('yyyy MMM dd').format(DateTime.parse(end_date))}',
+                      style: smallText.copyWith(
+                        color: darkGrey,
+                      )
                     ),
-                    // Text(
-                    //   'Code: $id',
-                    //   style: TextStyle(),
-                    // ),
+
                   ],
                 ),
                 // if (maxDiscount != null)

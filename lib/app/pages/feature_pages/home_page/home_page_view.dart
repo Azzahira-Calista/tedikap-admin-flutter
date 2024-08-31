@@ -13,18 +13,17 @@ class HomePage extends GetView<HomeController> {
   final PanelController _panelController = PanelController();
   final OrderController orderController = Get.find<OrderController>();
 
-  // Separate loading state for the refresh indicator
   final RxBool isRefreshing = false.obs;
 
   Future<void> _refreshData() async {
     try {
-      isRefreshing.value = true; // Start refresh loading state
+      isRefreshing.value = true; 
       await controller.getEarningsData();
       await orderController.getOrdersByStatusNew(null);
       await controller.getStatusStore();
     } catch (e) {
     } finally {
-      isRefreshing.value = false; // End refresh loading state
+      isRefreshing.value = false; 
     }
   }
 
@@ -37,7 +36,6 @@ class HomePage extends GetView<HomeController> {
     print('Screen DPI: $dpi');
 
     return Obx(() {
-      // Global loading state, used for initial loading
       if (controller.isLoading.value && !isRefreshing.value) {
         return Center(child: CircularProgressIndicator());
       } else {
@@ -132,7 +130,9 @@ class HomePage extends GetView<HomeController> {
                     SizedBox(
                       height: screenHeight,
                       child: TabBarView(
-                        children: [EarningsTab(), AnalyticsTab()],
+                        children: [
+                          EarningsTab(),
+                          AnalyticsTab()],
                       ),
                     ),
                   ],

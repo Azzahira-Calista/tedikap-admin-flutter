@@ -19,6 +19,16 @@ class ImageSliderView extends GetView<ImageSliderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryColor,
+        onPressed: () {
+          Get.toNamed(Routes.TAMBAH_IMAGE_BANNER);
+        },
+        child: const Icon(
+          Icons.add,
+          color: white,
+        ),
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -33,71 +43,48 @@ class ImageSliderView extends GetView<ImageSliderController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
-      body: Stack(
-        children: [
-          RefreshIndicator(
-            onRefresh: refreshData,
-            triggerMode: RefreshIndicatorTriggerMode.anywhere,
-            child: Obx(() {
-              if (controller.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
-              } else if (controller.imageSliderResponseModel.isEmpty) {
-                return ListView(children: [
-                  Container(
-                    height: Get.height * 0.7,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            orderEmptyIcon,
-                            width: 150,
-                            height: 150,
-                          ),
-                          SizedBox(height: 20),
-                          Text('No Image slide banner available',
-                              style: normalText),
-                        ],
+      body: RefreshIndicator(
+        onRefresh: refreshData,
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (controller.imageSliderResponseModel.isEmpty) {
+            return ListView(children: [
+              SizedBox(
+                height: Get.height * 0.7,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        orderEmptyIcon,
+                        width: 150,
+                        height: 150,
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                      Text('No Image slide banner available',
+                          style: normalText),
+                    ],
                   ),
-                ]);
-              } else {
-                return ListView.builder(
-                  padding: const EdgeInsets.all(20),
-                  itemCount: controller.imageSliderResponseModel.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final boxPromo = controller.imageSliderResponseModel[index];
-                    return SliderBanner(
-                      id: boxPromo.id!,
-                      image: boxPromo.image!,
-                    );
-                  },
-                );
-              }
-            }),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: myButton(
-                  text: 'Add Image Slider Banner',
-                  onPressed: () {
-                    Get.toNamed(Routes.TAMBAH_IMAGE_BANNER);
-                  },
-                  color: primaryColor,
-                  textColor: white,
                 ),
               ),
-            ),
-          ),
-        ],
+            ]);
+          } else {
+            return ListView.builder(
+              padding: const EdgeInsets.all(20),
+              itemCount: controller.imageSliderResponseModel.length,
+              itemBuilder: (BuildContext context, int index) {
+                final boxPromo = controller.imageSliderResponseModel[index];
+                return SliderBanner(
+                  id: boxPromo.id!,
+                  image: boxPromo.image!,
+                );
+              },
+            );
+          }
+        }),
       ),
     );
   }

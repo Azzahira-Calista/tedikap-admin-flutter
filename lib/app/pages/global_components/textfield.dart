@@ -46,7 +46,7 @@ class MyTextField extends StatelessWidget {
             style: subTitle,
             textAlign: TextAlign.left,
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           TextFormField(
             style: normalText,
             expands: expand && !obsecureText!,
@@ -65,14 +65,14 @@ class MyTextField extends StatelessWidget {
               suffixIcon: suffixIcon,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color: primaryColor),
+                borderSide: const BorderSide(color: primaryColor),
               ),
               hintText: hintText,
               hintStyle: hint,
               focusColor: primaryColor,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color: offColor),
+                borderSide:  const BorderSide(color: offColor),
               ),
             ),
           ),

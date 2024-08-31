@@ -49,8 +49,6 @@ class HomeController extends GetxController {
     loadDataForSelectedRange();
   }
 
-   
-
   void changeRange(String range) {
     selectedRange.value = range;
     loadDataForSelectedRange();
@@ -90,7 +88,7 @@ class HomeController extends GetxController {
     try {
       final response = await statisticService.getChartDataWeek();
       statisticResponseWeek = StatisticResponseWeek.fromJson(response.data);
-      dataWeekModel.value = statisticResponseWeek!.data;
+      dataWeekModel.value = statisticResponseWeek!.data!;
       print('bismillah: ${dataWeekModel.value.friday?.totalPcsSold}');
       update();
     } catch (e) {
@@ -98,129 +96,66 @@ class HomeController extends GetxController {
     }
   }
 
-  Future getAnalysticDataMonth() async {
+  // Future getAnalysticDataMonth() async {
+  //   try {
+  //     final response = await statisticService.getChartDataMonth();
+  //     statisticResponseMonth = StatisticResponseMonth.fromJson(response.data);
+  //     dataMonthModel.value = statisticResponseMonth!.data as MonthData;
+  //     print('bismillah: ${dataMonthModel}');
+  //     update();
+  //   } catch (e) {
+  //     print('bismii : $e');
+  //   }
+  // }
+
+  Future<void> getAnalysticDataMonth() async {
     try {
+      // Fetching the response
       final response = await statisticService.getChartDataMonth();
+      print('API Response: ${response.data}');
+
+      // Parsing the response
       statisticResponseMonth = StatisticResponseMonth.fromJson(response.data);
-      dataMonthModel.value = statisticResponseMonth!.data;
-      print('bismillah: ${dataMonthModel.value.Thursday?.totalPcsSold}');
-      update();
+
+      // Checking if data is not null and contains entries
+      if (statisticResponseMonth?.data != null &&
+          statisticResponseMonth!.data!.isNotEmpty) {
+        // Iterate over the data map and print each entry
+        statisticResponseMonth!.data?.forEach((key, value) {
+          print('Key: $key, Value: ${value.toJson()}'); // Debug print
+        });
+
+        // Assigning the first MonthData entry to dataMonthModel as an example
+        dataMonthModel.value = statisticResponseMonth!.data!.values.first;
+        print('Assigned Data Month Model: ${dataMonthModel.value}');
+      } else {
+        print('Data is null or empty.');
+      }
+
+      update(); // Update UI or other dependent logic
     } catch (e) {
-      print('bismi : $e');
+      print('Error occurred: $e');
     }
   }
 
   Future getAnalysticDataYear() async {
     try {
       final response = await statisticService.getChartDataYear();
+      print('API Response: ${response.data}');
       statisticResponseYear = StatisticResponseYear.fromJson(response.data);
-      dataYearModel.value = statisticResponseYear!.data;
-      print('bismillah: ${dataYearModel.value.january?.totalPcsSold}');
+      dataYearModel.value = statisticResponseYear!.data!;
+      print('Data Year Model: ${dataYearModel.value}');
+      print('January Total PCS Sold: ${statisticResponseYear?.product_sales}');
+      print('January Total PCS Sold: ${statisticResponseYear?.income}');
+
       update();
     } catch (e) {
-      print('bismi : $e');
+      print('Error occurred: $e');
     }
-  }
-
-  int sumSales() {
-    var sumSalesWeek = 0;
-    sumSalesWeek = (dataWeekModel.value.monday?.totalPcsSold ?? 0) +
-        (dataWeekModel.value.tuesday?.totalPcsSold ?? 0) +
-        (dataWeekModel.value.wednesday?.totalPcsSold ?? 0) +
-        (dataWeekModel.value.thursday?.totalPcsSold ?? 0) +
-        (dataWeekModel.value.friday?.totalPcsSold ?? 0) +
-        (dataWeekModel.value.saturday?.totalPcsSold ?? 0) +
-        (dataWeekModel.value.sunday?.totalPcsSold ?? 0);
-    print('sumSalesWeek pcs sold: $sumSalesWeek');
-
-    return sumSalesWeek;
-  }
-
-  int sumSalesMonth() {
-    var sumSalesMonth = 0;
-    sumSalesMonth = (dataMonthModel.value.Thursday?.totalPcsSold ?? 0);
-    // (dataMonthModel.value.minggu2?.totalPcsSold ?? 0) +
-    // (dataMonthModel.value.minggu3?.totalPcsSold ?? 0) +
-    // (dataMonthModel.value.minggu4?.totalPcsSold ?? 0) +
-    // (dataMonthModel.value.minggu5?.totalPcsSold ?? 0);
-    print('sumSalesMonth pcs sold: $sumSalesMonth');
-    return sumSalesMonth;
-  }
-
-  int sumSalesYear() {
-    var sumSalesYear = 0;
-    sumSalesYear = (dataYearModel.value.january?.totalPcsSold ?? 0) +
-        (dataYearModel.value.february?.totalPcsSold ?? 0) +
-        (dataYearModel.value.march?.totalPcsSold ?? 0) +
-        (dataYearModel.value.april?.totalPcsSold ?? 0) +
-        (dataYearModel.value.may?.totalPcsSold ?? 0) +
-        (dataYearModel.value.june?.totalPcsSold ?? 0) +
-        (dataYearModel.value.july?.totalPcsSold ?? 0) +
-        (dataYearModel.value.august?.totalPcsSold ?? 0) +
-        (dataYearModel.value.september?.totalPcsSold ?? 0) +
-        (dataYearModel.value.october?.totalPcsSold ?? 0) +
-        (dataYearModel.value.november?.totalPcsSold ?? 0) +
-        (dataYearModel.value.december?.totalPcsSold ?? 0);
-    print('sumSalesYear pcs sold: $sumSalesYear');
-
-    return sumSalesYear;
-  }
-
-  int sumIncome() {
-    var sumIncomeWeek = 0;
-    sumIncomeWeek = (dataWeekModel.value.monday?.totalIncome ?? 0) +
-        (dataWeekModel.value.tuesday?.totalIncome ?? 0) +
-        (dataWeekModel.value.wednesday?.totalIncome ?? 0) +
-        (dataWeekModel.value.thursday?.totalIncome ?? 0) +
-        (dataWeekModel.value.friday?.totalIncome ?? 0) +
-        (dataWeekModel.value.saturday?.totalIncome ?? 0) +
-        (dataWeekModel.value.sunday?.totalIncome ?? 0);
-    print('sumIncomeWeek income: $sumIncomeWeek');
-    return sumIncomeWeek;
-  }
-
-  int sumIncomeMonth() {
-    var sumIncomeMonth = 0;
-    sumIncomeMonth = (dataMonthModel.value.Thursday?.totalIncome ?? 0);
-    // (dataMonthModel.value.minggu2?.totalIncome ?? 0) +
-    // (dataMonthModel.value.minggu3?.totalIncome ?? 0) +
-    // (dataMonthModel.value.minggu4?.totalIncome ?? 0) +
-    // (dataMonthModel.value.minggu5?.totalIncome ?? 0);
-    print('sumIncomeMonth income: $sumIncomeMonth');
-    return sumIncomeMonth;
-  }
-
-  int sumIncomeYear() {
-    var sumIncomeYear = 0;
-    sumIncomeYear = (dataYearModel.value.january?.totalIncome ?? 0) +
-        (dataYearModel.value.february?.totalIncome ?? 0) +
-        (dataYearModel.value.march?.totalIncome ?? 0) +
-        (dataYearModel.value.april?.totalIncome ?? 0) +
-        (dataYearModel.value.may?.totalIncome ?? 0) +
-        (dataYearModel.value.june?.totalIncome ?? 0) +
-        (dataYearModel.value.july?.totalIncome ?? 0) +
-        (dataYearModel.value.august?.totalIncome ?? 0) +
-        (dataYearModel.value.september?.totalIncome ?? 0) +
-        (dataYearModel.value.october?.totalIncome ?? 0) +
-        (dataYearModel.value.november?.totalIncome ?? 0) +
-        (dataYearModel.value.december?.totalIncome ?? 0);
-    print('sumIncomeYear income: $sumIncomeYear');
-    return sumIncomeYear;
-  }
-
-  String formatRupiah(num amount) {
-    final formatCurrency =
-        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
-    return formatCurrency.format(amount);
   }
 
   void toggeStoreStatus(bool value) async {
     isSwitched.value = value;
-    // if (value) {
-    //   await statusStore(true);
-    // } else {
-    //   await statusStore(false);
-    // }
     await statusStore(value);
   }
 
@@ -255,26 +190,6 @@ class HomeController extends GetxController {
     }
   }
 
-  // Future<void> openStore() async {
-  //   print("Opening store...");
-  //   bool result = await statusStoreService.updateStatusStore(true);
-  //   if (result) {
-  //     print("Store is open");
-  //   } else {
-  //     print("Failed to open store");
-  //   }
-  // }
-
-  // Future<void> closeStore() async {
-  //   print("Closing store...");
-  //   bool result = await statusStoreService.updateStatusStore(false);
-  //   if (result) {
-  //     print("Store is closed");
-  //   } else {
-  //     print("Failed to close store");
-  //   }
-  // }
-
   List<BarChartGroupData> get mingguanData => [
         makeGroupData(
             0, dataWeekModel.value.monday?.totalPcsSold?.toDouble() ?? 0.0),
@@ -288,22 +203,19 @@ class HomeController extends GetxController {
             4, dataWeekModel.value.friday?.totalPcsSold?.toDouble() ?? 0.0),
         makeGroupData(
             5, dataWeekModel.value.saturday?.totalPcsSold?.toDouble() ?? 0.0),
-        makeGroupData(
-            6, dataWeekModel.value.sunday?.totalPcsSold?.toDouble() ?? 0.0),
       ];
 
-  List<BarChartGroupData> get bulananData => [
-        makeGroupData(
-            0, dataMonthModel.value.Thursday?.totalPcsSold?.toDouble() ?? 0.0),
-        // makeGroupData(
-        //     1, dataMonthModel.value.minggu2?.totalPcsSold?.toDouble() ?? 0.0),
-        // makeGroupData(
-        //     2, dataMonthModel.value.minggu3?.totalPcsSold?.toDouble() ?? 0.0),
-        // makeGroupData(
-        //     3, dataMonthModel.value.minggu4?.totalPcsSold?.toDouble() ?? 0.0),
-        // makeGroupData(
-        //     4, dataMonthModel.value.minggu5?.totalPcsSold?.toDouble() ?? 0.0),
-      ];
+  List<BarChartGroupData> get bulananData {
+    if (statisticResponseMonth == null ||
+        statisticResponseMonth!.data == null) {
+      return [];
+    }
+    return statisticResponseMonth!.data!.entries.map((entry) {
+      int dayIndex = int.parse(entry.key) - 1;
+      double totalPcsSold = entry.value.totalPcsSold?.toDouble() ?? 0.0;
+      return makeGroupData(dayIndex, totalPcsSold);
+    }).toList();
+  }
 
   List<BarChartGroupData> get tahunanData => [
         makeGroupData(

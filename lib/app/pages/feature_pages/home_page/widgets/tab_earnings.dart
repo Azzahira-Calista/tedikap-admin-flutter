@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
+import 'package:tedikap_admin/common/format.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 class EarningsTab extends GetView<HomeController> {
@@ -81,7 +82,7 @@ class EarningsTab extends GetView<HomeController> {
                     style: subTitle,
                   ),
                   Text(
-                    controller.formatRupiah(
+                    formatRupiah(
                         controller.earningsResponseModel.value.totalSales ?? 0),
                     style: headline,
                   )
@@ -109,9 +110,7 @@ class EarningsTab extends GetView<HomeController> {
                         Text("Avg Per Week",
                             style: normalText.copyWith(color: darkGrey)),
                         Text(
-                            controller.formatRupiah(controller
-                                    .earningsResponseModel
-                                    .value
+                            formatRupiah(controller.earningsResponseModel.value
                                     .averagePerWeek ??
                                 0),
                             style: cardText.copyWith(
