@@ -5,6 +5,8 @@ import 'package:tedikap_admin/common/format.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
 class EarningsTab extends GetView<HomeController> {
+  const EarningsTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -14,14 +16,14 @@ class EarningsTab extends GetView<HomeController> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: screenWidth,
               height: screenHeight * 0.1,
               decoration: BoxDecoration(
                 color: controller.isSwitched == true
                     ? cream
-                    : Color.fromARGB(255, 252, 205, 205),
+                    : const Color.fromARGB(255, 252, 205, 205),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Row(
@@ -33,7 +35,7 @@ class EarningsTab extends GetView<HomeController> {
                           color: controller.isSwitched == true
                               ? primaryColor
                               : red),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Text(
                           'Store is ${controller.isSwitched == true ? 'open' : 'closed'}',
                           style: cardText.copyWith(
@@ -44,7 +46,7 @@ class EarningsTab extends GetView<HomeController> {
                   ),
                   Obx(
                     () => controller.isLoading.value
-                        ? Center(
+                        ? const Center(
                             child: SizedBox(
                               width: 18,
                               height: 18,
@@ -69,7 +71,7 @@ class EarningsTab extends GetView<HomeController> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               width: screenWidth,
               height: screenHeight * 0.25,
               // color: Colors.red,
@@ -78,7 +80,7 @@ class EarningsTab extends GetView<HomeController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Total Sales',
+                    'Total Sales (Monthly)',
                     style: subTitle,
                   ),
                   Text(
@@ -89,7 +91,7 @@ class EarningsTab extends GetView<HomeController> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               width: screenWidth,
               height: screenHeight * 0.1,
               // color: Colors.blue,
@@ -118,6 +120,26 @@ class EarningsTab extends GetView<HomeController> {
                       ],
                     ),
                   ),
+                  // Container(
+                  //   width: screenWidth * 0.44,
+                  //   height: screenHeight * 0.1,
+                  //   decoration: BoxDecoration(
+                  //     color: lightGrey,
+                  //     borderRadius: BorderRadius.circular(15),
+                  //   ),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                  //     children: [
+                  //       Text("Earnings Growth",
+                  //           style: normalText.copyWith(color: darkGrey)),
+                  //       Text(
+                  //           '${controller.earningsResponseModel.value.earningGrowth?.toString() ?? 0.toString()}%',
+                  //           style: cardText.copyWith(
+                  //               fontSize: 20, color: darkGrey)),
+                  //     ],
+                  //   ),
+                  // ),
                   Container(
                     width: screenWidth * 0.44,
                     height: screenHeight * 0.1,
@@ -129,10 +151,10 @@ class EarningsTab extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("Earnings Growth",
+                        Text("Avg Points Per Week",
                             style: normalText.copyWith(color: darkGrey)),
                         Text(
-                            '${controller.earningsResponseModel.value.earningGrowth?.toString() ?? 0.toString()}%',
+                            '${controller.pointEarningResponseModel.value.totalPointsUsed ?? '0'} Pts',
                             style: cardText.copyWith(
                                 fontSize: 20, color: darkGrey)),
                       ],

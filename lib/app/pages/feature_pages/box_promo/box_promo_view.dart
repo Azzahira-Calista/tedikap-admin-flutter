@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/box_promo/box_promo_controller.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/box_promo/widget/box_promo.dart';
-import 'package:tedikap_admin/app/pages/global_components/button.dart';
 import 'package:tedikap_admin/common/constant.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
@@ -47,11 +46,11 @@ class BoxPromoView extends GetView<BoxPromoController> {
           onRefresh: refreshData,
           child: Obx(() {
             if (controller.isLoading.value) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (controller.boxPromoResponseModel.isEmpty) {
               return ListView(
                 children: [
-                  Container(
+                  SizedBox(
                     height: Get.height * 0.7,
                     child: Center(
                       child: Column(
@@ -63,7 +62,7 @@ class BoxPromoView extends GetView<BoxPromoController> {
                             width: 150,
                             height: 150,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Text('No Promo available', style: normalText),
                         ],
                       ),

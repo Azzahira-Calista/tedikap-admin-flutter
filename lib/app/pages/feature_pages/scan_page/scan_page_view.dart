@@ -13,7 +13,10 @@ class ScanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Scan QR Code'),
+        title: Text(
+          'Scan QR Code',
+          style: appBarText,
+        ),
         automaticallyImplyLeading: false,
         centerTitle: true,
         leading: IconButton(
@@ -41,9 +44,9 @@ class ScanPage extends StatelessWidget {
                   // print(capture);
                   final List<Barcode> barcodes = capture.barcodes;
                   final Uint8List? image = capture.image;
-                  for (final Barcode barcode in barcodes) {
-                    // print('barcode lmao: ${barcode.rawValue}');
-                  }
+                  // for (final Barcode barcode in barcodes) {
+                  //   // print('barcode lmao: ${barcode.rawValue}');
+                  // }
                   if (image != null) {
                     // showDialog(
                     //     context: context,
@@ -55,7 +58,8 @@ class ScanPage extends StatelessWidget {
                     //             content: Image.memory(image),
                     //           ),
                     //         ));
-                    Get.toNamed( Routes.ORDER_STATUS, arguments:barcodes.first.rawValue);
+                    Get.offAndToNamed(Routes.ORDER_STATUS,
+                        arguments: barcodes.first.rawValue);
                   }
                 },
               ),

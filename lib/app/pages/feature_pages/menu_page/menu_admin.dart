@@ -14,6 +14,7 @@ class MenuPage extends GetView<MenusController> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text("Tedikap Menu", style: appBarText),
@@ -25,22 +26,19 @@ class MenuPage extends GetView<MenusController> {
           } else {
             return Column(
               children: [
-                Container(
-                  color: Colors.white,
-                  child: const Column(
-                    children: [
-                      TabBar(
-                        unselectedLabelColor: offColor,
-                        labelColor: primaryColor,
-                        indicatorColor: primaryColor,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        tabs: [
-                          Tab(text: "Common Product"),
-                          Tab(text: "Reward Product"),
-                        ],
-                      ),
-                    ],
-                  ),
+                const Column(
+                  children: [
+                    TabBar(
+                      unselectedLabelColor: offColor,
+                      labelColor: primaryColor,
+                      indicatorColor: primaryColor,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      tabs: [
+                        Tab(text: "Common Product"),
+                        Tab(text: "Reward Product"),
+                      ],
+                    ),
+                  ],
                 ),
                 Expanded(
                   child: TabBarView(

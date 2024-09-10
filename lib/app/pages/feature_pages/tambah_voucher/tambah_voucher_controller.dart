@@ -3,19 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tedikap_admin/app/api/promo/promo_service.dart';
-import 'package:tedikap_admin/app/data/model/promo/promo_model.dart';
-import 'package:tedikap_admin/app/data/model/promo/promo_response.dart';
+import 'package:tedikap_admin/app/data/model/voucher/voucher_response.dart';
 
 import '../../../../routes/AppPages.dart';
 import 'package:intl/intl.dart';
 
+import '../../../api/voucher/voucher_service.dart';
+import '../../../data/model/voucher/voucher_model.dart';
+
 class TambahVoucherController extends GetxController {
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
-  PromoService promoService = PromoService();
-  late PromoResponse promoResponse;
-  var promoResponseModel = <Data>[].obs;
+  VoucherService voucherService = VoucherService();
+  late VoucherResponse voucherResponse;
+  var voucherResponseModel = <Data>[].obs;
   var startDateApiFormat = ''.obs;
   var endDateApiFormat = ''.obs;
 
@@ -43,7 +44,7 @@ class TambahVoucherController extends GetxController {
     }
   }
 
-  Future<void> addPromo() async {
+  Future<void> addVoucher() async {
     if (nameController.text.isEmpty ||
         descriptionController.text.isEmpty ||
         discountController.text.isEmpty ||
@@ -66,7 +67,7 @@ class TambahVoucherController extends GetxController {
       int maxDiscount = int.tryParse(maxDiscountController.text) ?? 0;
       int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
 
-      final response = await promoService.storePromo(
+      final response = await voucherService.storeVoucher(
           title: nameController.text,
           description: descriptionController.text,
           discount: discount,

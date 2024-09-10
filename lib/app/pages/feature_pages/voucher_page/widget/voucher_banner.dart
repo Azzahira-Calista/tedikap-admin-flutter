@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -7,7 +9,7 @@ import 'package:tedikap_admin/common/format.dart';
 import 'package:tedikap_admin/common/themes.dart';
 import 'package:tedikap_admin/routes/AppPages.dart';
 
-class PromoBanner extends StatelessWidget {
+class VoucherBanner extends StatelessWidget {
   final int id;
   final String title;
   final String description;
@@ -18,7 +20,8 @@ class PromoBanner extends StatelessWidget {
   final String start_date;
   final String end_date;
 
-  PromoBanner({
+  const VoucherBanner({
+    super.key,
     required this.id,
     required this.title,
     required this.description,
@@ -38,14 +41,14 @@ class PromoBanner extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.withOpacity(0.5),
+        //     spreadRadius: 1,
+        //     blurRadius: 5,
+        //     offset: const Offset(0, 3),
+        //   ),
+        // ],
       ),
       child: Column(
         children: [
@@ -96,8 +99,8 @@ class PromoBanner extends StatelessWidget {
                         });
                       },
                       child: Container(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(10),
@@ -120,31 +123,29 @@ class PromoBanner extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   description,
-                  style: cardTitle,
+                  style: smallText,
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  // 'Discount: $discount%',
                   'Discount: $discount%',
-                  style: cardTitle,
+                  style: smallText,
                 ),
                 const SizedBox(height: 5),
-                Text('Max Discount: ${formatRupiah(max_discount)}', style: cardTitle),
+                Text('Max Discount: ${formatRupiah(max_discount)}',
+                    style: smallText),
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Min transaction: ${formatRupiah(min_transaction)}',
-                      style: cardTitle,
+                      style: smallText,
                     ),
                     Text(
-                      'Valid until: ${DateFormat('yyyy MMM dd').format(DateTime.parse(end_date))}',
-                      style: smallText.copyWith(
-                        color: darkGrey,
-                      )
-                    ),
-
+                        'Valid until: ${DateFormat('yyyy MMM dd').format(DateTime.parse(end_date))}',
+                        style: smallText.copyWith(
+                          color: darkGrey,
+                        )),
                   ],
                 ),
                 // if (maxDiscount != null)

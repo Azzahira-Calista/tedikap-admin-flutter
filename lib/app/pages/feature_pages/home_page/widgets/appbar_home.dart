@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_controller.dart';
@@ -49,7 +48,7 @@ class AppBarHome extends GetView<HomeController> {
                 onTap: () {
                   Get.toNamed(Routes.SCAN);
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.qr_code_scanner,
                   color: primaryColor,
                   size: 30,

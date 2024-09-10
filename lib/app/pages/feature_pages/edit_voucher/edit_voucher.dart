@@ -259,7 +259,8 @@ class EditVoucher extends GetView<EditVoucherController> {
                             hintText: "Enter the date",
                             name: "Valid Until",
                             textInputType: TextInputType.datetime,
-                            onTap: () => controller.selectDate(
+                            onTap: () =>
+                                controller.selectDate(
                                 context, controller.endDateController),
                             validator: (value) {
                               if (value!.isEmpty) {

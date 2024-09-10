@@ -7,6 +7,8 @@ import '../../../../../common/themes.dart';
 class MenuFilter extends GetView<MenusController> {
   final List<String> options = ['tea', 'nontea', 'yakult'];
 
+  MenuFilter({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -22,7 +24,7 @@ class MenuFilter extends GetView<MenusController> {
           label: (i, v) => v,
         ),
         choiceStyle: C2ChipStyle.outlined(
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(25),
           ),
           foregroundStyle: subTitle.copyWith(color: offColor),
@@ -31,11 +33,11 @@ class MenuFilter extends GetView<MenusController> {
           borderStyle: BorderStyle.solid,
           // borderOpacity: 0.3,
           selectedStyle: C2ChipStyle(
-            backgroundColor: Colors.black, // Ensure this is applied
+            backgroundColor: backgroundColor,
             checkmarkColor: primaryColor,
             checkmarkStyle: C2ChipCheckmarkStyle.round,
             foregroundStyle: subTitle.copyWith(color: primaryColor),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(25),
             ),
             borderColor: primaryColor,

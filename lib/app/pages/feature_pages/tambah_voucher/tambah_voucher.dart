@@ -200,7 +200,7 @@ class TambahVoucher extends GetView<TambahVoucherController> {
                       cancelText: 'No',
                       confirmText: 'Yes',
                       onCancelPressed: (){Get.back();},
-                      onConfirmPressed: (){controller.addPromo();},
+                      onConfirmPressed: (){controller.addVoucher();},
                       dialogImage: SvgPicture.asset(coupon),
                     ),
                   );

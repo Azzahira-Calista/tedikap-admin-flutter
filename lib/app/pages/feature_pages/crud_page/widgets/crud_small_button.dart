@@ -7,7 +7,7 @@ class CrudSmallButton extends StatelessWidget {
   final IconData iconData;
   final String routeName;
 
-  CrudSmallButton({
+  const CrudSmallButton({super.key,
     required this.title,
     required this.iconData,
     required this.routeName,
@@ -20,27 +20,25 @@ class CrudSmallButton extends StatelessWidget {
         Get.toNamed(routeName);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         width: MediaQuery.of(context).size.width * 0.4,
         height: MediaQuery.of(context).size.height * 0.2,
         decoration: BoxDecoration(
           color: primaryColor,
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(iconData, color: white, size: 50),
-            Container(
-              // width: MediaQuery.of(context).size.width * 0.5,
-              child: Text(
-                title,
-                style: button.copyWith(
-                  // color: white,
-                  fontSize: 16,
-                ),
+            Text(
+              textAlign: TextAlign.center,
+              title,
+              style: button.copyWith(
+                // color: white,
+                fontSize: 16,
               ),
             )
           ],

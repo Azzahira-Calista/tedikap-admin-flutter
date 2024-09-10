@@ -18,11 +18,11 @@ class AlertRejectOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: white,
-      title: Text('Confirm Rejection'),
+      title: const Text('Confirm Rejection'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text('Please provide reasons for rejecting the order:'),
+          const Text('Please provide reasons for rejecting the order.'),
           // SizedBox(height: 10),
           // TextField(
           //   controller: titleController,

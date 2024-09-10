@@ -16,6 +16,7 @@ class PanelOrder extends GetView<HomeController> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
+      color: backgroundColor,
       margin: EdgeInsets.only(
         top: screenHeight * 0.05,
         left: screenWidth * 0.05,

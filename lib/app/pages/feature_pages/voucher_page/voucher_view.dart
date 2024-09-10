@@ -9,7 +9,7 @@ class VoucherView extends GetView<VoucherController> {
   const VoucherView({super.key});
 
   Future<void> refreshData() async {
-    controller.getPromoo();
+    controller.getVoucher();
   }
 
   @override
@@ -43,7 +43,7 @@ class VoucherView extends GetView<VoucherController> {
         onRefresh: refreshData,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal:20),
             child: Stack(
               children: [
                 SizedBox(
@@ -51,24 +51,24 @@ class VoucherView extends GetView<VoucherController> {
                   child: Obx(() {
                     if (controller.isLoading.value) {
                       return const Center(child: CircularProgressIndicator());
-                    } else if (controller.promoResponseModel.isEmpty) {
-                      return const Center(child: Text("No Promos Available"));
+                    } else if (controller.voucherResponseModel.isEmpty) {
+                      return const Center(child: Text("No Voucher Available"));
                     } else {
                       return ListView.builder(
-                        itemCount: controller.promoResponseModel.length,
+                        itemCount: controller.voucherResponseModel.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final promo = controller.promoResponseModel[index];
+                          final voucher = controller.voucherResponseModel[index];
 
-                          return PromoBanner(
-                            id: promo.id!,
-                            title: promo.title!,
-                            description: promo.description!,
-                            image: promo.image!,
-                            discount: promo.discount!,
-                            max_discount: promo.maxDiscount!,
-                            min_transaction: promo.minTransaction!,
-                            start_date: promo.startDate!,
-                            end_date: promo.endDate!,
+                          return VoucherBanner(
+                            id: voucher.id!,
+                            title: voucher.title!,
+                            description: voucher.description!,
+                            image: voucher.image!,
+                            discount: voucher.discount!,
+                            max_discount: voucher.maxDiscount!,
+                            min_transaction: voucher.minTransaction!,
+                            start_date: voucher.startDate!,
+                            end_date: voucher.endDate!,
                           );
                         },
                       );

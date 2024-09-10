@@ -24,12 +24,13 @@ class OrderCard extends GetView<OrderController> {
   final String paymentChannel;
   final String createdAt;
   final String updatedAt;
-  final String schedulePickup;
+  final String? schedulePickup;
   final List<OrderItems>? orderItems;
   final List<OrderRewardItems>? orderRewardItems;
   final String whatsappUser;
 
-  OrderCard({
+  const OrderCard({
+    super.key,
     required this.id,
     required this.userId,
     required this.cartId,
@@ -67,17 +68,17 @@ class OrderCard extends GetView<OrderController> {
 
     return Container(
       height: 200,
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: const [
-          BoxShadow(
-              color: offColor,
-              offset: Offset(0, 4),
-              blurRadius: 4,
-              spreadRadius: 0.25)
+          // BoxShadow(
+          //     color: offColor,
+          //     offset: Offset(0, 4),
+          //     blurRadius: 4,
+          //     spreadRadius: 0.25)
         ],
       ),
       child: Column(
@@ -105,7 +106,7 @@ class OrderCard extends GetView<OrderController> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(name, style: cardText.copyWith(color: white))
               ],
             ),
@@ -135,6 +136,7 @@ class OrderCard extends GetView<OrderController> {
                             .toList()
                             .join(", "),
                         overflow: TextOverflow.ellipsis,
+                        style: normalText,
                       )),
                   const SizedBox(height: 10),
                 ],
@@ -148,6 +150,7 @@ class OrderCard extends GetView<OrderController> {
                           .toList()
                           .join(", "),
                       overflow: TextOverflow.ellipsis,
+                        style: normalText,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -168,7 +171,7 @@ class OrderCard extends GetView<OrderController> {
                       ],
                       Row(
                         children: [
-                          Text("Total:",
+                          Text("Total: ",
                               style: smallText.copyWith(
                                   color: offColor,
                                   fontWeight: FontWeight.w500)),
@@ -212,7 +215,7 @@ class OrderCard extends GetView<OrderController> {
                         'schedulePickup': schedulePickup,
                         'orderItems': orderItems,
                         'orderRewardItems': orderRewardItems,
-                        'whatsappUser' : whatsappUser
+                        'whatsappUser': whatsappUser
                       });
                     },
                     style: ElevatedButton.styleFrom(

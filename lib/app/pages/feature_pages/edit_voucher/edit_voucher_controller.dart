@@ -6,18 +6,18 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 
 import '../../../../routes/AppPages.dart';
-import '../../../api/promo/promo_service.dart';
+import '../../../api/voucher/voucher_service.dart';
 import '../../../data/model/data_helper.dart';
-import '../../../data/model/product/data_model.dart';
-import '../../../data/model/promo/promo_response.dart';
+import '../../../data/model/voucher/voucher_model.dart';
+import '../../../data/model/voucher/voucher_response.dart';
 
 class EditVoucherController extends GetxController {
   late final int id;
   Rx<File?> selectedImage = Rx<File?>(null);
   RxBool isLoading = false.obs;
-  PromoService promoService = PromoService();
-  late PromoResponse promoResponse;
-  var promoResponseModel = <Data>[].obs;
+  VoucherService voucherService = VoucherService();
+  late VoucherResponse voucherResponse;
+  var voucherResponseModel = <Data>[].obs;
   var startDateApiFormat = ''.obs;
   var endDateApiFormat = ''.obs;
 
@@ -110,7 +110,7 @@ class EditVoucherController extends GetxController {
   Future<void> deleteVoucher() async {
     try {
       isLoading.value = true;
-      await promoService.deletePromo(id);
+      await voucherService.deleteVoucher(id);
 
       isLoading.value = false;
       Get.snackbar("Delete voucher", "Voucher deleted successfully!");
@@ -130,7 +130,7 @@ class EditVoucherController extends GetxController {
       int minTransaction = int.tryParse(minTransactionController.text) ?? 0;
 
      
-      final response = await promoService.updatePromo(
+      final response = await voucherService.updateVoucher(
         id: id,
         title: titleController.text,
         description: descriptionController.text,
@@ -147,12 +147,12 @@ class EditVoucherController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (response.data['data'] is List) {
-          promoResponseModel.value = DataHelper.parseJsonList<Data>(
+          voucherResponseModel.value = DataHelper.parseJsonList<Data>(
               response.data['data'], (json) => Data.fromJson(json));
         } else if (response.data['data'] is Map<String, dynamic>) {
           var parsedData = DataHelper.parseJson<Data>(
               response.data['data'], (json) => Data.fromJson(json));
-          promoResponseModel.value = [parsedData];
+          voucherResponseModel.value = [parsedData];
         }
 
         Get.offAndToNamed(Routes.NAVBAR + Routes.CRUD_PAGE);

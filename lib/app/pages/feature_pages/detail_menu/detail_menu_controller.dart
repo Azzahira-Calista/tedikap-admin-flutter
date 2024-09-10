@@ -34,27 +34,19 @@ class DetailMenuController extends GetxController {
     isSwitched.value = Get.arguments['stock'] ?? false;
     print("Initial stock status product: ${Get.arguments['stock']}");
 
-    // if (Get.arguments != null && Get.arguments.containsKey('id')) {
-    //   id = Get.arguments['id'] as int;
-    //   print(id);
-    //   loadData();
-    // } else {
-    //   Get.snackbar("Error", "No ID found in arguments");
-    //   Get.back();
-    // }
-    print('bismillah yaaaa');
-    loadData();
+
   }
 
   void toggleStockProduct(bool value) async {
     print("toggleStockProduct value: $value");
 
     isSwitched.value = value;
-    if (value) {
-      await changeStockAvailable(true);
-    } else {
-      await changeStockAvailable(false);
-    }
+    await changeStockAvailable(value);
+    // if (value) {
+    //   await changeStockAvailable(true);
+    // } else {
+    //   await changeStockAvailable(false);
+    // }
   }
 
   Future<void> changeStockAvailable(bool value) async {
@@ -72,18 +64,7 @@ class DetailMenuController extends GetxController {
     }
   }
 
-  void loadData() async {
-    isLoading.value = true;
-    try {
-      // Simulate data loading
-      await Future.delayed(Duration(seconds: 2));
-      // Here you can fetch data from the server using the `id`
-      isLoading.value = false;
-    } catch (e) {
-      isLoading.value = false;
-      Get.snackbar("Error", "Failed to load data");
-    }
-  }
+
 
   Future<void> deleteProduct() async {
     try {
@@ -93,7 +74,9 @@ class DetailMenuController extends GetxController {
 
       isLoading.value = false;
       Get.snackbar("Delete product", "Product deleted successfully!");
-      Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
+      // Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
+      Get.offNamedUntil(Routes.NAVBAR + Routes.MENU, (routes) => routes.settings.name == Routes.NAVBAR + Routes.MENU);
+
     } catch (e) {
       isLoading.value = false;
       print("Error: $e");

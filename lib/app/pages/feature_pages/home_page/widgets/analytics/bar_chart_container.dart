@@ -70,106 +70,192 @@ class BarChartContainer extends GetView<HomeController> {
             },
           ),
           const SizedBox(height: 30),
-          AspectRatio(
-              aspectRatio: 1.2,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  height: height ,
-                  width: controller.selectedRange.value == 'This Month'
-                      ? width * 2
-                      : width * 0.9,
-                  child: Obx(
-                    () {
-                      return BarChart(BarChartData(
-                          alignment: BarChartAlignment.spaceAround,
-                          maxY: controller.selectedRange.value == 'This Week'
-                              ? 210
-                              : controller.selectedRange.value == 'This Year'
-                                  ? 1010
-                                  : 510,
-                          gridData: const FlGridData(
-                            show: false,
-                          ),
-                          titlesData: FlTitlesData(
-                            leftTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 48,
-                                getTitlesWidget: (value, meta) {
-                                  if (value == 0) {
-                                    return Text('0 Pcs', style: smallText);
-                                  }
-                                  if (value == 100) {
-                                    return Text('100 pcs', style: smallText);
-                                  }
-                                  if (value == 200) {
-                                    return Text('200 pcs', style: smallText);
-                                  }
-                                  if (value == 300) {
-                                    return Text('300 pcs', style: smallText);
-                                  }
-                                  if (value == 400) {
-                                    return Text('400 pcs', style: smallText);
-                                  }
-                                  if (value == 500) {
-                                    return Text('500 pcs', style: smallText);
-                                  }
-                                  if (value == 1000 && value == 1000) {
-                                    return Text('1000 pcs', style: smallText);
-                                  }
-                                  return const SizedBox.shrink();
-                                },
-                              ),
+          Stack(children: [
+            AspectRatio(
+                aspectRatio: 1.2,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    height: height,
+                    width: controller.selectedRange.value == 'This Month'
+                        ? width * 2
+                        : width * 0.9,
+                    child: Obx(
+                      () {
+                        return BarChart(BarChartData(
+                            alignment: BarChartAlignment.spaceAround,
+                            maxY: controller.selectedRange.value == 'This Week'
+                                ? 210
+                                : controller.selectedRange.value == 'This Year'
+                                    ? 1010
+                                    : 510,
+                            gridData: const FlGridData(
+                              show: false,
                             ),
-                            bottomTitles: AxisTitles(
-                              sideTitles: SideTitles(
-                                showTitles: true,
-                                reservedSize: 42,
-                                getTitlesWidget: controller
-                                            .selectedRange.value ==
-                                        'This Week'
-                                    ? BarChartWidgets().mingguanTitles
+                            titlesData: FlTitlesData(
+                              leftTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 48,
+                                  getTitlesWidget: (value, meta) {
+                                    if (value == 0) {
+                                      return Text('0 Pcs', style: smallText);
+                                    }
+                                    if (value == 100) {
+                                      return Text('100 pcs', style: smallText);
+                                    }
+                                    if (value == 200) {
+                                      return Text('200 pcs', style: smallText);
+                                    }
+                                    if (value == 300) {
+                                      return Text('300 pcs', style: smallText);
+                                    }
+                                    if (value == 400) {
+                                      return Text('400 pcs', style: smallText);
+                                    }
+                                    if (value == 500) {
+                                      return Text('500 pcs', style: smallText);
+                                    }
+                                    if (value == 1000 && value == 1000) {
+                                      return Text('1000 pcs', style: smallText);
+                                    }
+                                    return const SizedBox.shrink();
+                                  },
+                                ),
+                              ),
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 42,
+                                  getTitlesWidget: controller
+                                              .selectedRange.value ==
+                                          'This Week'
+                                      ? BarChartWidgets().mingguanTitles
+                                      : controller.selectedRange.value ==
+                                              'This Month'
+                                          ? BarChartWidgets().bulananTitles
+                                          : controller.selectedRange.value ==
+                                                  'This Year'
+                                              ? BarChartWidgets().tahunanTitles
+                                              : BarChartWidgets()
+                                                  .mingguanTitles,
+                                ),
+                              ),
+                              rightTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
+                              topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
+                            ),
+                            borderData: FlBorderData(show: false),
+                            barGroups: controller.selectedRange.value ==
+                                    'This Week'
+                                ? controller.mingguanData
+                                : controller.selectedRange.value == 'This Month'
+                                    ? controller.bulananData
                                     : controller.selectedRange.value ==
-                                            'This Month'
-                                        ? BarChartWidgets().bulananTitles
-                                        : controller.selectedRange.value ==
-                                                'This Year'
-                                            ? BarChartWidgets().tahunanTitles
-                                            : BarChartWidgets().mingguanTitles,
-                              ),
-                            ),
-                            rightTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
-                            topTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
-                          ),
-                          borderData: FlBorderData(show: false),
-                          barGroups: controller.selectedRange.value ==
-                                  'This Week'
-                              ? controller.mingguanData
-                              : controller.selectedRange.value == 'This Month'
-                                  ? controller.bulananData
-                                  : controller.selectedRange.value ==
-                                          'This Year'
-                                      ? controller.tahunanData
-                                      : controller.mingguanData,
-                          barTouchData: BarTouchData(
-                              touchTooltipData: BarTouchTooltipData(
-                            getTooltipColor: (_) => lightGrey.withOpacity(0.9),
-                            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                              String totalSales =
-                                  group.barRods[0].toY.toInt().toString();
+                                            'This Year'
+                                        ? controller.tahunanData
+                                        : controller.mingguanData,
+                            barTouchData: BarTouchData(
+                                touchTooltipData: BarTouchTooltipData(
+                              getTooltipColor: (_) =>
+                                  lightGrey.withOpacity(0.9),
+                              getTooltipItem:
+                                  (group, groupIndex, rod, rodIndex) {
+                                String totalSales =
+                                    group.barRods[0].toY.toInt().toString();
 
-                              return BarTooltipItem(
-                                  '${controller.selectedRange.value == 'This Week' ? BarChartWidgets().getWeekDay(group.x.toDouble()) : controller.selectedRange.value == 'This Month' ? BarChartWidgets().getWeekNumber(group.x.toDouble()) : controller.selectedRange.value == 'This Year' ? BarChartWidgets().getMonth(group.x.toInt()) : ''}\n $totalSales Pcs',
-                                  normalText);
-                            },
-                          ))));
-                    },
+                                return BarTooltipItem(
+                                    '${controller.selectedRange.value == 'This Week' ? BarChartWidgets().getWeekDay(group.x.toDouble()) : controller.selectedRange.value == 'This Month' ? BarChartWidgets().getWeekNumber(group.x.toDouble()) : controller.selectedRange.value == 'This Year' ? BarChartWidgets().getMonth(group.x.toInt()) : ''}\n $totalSales Pcs',
+                                    normalText);
+                              },
+                            ))));
+                      },
+                    ),
                   ),
+                )),
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                height: height * 0.31,
+                color: backgroundColor,
+                child: Obx(
+                  () {
+                    if (controller.selectedRange.value == 'This Week') {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('200 pcs', style: smallText),
+                          Text('100 pcs', style: smallText),
+                          Column(
+                            children: [
+                              Text('0 pcs', style: smallText),
+                              SizedBox(
+                                height: height * 0.02,
+                              )
+                            ],
+                          ),
+                        ],
+                      );
+                    } else if (controller.selectedRange.value == 'This Year') {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('1000 pcs', style: smallText),
+                          SizedBox(
+                            height: height * 0.14,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('400 pcs', style: smallText),
+                                Text('200 pcs', style: smallText),
+                                Text('0 pcs', style: smallText),
+                                SizedBox(
+                                  height: height * 0.001,
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('500 pcs', style: smallText),
+                          Text('400 pcs', style: smallText),
+                          Text('300 pcs', style: smallText),
+                          Text('200 pcs', style: smallText),
+                          Text('100 pcs', style: smallText),
+                          Text('0 pcs', style: smallText),
+                          SizedBox(
+                            height: height * 0.001,
+                          )
+                        ],
+                      );
+                    }
+                  },
                 ),
-              ))
+              ),
+            ),
+            Positioned(
+                bottom: height * 0.055,
+                right: 0,
+                child:
+                    Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  Container(
+                    height: height * 0.5,
+                    width: 1,
+                    color: primaryColor,
+                  ),
+                  Container(
+                    height: 1,
+                    width: width * 0.75,
+                    color: primaryColor,
+                  ),
+                ]))
+          ])
         ]));
   }
 }

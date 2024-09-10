@@ -45,7 +45,6 @@ class EditMenuController extends GetxController {
     // }
     final Map<String, dynamic> arguments = Get.arguments;
     id = arguments['id'];
-    print(id);
     loadData();
     nameController = TextEditingController(text: arguments['name']);
     descriptionController =

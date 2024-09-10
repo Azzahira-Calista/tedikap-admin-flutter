@@ -4,8 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import '../../../../routes/AppPages.dart';
+import '../../../data/model/box promo/box_promo_model.dart';
 import '../../../data/model/box promo/box_promo_response.dart';
-import '../../../data/model/promo/promo_model.dart';
 import '../../../api/box promo/box_promo_service.dart';
 
 class EditBoxPromoController extends GetxController {

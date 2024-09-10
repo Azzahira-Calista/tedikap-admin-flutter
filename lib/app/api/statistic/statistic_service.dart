@@ -66,4 +66,16 @@ class StatisticService {
       throw Exception('Error fetching earnings data: $e');
     }
   }
+  Future<Response> getPointEarninsData() async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndpoint.statistic}/point',
+        isAuthorize: true,
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Error fetching point earnings data: $e');
+    }
+  }
 }

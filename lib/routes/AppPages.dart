@@ -17,6 +17,8 @@ import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_menu/edit_menu_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_reward/edit_reward_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_session_time/edit_session_time_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/edit_session_time/edit_session_time_view.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_slider_banner/edit_slider_banner.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_slider_banner/edit_slider_banner_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher.dart';
@@ -31,6 +33,7 @@ import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_binding.d
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/widget/tab_content_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_status/order_status_binding.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/promo_page/promo_page_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/review_page/review_page.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/scan_page/scan_page_binding.dart';
@@ -44,9 +47,11 @@ import 'package:tedikap_admin/app/pages/feature_pages/chat_room/chat_room.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/home_page/home_page_view.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/order_page/order_list.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_notif/tambah_notif.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_promo/tambah_promo_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_reward_product/tambah_reward_binding.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_slider_banner/tambah_slider_banner.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/tambah_promo/pick%20product/pick_product.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_voucher/tambah_voucher.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/menu_page/menu_admin.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/tambah_menu/tambah_menu.dart';
@@ -61,6 +66,8 @@ import 'package:tedikap_admin/app/pages/initial_pages/splash_screen/splash_scree
 import 'package:tedikap_admin/app/pages/global_components/navbar/bottom_navbar.dart';
 
 import '../app/pages/feature_pages/order_status/order_status.dart';
+import '../app/pages/feature_pages/promo_page/promo_page_view.dart';
+import '../app/pages/feature_pages/tambah_promo/tambah_promo_page_view.dart';
 import '../app/pages/feature_pages/tambah_slider_banner/tambah_slider_banner_binding.dart';
 
 part 'AppRoutes.dart';
@@ -93,21 +100,21 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MENU,
-      page: () => MenuPage(),
+      page: () => const MenuPage(),
       binding: MenuBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.CHAT,
-      page: () => ChatPage(),
+      page: () => const ChatPage(),
       binding: ChatBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.ORDER,
-      page: () => OrderList(),
+      page: () => const OrderList(),
       binding: OrderBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
@@ -128,7 +135,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ORDER_STATUS,
-      page: () => OrderStatus(),
+      page: () => const OrderStatus(),
       binding: OrderStatusBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
@@ -140,14 +147,14 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TAMBAH_MENU,
-      page: () => TambahMenu(),
+      page: () => const TambahMenu(),
       binding: TambahMenuBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.TAMBAH_VOUCHER,
-      page: () => TambahVoucher(),
+      page: () => const TambahVoucher(),
       binding: TambahVoucherBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
@@ -161,35 +168,35 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TAMBAH_NOTIF,
-      page: () => TambahNotif(),
+      page: () => const TambahNotif(),
       binding: TambahNotifBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.VOUCHER_VIEW,
-      page: () => VoucherView(),
+      page: () => const VoucherView(),
       binding: VoucherBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.EDIT_VOUCHER,
-      page: () => EditVoucher(),
+      page: () => const EditVoucher(),
       binding: EditVoucherBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.EDIT_MENU,
-      page: () => EditMenu(),
+      page: () => const EditMenu(),
       binding: EditMenuBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.DETAIL_MENU,
-      page: () => DetailMenu(),
+      page: () => const DetailMenu(),
       binding: DetailMenuBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
@@ -208,87 +215,115 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_REWARD,
-      page: () => EditReward(),
+      page: () => const EditReward(),
       binding: EditRewardBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.TAMBAH_REWARD,
-      page: () => TambahReward(),
+      page: () => const TambahReward(),
       binding: TambahRewardBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.HISTORY_PAGE,
-      page: () => HistoryPage(),
+      page: () => const HistoryPage(),
       binding: HistoryBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.CRUD_PAGE,
-      page: () => CrudPage(),
+      page: () => const CrudPage(),
       binding: CrudBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.BOX_PROMO,
-      page: () => BoxPromoView(),
+      page: () => const BoxPromoView(),
       binding: BoxPromoBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.EDIT_BOX_PROMO,
-      page: () => EditBoxPromo(),
+      page: () => const EditBoxPromo(),
       binding: EditBoxPromoBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.TAMBAH_BOX_PROMO,
-      page: () => TambahBoxPromo(),
+      page: () => const TambahBoxPromo(),
       binding: TambahBoxPromoBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.IMAGE_BANNER,
-      page: () => ImageSliderView(),
+      page: () => const ImageSliderView(),
       binding: ImageSliderBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.EDIT_IMAGE_BANNER,
-      page: () => EditSliderBanner(),
+      page: () => const EditSliderBanner(),
       binding: EditSliderBannerBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.TAMBAH_IMAGE_BANNER,
-      page: () => TambahSliderBanner(),
+      page: () => const TambahSliderBanner(),
       binding: TambahSliderBannerBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.REVIEW_PAGE,
-      page: () => ReviewPage(),
+      page: () => const ReviewPage(),
       binding: ReviewBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: _Paths.SCAN,
-      page: () => ScanPage(),
+      page: () => const ScanPage(),
       binding: ScanPageBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),
+    GetPage(
+      name: _Paths.EDIT_SESSION_TIME,
+      page: () => const EditSessionTimeView(),
+      binding: EditSessionTimeBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.PROMO_PAGE,
+      page: () => const PromoPage(),
+      binding: PromoPageBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_PROMO,
+      page: () => const TambahPromoPageView(),
+      binding: TambahPromoBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: _Paths.PICK_PRODUCT,
+      page: () => PickProducPromo(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
   ];
 }
