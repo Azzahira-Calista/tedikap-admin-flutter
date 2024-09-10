@@ -156,8 +156,8 @@ class OrderController extends GetxController {
   }
 
   Future<void> rejectOrder(String orderId) async {
-    if (titleController.text.isEmpty || bodyController.text.isEmpty) {
-      Get.snackbar('Missing Information', 'Title and Body cannot be empty.');
+    if ( bodyController.text.isEmpty) {
+      Get.snackbar('Missing Information', 'Body cannot be empty.');
       return;
     }
     try {
@@ -172,12 +172,9 @@ class OrderController extends GetxController {
       } else {
         Get.snackbar("Error", "Failed to reject order");
 
-        print("cukiFailed response: ${response.statusCode}");
-        print("cukimay Response body: ${response.data}");
-        Get.snackbar("cukimax Error", "Failed to reject order");
+        Get.snackbar(" Error", "Failed to reject order");
       }
     } catch (e) {
-      print("Error brot: $e");
       Get.snackbar("Error", "An error occurred while rejecting the order");
     } finally {
       isLoading.value = false;

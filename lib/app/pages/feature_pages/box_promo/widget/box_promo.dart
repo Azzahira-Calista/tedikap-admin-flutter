@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/box_promo/box_promo_controller.dart';
-import 'package:tedikap_admin/app/pages/feature_pages/edit_voucher/edit_voucher_controller.dart';
 
 import '../../../../../common/constant.dart';
 import '../../../../../common/themes.dart';
 import '../../../../../routes/AppPages.dart';
 
 class BoxPromo extends GetView<BoxPromoController> {
-  
   final int id;
   final String title;
   final String subtitle;
   final String image;
 
-  BoxPromo({
+  const BoxPromo({
+    super.key,
     required this.id,
     required this.title,
     required this.subtitle,
@@ -25,19 +24,19 @@ class BoxPromo extends GetView<BoxPromoController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-          ),
-        ],
+        // boxShadow: [
+        // BoxShadow(
+        //   color: Colors.grey.withOpacity(0.5),
+        //   spreadRadius: 1,
+        //   blurRadius: 5,
+        //   offset: const Offset(0, 3),
+        // ),
+        // ],
       ),
       child: Column(
         children: [
@@ -51,14 +50,14 @@ class BoxPromo extends GetView<BoxPromoController> {
                       as ImageProvider,
                   fit: BoxFit.cover),
               color: primaryColor,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -79,8 +78,8 @@ class BoxPromo extends GetView<BoxPromoController> {
                         });
                       },
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(10),
@@ -89,9 +88,10 @@ class BoxPromo extends GetView<BoxPromoController> {
                           children: [
                             SvgPicture.asset(
                               editIcon,
+                              // ignore: deprecated_member_use
                               color: Colors.white,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text("Edit", style: smallTextWhite),
                           ],
                         ),
@@ -99,10 +99,10 @@ class BoxPromo extends GetView<BoxPromoController> {
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   subtitle,
-                  style: cardTitle,
+                  style: smallText,
                 ),
               ],
             ),

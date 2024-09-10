@@ -12,6 +12,7 @@ import 'package:tedikap_admin/app/data/model/statistic/analystic/year/statistic_
 import 'package:tedikap_admin/app/data/model/statistic/analystic/year/year_model.dart';
 import 'package:tedikap_admin/app/data/model/statistic/earnings/earnings_model.dart';
 import 'package:tedikap_admin/app/data/model/statistic/earnings/earnings_response.dart';
+import 'package:tedikap_admin/app/data/model/statistic/points/point_earning_response.dart';
 import 'package:tedikap_admin/app/data/model/status%20store/status_store_response.dart';
 import 'package:tedikap_admin/common/themes.dart';
 
@@ -25,6 +26,9 @@ class HomeController extends GetxController {
   StatisticService statisticService = StatisticService();
   StatusStoreService statusStoreService = StatusStoreService();
   StatusStoreResponse? statusStoreResponse;
+
+  PointEarningResponse? pointEarningResponse;
+  Rx<Points> pointEarningResponseModel = Points().obs;
 
   EarningsResponse? earningsResponse;
   Rx<EarningsData> earningsResponseModel = EarningsData().obs;
@@ -40,13 +44,29 @@ class HomeController extends GetxController {
 
   Rx<Detail> detailModel = Detail().obs;
 
+  void refreshData() async {
+    try {
+      isRefreshing.value = true;
+      print('Refreshing data...');
+      await getEarningsData();
+      await getStatusStore();
+      await getAnalysticDataWeek();
+      loadDataForSelectedRange();
+    } finally {
+      isRefreshing.value = false;
+      print('Data refreshed!');
+    }
+  }
+
   @override
   void onInit() {
+    // refreshData();
     super.onInit();
     getStatusStore();
     getEarningsData();
     getAnalysticDataWeek();
     loadDataForSelectedRange();
+    getPointsEarning();
   }
 
   void changeRange(String range) {
@@ -70,6 +90,20 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> getPointsEarning() async {
+    isLoading.value = true;
+    try {
+      final response = await statisticService.getPointEarninsData();
+      pointEarningResponse = PointEarningResponse.fromJson(response.data);
+      pointEarningResponseModel.value = pointEarningResponse?.data ?? Points();
+      print('Points data loaded: ${pointEarningResponseModel.value}');
+    } catch (e) {
+      print('Error fetching points data: $e');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   Future<void> getEarningsData() async {
     isLoading.value = true;
     try {
@@ -89,24 +123,12 @@ class HomeController extends GetxController {
       final response = await statisticService.getChartDataWeek();
       statisticResponseWeek = StatisticResponseWeek.fromJson(response.data);
       dataWeekModel.value = statisticResponseWeek!.data!;
-      print('bismillah: ${dataWeekModel.value.friday?.totalPcsSold}');
+      // print('bismillah: ${dataWeekModel.value.friday?.totalPcsSold}');
       update();
     } catch (e) {
       print('bismi : $e');
     }
   }
-
-  // Future getAnalysticDataMonth() async {
-  //   try {
-  //     final response = await statisticService.getChartDataMonth();
-  //     statisticResponseMonth = StatisticResponseMonth.fromJson(response.data);
-  //     dataMonthModel.value = statisticResponseMonth!.data as MonthData;
-  //     print('bismillah: ${dataMonthModel}');
-  //     update();
-  //   } catch (e) {
-  //     print('bismii : $e');
-  //   }
-  // }
 
   Future<void> getAnalysticDataMonth() async {
     try {

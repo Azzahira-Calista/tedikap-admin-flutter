@@ -9,26 +9,26 @@ Widget customTab(String label, int badgeCount) {
         Center(
           child: Text(
             label,
-            style: TextStyle(color: offColor),
+            style: const TextStyle(color: offColor),
           ),
         ),
         if (badgeCount > 0) ...[
           Positioned(
             right: 0,
             child: Container(
-              padding: EdgeInsets.all(2),
+              padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.circular(10),
               ),
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 minWidth: 16,
                 minHeight: 16,
               ),
               child: Center(
                 child: Text(
                   badgeCount.toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: smallTextWhite,
                 ),
               ),
             ),

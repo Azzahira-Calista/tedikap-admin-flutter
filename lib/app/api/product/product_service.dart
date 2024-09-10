@@ -8,6 +8,19 @@ import 'package:path/path.dart';
 
 class ProductService {
   final DioInstance _dioInstance = DioInstance();
+
+  Future<Response> getProduct() async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: ApiEndpoint.product,
+        isAuthorize: true,
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
   
   Future<Response> storeProduct({
     required String name,

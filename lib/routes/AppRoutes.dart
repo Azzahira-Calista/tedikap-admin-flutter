@@ -39,6 +39,12 @@ abstract class Routes {
   static const REVIEW_PAGE = _Paths.REVIEW_PAGE;
 
   static const SCAN = _Paths.SCAN;
+
+  static const EDIT_SESSION_TIME = _Paths.EDIT_SESSION_TIME;
+
+  static const PROMO_PAGE = _Paths.PROMO_PAGE;
+  static const TAMBAH_PROMO = _Paths.TAMBAH_PROMO;
+  static const PICK_PRODUCT = _Paths.PICK_PRODUCT;
 }
 
 abstract class _Paths {
@@ -84,4 +90,10 @@ abstract class _Paths {
   static const REVIEW_PAGE = '/review-page';
 
   static const SCAN = '/scan-page';
+
+  static const EDIT_SESSION_TIME = '/edit-session-time';
+
+  static const PROMO_PAGE = '/promo-page';
+  static const TAMBAH_PROMO = '/tambah-promo';
+  static const PICK_PRODUCT = '/pick-product';
 }

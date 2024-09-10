@@ -26,7 +26,7 @@ class DetailRewardController extends GetxController {
     statusStockProductService = StatusStockProductService();
     rewardService = RewardService();
     isSwitched.value = Get.arguments['stock'] ?? false;
-    print("Initial stock status reward: ${Get.arguments['stock']}");
+    // print("Initial stock status reward: ${Get.arguments['stock']}");
 
     // if (Get.arguments != null && Get.arguments.containsKey('id')) {
     //   id = Get.arguments['id'] as int;
@@ -37,25 +37,26 @@ class DetailRewardController extends GetxController {
     // }
     final Map<String, dynamic> arguments = Get.arguments;
     id = arguments['id'];
-    print(id);
+    // print(id);
   }
 
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    loadData();
+
   }
 
   void toggeStockReward(bool value) async {
-      print("toggeStockReward value: $value");
+      // print("toggeStockReward value: $value");
 
     isSwitched.value = value;
-    if (value) {
-      await changeStockAvailable(true);
-    } else {
-      await changeStockAvailable(false);
-    }
+    await changeStockAvailable(value);
+    // if (value) {
+    //   await changeStockAvailable(true);
+    // } else {
+    //   await changeStockAvailable(false);
+    // }
   }
 
   Future<void> changeStockAvailable(bool stock) async {
@@ -64,24 +65,11 @@ class DetailRewardController extends GetxController {
       final response =
           await statusStockProductService?.updateStockReward(id, stock);
       Get.snackbar("Success", "Stock updated successfully");
-      print('testtt');
-      print(response);
+      // print('testtt');
+      // print(response);
     } catch (e) {
-      print("isStock error: $e");
+      // print("isStock error: $e");
       Get.snackbar("Error", e.toString());
-    }
-  }
-
-  void loadData() async {
-    isLoading.value = true;
-    try {
-      // Simulate data loading
-      await Future.delayed(Duration(seconds: 2));
-      // Here you can fetch data from the server using the `id`
-      isLoading.value = false;
-    } catch (e) {
-      isLoading.value = false;
-      Get.snackbar("Error", "Failed to load data");
     }
   }
 
@@ -89,14 +77,14 @@ class DetailRewardController extends GetxController {
     try {
       isLoading.value = true;
       final response = await rewardService.deleteReward(id);
-      print("Response: $response");
+      // print("Response: $response");
 
       isLoading.value = false;
       Get.snackbar("Delete reward product", "Product deleted successfully!");
       Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
     } catch (e) {
       isLoading.value = false;
-      print("Error: $e");
+      // print("Error: $e");
       Get.snackbar("Error", e.toString());
     }
   }

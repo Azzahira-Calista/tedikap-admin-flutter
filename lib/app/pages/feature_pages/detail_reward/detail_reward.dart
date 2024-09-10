@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tedikap_admin/app/pages/feature_pages/detail_reward/detail_reward_controller.dart';
+import 'package:tedikap_admin/app/pages/feature_pages/menu_page/reward_controller.dart';
 
 import '../../../../common/constant.dart';
 import '../../../../common/themes.dart';
@@ -10,11 +11,15 @@ import '../../global_components/alert.dart';
 import '../../global_components/button.dart';
 
 class DetailReward extends GetView<DetailRewardController> {
-  const DetailReward({super.key});
+  RewardController rewardController = Get.put(RewardController());
+
+  DetailReward({super.key});
 
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     final Map<String, dynamic>? arguments =
         Get.arguments as Map<String, dynamic>?;
 
@@ -68,7 +73,6 @@ class DetailReward extends GetView<DetailRewardController> {
                 'description': description,
                 'category': category,
               });
-              controller.loadData();
             },
             child: Container(
               decoration: BoxDecoration(
@@ -102,144 +106,204 @@ class DetailReward extends GetView<DetailRewardController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "https://tedikap-api.rplrus.com/storage/reward-product/$image"),
-                          fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.height * 0.75,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://tedikap-api.rplrus.com/storage/reward-product/$image"),
+                            fit: BoxFit.cover,
+                          ),
+                          border: Border.all(color: offColor, width: 2),
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        border: Border.all(color: offColor, width: 2),
-                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        width: width,
+                        height: height * 0.1,
+                        decoration: BoxDecoration(
+                          color: controller.isSwitched == true
+                              ? cream
+                              : const Color.fromARGB(255, 252, 205, 205),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(name, style: cardText),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.01),
-                            Text(description, style: normalText),
-
+                            Row(
+                              children: [
+                                Icon(Icons.storefront_outlined,
+                                    color: controller.isSwitched == true
+                                        ? primaryColor
+                                        : red),
+                                const SizedBox(width: 10),
+                                Text(
+                                    'Store is ${controller.isSwitched == true ? 'open' : 'closed'}',
+                                    style: cardText.copyWith(
+                                        color: controller.isSwitched == true
+                                            ? primaryColor
+                                            : red)),
+                              ],
+                            ),
+                            Obx(
+                                  () => Switch(
+                                activeColor: primaryColor,
+                                inactiveThumbColor: offColor,
+                                trackOutlineColor:
+                                WidgetStateProperty.all(white),
+                                value: controller.isSwitched.value,
+                                onChanged: (value) {
+                                  controller.toggeStockReward(value);
+                                },
+                              ),
+                            ),
                           ],
                         ),
-
-                        Obx(
-                          () {
-                            return Switch(
-                              activeColor: primaryColor,
-                              inactiveThumbColor: offColor,
-                              trackOutlineColor:
-                                  WidgetStateProperty.all(white),
-                              value: controller.isSwitched.value,
-                              onChanged: (value) {
-                                controller.toggeStockReward(value);
-                              },
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Price",
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(name, style: cardText),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(description, style: normalText),
+                  
+                            ],
+                          ),
+                        ],
+                      ),
+                      const Divider(
+                        color: offColor,
+                        thickness: 1,
+                      ),
+                  
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [ Text("Price",
                             style: normalText.copyWith(
                                 fontWeight: FontWeight.bold)),
-                        Column(
+                      if (rewardController.currentCategory.value == 'merchandise' ) ...[
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
                           children: [
+                            Text("Price", style: normalText),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Regular price", style: normalText),
-                                Row(
-                                  children: [
-                                    Text(
-                                      regularPoint.toString(),
-                                      // regular_point,
-                                      style: cardText,
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.sizeOf(context).width *
-                                              0.02,
-                                    ),
-                                    Text(
-                                      "(Point)",
-                                      style: normalTextPrimary,
-                                    ),
-                                  ],
+                                Text(
+                                  regularPoint.toString(),
+                                  // regular_point,
+                                  style: cardText,
                                 ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Large price", style: normalText),
-                                Row(
-                                  children: [
-                                    Text(
-                                      largePoint.toString(),
-                                      // large_point,
-                                      style: cardText,
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.sizeOf(context).width *
-                                              0.02,
-                                    ),
-                                    Text(
-                                      "(Point)",
-                                      style: normalTextPrimary,
-                                    ),
-                                  ],
+                                SizedBox(
+                                  width:
+                                  MediaQuery.sizeOf(context).width *
+                                      0.02,
+                                ),
+                                Text(
+                                  "(Point)",
+                                  style: normalTextPrimary,
                                 ),
                               ],
                             ),
                           ],
-                        )
-                      ],
-                    )
-                  ],
+                        ),
+                      ] else ...[
+                  
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Regular price", style: normalText),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        regularPoint.toString(),
+                                        // regular_point,
+                                        style: cardText,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.02,
+                                      ),
+                                      Text(
+                                        "(Point)",
+                                        style: normalTextPrimary,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Large price", style: normalText),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        largePoint.toString(),
+                                        // large_point,
+                                        style: cardText,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.02,
+                                      ),
+                                      Text(
+                                        "(Point)",
+                                        style: normalTextPrimary,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],]
+                      )
+                    ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: myButtonLogo(
-                  text: 'Delete menu',
-                  onPressed: () {
-                    Get.dialog(
-                        ReusableDialog(
-                            dialogImage: SvgPicture.asset(iconDelete, height: 100,),
-                            title: "Delete Reward Menu",
-                            content: "Are you sure want to delete this reward menu?",
-                            cancelText: "No",
-                            confirmText: "Yes",
-                            onCancelPressed: (){Get.back();},
-                            onConfirmPressed: (){Get.back();
-                            controller.deleteReward();})
-                    );
+              myButtonLogo(
+                text: 'Delete menu',
+                onPressed: () {
+                  Get.dialog(
+                      ReusableDialog(
+                          dialogImage: SvgPicture.asset(iconDelete, height: 100,),
+                          title: "Delete Reward Menu",
+                          content: "Are you sure want to delete this reward menu?",
+                          cancelText: "No",
+                          confirmText: "Yes",
+                          onCancelPressed: (){Get.back();},
+                          onConfirmPressed: (){Get.back();
+                          controller.deleteReward();})
+                  );
 
 
-                  },
-                  color: red,
-                  textColor: white,
-                  logo: deleteIcon,
-                  logoColor: white,
-                ),
+                },
+                color: red,
+                textColor: white,
+                logo: deleteIcon,
+                logoColor: white,
               )
             ],
           ),

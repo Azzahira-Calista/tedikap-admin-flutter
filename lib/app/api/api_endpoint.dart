@@ -24,4 +24,6 @@ class ApiEndpoint {
   static const String review = '$baseUrl/review';
 
   static const String statistic = '$baseUrl/statistic';
+
+  static const String promo = '$baseUrl/promo';
 }

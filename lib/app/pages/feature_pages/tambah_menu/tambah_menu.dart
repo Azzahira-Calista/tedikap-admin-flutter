@@ -107,7 +107,7 @@ class TambahMenu extends GetView<TambahMenuController> {
                               style: subTitle,
                               textAlign: TextAlign.left,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             DropdownButtonFormField<String>(
@@ -115,14 +115,14 @@ class TambahMenu extends GetView<TambahMenuController> {
                                 focusColor: primaryColor,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(color: offColor),
+                                  borderSide: const BorderSide(color: offColor),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(color: primaryColor),
+                                  borderSide: const BorderSide(color: primaryColor),
                                 ),
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 10),
+                                    const EdgeInsets.symmetric(horizontal: 10),
                               ),
                               value: controller.selectedCategory.value,
                               items: ['tea', 'nontea', 'yakult']
@@ -141,7 +141,7 @@ class TambahMenu extends GetView<TambahMenuController> {
                                     normalTextPrimary.copyWith(color: offColor),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                           ],
                         ),
                         MyTextField(

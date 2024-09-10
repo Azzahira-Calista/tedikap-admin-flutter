@@ -21,13 +21,13 @@ class ProcessedOrder extends GetView<OrderController> {
         children: [
           Obx(() {
             if (controller.isLoading.value) {
-              return Expanded(
+              return const Expanded(
                 child: Center(child: CircularProgressIndicator()),
               );
             }
             if (controller.processedOrderResponseModel.isEmpty) {
               return ListView(children: [
-                Container(
+                SizedBox(
                   height: Get.height * 0.7,
                   child: Center(
                     child: Column(
@@ -39,7 +39,7 @@ class ProcessedOrder extends GetView<OrderController> {
                           width: 150,
                           height: 150,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Text('No order available', style: normalText),
                       ],
                     ),
@@ -47,42 +47,47 @@ class ProcessedOrder extends GetView<OrderController> {
                 ),
               ]);
             }
-            return Expanded(
-              child: ListView.builder(
-                // physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                itemCount: controller.processedOrderResponseModel.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final order =
-                      controller.processedOrderResponseModel[index];
-                  return OrderCard(
-                    whatsappUser: order.whatsappUser!,
-                    id: order.id!,
-                    userId: order.userId!,
-                    cartId: order.cartId ?? 0,
-                    name: order.name!,
-                    avatar: order.avatar!,
-                    voucherId: order.voucherId,
-                    totalPrice: order.totalPrice ?? 0,
-                    discountAmount: order.discountAmount ?? 0,
-                    rewardPoint: order.rewardPoint ?? 0,
-                    originalPrice: order.originalPrice ?? 0,
-                    status: order.status!,
-                    orderType: order.orderType ?? '0',
-                    paymentChannel: order.paymentChannel ?? '0',
-                    createdAt: order.createdAt.toString(),
-                    updatedAt: order.updatedAt.toString(),
-                    schedulePickup: order.schedulePickup!,
-                    orderItems: order.orderItems,
-                    orderRewardItems: order.orderRewardItems,
-                  );
-                },
-              ),
+            return Column(
+              children: [
+                Expanded(child:
+                ListView.builder(
+                  // physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  itemCount: controller.processedOrderResponseModel.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final order =
+                    controller.processedOrderResponseModel[index];
+                    return OrderCard(
+                      whatsappUser: order.whatsappUser!,
+                      id: order.id!,
+                      userId: order.userId!,
+                      cartId: order.cartId ?? 0,
+                      name: order.name!,
+                      avatar: order.avatar!,
+                      voucherId: order.voucherId,
+                      totalPrice: order.totalPrice ?? 0,
+                      discountAmount: order.discountAmount ?? 0,
+                      rewardPoint: order.rewardPoint ?? 0,
+                      originalPrice: order.originalPrice ?? 0,
+                      status: order.status!,
+                      orderType: order.orderType ?? '0',
+                      paymentChannel: order.paymentChannel ?? '0',
+                      createdAt: order.createdAt.toString(),
+                      updatedAt: order.updatedAt.toString(),
+                      schedulePickup: order.schedulePickup ?? '',
+                      orderItems: order.orderItems,
+                      orderRewardItems: order.orderRewardItems,
+                    );
+                  },
+                ),
+                )
+
+              ],
             );
           }),
           Container(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             // height: height,
             // width: width,
             child: Align(
@@ -94,7 +99,7 @@ class ProcessedOrder extends GetView<OrderController> {
                   );
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 10,
                   ),
                   height: height * 0.06,
@@ -113,7 +118,7 @@ class ProcessedOrder extends GetView<OrderController> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.filter_alt_outlined,
                           color: primaryColor,
                         ),

@@ -82,7 +82,14 @@ class TambahMenuController extends GetxController {
       update();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.offAndToNamed(Routes.NAVBAR + Routes.MENU);
+        Get.offNamedUntil(Routes.NAVBAR + Routes.MENU, (routes) => routes.settings.name == Routes.MENU);
+
+        //Menu >  Tambah Product > Menu
+
+        //Login > Home > Menu > Tambah Product > ( Menu -- Get.Named) CONTOH
+        //
+
+
         Get.snackbar("Add product", "Product added successfully!");
       } else {
         Get.snackbar("Error", "Failed to add product");
